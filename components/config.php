@@ -1,6 +1,11 @@
 <?php
 namespace components;
 
+use components\classes\dbConnect;
+use components\classes\logger;
+use components\classes\user;
+use components\classes\port;
+
 session_start();
 
 /*
@@ -19,14 +24,22 @@ $hostname = $_SERVER['HTTP_HOST'];
 $path = dirname($_SERVER['PHP_SELF']);
 
 /*
- * Autoload und einbinden der benötigten Klassen
+ * Autoload der benötigten Klassen
  */
 spl_autoload_register(function($class) {
-    require_once(PATH . '/' . str_replace('\\', '/', $class) . '.php');
+    $class_name = explode('\\', $class);
+    $file = PATH . '/components/classes/' . str_replace('\\', '/', $class_name[count($class_name)-1]) . '.php';
+    
+    if(file_exists($file)) {
+        require_once($file);
+    }
+    else {
+        $file = PATH . '/components/types/' . str_replace('\\', '/', $class_name[count($class_name)-1]) . '.php';
+        if(file_exists($file)) {
+            require_once($file);
+        }
+    }
 });
-
-use components\classes\dbConnect;
-use components\classes\logger;
 
 /*
  * Aufbau der DB Verbindung
@@ -45,10 +58,10 @@ if(basename($_SERVER[ 'SCRIPT_NAME' ]) != "index.php" && !isset($independent)) {
         header('Location: http://'.$hostname.'/' . FOLDER . '/index.php');
     }
     else {
-        // $user = dbConnect::fetchSingle("select * from port_bo_user where id = ?", "user", array($_SESSION['user']));
+        $user = dbConnect::fetchSingle("select * from port_bo_user where id = ?", user::class, array($_SESSION['user']));
     }
 }
 
-// $ports = dbConnect::fetchAll('select * from port_bo_port', 'port', array());
+$ports = dbConnect::fetchAll('select * from port_bo_port', port::class, array());
 
 ?>

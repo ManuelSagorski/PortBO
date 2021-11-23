@@ -1,6 +1,8 @@
 <?php
 use components\classes\dbConnect;
 use components\classes\logger;
+use components\classes\user;
+
 
 include 'components/config.php';
 
@@ -12,7 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['username'])) {
     $username = $_POST['username'];
     $passwort = $_POST['secret'];
     
-    $user = dbConnect::fetchSingle("select * from port_bo_user where username = ?", "user", array($username));
+    $user = dbConnect::fetchSingle("select * from port_bo_user where username = ?", user::class, array($username));
+    
+    $user1 = new user();
+    $user1->getID();
     
     If (empty($user)) {
         logger::writeLogError('login', 'Loginversuch mit unbekanntem Benutzername: ' . $username);

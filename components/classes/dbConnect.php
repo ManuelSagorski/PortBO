@@ -16,6 +16,8 @@ class dbConnect
         self::$PDOdb = new PDO(SQL_HOST, SQL_USER, SQL_PW);
         self::$PDOdb->exec("SET CHARACTER SET utf8");
         self::$PDOdb->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING );
+        
+        $utl2 = new userToLanguage();
     }
     
     public static function fetchAll($sqlstrg, $class, $parameter) {
