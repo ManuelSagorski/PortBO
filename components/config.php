@@ -24,6 +24,11 @@ $hostname = $_SERVER['HTTP_HOST'];
 $path = dirname($_SERVER['PHP_SELF']);
 
 /*
+ * Laden der Credentials
+ */
+require_once(PATH . '/components/configCredentials.php');
+
+/*
  * Autoload der benötigten Klassen
  */
 spl_autoload_register(function($class) {
@@ -42,8 +47,11 @@ spl_autoload_register(function($class) {
 /*
  * Aufbau der DB Verbindung
  */
-require_once(PATH . '/components/configDB.php');
+dbConnect::initDB();
 
+/*
+ * Instanz der Logging Klasse
+ */
 $logger = new logger();
 
 if(isset($_GET['logout'])) {
