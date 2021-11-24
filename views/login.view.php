@@ -1,6 +1,6 @@
 <div id="loginBody">
 	<h1>Backoffice Hafengruppe Nord</h1>
-	<form action="index.php" method="post">
+	<form id="loginForm" action="index.php" method="post">
 		<div class="loginRow">
 			<input 
 				type="text" 
@@ -9,6 +9,7 @@
 				onblur="if (this.value=='') this.value='Benutzername'" 
 				onfocus="if (this.value=='Benutzername') this.value='';"
 			/>
+			<div id="msgUsername"></div>
 		</div>
 		<div class="loginRow">
 			<input 
@@ -18,14 +19,15 @@
 				onblur="if (this.value=='') this.value='Passwort'" 
 				onfocus="if (this.value=='Passwort') this.value='';" 
 			/>
+			<div id="msgSecret"></div>
 		</div>
-		<?php echo (isset($errMessage))?'<div id="errorMsg">' . $errMessage . '</div>':''; ?>
-		<?php echo (isset($message))?'<div id="msg">' . $message . '</div>':''; ?>
+		<?php echo (isset($msg['error']))?'<div class="errorMsgForm">' . $msg['error'] . '</div>':''; ?>
+		<?php echo (isset($msg['info']))?'<div class="msgForm">' . $msg['info'] . '</div>':''; ?>
 		<div class="loginRow">
-			<input class="inputButton" type="submit" value="Anmelden" />
+			<input class="inputButton" type="submit" onClick="validateLogin()" value="Anmelden" />
 		</div>
 	</form>
 </div>
 <div id="newPW">
-	<a href="#" onclick="loadPwReset();">Passwort vergessen</a>
+	<a onclick="loadPwReset();">Passwort vergessen</a>
 </div>

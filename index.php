@@ -1,8 +1,5 @@
 <?php
-use components\classes\dbConnect;
-use components\classes\logger;
-use components\classes\user;
-
+use components\controller\loginController;
 
 include 'components/config.php';
 
@@ -10,38 +7,50 @@ if(isset($_SESSION['user'])) {
     header('Location: http://'.$hostname.($path == '/' ? '' : $path).'/home.php');
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['username'])) {
-    $username = $_POST['username'];
-    $passwort = $_POST['secret'];
-    
-    $user = dbConnect::fetchSingle("select * from port_bo_user where username = ?", user::class, array($username));
-    
-    $user1 = new user();
-    $user1->getID();
-    
-    If (empty($user)) {
-        logger::writeLogError('login', 'Loginversuch mit unbekanntem Benutzername: ' . $username);
-        $errMessage =  "Benutzername nicht bekannt";
-    }
-    else {
-        If (password_verify($passwort, $user->getSecret())) {
-            $_SESSION['user'] = $user->getId();
-            logger::writeLogInfo('login', 'Login erfolgreich');
-            header('Location: http://'.$hostname.($path == '/' ? '' : $path).'/home.php');
+$loginController = new loginController();
+$view = '';
+
+switch($_SERVER['REQUEST_METHOD']) {
+    case('POST'):
+        if (isset($_POST['username'])) {
+            $msg = $loginController->login($_REQUEST);
+            if($msg === true) {
+                header('Location: http://'.$hostname.($path == '/' ? '' : $path).'/home.php');
+            }
+        }
+        
+        if (isset($_POST['formData']['secretNew1']) && isset($_POST['formData']['secretNew2'])) {
+            $msg['info'] = $loginController->changePassword($_REQUEST);
+        }
+        
+        if (isset($_POST['formData']['usernameReset'])) {
+            echo $loginController->forgotPassword($_REQUEST);
         }
         else {
-            logger::writeLogError('login', 'Loginversuch mit verkehrtem Passwort. Benutzername: ' . $username);
-            $errMessage = "Falsches Passwort";
+            $view = 'views/login.view.php';
         }
-    }
+
+        break;
+        
+    case('GET'):
+        $view = 'views/login.view.php';
+        
+        if(isset($_GET['id']) && isset($_GET['code'])) {
+            if($loginController->pwReset($_REQUEST)) {                
+                $view = 'views/pwReset.view.php';
+            }
+            else {
+                $msg['error'] = "Der verwendete Link zum Zurücksetzen des Passwortes ist ungültig.";                
+            }
+        }
+        break;
 }
 
-ob_start();
-
-include 'views/templates/_indexSiteHeader.template.php';
-include 'views/login.view.php';
-include 'views/templates/_indexSiteFooter.template.php';
-
-ob_end_flush();
-
+if(!empty($view)) {
+    ob_start();
+    include 'views/templates/_indexSiteHeader.template.php';
+    include $view;
+    include 'views/templates/_indexSiteFooter.template.php';
+    ob_end_flush();
+}
 ?>

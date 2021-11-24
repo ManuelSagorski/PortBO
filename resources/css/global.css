@@ -13,9 +13,9 @@ li, dl, dt, dd, form, a, fieldset, input, th, td
 h1 { font-size: 24px; margin: 15px 0px; }
 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; }
 input[type=number] { -moz-appearance: textfield; }
-input { padding: 8px 15px; font-size: 12pt; border-radius: 3px; border: 1px solid #BDBDBD; }
+input { padding: 8px 15px; font-size: 12pt; border-radius: 3px; border: 1px solid #BDBDBD; color: #585858; }
 body { background: url("../img/index_bckgrnd.jpg") no-repeat center center fixed; background-size: cover;  }
-a { color:inherit; text-decoration: none; }
+a { color:inherit; text-decoration: none; cursor: pointer; }
 
 .clear { clear: both !important; }
 .floatLeft { float: left; }
@@ -34,4 +34,7 @@ a { color:inherit; text-decoration: none; }
  *	Einheitliche Elemente
  */
 
-.inputButton { background-color: #084B8A; color: #ffffff; font-size: 12pt; padding: 5px; border: 0 !important; }
+.inputButton { background-color: #084B8A; color: #ffffff; font-size: 12pt; padding: 8px 15px; border: 0 !important; }
+
+.errorMsgForm { font-size: 9pt; color: red; margin: 5px; }
+.msgForm { font-size: 9pt; color: #088A4B; margin: 5px; }

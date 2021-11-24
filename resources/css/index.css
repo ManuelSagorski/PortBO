@@ -1,5 +1,5 @@
 /*
- *	indexx.css
+ *	index.css
  *
  *	Style-Sheets für Seite Index
  *
@@ -12,7 +12,6 @@
 .loginRow { margin-bottom: 10px; }
 .inputButton:hover { background-color: #045FB4; cursor: pointer; }
 
-#errorMsg { font-size: 9pt; color: red; margin-bottom: 5px; }
-#msg { font-size: 9pt; color: #088A4B; margin-bottom: 5px; }
-
 #newPW { text-align: right; font-size: 10pt; margin: 5px 5px 0px 0px; }
+
+#pwResetBody>div { margin-bottom: 10px; }

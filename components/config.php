@@ -28,15 +28,13 @@ $path = dirname($_SERVER['PHP_SELF']);
  */
 spl_autoload_register(function($class) {
     $class_name = explode('\\', $class);
-    $file = PATH . '/components/classes/' . str_replace('\\', '/', $class_name[count($class_name)-1]) . '.php';
+    $classFolders = array("classes", "classes/PHPMailer", "types", "controller");
     
-    if(file_exists($file)) {
-        require_once($file);
-    }
-    else {
-        $file = PATH . '/components/types/' . str_replace('\\', '/', $class_name[count($class_name)-1]) . '.php';
+    foreach($classFolders as $folder) {
+        $file = PATH . '/components/' . $folder . '/' . str_replace('\\', '/', $class_name[count($class_name)-1]) . '.php';
         if(file_exists($file)) {
             require_once($file);
+            break;
         }
     }
 });
