@@ -54,12 +54,7 @@ dbConnect::initDB();
  */
 $logger = new logger();
 
-if(isset($_GET['logout'])) {
-    $_SESSION = array();
-    header('Location: http://'.$hostname.($path == '/' ? '' : $path).'/index.php');
-}
-
-if(basename($_SERVER[ 'SCRIPT_NAME' ]) != "index.php" && !isset($independent)) {
+if($_SERVER[ 'SCRIPT_NAME' ] != "/" . FOLDER . "/index.php" && !isset($independent)) {
     if(!isset($_SESSION['user'])) {
         header('Location: http://'.$hostname.'/' . FOLDER . '/index.php');
     }

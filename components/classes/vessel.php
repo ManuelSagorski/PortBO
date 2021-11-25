@@ -121,7 +121,7 @@ class vessel
         if(!empty($this->id)){
             $sqlstrg .= "id != " . $this->id . " and ";
         }
-        $sqlstrg .= "IMO = ? and IMO != '' or ENI = ? and ENI != ''";
+        $sqlstrg .= "((IMO = ? and IMO <> '') or (ENI = ? and ENI <> ''))";
         if(dbConnect::execute($sqlstrg, array($this->IMO, $this->ENI))->rowCount() > 0) {
             $msg = "Es existiert bereits ein Schiff mit dieser IMO / ENI.";
         }

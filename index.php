@@ -3,9 +3,8 @@ use components\controller\loginController;
 
 include 'components/config.php';
 
-if(isset($_SESSION['user'])) {
-    header('Location: http://'.$hostname.($path == '/' ? '' : $path).'/home.php');
-}
+if(isset($_GET['logout'])) { $_SESSION = array(); }
+if(isset($_SESSION['user'])) { header('Location: http://'.$hostname.($path == '/' ? '' : $path).'/public/index.php'); }
 
 $loginController = new loginController();
 $view = '';
@@ -15,7 +14,7 @@ switch($_SERVER['REQUEST_METHOD']) {
         if (isset($_POST['username'])) {
             $msg = $loginController->login($_REQUEST);
             if($msg === true) {
-                header('Location: http://'.$hostname.($path == '/' ? '' : $path).'/home.php');
+                header('Location: http://'.$hostname.($path == '/' ? '' : $path).'/public/index.php');
             }
         }
         
@@ -34,7 +33,7 @@ switch($_SERVER['REQUEST_METHOD']) {
         
     case('GET'):
         $view = 'views/login.view.php';
-        
+       
         if(isset($_GET['id']) && isset($_GET['code'])) {
             if($loginController->pwReset($_REQUEST)) {                
                 $view = 'views/pwReset.view.php';

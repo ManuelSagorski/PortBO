@@ -1,7 +1,11 @@
+<!DOCTYPE html>
 <html lang="de">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="resources/img/favicon/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
 
         <link rel="apple-touch-icon" sizes="57x57" href="resources/img/favicon/apple-icon-57x57.png">
         <link rel="apple-touch-icon" sizes="60x60" href="resources/img/favicon/apple-icon-60x60.png">
@@ -17,9 +21,6 @@
         <link rel="icon" type="image/png" sizes="96x96" href="resources/img/favicon/favicon-96x96.png">
         <link rel="icon" type="image/png" sizes="16x16" href="resources/img/favicon/favicon-16x16.png">
         <link rel="manifest" href="resources/img/favicon/manifest.json">
-        <meta name="msapplication-TileColor" content="#ffffff">
-        <meta name="msapplication-TileImage" content="resources/img/favicon/ms-icon-144x144.png">
-        <meta name="theme-color" content="#ffffff">
 
 		<link rel="stylesheet" type="text/css" href="resources/css/global.css" />
 		<link rel="stylesheet" type="text/css" href="resources/css/index.css" />

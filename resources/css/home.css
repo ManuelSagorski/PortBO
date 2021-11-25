@@ -1,0 +1,48 @@
+/*
+ *	home.css
+ *
+ *	Style-Sheets für Seite Index
+ *
+ */
+
+#homeWrapper { max-width: 1240px; margin: 30px auto 0px auto; padding: 0px 10px 10px 10px; box-shadow: 0px 5px 18px #56386b; 
+				background: rgba(230, 235, 244, .9); border-radius: 5px; }
+#title { float: left; }
+
+/*****************************/
+/*         Navigation        */
+/*****************************/
+#nav {float: right; }
+#nav a { display: block; padding: 10px; background-color:#93b4d5; color: #000000; }
+#nav a:hover { background-color: #102850; color: #ffffff; }
+.navElement { float: left; margin: 0px 5px 0px 0px; }
+.navElement.active { padding: 1px; background-color: #193E7A; color: #ffffff; box-shadow: 0px 2px 3px #56386b; }
+.navElement.active:hover { background-color: #3F5B87; color: #ffffff; }
+
+/*****************************/
+/*          FlexBox          */
+/*****************************/
+.flexBox { clear: both; display: flex; flex-wrap: wrap; gap: 5px; }
+.mainCol { background-color: #ffffff; padding: 10px; box-shadow: 0px 2px 5px #56386b; }
+
+/*****************************/
+/*      Overlay Window       */
+/*****************************/
+#window { display: none; position: absolute; top: 100px; left: 40%; margin: 0 auto; width: 400px; background-color: #D8D8D8;	border-color: #6E6E6E; 
+			box-shadow: 10px 10px 15px silver; }
+.windowHead { color: #000000;}
+.windowHead .label { float: left; padding: 5px;}
+.windowHead .close { padding: 5px 10px 5px 10px; float: right; background-color: #DF0101; color: #ffffff; }
+.windowHead .close:hover { cursor: pointer; }
+.windowBody { clear: both; background-color: white; padding: 5px; }
+
+
+
+.vesselSearchCol { flex-basis: 200px; }
+.vesselContactCol { flex-basis: 200px; }
+.agencySearchCol { flex-basis: 300px; }
+.portSearchCol { flex-basis: 200px; }
+.settingsSearchCol { flex-basis: 200px; }
+
+.infoCol { flex: 1; }
+.notNeededCol { display: none; }
