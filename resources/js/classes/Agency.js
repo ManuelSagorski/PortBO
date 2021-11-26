@@ -14,6 +14,7 @@ define(function() {
 		 *	Öffnet die Seite Agency
 		 */
 		that.open = function() {
+			clearContend();
 			prepareCol($('#mainColLeft'), 'agencySearchCol');
 			prepareCol($('#mainColRight'), 'notNeededCol');
 		}

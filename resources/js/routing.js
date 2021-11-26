@@ -72,3 +72,9 @@ function prepareCol(col, newClass) {
 	col.removeClass();
 	col.addClass('mainCol ' + newClass);
 }
+
+function clearContend() {
+	$('#mainColLeft').html(null);
+	$('#mainColMiddle').html(null);
+	$('#mainColRicht').html(null);
+}

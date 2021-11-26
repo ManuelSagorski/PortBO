@@ -24,8 +24,10 @@
 
 		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 		<link rel="stylesheet" type="text/css" href="../resources/css/libraries/semantic.min.css" />
+		<link rel="stylesheet" type="text/css" href="../resources/css/libraries/icon.min.css" />
 		<link rel="stylesheet" type="text/css" href="../resources/css/global.css" />
 		<link rel="stylesheet" type="text/css" href="../resources/css/home.css" />
+		<link rel="stylesheet" type="text/css" href="../resources/css/vessel.css" />
 
 	    <script>
         	if(typeof window.history.pushState == 'function') {
@@ -64,7 +66,8 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 		<script src="../resources/js/libraries/semantic.min.js"></script>
 		<script src="../resources/js/libraries/vanilla-router.min.js"></script>
-		<script data-main="../resources/js/routing" src="../resources/js/libraries/require.js"></script>
+		<script data-main="../resources/js/home" src="../resources/js/libraries/require.js"></script>
+
 
 		<!-- <script data-main="res/js/telegramMessaging" src="res/js/require.js"></script> -->
 		<!-- <script src="res/boFunction.js"></script> -->

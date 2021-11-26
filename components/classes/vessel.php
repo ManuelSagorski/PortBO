@@ -43,13 +43,14 @@ class vessel
      */
     public function addVessel() {
         if($msg = $this->validateVesselInput()) {
-            echo $msg;
+            return array("type" => "error", "msg" => $msg);
         }
         else {
             $sqlstrg = "insert into port_bo_vessel (name, IMO, MMSI, ENI, typ, language) values (?, ?, ?, ?, ?, ?)";
             dbConnect::execute($sqlstrg, array($this->name, $this->IMO, $this->MMSI, $this->ENI, $this->typ, $this->language));
             
             logger::writeLogCreate('vessel', 'Neues Schiff anlgelegt: ' . $this->name);
+            return array("type" => "added", "name" => $this->name);
         }
     }
     
@@ -60,12 +61,13 @@ class vessel
      */
     public function editVessel() {
         if($msg = $this->validateVesselInput()) {
-            echo $msg;
+            return array("type" => "error", "msg" => $msg);
         }
         else {
             $sqlstrg = "update port_bo_vessel set name = ?, IMO = ?, MMSI = ?, ENI = ?, typ = ?, language = ? where id = ?";
             dbConnect::execute($sqlstrg, array($this->name, $this->IMO, $this->MMSI, $this->ENI, $this->typ, $this->language, $this->id));
             vessel::setTS($this->id);
+            return array("type" => "changed");
         }
     }
     
@@ -123,15 +125,7 @@ class vessel
         }
         $sqlstrg .= "((IMO = ? and IMO <> '') or (ENI = ? and ENI <> ''))";
         if(dbConnect::execute($sqlstrg, array($this->IMO, $this->ENI))->rowCount() > 0) {
-            $msg = "Es existiert bereits ein Schiff mit dieser IMO / ENI.";
-        }
-        
-        if(empty($this->IMO) && empty($this->ENI)) {
-            $msg = "Bitte eine IMO oder eine ENI eingeben";
-        }
-        
-        if(empty($this->name)) {
-            $msg = "Bitte den Namen des Schiffes eingeben";
+            $msg = array("field" => "IMO", "msg" => "Es existiert bereits ein Schiff mit dieser IMO / ENI.");
         }
         
         return $msg;

@@ -4,7 +4,7 @@
  *	Style-Sheets für Seite Index
  *
  */
- 
+
 #indexWrapper { max-width: 380px; margin: 100px auto; }
 
 #loginBody { padding: 10px; background: rgba(255, 255, 255, .8); box-shadow: 0px 5px 18px #56386b; border-radius: 5px; text-align: center; }

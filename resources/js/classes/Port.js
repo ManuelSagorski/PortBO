@@ -14,6 +14,7 @@ define(function() {
 		 *	Öffnet die Seite Port
 		 */
 		that.open = function() {
+			clearContend();
 			prepareCol($('#mainColLeft'), 'portSearchCol');
 			prepareCol($('#mainColRight'), 'notNeededCol');
 		}

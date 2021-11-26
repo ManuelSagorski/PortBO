@@ -78,6 +78,47 @@ define(function() {
 		    return string.substring(0, 1).toUpperCase() + string.substring(1);
 		}
 
+		/****************************** SemanticUI Forms ******************************/
+		
+		/*
+		 *	Entfernt die Error Markierung bei allen angezeigten Input Feldern
+		 */		
+		that.clearAllError = function() {
+			$('[id^=input]').removeClass("error");
+			$('#errorMessage').html(null);
+			$('#errorMessage').parent().parent().removeClass("error");
+		}
+
+		/*
+		 *	Setzt auf die übergebenen Felderr eine Error Markierung
+		 */			
+		that.setError = function(fields) {
+			fields.forEach(field => $('#input' + field).addClass("error"));
+		}
+
+		/*
+		 *	Setzt für das Formular eine Fehlermeldung
+		 */			
+		that.setErrorMessage = function(message) {
+			$('#errorMessage').html(message);
+			$('#errorMessage').parent().parent().addClass("error");
+		}
+
+		/*
+		 *	Überprüft das mindestens eines der übergebenen Felder nicht leer ist
+		 */		
+		that.fieldsNotAllEmpty = function(fields) {
+			var returnValue = false;
+			
+			fields.forEach(function(field){
+				validateField = my.formData.filter(p => p.name == field);
+				if(validateField[0].value != '') {
+					returnValue = true;
+				}
+			});
+			return returnValue;
+		}
+
 		return constructor.call(null, formData);
 	}
 

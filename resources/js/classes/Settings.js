@@ -14,6 +14,7 @@ define(function() {
 		 *	Öffnet die Seite Settings
 		 */
 		that.open = function() {
+			clearContend();
 			prepareCol($('#mainColLeft'), 'settingsSearchCol');
 			prepareCol($('#mainColRight'), 'notNeededCol');
 		}

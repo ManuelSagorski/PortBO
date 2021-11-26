@@ -4,12 +4,13 @@
  *	Globale Style-Sheets für Port-Mission BackOffice
  *
  */
- 
+
+* { font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif }
+
 body, html, div, blockquote, img, label, p, h1, h2, h3, h4, h5, h6, pre, ul, ol,
 li, dl, dt, dd, form, a, fieldset, input, th, td
 { margin: 0; padding: 0; border: 0; outline: none; }
 
-* { font-family: Arial; }
 h1 { font-size: 24px; margin: 15px 0px !important; }
 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; }
 input[type=number] { -moz-appearance: textfield; }
@@ -22,18 +23,29 @@ a { color:inherit; text-decoration: none; cursor: pointer; }
 .floatRight { float: right; }
 
 .iconPointer { cursor: pointer; }
+.iconRowElement { height: 15px !important; width: 15px !important; }
 
-/*
- *	FlexBox
- */
+/*****************************/
+/*   Einheitliche Elemente   */
+/*****************************/
 
-.flexBox { clear: both; display: flex; flex-wrap: wrap; gap: 5px; }
-
-/*
- *	Einheitliche Elemente
- */
-
+button { background-color: #084B8A; color: #ffffff; font-size: 10pt; padding: 8px 15px; border: 0 !important; cursor: pointer; }
+button:hover { box-shadow: 0px 0px 3px #56386b; }
 .inputButton { background-color: #084B8A; color: #ffffff; font-size: 12pt; padding: 8px 15px; border: 0 !important; }
 
 .errorMsgForm { font-size: 9pt; color: red; margin: 5px; }
 .msgForm { font-size: 9pt; color: #088A4B; margin: 5px; }
+
+/*****************************/
+/*       Element Detail      */
+/*****************************/
+
+.elementDetailWrapper { padding: 0px !important; }
+.elemDetailIcon { grid-row-start: 1; grid-row-end: 4; margin-right: 10px; }
+.elemDetailIcon img { width: 70px; }
+.elemDetail { display: grid; grid-row-gap: 10px; padding: 15px; grid-template-rows: max-content; grid-template-columns: 80px 1fr 2fr 1fr 2fr 1fr 2fr; }
+.detailActions { margin: 0px !important; min-height: auto !important; }
+.detailActions .item { padding: 7px !important; }
+.elemDetailName { grid-column-start: 3; grid-column-end: 8; }
+.elemDetailLanguages { grid-column-start: 5; grid-column-end: 8; }
+.label { font-weight: bold; margin-right: 5px; }

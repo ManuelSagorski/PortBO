@@ -25,19 +25,6 @@
 .flexBox { clear: both; display: flex; flex-wrap: wrap; gap: 5px; }
 .mainCol { background-color: #ffffff; padding: 10px; box-shadow: 0px 2px 5px #56386b; }
 
-/*****************************/
-/*      Overlay Window       */
-/*****************************/
-#window { display: none; position: absolute; top: 100px; left: 40%; margin: 0 auto; width: 400px; background-color: #D8D8D8;	border-color: #6E6E6E; 
-			box-shadow: 10px 10px 15px silver; }
-.windowHead { color: #000000;}
-.windowHead .label { float: left; padding: 5px;}
-.windowHead .close { padding: 5px 10px 5px 10px; float: right; background-color: #DF0101; color: #ffffff; }
-.windowHead .close:hover { cursor: pointer; }
-.windowBody { clear: both; background-color: white; padding: 5px; }
-
-
-
 .vesselSearchCol { flex-basis: 200px; }
 .vesselContactCol { flex-basis: 200px; }
 .agencySearchCol { flex-basis: 300px; }
@@ -46,3 +33,14 @@
 
 .infoCol { flex: 1; }
 .notNeededCol { display: none; }
+
+/*****************************/
+/*      Overlay Window       */
+/*****************************/
+#window { display: none; position: absolute; top: 100px; left: 37%; margin: 0 auto; width: 500px; background-color: #D8D8D8; border-color: #6E6E6E; 
+			box-shadow: 10px 10px 15px silver; }
+.windowHead { color: #000000;}
+.windowHead .label { float: left; padding: 5px;}
+.windowHead .close { padding: 5px 10px 5px 10px; float: right; background-color: #DF0101; color: #ffffff; }
+.windowHead .close:hover { cursor: pointer; }
+.windowBody { clear: both; background-color: white; padding: 5px; }
