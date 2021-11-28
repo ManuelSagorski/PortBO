@@ -36,6 +36,8 @@ button:hover { box-shadow: 0px 0px 3px #56386b; }
 .errorMsgForm { font-size: 9pt; color: red; margin: 5px; }
 .msgForm { font-size: 9pt; color: #088A4B; margin: 5px; }
 
+.listingHeadline { padding: 5px; background-color: #D8D8D8; font-weight: bold; }
+
 /*****************************/
 /*       Element Detail      */
 /*****************************/

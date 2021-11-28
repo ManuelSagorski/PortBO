@@ -25,6 +25,10 @@ define(function() {
 			$.get('../views/vessel/details.view.php', function(data) {
 				$('#mainColMiddle').html(data);
 			});
+			
+			$.get('../views/vessel/openContacts.view.php', function(data) {
+				$('#mainColRight').html(data);
+			});
 		}
 		
 		/*
