@@ -87,7 +87,7 @@ if(!empty($_GET["id"])) {
 	</thead>
     <tbody>
     <?php foreach ($vessel->getVesselContact() as $contact) { ?>
-		<tr>
+		<tr<?php echo ($contact->getPlanned() == 1)?' class="planned"':''; ?>>
 			<td data-label="select"><input type="radio" name="selectContact" value="<?php echo $contact->getID(); ?>"></td>
 			<td data-label="timestamp"><?php echo date("d.m.Y", strtotime($contact->getDate())); ?></td>
 			<td data-label="portName"><?php echo port::getPortName($contact->getPortID()); ?></td>			
