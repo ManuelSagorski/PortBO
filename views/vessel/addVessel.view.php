@@ -40,33 +40,61 @@ if(!empty($_GET['searchValue']) && !is_numeric($_GET['searchValue'])) {
 
     <div id="inputName" class="field">
     	<label>Name</label>
-    	<input type="text" id="vesselName" name="vesselName" onkeyup="formValidate.clearAllError();" value="<?php echo($editMode)?$vessel->getName():$name; ?>">
+    	<input 
+    		type="text" 
+    		id="vesselName" 
+    		name="vesselName" 
+    		onkeyup="formValidate.clearAllError();" 
+    		value="<?php echo($editMode)?$vessel->getName():$name; ?>"
+    	>
     </div>
+    
 	<div class="two fields">
 	    <div id="inputIMO" class="field">
         	<label>IMO</label>
         	<div class="ui action input">
-            	<input type="number" id="vesselIMO" name="vesselIMO" onkeyup="formValidate.clearAllError();" value="<?php echo($editMode)?$vessel->getIMO():$imo; ?>">
+            	<input 
+            		type="number" 
+            		id="vesselIMO" 
+            		name="vesselIMO" 
+            		onkeyup="formValidate.clearAllError();" 
+            		value="<?php echo($editMode)?$vessel->getIMO():$imo; ?>"
+            	>
                 <button class="ui right icon button" onClick="vessel.getData($('#vesselIMO').val());">
                 	<i class="cloud download icon"></i>
                 </button>
             </div>
         </div>
+        
         <div id="inputMMSI" class="field">
         	<label>MMSI</label>
         	<div class="ui action input">
-        		<input type="number" id="vesselMMSI" name="vesselMMSI" onkeyup="formValidate.clearAllError();" value="<?php echo($editMode)?$vessel->getMMSI():$mmsi; ?>">
+        		<input 
+        			type="number" 
+        			id="vesselMMSI" 
+        			name="vesselMMSI" 
+        			onkeyup="formValidate.clearAllError();" 
+        			value="<?php echo($editMode)?$vessel->getMMSI():$mmsi; ?>"
+        		>
         		<button class="ui right icon button" onClick="vessel.getData($('#vesselMMSI').val());">
                 	<i class="cloud download icon"></i>
                 </button>
             </div>
         </div>
 	</div>
+	
 	<div class="two fields">
 	    <div id="inputENI" class="field">
         	<label>ENI</label>
-        	<input type="number" id="vesselENI" name="vesselENI" onkeyup="formValidate.clearAllError();" value="<?php echo($editMode)?$vessel->getENI():''; ?>">
+        	<input 
+        		type="number" 
+        		id="vesselENI" 
+        		name="vesselENI" 
+        		onkeyup="formValidate.clearAllError();" 
+        		value="<?php echo($editMode)?$vessel->getENI():''; ?>"
+        	>
         </div>
+        
         <div class="field">
         	<label>Typ</label>
     		<select id="vesselTyp" name="vesselTyp">
@@ -76,10 +104,12 @@ if(!empty($_GET['searchValue']) && !is_numeric($_GET['searchValue'])) {
     		</select> 
         </div>
 	</div>
+	
     <div class="field">
     	<label>Sprachen - <i class="iconPointer cloud download icon" onClick="vessel.getLanguages($('#vesselIMO').val());"></i></label>
     	<textarea rows="2" id="vesselLanguage" name="vesselLanguage"><?php echo($editMode)?$vessel->getLanguage():''; ?></textarea>
     </div>
+    
     <button class="ui button" type="submit">Speichern</button>
 </form>
 <script>

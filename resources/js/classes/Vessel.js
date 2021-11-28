@@ -144,6 +144,119 @@ define(function() {
 			}			
 		}
 		
+		/*************************************************** Vessel Info ***************************************************/
+
+		/*
+		 *	Neue Allgemeine Information zu einem Schiff hinzufügen
+		 */			
+		that.newVesselInfo = function(vesselID, infoID, edit) {
+			if(edit && !infoID) {
+				alert('Bitte zuerst ein Element auswählen.');
+			}
+			else {
+				$.get('../views/vessel/addVesselInfo.view.php?vesselID=' + vesselID + '&infoID=' + infoID, function(data) {
+					$('#windowLabel').html("Neues Allgemeine Information hinzufügen");
+					$('#windowBody').html(data);
+				});
+				showWindow();	
+			}		
+		}
+
+		/*
+		 *	Neue Allgemeine Information speichern
+		 */			
+		that.addVesselInfo = function(infoID) {
+			event.preventDefault();
+			newVesselInfoValidate = new FormValidate($('#addVesselInfo').serializeArray());
+			
+			if(!newVesselInfoValidate.fieldsNotAllEmpty(Array('vesselInfo'))) {
+				formValidate.setError(Array('Info'));
+				formValidate.setErrorMessage('Bitte eine Info eingeben.');
+				return;
+			}
+
+			$.post('../components/controller/vesselController.php', {type: 'addVesselInfo', data: newVesselInfoValidate.getFormData(), infoID: infoID}, 
+				function() {
+					closeWindow();
+					that.openDetails(newVesselInfoValidate.getFormData().vesselID);
+				});				
+		}
+
+		/*
+		 *	Vessel Info löschen
+		 */			
+		that.deleteVesselInfo = function(vesselID, infoID) {
+			if(infoID) {
+				if(confirm("Möchtest du das gewählte Element wirklich löschen?")) {
+					$.post('../components/controller/vesselController.php', {type: 'deleteVesselInfo', infoID: infoID}, 
+						function() {
+							closeWindow();
+							that.openDetails(vesselID);
+						});	
+				}
+			}
+			else {
+				alert('Bitte zuerst ein Element auswählen.');
+			}
+		}
+		
+		/*************************************************** Vessel Contact ***************************************************/
+		
+		/*
+		 *	Neuen Kontakt zu einem Schiff hinzufügen
+		 */			
+		that.newVesselContact = function(vesselID, contactID, edit) {
+			if(edit && !contactID) {
+				alert('Bitte zuerst ein Element auswählen.');
+			}
+			else {
+				$.get('../views/vessel/addVesselContact.view.php?vesselID=' + vesselID + '&contactID=' + contactID, function(data) {
+					$('#windowLabel').html("Neuen Kontakt hinzufügen");
+					$('#windowBody').html(data);
+				});
+				showWindow();	
+			}		
+		}
+
+		/*
+		 *	Neuen Kontakt für ein Schiff speichern
+		 */			
+		that.addVesselContact = function(vesselID, ContactID) {
+			event.preventDefault();			
+			vesselContactValidate = new FormValidate($('#addVesselContact').serializeArray());
+
+			$.post('../components/controller/vesselController.php', {type: "addVesselContact", data: vesselContactValidate.getFormData(), contactID: ContactID},
+				function(data) {
+					if (!$.isEmptyObject(data) && data.status == 'error') {
+						formValidate.setError(Array(data.msg.field));
+						formValidate.setErrorMessage(data.msg.msg);
+						return;
+					}
+
+					closeWindow();
+					that.openDetails(vesselID);
+					// showOpenContacts();
+				}, 'json');
+		}
+
+		/*
+		 *	Vessel Contact löschen
+		 */			
+		that.deleteVesselContact = function(vesselID, contactID) {
+			if(contactID) {
+				if(confirm("Möchtest du das gewählte Element wirklich löschen?")) {
+					$.post('../components/controller/vesselController.php', {type: 'deleteVesselContact', contactID: contactID}, 
+						function() {
+							closeWindow();
+							that.openDetails(vesselID);
+						});	
+				}
+			}
+			else {
+				alert('Bitte zuerst ein Element auswählen.');
+			}
+		}
+		
 		return constructor.call(null);
 	}
 

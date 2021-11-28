@@ -3,6 +3,8 @@ namespace components\controller;
 
 use components\classes\logger;
 use components\classes\vessel;
+use components\classes\vesselInfo;
+use components\classes\vesselContact;
 use components\types\vesselTypes;
 
 include '../config.php';
@@ -25,6 +27,34 @@ switch($_POST['type']) {
         
     case("getVesselLanguages"):
         echo getInfosFromITF($_POST['parameter']);
+        break;
+        
+    case("addVesselInfo"):
+        if(empty($_POST['infoID'])) {
+            vesselInfo::safeInfo($_POST['data']);
+        }
+        else {
+            vesselInfo::editInfo($_POST['data'], $_POST['infoID']);
+        }
+        break;
+        
+    case("deleteVesselInfo"):
+        vesselInfo::deleteInfo($_POST['infoID']);
+        break;
+        
+    case("addVesselContact"):
+        if(empty($_POST['contactID'])) {
+            $vesselContact = new vesselContact($_POST['data']);
+            echo json_encode($vesselContact->addContact());
+        }
+        else {
+            vesselContact::editContact($_POST['data'], $_POST['contactID']);
+            echo json_encode(array("status" => "success"));
+        }
+        break;
+        
+    case("deleteVesselContact"):
+        vesselContact::deleteContact($_POST['contactID']);
         break;
 }
 

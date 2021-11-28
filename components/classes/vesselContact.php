@@ -10,6 +10,7 @@ class vesselContact
     private $port_id;
     private $contact_type;
     private $contact_name;
+    private $contactUserID;
     private $info;
     private $date;
     private $planned;
@@ -24,6 +25,7 @@ class vesselContact
             $this->port_id      = $data['contactPort'];
             $this->contact_type = $data['contactType'];
             $this->contact_name = $data['contactName'];
+            $this->contactUserID= user::getUserByFullName($data['contactName']);
             $this->info         = $data['contactInfo'];
             $this->date         = $data['contactDate'];
             if(!isset($data['contactPlanned'])) {
@@ -42,7 +44,7 @@ class vesselContact
      */
     public function addContact() {
         if ($msg = $this->validateContactInput()) {
-            echo $msg;
+            return array("status" => "error", "msg" => $msg);
         }
         else {
             $sqlstrg = "insert into port_bo_vesselContact
@@ -106,11 +108,13 @@ class vesselContact
     }
     
     private function validateContactInput() {
-        $msg = '';
         if($this->inputData['contactAgent'] != '' && $this->agent_id == 0) {
-            $msg = "Der eingegebene Agent existiert nicht in der Datenbank. Bitte lege zuerst den Agenten an.";
+            return array("field" => "Agent", "msg" => "Der eingegebene Agent existiert nicht in der Datenbank. Bitte lege zuerst den Agenten an.");
         }
-        return $msg;
+
+        if($this->inputData['contactName'] != '' && $this->contactUserID == 0) {
+            return array("field" => "User", "msg" => "Der eingegebene Benutzer existiert nicht in der Datenbank. Bitte lege zuerst den Benutzer an.");
+        }
     }
     
     /*

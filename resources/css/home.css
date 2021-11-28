@@ -44,3 +44,9 @@
 .windowHead .close { padding: 5px 10px 5px 10px; float: right; background-color: #DF0101; color: #ffffff; }
 .windowHead .close:hover { cursor: pointer; }
 .windowBody { clear: both; background-color: white; padding: 5px; }
+
+
+
+.ui.category.search .results { width: 98% !important; }
+.ui.category.search .results div { padding: 5px; cursor: pointer; }
+.agentInfoHead { font-weight: bold; }

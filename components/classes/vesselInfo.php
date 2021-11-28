@@ -20,22 +20,22 @@ class vesselInfo
     /*
      * Funktion zum Speichern einer neuen vesselInfo
      */
-    public static function safeInfo($info) {
+    public static function safeInfo($data) {
         $sqlstrg = "insert into port_bo_vesselInfo (vess_id, user_id, ts_erf, info) values (?, ?, now(), ?)";
-        dbConnect::execute($sqlstrg, array($_SESSION['vessID'], $_SESSION['user'], $info));
+        dbConnect::execute($sqlstrg, array($data['vesselID'], $_SESSION['user'], $data['vesselInfo']));
         
-        logger::writeLogCreate('vesselInfo', 'Neue Info für das Schiff ' . vessel::getVesselName($_SESSION['vessID']) . ' hinzugefügt. InfoText: ' . $info);
-        vessel::setTS($_SESSION['vessID']);
+        logger::writeLogCreate('vesselInfo', 'Neue Info für das Schiff ' . vessel::getVesselName($data['vesselID']) . ' hinzugefügt. InfoText: ' . $data['vesselInfo']);
+        vessel::setTS($data['vesselID']);
     }
     
     /*
      * Funktion zum Bearbeiten einer neuen vesselInfo
      */
-    public static function editInfo($info, $infoID) {
+    public static function editInfo($data, $infoID) {
         $sqlstrg = "update port_bo_vesselInfo set user_id = ?, ts_erf = now(), info = ? where id = ?";
-        dbConnect::execute($sqlstrg, array($_SESSION['user'], $info, $infoID));
+        dbConnect::execute($sqlstrg, array($_SESSION['user'], $data['vesselInfo'], $infoID));
         
-        vessel::setTS($_SESSION['vessID']);
+        vessel::setTS($data['vesselID']);
     }
     
     /*

@@ -106,7 +106,7 @@ define(function() {
 
 		/*
 		 *	Überprüft das mindestens eines der übergebenen Felder nicht leer ist
-		 */		
+		 */
 		that.fieldsNotAllEmpty = function(fields) {
 			var returnValue = false;
 			

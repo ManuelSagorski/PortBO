@@ -143,7 +143,20 @@ class user
         $row = $result->fetch();
         return $row['first_name'] . " " . $row['surname'];
     }
-   
+
+    /**
+     * Static Funktion die zu einem Namen die UserID zurückliefert
+     */
+    public static function getUserByFullName($name) {
+        $result = dbConnect::fetchSingle("select * from port_bo_user where concat(first_name, ' ', surname) = ?", user::class, array($name));
+        if(!empty($result)) {
+            return $result->getID();
+        }
+        else {
+            return 0;
+        }
+    }
+    
     /**
      * Static Function die dem Benutzer einen Link zum zurücksetzen des Passwortes zuschickt
      */    

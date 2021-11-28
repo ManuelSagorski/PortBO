@@ -40,12 +40,16 @@ button:hover { box-shadow: 0px 0px 3px #56386b; }
 /*       Element Detail      */
 /*****************************/
 
-.elementDetailWrapper { padding: 0px !important; }
+.elementDetailWrapper { padding: 0px !important; margin-bottom: 0px !important; }
 .elemDetailIcon { grid-row-start: 1; grid-row-end: 4; margin-right: 10px; }
 .elemDetailIcon img { width: 70px; }
 .elemDetail { display: grid; grid-row-gap: 10px; padding: 15px; grid-template-rows: max-content; grid-template-columns: 80px 1fr 2fr 1fr 2fr 1fr 2fr; }
-.detailActions { margin: 0px !important; min-height: auto !important; }
+.detailActions { margin: 1px 0px 0px 0px !important; min-height: auto !important; width: fit-content !important; }
 .detailActions .item { padding: 7px !important; }
 .elemDetailName { grid-column-start: 3; grid-column-end: 8; }
 .elemDetailLanguages { grid-column-start: 5; grid-column-end: 8; }
 .label { font-weight: bold; margin-right: 5px; }
+
+
+.detailTable { margin-bottom: 0px !important; }
+.detailTable th { padding: 7px !important; }
