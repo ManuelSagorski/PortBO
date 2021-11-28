@@ -29,3 +29,7 @@
 #addVessel .ui.segment { position: static; height: 100%; width: 100%; border-radius: 0px; }
 
 #agentInfoContainer { display: none; }
+
+.openContactRow { padding: 2px; margin-bottom: 2px; }
+.openContactRow:nth-child(even) { background-color: #E0ECF8; }
+.openContactRow a { text-decoration: none; color:inherit; }

@@ -50,7 +50,3 @@
 .ui.category.search .results { width: 98% !important; }
 .ui.category.search .results div { padding: 5px; cursor: pointer; }
 .agentInfoHead { font-weight: bold; }
-
-.openContactRow { padding: 2px; margin-bottom: 2px; }
-.openContactRow:nth-child(even) { background-color: #E0ECF8; }
-.openContactRow a { text-decoration: none; color:inherit; }
