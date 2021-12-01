@@ -29,16 +29,20 @@ if(!empty($_GET['searchValue']) && !is_numeric($_GET['searchValue'])) {
 
 
 <form id="addVessel" class="ui form" autocomplete="off">
-
   	<div id="addVesselLoader" class="ui inverted dimmer">
     	<div class="ui text loader">Loading</div>
   	</div>
+  	
+    <div id="infoMessage" class="ui info message">
+    	<i class="close icon" onClick="$('#infoMessage').hide();"></i>
+    	Für ein neues Schiff muss mindestens ein Name und eine IMO oder eine ENI angegeben werden.
+    </div>
 
     <div class="ui error message">
 		<div id="errorMessage"></div>
     </div>
 
-    <div id="inputName" class="field">
+    <div id="inputName" class="required field">
     	<label>Name</label>
     	<input 
     		type="text" 
@@ -50,7 +54,7 @@ if(!empty($_GET['searchValue']) && !is_numeric($_GET['searchValue'])) {
     </div>
     
 	<div class="two fields">
-	    <div id="inputIMO" class="field">
+	    <div id="inputIMO" class="required field">
         	<label>IMO</label>
         	<div class="ui action input">
             	<input 
@@ -84,7 +88,7 @@ if(!empty($_GET['searchValue']) && !is_numeric($_GET['searchValue'])) {
 	</div>
 	
 	<div class="two fields">
-	    <div id="inputENI" class="field">
+	    <div id="inputENI" class="required field">
         	<label>ENI</label>
         	<input 
         		type="number" 
@@ -114,5 +118,5 @@ if(!empty($_GET['searchValue']) && !is_numeric($_GET['searchValue'])) {
 </form>
 <script>
 $('#vesselTyp').dropdown();
-$("#addVessel").submit(function(event){ event.preventDefault(); vessel.addVessel(<?php echo ($editMode)?$vessel->getID():'null'; ?>);});
+$("#addVessel").submit(function(event){ vessel.addVessel(<?php echo ($editMode)?$vessel->getID():'null'; ?>);});
 </script>

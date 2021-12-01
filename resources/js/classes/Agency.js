@@ -17,6 +17,124 @@ define(function() {
 			clearContend();
 			prepareCol($('#mainColLeft'), 'agencySearchCol');
 			prepareCol($('#mainColRight'), 'notNeededCol');
+			
+			$.get('../views/agency/search.view.php', function(data) {
+				$('#mainColLeft').html(data);
+			});
+			
+			$.get('../views/agency/details.view.php', function(data) {
+				$('#mainColMiddle').html(data);
+			});
+		}
+		
+		/*
+		 *	Sidebar Suche nach Agenten
+		 */
+		that.searchAgency = function(expression) {
+			$.get('../components/controller/searchController.php?type=agency&expression=' + expression, function(data) {
+				$('#searchResult').html(data);
+			});				
+		}
+		
+		/*
+		 *	Öffnet die Details zu einer bestimmten Agentur
+		 */		
+		that.openDetails = function(id) {
+			$.get('../views/agency/details.view.php?id=' + id, function(data) {
+				$('#mainColMiddle').html(data);
+			});			
+		}
+		
+		/*
+		 *	Öffnet das Formular zum Anlegen einer neuen Agentur
+		 */			
+		that.newAgency = function(id, searchValue) {
+			$.get('../views/agency/addAgency.view.php?id=' + id + '&searchValue=' + searchValue, function(data) {
+				$('#windowLabel').html("Neue Agentur hinzufügen");
+				$('#windowBody').html(data);
+			});
+			showWindow();
+		}
+
+		/*
+		 *	Speichert eine neue Agentur in der Datenbank 
+		 */		
+		that.addAgency = function(id) {
+			event.preventDefault();
+			newAgencyValidate = new FormValidate($('#addAgency').serializeArray()); 
+
+			if(!newAgencyValidate.fieldsNotAllEmpty(Array('agencyName'))) {
+				formValidate.setError(Array('Name'));
+				formValidate.setErrorMessage('Bitte einen Namen eingeben.');
+				return;
+			}			
+			if(!newAgencyValidate.fieldsNotAllEmpty(Array('agencyShort'))) {
+				formValidate.setError(Array('Short'));
+				formValidate.setErrorMessage('Bitte ein Kürzel eingeben.');
+				return;
+			}
+
+			$.post('../components/controller/agencyController.php', {type: 'addAgency', id: id, data: newAgencyValidate.getFormData()}, 
+				function(data) {
+					if(data.type == "error") {
+						formValidate.setError(Array(data.msg.field));
+						formValidate.setErrorMessage(data.msg.msg);
+					}
+					else {
+						if(data.type == "added") {
+							that.searchAgency(data.name);
+							closeWindow();
+						}
+						if(data.type == "changed") {
+							that.openDetails(id);
+							closeWindow();
+						}
+					}
+
+				}, 'json');
+		}
+
+		/*
+		 *	Öffnet das Formular zum Anlegen einer neuen Kontaktinformationen für eine Agentur
+		 */			
+		that.newAgencyPortInfo = function(agencyID, contactID) {
+			$.get('../views/agency/addAgencyContactInformation.view.php?id=' + contactID + '&agencyID=' + agencyID, function(data) {
+				$('#windowLabel').html("Neuen Kontakt für Agentur hinzufügen");
+				$('#windowBody').html(data);
+			});
+			showWindow();
+		}
+
+		/*
+		 *	Speichert die Kontaktinformationen der Agentur in der Datenbank
+		 */			
+		that.addAgencyPortInfo = function(contactID) {
+			event.preventDefault();
+			newAgencyContactValidate = new FormValidate($('#addAgencyPortInfo').serializeArray());
+			
+			$.post('../components/controller/agencyController.php', {type: 'addAgencyPortInfo', id: contactID, data: newAgencyContactValidate.getFormData()}, 
+				function() {
+					that.openDetails(newAgencyContactValidate.getFormData().agencyID);
+					closeWindow();
+				});
+		}
+		
+		/*
+		 *	Löscht Kontaktinformationen der Agentur aus der Datenbank
+		 */	
+		that.deleteAgencyPortInfo = function(agencyID, contactID) {
+			if(contactID) {
+				if(confirm("Möchtest du den gewählten Kontakt wirklich löschen?")) {
+					$.post('../components/controller/agencyController.php', {type: 'deleteAgencyPortInfo', id: contactID}, 
+						function() {
+							that.openDetails(agencyID);
+							closeWindow();
+						});
+				}
+			}
+			else {
+				alert('Bitte zuerst einen Kontakt auswählen.');
+			}
 		}
 		
 		/*

@@ -17,14 +17,16 @@ class agency
      * Konstruktor
      *
      * @param array $data
+     * @param int $id
      */
-    public function __construct($data = null){
+    public function __construct($data = null, $id = null){
         if(empty($data)) {
             $this->loadAgencyPortInfo();
         }
         else {
-            $this->name = $data['agencyName'];
-            $this->short = $data['agencyShort'];
+            $this->id       = $id;
+            $this->name     = $data['agencyName'];
+            $this->short    = $data['agencyShort'];
         }
     }
     
@@ -35,13 +37,32 @@ class agency
      */
     public function addAgency() {
         if($msg = $this->validateNewAgencyInput()) {
-            return $msg;
+            return array("type" => "error", "msg" => $msg);
         }
         else {
             $sqlstrg = "insert into port_bo_agency (name, short) values (?, ?)";
             dbConnect::execute($sqlstrg, array($this->name, $this->short));
             
             logger::writeLogCreate('agency', 'Neue Agentur angelegt: ' . $this->name);
+            return array("type" => "added", "name" => $this->name);
+        }
+    }
+
+    /**
+     * function editAgency()
+     *
+     * Ändern der Daten einer Agentur
+     */
+    public function editAgency() {
+        if($msg = $this->validateNewAgencyInput()) {
+            return array("type" => "error", "msg" => $msg);
+        }
+        else {
+            $sqlstrg = "update port_bo_agency set name = ?, short = ? where id = ?";
+            dbConnect::execute($sqlstrg, array($this->name, $this->short, $this->id));
+            
+            logger::writeLogCreate('agency', 'Agentur bearbeitet: ' . $this->name);
+            return array("type" => "changed");
         }
     }
     
@@ -115,18 +136,21 @@ class agency
     }
     
     private function validateNewAgencyInput() {
-        $msg = '';
-        
-        $sqlstrg = "select * from port_bo_agency where name = ? and name != '' or short = ? and short != ''";
-        if(dbConnect::execute($sqlstrg, array($this->name, $this->short))->rowCount() > 0) {
-            $msg =  "Es existiert bereits ein Agent mit dem eingegebenen Namen oder dem eingegebenen Kürzel";
+        $sqlstrg = "select * from port_bo_agency where name = ?";
+        if(!empty($this->id)){
+            $sqlstrg .= " and id != " . $this->id;
         }
-        
-        if(empty($this->name)) {
-            $msg = "Bitte den Namen des Agenten eingeben";
+        if(dbConnect::execute($sqlstrg, array($this->name))->rowCount() > 0) {
+            return array("field" => "Name", "msg" => "Es existiert bereits ein Agent mit diesem Namen.");
         }
-        
-        return $msg;
+
+        $sqlstrg = "select * from port_bo_agency where short = ?";
+        if(!empty($this->id)){
+            $sqlstrg .= " and id != " . $this->id;
+        }
+        if(dbConnect::execute($sqlstrg, array($this->short))->rowCount() > 0) {
+            return array("field" => "Short", "msg" => "Es existiert bereits ein Agent mit diesem Kürzel.");
+        }
     }
     
     /*

@@ -28,6 +28,7 @@
 		<link rel="stylesheet" type="text/css" href="../resources/css/global.css" />
 		<link rel="stylesheet" type="text/css" href="../resources/css/home.css" />
 		<link rel="stylesheet" type="text/css" href="../resources/css/vessel.css" />
+		<link rel="stylesheet" type="text/css" href="../resources/css/agency.css" />
 
 	    <script>
         	if(typeof window.history.pushState == 'function') {

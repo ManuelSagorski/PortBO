@@ -26,6 +26,10 @@ switch ($_GET['type']) {
         $sqlstrg = "select * from port_bo_agency where name like ? or short like ? order by ts_erf desc limit 10";
         $parameter = array($searchExpression1, $searchExpression1);
         break;
+    case 'agency':
+        $sqlstrg = "select * from port_bo_agency where name like ? or short like ? order by ts_erf desc limit 20";
+        $parameter = array($searchExpression1, $searchExpression1);
+        break;
 }
 
 $result = dbConnect::execute($sqlstrg, $parameter);
@@ -45,6 +49,11 @@ switch ($_GET['type']) {
         while($row = $result->fetch()) {?>
     	    <div onclick="selectSuggested('agent', this.textContent);"><?php echo $row['name']; ?></div>
 		<?php }
+        break;
+    case 'agency':
+        while($row = $result->fetch()) {?>
+    	    <div class="searchResultRow"><a onClick="agency.openDetails(<?php echo $row['id']; ?>)"><?php echo $row['name']; ?></a></div>
+    	<?php }
         break;
 }
 

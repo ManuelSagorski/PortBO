@@ -17,6 +17,10 @@ define(function() {
 			clearContend();
 			prepareCol($('#mainColLeft'), 'portSearchCol');
 			prepareCol($('#mainColRight'), 'notNeededCol');
+			
+			$.get('../views/port/search.view.php', function(data) {
+				$('#mainColLeft').html(data);
+			});
 		}
 		
 		return constructor.call(null);

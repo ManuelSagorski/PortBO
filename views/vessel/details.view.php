@@ -14,7 +14,7 @@ if(!empty($_GET["id"])) {
     $_SESSION['vessID'] = $vessel->getID();
 ?>
 <div class="elementDetailWrapper ui segment">
-	<div class="elemDetail">
+	<div class="elemDetail vessel">
     	<div class="elemDetailIcon">
     		<img src="../resources/img/iconVessel.png" />
     	</div>

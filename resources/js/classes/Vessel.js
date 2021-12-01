@@ -50,7 +50,7 @@ define(function() {
 		}
 
 		/*
-		 *	Öffnet das Overlay Windowszur Eingabe eines neuen Schiffes 
+		 *	Öffnet das Overlay Windows zur Eingabe eines neuen Schiffes 
 		 */
 		that.newVessel = function(id, searchValue) {
 			$.get('../views/vessel/addVessel.view.php?id=' + id + '&searchValue=' + searchValue, function(data) {

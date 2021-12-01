@@ -23,7 +23,7 @@
 /*          FlexBox          */
 /*****************************/
 .flexBox { clear: both; display: flex; flex-wrap: wrap; gap: 5px; }
-.mainCol { background-color: #ffffff; padding: 10px; box-shadow: 0px 2px 5px #56386b; }
+.mainCol { background-color: #ffffff; padding: 10px; box-shadow: 0px 2px 5px #56386b; min-height: 660px; }
 
 .vesselSearchCol { flex-basis: 200px; }
 .vesselContactCol { flex-basis: 200px; }
@@ -45,8 +45,19 @@
 .windowHead .close:hover { cursor: pointer; }
 .windowBody { clear: both; background-color: white; padding: 5px; }
 
+/*****************************/
+/*           Suche           */
+/*****************************/
+#searchResult { margin: 10px 0px; }
+.searchResultRow { padding: 3px;}
+.searchResultRow a { display: block; }
+.searchResultRow:nth-child(even) { background-color: #E0ECF8; }
 
+.searchResultRow:hover { padding: 2px 2px 2px 10px; border: 1px solid #BDBDBD; }
 
+/*****************************/
+/*         Suggester         */
+/*****************************/
 .ui.category.search .results { width: 98% !important; }
 .ui.category.search .results div { padding: 5px; cursor: pointer; }
 .agentInfoHead { font-weight: bold; }

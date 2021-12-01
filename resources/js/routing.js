@@ -6,14 +6,6 @@
 
 
 /* Klassen für die einzelnen Seiten werden geladen */
-require(['classes/Vessel'], function() {
-	Vessel = require('classes/Vessel');
-	vessel = new Vessel();
-	
-	/* Laden der Standard-Seite */
-	router.navigateTo('vessel');
-});
-
 require(['classes/Agency'], function() {
 	Agency = require('classes/Agency');
 	agency = new Agency();
@@ -27,6 +19,13 @@ require(['classes/Port'], function() {
 require(['classes/Settings'], function() {
 	Settings = require('classes/Settings');
 	settings = new Settings();
+});
+
+require(['classes/Vessel'], function() {
+	Vessel = require('classes/Vessel');
+	vessel = new Vessel();
+
+	router.navigateTo('vessel');
 });
 
 /* Router wird initialisiert */
@@ -77,4 +76,11 @@ function clearContend() {
 	$('#mainColLeft').html(null);
 	$('#mainColMiddle').html(null);
 	$('#mainColRicht').html(null);
+}
+
+function getUrlParam(name) {
+    var url_string = window.location;
+    var url = new URL(url_string);
+    var c = url.searchParams.get("name");
+    return c;
 }

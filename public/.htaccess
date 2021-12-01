@@ -1,4 +1,6 @@
 RewriteEngine On
+
 RewriteBase /
+
 RewriteCond %{REQUEST_URI} !^/boNew/public/(index\.php)?$ [NC]
 RewriteRule ^.*$ /boNew/public/index.php [L,R=301]

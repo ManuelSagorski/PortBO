@@ -32,7 +32,9 @@ class vesselTypes
         "River Cruise Ship" => "River-Cruise",
         "Vehicles Carrier" => "Ro-Ro",
         "Deck Cargo Ship" => "Cargo",
-        "Self Discharging Bulk Carrier" => "Cargo"
+        "Self Discharging Bulk Carrier" => "Cargo",
+        "Tug" => "Sonstiges",
+        "Other" => "Sonstiges"
     );
 }
 
