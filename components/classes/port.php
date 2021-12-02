@@ -23,6 +23,13 @@ class port
         $sqlstrg = "insert into port_bo_port (name, short, mtLink) values (?, ?, ?)";
         dbConnect::execute($sqlstrg, array($this->name, $this->short, $this->mtLink));
         
+        $port = dbConnect::fetchSingle("select * from port_bo_port where name = ? and short = ?", port::class, array($this->name, $this->short));
+        
+        echo $_SESSION['user'];
+        
+        $sqlstrg = "insert into port_bo_userToPort (user_id, port_id) values (?, ?)";
+        dbConnect::execute($sqlstrg, array($_SESSION['user'], $port->getID()));
+        
         logger::writeLogCreate('port', 'Neuen Hafen angelegt: ' . $this->name);
     }
     

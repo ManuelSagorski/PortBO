@@ -61,3 +61,10 @@
 .ui.category.search .results { width: 98% !important; }
 .ui.category.search .results div { padding: 5px; cursor: pointer; }
 .agentInfoHead { font-weight: bold; }
+
+
+/**********************************************************/
+/*                       Seite Port                       */
+/**********************************************************/
+
+.userLanguage { float: left; margin-right: 10px; }

@@ -19,6 +19,17 @@ define(function() {
 			prepareCol($('#mainColRight'), 'notNeededCol');
 		}
 		
+		/*
+		 *	Öffnet das Fenster zum hinzufügen eines neuen Hafens
+		 */			
+		that.newPort = function(id) {
+			$.get('../views/port/addPort.view.php?id=' + id, function(data) {
+				$('#windowLabel').html("Neuen Hafen hinzufügen");
+				$('#windowBody').html(data);
+			});
+			showWindow();			
+		}
+		
 		return constructor.call(null);
 	}
 

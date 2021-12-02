@@ -15,7 +15,7 @@ class company implements JsonSerializable
     public function __construct($data = null) {
         if(!empty($data)) {
             $this->name = $data['companyName'];
-            $this->port_id = $data['companyPortID'];
+            $this->port_id = $data['portID'];
             $this->info = $data['companyInfo'];
             $this->mtLink = $data['companyMTLink'];
             $this->pmLink = $data['companyPMLink'];

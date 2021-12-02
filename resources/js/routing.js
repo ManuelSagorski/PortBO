@@ -11,9 +11,9 @@ require(['classes/Agency'], function() {
 	agency = new Agency();
 });
 
-require(['classes/Port'], function() {
-	Port = require('classes/Port');
-	port = new Port();
+require(['classes/PortC'], function() {
+	PortC = require('classes/PortC');
+	portC = new PortC();
 });
 
 require(['classes/Settings'], function() {
@@ -47,7 +47,7 @@ router.add('agency', function () {
 });
 
 router.add('port', function () {
-    port.open();
+    portC.open();
 });
 
 router.add('settings', function () {

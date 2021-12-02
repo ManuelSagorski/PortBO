@@ -7,6 +7,7 @@ use components\classes\agency;
 use components\types\contactTypes;
 
 include '../../components/config.php';
+
 if(isset($_GET['contactID'])) {
     $contact = dbConnect::fetchSingle("select * from port_bo_vesselContact where id= ?", vesselContact::class, array($_GET['contactID']));
 }
