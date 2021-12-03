@@ -19,7 +19,7 @@ if(isset($_GET['contactID'])) {
     </div>
 
 	<div class="two fields">
-        <div id="inputKontaktart" class="field">
+        <div id="input_contactType" class="field">
         	<label>Kontaktart</label>
     		<select id="contactType" name="contactType">
     			<?php foreach (contactTypes::$contactTypes as $contactType) { ?>
@@ -31,7 +31,7 @@ if(isset($_GET['contactID'])) {
     		</select>
         </div>
 
-        <div id="inputDate" class="field">
+        <div id="input_contactDate" class="field">
         	<label>Datum</label>
         	<input 
         		type="date" 
@@ -43,7 +43,7 @@ if(isset($_GET['contactID'])) {
 	</div>
 	
 	<div class="two fields">
-	    <div id="inputPort" class="field">
+	    <div id="input_contactPort" class="field">
         	<label>Hafen</label>
     		<select id="contactPort" name="contactPort">
     			<?php foreach ($ports as $port) { ?>
@@ -55,7 +55,7 @@ if(isset($_GET['contactID'])) {
     		</select>
         </div>
 
-    	<div id="inputUser" class="field ui search category">
+    	<div id="input_contactName" class="field ui search category">
     		<label>Kontakt durch</label>
     		<div class="ui icon input">
     			<input 
@@ -74,7 +74,7 @@ if(isset($_GET['contactID'])) {
 	</div>
 
 	<div class="two fields">
-        <div id="inputAgent" class="field ui search category">
+        <div id="input_contactAgent" class="field ui search category">
         	<label>Agent</label>
         	<div class="ui icon input">
             	<input 
@@ -92,7 +92,7 @@ if(isset($_GET['contactID'])) {
             <div id="agentSuggest" class="results transition"></div>
         </div>
         
-        <div id="inputPlanned" class="field">
+        <div id="input_contactPlanned" class="field">
         	<label>geplant</label>
     		<input 
     			type="checkbox" 
@@ -105,7 +105,7 @@ if(isset($_GET['contactID'])) {
 
     <div id="agentInfoContainer" class="ui segment"></div>
 	
-	<div class="field">
+	<div id="input_contactInfo" class="field">
     	<label>Kontakt Info</label>
     	<textarea rows="2" id="contactInfo" name="contactInfo"><?php echo(!empty($contact))?$contact->getInfo():''; ?></textarea>
     </div>

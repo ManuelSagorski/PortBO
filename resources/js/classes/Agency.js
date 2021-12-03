@@ -64,12 +64,12 @@ define(function() {
 			newAgencyValidate = new FormValidate($('#addAgency').serializeArray()); 
 
 			if(!newAgencyValidate.fieldsNotAllEmpty(Array('agencyName'))) {
-				formValidate.setError(Array('Name'));
+				formValidate.setError(Array('agencyName'));
 				formValidate.setErrorMessage('Bitte einen Namen eingeben.');
 				return;
 			}			
 			if(!newAgencyValidate.fieldsNotAllEmpty(Array('agencyShort'))) {
-				formValidate.setError(Array('Short'));
+				formValidate.setError(Array('agencyShort'));
 				formValidate.setErrorMessage('Bitte ein Kürzel eingeben.');
 				return;
 			}

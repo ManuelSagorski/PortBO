@@ -22,7 +22,7 @@ if(!empty($_GET['searchValue'])) {
 		<div id="errorMessage"></div>
     </div>
 
-    <div id="inputName" class="required field">
+    <div id="input_agencyName" class="required field">
     	<label>Name</label>
     	<input 
     		type="text" 
@@ -33,7 +33,7 @@ if(!empty($_GET['searchValue'])) {
     	>
     </div>
 
-    <div id="inputShort" class="required field">
+    <div id="input_agencyShort" class="required field">
     	<label>Kürzel</label>
     	<input 
     		type="text" 

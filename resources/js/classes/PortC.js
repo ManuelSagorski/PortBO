@@ -53,15 +53,10 @@ define(function() {
 		that.addPort = function(id) {
 			event.preventDefault();
 			newPortValidate = new FormValidate($('#addPort').serializeArray());
-			
-			if(!newPortValidate.fieldsNotAllEmpty(Array('portName'))) {
-				formValidate.setError(Array('Name'));
-				formValidate.setErrorMessage('Bitte einen Namen eingeben.');
-				return;
-			}
-			if(!newPortValidate.fieldsNotAllEmpty(Array('portShort'))) {
-				formValidate.setError(Array('Short'));
-				formValidate.setErrorMessage('Bitte ein Kürzel eingeben.');
+	
+			if(falseFields = newPortValidate.fieldsNotEmpty(Array('portName', 'portShort',))) {
+				formValidate.setError(falseFields);
+				formValidate.setErrorMessage('Bitte alle Pflichtfelder ausfüllen.');
 				return;
 			}
 			
@@ -96,7 +91,7 @@ define(function() {
 			newPortCompanyValidate = new FormValidate($('#addPortCompany').serializeArray());
 			
 			if(!newPortCompanyValidate.fieldsNotAllEmpty(Array('companyName'))) {
-				formValidate.setError(Array('Name'));
+				formValidate.setError(Array('companyName'));
 				formValidate.setErrorMessage('Bitte einen Namen eingeben.');
 				return;
 			}

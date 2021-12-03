@@ -84,7 +84,7 @@ define(function() {
 		 *	Entfernt die Error Markierung bei allen angezeigten Input Feldern
 		 */		
 		that.clearAllError = function() {
-			$('[id^=input]').removeClass("error");
+			$('[id^=input_]').removeClass("error");
 			$('#errorMessage').html(null);
 			$('#errorMessage').parent().parent().removeClass("error");
 		}
@@ -93,7 +93,7 @@ define(function() {
 		 *	Setzt auf die übergebenen Felderr eine Error Markierung
 		 */			
 		that.setError = function(fields) {
-			fields.forEach(field => $('#input' + field).addClass("error"));
+			fields.forEach(field => $('#input_' + field).addClass("error"));
 		}
 
 		/*
@@ -102,6 +102,27 @@ define(function() {
 		that.setErrorMessage = function(message) {
 			$('#errorMessage').html(message);
 			$('#errorMessage').parent().parent().addClass("error");
+		}
+
+		/*
+		 *	Überprüft das alle übergebenen Felder nicht leer sind
+		 */
+		that.fieldsNotEmpty = function(fields) {
+			var returnValue = [];
+			
+			fields.forEach(function(field){
+				validateField = my.formData.filter(p => p.name == field);
+				if(validateField[0].value == '') {
+					returnValue.push(field);
+				}
+			});
+			
+			if($.isEmptyObject(returnValue)) {
+				return false;
+			}
+			else {
+				return returnValue;
+			}
 		}
 
 		/*

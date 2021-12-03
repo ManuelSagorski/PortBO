@@ -125,7 +125,7 @@ class vessel
         }
         $sqlstrg .= "((IMO = ? and IMO <> '') or (ENI = ? and ENI <> ''))";
         if(dbConnect::execute($sqlstrg, array($this->IMO, $this->ENI))->rowCount() > 0) {
-            $msg = array("field" => "IMO", "msg" => "Es existiert bereits ein Schiff mit dieser IMO / ENI.");
+            $msg = array("field" => "vesselIMO", "msg" => "Es existiert bereits ein Schiff mit dieser IMO / ENI.");
         }
         
         return $msg;

@@ -11,7 +11,7 @@ class telegram
     
     private $tmpl;
     
-    const TEMPLATE_PATH = PATH . "/components/template/";
+    const TEMPLATE_PATH = PATH . "/views/templates/";
     const TELEGRAM_TOKEN = "2114797834:AAEhHCwLnFjg0vdMfn-uIyB9Zrk4bVaGOC8";
     const TELEGRAM_CODE_REGEX = "/[a-zA-Z0-9]{3}-[a-zA-Z0-9]{3}/";
     

@@ -25,8 +25,9 @@ class vesselTypes
         "Chemical Tanker" => "Tanker",
         "Bitumen Tanker" => "Tanker",
         "Oil Products Tanker" => "Tanker",
+        "Lpg Tanker" => "Tanker",
         "Bulk Carrier" => "Cargo",
-        "Multi Purpose Carrier" => "Sonstiges",
+        "Multi Purpose Carrier" => "Cargo",
         "Passenger Ship" => "Cruise",
         "Cruise Ship" => "Cruise",
         "River Cruise Ship" => "River-Cruise",
@@ -34,6 +35,7 @@ class vesselTypes
         "Deck Cargo Ship" => "Cargo",
         "Self Discharging Bulk Carrier" => "Cargo",
         "Tug" => "Sonstiges",
+        "Hopper Dredger" => "Sonstiges",
         "Other" => "Sonstiges"
     );
 }

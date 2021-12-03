@@ -16,7 +16,7 @@ if(isset($_GET['infoID'])) {
 		<div id="errorMessage"></div>
     </div>
 
-    <div id="inputInfo" class="field">
+    <div id="input_vesselInfo" class="field">
     	<label>Information</label>
     	<textarea rows="2" id="vesselInfo" name="vesselInfo" onkeyup="formValidate.clearAllError();"><?php echo (!empty($info))?$info->getInfo():''; ?></textarea>
     </div>

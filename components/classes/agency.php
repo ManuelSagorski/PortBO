@@ -141,7 +141,7 @@ class agency
             $sqlstrg .= " and id != " . $this->id;
         }
         if(dbConnect::execute($sqlstrg, array($this->name))->rowCount() > 0) {
-            return array("field" => "Name", "msg" => "Es existiert bereits ein Agent mit diesem Namen.");
+            return array("field" => "agencyName", "msg" => "Es existiert bereits ein Agent mit diesem Namen.");
         }
 
         $sqlstrg = "select * from port_bo_agency where short = ?";
@@ -149,7 +149,7 @@ class agency
             $sqlstrg .= " and id != " . $this->id;
         }
         if(dbConnect::execute($sqlstrg, array($this->short))->rowCount() > 0) {
-            return array("field" => "Short", "msg" => "Es existiert bereits ein Agent mit diesem Kürzel.");
+            return array("field" => "agencyShort", "msg" => "Es existiert bereits ein Agent mit diesem Kürzel.");
         }
     }
     

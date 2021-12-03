@@ -2,4 +2,5 @@ eclipse.preferences.version=1
 encoding//views/templates/_indexSiteFooter.template.php=UTF-8
 encoding//views/templates/_indexSiteHeader.template.php=UTF-8
 encoding//views/templates/_passwordResetMail.html=UTF-8
+encoding//views/templates/_welcomeMail.html=UTF-8
 encoding/<project>=UTF-8

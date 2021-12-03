@@ -45,9 +45,16 @@ if(!empty($_GET["id"])) {
 	<a class="item" onClick="alert('Schiffe können derzeit nur durch einen Administrator gelöscht werden.');">
 		<i class="trash alternate icon"></i>
 	</a>
+	<?php if(!empty($vessel->getIMO())) { ?>
 	<a class="item" href="https://www.vesselfinder.com/de/?imo=<?php echo $vessel->getIMO(); ?>" target="_blank">
 		<img class="iconRowElement" src="../resources/img/vesselFinderLogo.png" />
 	</a>
+	<?php } ?>
+	<?php if(!empty($vessel->getMMSI())) { ?>
+	<a class="item" href="https://www.myshiptracking.com/de/?mmsi=<?php echo $vessel->getMMSI(); ?>" target="_blank">
+		<img class="iconRowElement" src="../resources/img/myShipTrackingLogo.png" />
+	</a>
+	<?php } ?>
 </div>	
 
 <table class="detailTable ui very compact celled striped table">

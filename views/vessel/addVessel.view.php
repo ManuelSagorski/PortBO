@@ -42,7 +42,7 @@ if(!empty($_GET['searchValue']) && !is_numeric($_GET['searchValue'])) {
 		<div id="errorMessage"></div>
     </div>
 
-    <div id="inputName" class="required field">
+    <div id="input_vesselName" class="required field">
     	<label>Name</label>
     	<input 
     		type="text" 
@@ -54,7 +54,7 @@ if(!empty($_GET['searchValue']) && !is_numeric($_GET['searchValue'])) {
     </div>
     
 	<div class="two fields">
-	    <div id="inputIMO" class="required field">
+	    <div id="input_vesselIMO" class="required field">
         	<label>IMO</label>
         	<div class="ui action input">
             	<input 
@@ -70,7 +70,7 @@ if(!empty($_GET['searchValue']) && !is_numeric($_GET['searchValue'])) {
             </div>
         </div>
         
-        <div id="inputMMSI" class="field">
+        <div id="input_vesselMMSI" class="field">
         	<label>MMSI</label>
         	<div class="ui action input">
         		<input 
@@ -88,7 +88,7 @@ if(!empty($_GET['searchValue']) && !is_numeric($_GET['searchValue'])) {
 	</div>
 	
 	<div class="two fields">
-	    <div id="inputENI" class="required field">
+	    <div id="input_vesselENI" class="required field">
         	<label>ENI</label>
         	<input 
         		type="number" 
@@ -99,7 +99,7 @@ if(!empty($_GET['searchValue']) && !is_numeric($_GET['searchValue'])) {
         	>
         </div>
         
-        <div class="field">
+        <div id="input_vesselTyp" class="field">
         	<label>Typ</label>
     		<select id="vesselTyp" name="vesselTyp">
     			<?php foreach(vesselTypes::$vesselTypes as $type ) {?>

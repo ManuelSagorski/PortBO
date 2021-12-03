@@ -68,12 +68,12 @@ define(function() {
 			newVesselValidate = new FormValidate($('#addVessel').serializeArray()); 
 
 			if(!newVesselValidate.fieldsNotAllEmpty(Array('vesselName'))) {
-				formValidate.setError(Array('Name'));
+				formValidate.setError(Array('vesselName'));
 				formValidate.setErrorMessage('Bitte einen Namen eingeben.');
 				return;
 			}			
 			if(!newVesselValidate.fieldsNotAllEmpty(Array('vesselIMO', 'vesselENI'))) {
-				formValidate.setError(Array('IMO', 'ENI'));
+				formValidate.setError(Array('vesselIMO', 'vesselENI'));
 				formValidate.setErrorMessage('Bitte eine IMO oder ENI eingeben.');
 				return;
 			}
@@ -106,7 +106,7 @@ define(function() {
 			formValidate.clearAllError();
 
 			if(!number) {
-				formValidate.setError(Array('IMO', 'MMSI'));
+				formValidate.setError(Array('vesselIMO', 'vesselMMSI'));
 				formValidate.setErrorMessage('Bitte eine IMO oder MMSI eingeben.');
 				return;
 			}
@@ -133,7 +133,7 @@ define(function() {
 			formValidate.clearAllError();
 
 			if(!imo) {
-				formValidate.setError(Array('IMO'));
+				formValidate.setError(Array('vesselIMO'));
 				formValidate.setErrorMessage('Bitte eine IMO eingeben.');
 				return;
 			}
@@ -174,7 +174,7 @@ define(function() {
 			newVesselInfoValidate = new FormValidate($('#addVesselInfo').serializeArray());
 			
 			if(!newVesselInfoValidate.fieldsNotAllEmpty(Array('vesselInfo'))) {
-				formValidate.setError(Array('Info'));
+				formValidate.setError(Array('vesselInfo'));
 				formValidate.setErrorMessage('Bitte eine Info eingeben.');
 				return;
 			}
@@ -239,7 +239,11 @@ define(function() {
 
 					closeWindow();
 					that.openDetails(vesselID);
-					// showOpenContacts();
+					
+					$.get('../views/vessel/openContacts.view.php', function(data) {
+						$('#mainColRight').html(data);
+					});
+
 				}, 'json');
 		}
 

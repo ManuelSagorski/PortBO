@@ -17,7 +17,7 @@ $editMode = !empty($company);
 		<div id="errorMessage"></div>
     </div>
     
-    <div id="inputName" class="required field">
+    <div id="input_companyName" class="required field">
     	<label>Name</label>
     	<input 
     		type="text" 
@@ -28,17 +28,17 @@ $editMode = !empty($company);
     	>
     </div>
     
-    <div class="field">
+    <div id="input_companyInfo" class="field">
     	<label>Info</label>
     	<textarea rows="4" id="companyInfo" name="companyInfo"><?php echo($editMode)?$company->getInfo():''; ?></textarea>
     </div>
 
-    <div class="field">
+    <div id="input_companyMTLink" class="field">
     	<label>MarineTraffic Link</label>
     	<textarea rows="2" id="companyMTLink" name="companyMTLink"><?php echo($editMode)?$company->getMTLink():''; ?></textarea>
     </div>
     
-    <div class="field">
+    <div id="input_companyPMLink" class="field">
     	<label>PortMap Link</label>
     	<textarea rows="2" id="companyPMLink" name="companyPMLink"><?php echo($editMode)?$company->getPMLink():''; ?></textarea>
     </div>

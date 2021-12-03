@@ -16,7 +16,7 @@ if(isset($_GET['id'])) {
 		<div id="errorMessage"></div>
     </div>    
 
-    <div id="inputPort" class="field">
+    <div id="input_contactPort" class="field">
     	<label>Hafen</label>
 		<select id="contactPort" name="contactPort">
 			<?php foreach ($ports as $port) { ?>
@@ -28,7 +28,7 @@ if(isset($_GET['id'])) {
 		</select>
     </div>
 	
-    <div id="inputEmail" class="field">
+    <div id="input_agencyContactEmail" class="field">
     	<label>Email</label>
     	<input 
     		type="text" 
@@ -39,7 +39,7 @@ if(isset($_GET['id'])) {
     	>
     </div>
 
-    <div class="field">
+    <div id="input_agencyContactInfo" class="field">
     	<label>Kontakt Info</label>
     	<textarea rows="2" id="agencyContactInfo" name="agencyContactInfo"><?php echo(!empty($contact))?$contact->getInfo():''; ?></textarea>
     </div>

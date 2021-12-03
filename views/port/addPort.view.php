@@ -17,7 +17,7 @@ $editMode = !empty($port);
 		<div id="errorMessage"></div>
     </div>
 
-    <div id="inputName" class="required field">
+    <div id="input_portName" class="required field">
     	<label>Name</label>
     	<input 
     		type="text" 
@@ -28,8 +28,8 @@ $editMode = !empty($port);
     	>
     </div>
 
-    <div id="inputShort" class="required field">
-    	<label>Name</label>
+    <div id="input_portShort" class="required field">
+    	<label>Kürzel</label>
     	<input 
     		type="text" 
     		id="portShort" 
@@ -39,7 +39,7 @@ $editMode = !empty($port);
     	>
     </div>
     
-    <div class="field">
+    <div id="input_portMTLink" class="field">
     	<label>MarineTraffic Link</label>
     	<textarea rows="2" id="portMTLink" name="portMTLink"><?php echo($editMode)?$port->getMTLink():''; ?></textarea>
     </div>
@@ -48,5 +48,5 @@ $editMode = !empty($port);
 </form>
 
 <script>
-$("#addPort").submit(function(event){ port.addPort(<?php echo ($editMode)?$port->getID():'null'; ?>);});
+$("#addPort").submit(function(event){ portC.addPort(<?php echo ($editMode)?$port->getID():'null'; ?>);});
 </script>

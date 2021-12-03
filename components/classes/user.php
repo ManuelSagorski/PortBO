@@ -64,13 +64,13 @@ class user
         $newUser = dbConnect::fetchSingle("select * from port_bo_user where username = ?", user::class, array($data['userUsername']));
         
         foreach(languages::$languages as $id=>$language) {
-            if(isset($data['language_' . $language])) {
+            if(in_array($id, $data['userLanguages'])) {
                 $newUser->addUserLanguage($id);
             }
         }
         
         foreach($ports as $port) {
-            if(isset($data['userPort' . $port->getName()])) {
+            if(in_array($port->getID(), $data['userPorts'])) {
                 $newUser->addUserToPort($port->getID());
             }
         }
@@ -102,19 +102,19 @@ class user
         $actualUser = dbConnect::fetchSingle("select * from port_bo_user where id = ?", user::class, array($user_id));
         
         foreach(languages::$languages as $id=>$language) {
-            if(isset($data['language_' . $language]) && !$actualUser->userHasLanguage($id)) {
+            if(in_array($id, $data['userLanguages']) && !$actualUser->userHasLanguage($id)) {
                 $actualUser->addUserLanguage($id);
             }
-            if(!isset($data['language_' . $language]) && $actualUser->userHasLanguage($id)) {
+            if(!in_array($id, $data['userLanguages']) && $actualUser->userHasLanguage($id)) {
                 $actualUser->removeUserLanguage($id);
             }
         }
         
         foreach($ports as $port) {
-            if(isset($data['userPort' . $port->getName()]) && !$actualUser->userHasPort($port->getID())) {
+            if(in_array($port->getID(), $data['userPorts']) && !$actualUser->userHasPort($port->getID())) {
                 $actualUser->addUserToPort($port->getID());
             }
-            if(!isset($data['userPort' . $port->getName()]) && $actualUser->userHasPort($port->getID())) {
+            if(!in_array($port->getID(), $data['userPorts']) && $actualUser->userHasPort($port->getID())) {
                 $actualUser->removeUserFromPort($port->getID());
             }
         }
