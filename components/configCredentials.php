@@ -10,4 +10,6 @@ define("SMTP_USER",'manuel@sagorski.net');
 define("SMTP_SECRET",'it10sagoma');
 define("SMTP_SENDER",'Hafendienst BO');
 define("SMTP_SENDER_ADRESS",'manuel@sagorski.net');
+
+define("TELEGRAM_TOKEN",'2114797834:AAEhHCwLnFjg0vdMfn-uIyB9Zrk4bVaGOC8');
 ?>

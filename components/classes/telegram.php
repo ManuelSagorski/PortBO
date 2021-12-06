@@ -12,7 +12,6 @@ class telegram
     private $tmpl;
     
     const TEMPLATE_PATH = PATH . "/views/templates/";
-    const TELEGRAM_TOKEN = "2114797834:AAEhHCwLnFjg0vdMfn-uIyB9Zrk4bVaGOC8";
     const TELEGRAM_CODE_REGEX = "/[a-zA-Z0-9]{3}-[a-zA-Z0-9]{3}/";
     
     public function __construct($chatID, $json = null) {
@@ -51,7 +50,7 @@ class telegram
     }
     
     public function sendMessage($disable_notification, $text=null) {
-        $ch = curl_init('https://api.telegram.org/bot' . self::TELEGRAM_TOKEN . '/sendMessage');
+        $ch = curl_init('https://api.telegram.org/bot' . TELEGRAM_TOKEN . '/sendMessage');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);

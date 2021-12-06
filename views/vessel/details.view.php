@@ -89,6 +89,35 @@ if(!empty($_GET["id"])) {
 <table class="detailTable ui very compact celled striped table">
 	<thead>
 		<tr>
+			<th colspan="4">Kontaktinformationen</th>
+		</tr>
+	</thead>
+    <tbody>
+    <?php foreach ($vessel->getVesselContactDetails() as $contactDetail) { ?>
+		<tr>
+			<td data-label="select"><input type="radio" name="selectContactDetail" value="<?php echo $contactDetail->getID();?>"></td>
+			<td data-label="contactDetailType"><?php echo $contactDetail->getType(); ?></td>			
+			<td data-label="contactDetail"><?php echo $contactDetail->getDetail(); ?></td>
+			<td data-label="info"><?php echo $contactDetail->getInfo(); ?></td>
+		</tr>
+	<?php } ?>
+    </tbody>
+</table>
+<div class="detailActions ui icon menu">
+	<a class="item" onclick="vessel.newVesselContactDetail(<?php echo $vessel->getID(); ?>);">
+		<i class="plus icon"></i>
+	</a>
+	<a class="item" onclick="vessel.newVesselContactDetail(<?php echo $vessel->getID(); ?>, $('input[name=selectContactDetail]:checked').val(), true);">
+		<i class="edit icon"></i>
+	</a>
+	<a class="item" onClick="vessel.deleteVesselContactDetail(<?php echo $vessel->getID(); ?>, $('input[name=selectContactDetail]:checked').val());">
+		<i class="trash alternate icon"></i>
+	</a>
+</div>
+
+<table class="detailTable ui very compact celled striped table">
+	<thead>
+		<tr>
 			<th colspan="7">Kontakte</th>
 		</tr>
 	</thead>

@@ -265,6 +265,66 @@ define(function() {
 			}
 		}
 		
+		/*************************************************** Vessel Contact Details ***************************************************/
+		
+		/*
+		 *	Neue Kontaktinformation zu einem Schiff hinzufügen
+		 */			
+		that.newVesselContactDetail = function(vesselID, contactDetailID, edit) {
+			if(edit && !contactDetailID) {
+				alert('Bitte zuerst ein Element auswählen.');
+			}
+			else {
+				$.get('../views/vessel/addVesselContactDetail.view.php?vesselID=' + vesselID + '&contactDetailID=' + contactDetailID, function(data) {
+					$('#windowLabel').html("Neue Kontaktinformation hinzufügen");
+					$('#windowBody').html(data);
+				});
+				showWindow();	
+			}		
+		}
+		
+		/*
+		 *	Neue Kontaktinformation in der Datenbank speichern
+		 */			
+		that.addVesselContactDetail = function(vesselID, contactDetailID) {
+			event.preventDefault();			
+			vesselContactDetailValidate = new FormValidate($('#addVesselContactDetail').serializeArray());
+
+			if(!vesselContactDetailValidate.fieldsNotAllEmpty(Array('contactDetail'))) {
+				formValidate.setError(Array('contactDetail'));
+				formValidate.setErrorMessage('Bitte eine Kontaktinformation eingeben.');
+				return;
+			}	
+
+			$.post('../components/controller/vesselController.php', {
+					type: "addVesselContactDetail", 
+					data: vesselContactDetailValidate.getFormData(), 
+					contactDetailID: contactDetailID
+				},
+				function(data) {
+					closeWindow();
+					that.openDetails(vesselID);
+				});
+		}
+
+		/*
+		 *	Kontaktinformation in der Datenbank löschen
+		 */			
+		that.deleteVesselContactDetail = function(vesselID, contactDetailID) {
+			if(contactDetailID) {
+				if(confirm("Möchtest du das gewählte Element wirklich löschen?")) {
+					$.post('../components/controller/vesselController.php', {type: 'deleteVesselContactDetail', contactDetailID: contactDetailID}, 
+						function() {
+							closeWindow();
+							that.openDetails(vesselID);
+						});	
+				}
+			}
+			else {
+				alert('Bitte zuerst ein Element auswählen.');
+			}			
+		}
+		
 		return constructor.call(null);
 	}
 

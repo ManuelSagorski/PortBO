@@ -5,6 +5,7 @@ use components\classes\logger;
 use components\classes\vessel;
 use components\classes\vesselInfo;
 use components\classes\vesselContact;
+use components\classes\vesselContactDetails;
 use components\types\vesselTypes;
 
 include '../config.php';
@@ -55,6 +56,20 @@ switch($_POST['type']) {
         
     case("deleteVesselContact"):
         vesselContact::deleteContact($_POST['contactID']);
+        break;
+        
+    case("addVesselContactDetail"):
+        if(empty($_POST['contactDetailID'])) {
+            $vesselContactDetails = new vesselContactDetails($_POST['data']);
+            $vesselContactDetails->addContactDetail();
+        }
+        else {
+            vesselContactDetails::editContactDetail($_POST['data'], $_POST['contactDetailID']);
+        }
+        break;
+        
+    case("deleteVesselContactDetail"):
+        vesselContactDetails::deleteContactDetail($_POST['contactDetailID']);
         break;
 }
 

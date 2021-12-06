@@ -11,8 +11,10 @@ class vessel
     private $typ;
     private $language;
     private $ts_erf;
+    
     private $vesselInfos = [];
     private $vesselContacts = [];
+    private $vesselContactDetails = [];
     
     /**
      * Konstruktor
@@ -24,6 +26,7 @@ class vessel
         if(empty($data)) {
             $this->loadInfo();
             $this->loadContact();
+            $this->loadContactDetails();
         }
         else {
             $this->id       = $id;
@@ -74,9 +77,9 @@ class vessel
     /**
      * function loadInfo()
      *
-     * L�dt die zu einem Schiff vorhandenen Informationen in $vesselInfos
+     * Lädt die zu einem Schiff vorhandenen Informationen in $vesselInfos
      */
-    public function loadInfo() {
+    private function loadInfo() {
         $sqlstrg = "select * from port_bo_vesselInfo where vess_id = ? order by ts_erf desc";
         $this->vesselInfos = dbConnect::fetchAll($sqlstrg, vesselInfo::class, array($this->id));
     }
@@ -84,11 +87,21 @@ class vessel
     /**
      * function loadContact()
      *
-     * L�dt die zu einem Schiff vorhadenen Informationen in $vesselContacts
+     * Lädt die zu einem Schiff vorhadenen Informationen in $vesselContacts
      */
-    public function loadContact() {
+    private function loadContact() {
         $sqlstrg = "select * from port_bo_vesselContact where vess_id = ? order by date desc";
         $this->vesselContacts = dbConnect::fetchAll($sqlstrg, vesselContact::class, array($this->id));
+    }
+
+    /**
+     * function loadContactDetails()
+     *
+     * Lädt die zu dem Schiff vorhandenen Kontaktinformationen
+     */
+    private function loadContactDetails() {
+        $sqlstrg = "select * from port_bo_vesselContactDetails where vessel_id = ? order by type";
+        $this->vesselContactDetails = dbConnect::fetchAll($sqlstrg, vesselContactDetails::class, array($this->id));
     }
     
     /**
@@ -160,6 +173,9 @@ class vessel
     }
     public function getVesselContact() {
         return $this->vesselContacts;
+    }
+    public function getVesselContactDetails() {
+        return $this->vesselContactDetails;
     }
     public function getTsErf() {
         return $this->ts_Erf;
