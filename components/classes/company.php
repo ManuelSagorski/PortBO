@@ -12,6 +12,17 @@ class company implements JsonSerializable
     private $mtLink;
     private $pmLink;
     
+    public static $companyNameMapper = array(
+        "OSW 5-6" => "Oswaldkai",
+        "OSW 7-8" => "Oswaldkai",
+        "HABEMA 2" => "HaBeMa",
+        "CTA 1" => "CTA",
+        "CTA 2" => "CTA",
+        "CTT 5" => "CTT",
+        "Eurogate-CTH" => "Eurogate",
+        "BUKAI 1-2" => "Burchardkai"
+    );
+    
     public function __construct($data = null) {
         if(!empty($data)) {
             $this->name = $data['companyName'];

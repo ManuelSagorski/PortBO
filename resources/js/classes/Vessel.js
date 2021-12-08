@@ -23,12 +23,22 @@ define(function() {
 			});
 			
 			$.get('../views/vessel/details.view.php', function(data) {
-				$('#mainColMiddle').html(data);
+				$('#mainColMiddle').html(data);				
+				that.getForecast();
 			});
 			
 			$.get('../views/vessel/openContacts.view.php', function(data) {
 				$('#mainColRight').html(data);
 			});
+		}
+
+		/*
+		 *	Lädt den Forecast
+		 */		
+		that.getForecast = function() {
+			$.get('../views/vessel/forecast.view.php', function(data) {
+				$('#vesselForecast').html(data);
+			});			
 		}
 		
 		/*
@@ -87,6 +97,7 @@ define(function() {
 					else {
 						if(data.type == "added") {
 							that.searchVessel(data.name);
+							that.openDetails(data.id);
 							closeWindow();
 						}
 						if(data.type == "changed") {

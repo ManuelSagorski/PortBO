@@ -49,11 +49,11 @@ class vessel
             return array("type" => "error", "msg" => $msg);
         }
         else {
-            $sqlstrg = "insert into port_bo_vessel (name, IMO, MMSI, ENI, typ, language) values (?, ?, ?, ?, ?, ?)";
-            dbConnect::execute($sqlstrg, array($this->name, $this->IMO, $this->MMSI, $this->ENI, $this->typ, $this->language));
+            $sqlstrg = "insert into port_bo_vessel (name, IMO, MMSI, ENI, typ, language) values (?, ?, ?, ?, ?, ?) RETURNING id";
+            $result = dbConnect::execute($sqlstrg, array($this->name, $this->IMO, $this->MMSI, $this->ENI, $this->typ, $this->language));
             
             logger::writeLogCreate('vessel', 'Neues Schiff anlgelegt: ' . $this->name);
-            return array("type" => "added", "name" => $this->name);
+            return array("type" => "added", "name" => $this->name, "id" => $result->fetchColumn());
         }
     }
     

@@ -19,8 +19,10 @@
 
 .openContactRow { padding: 2px; margin-bottom: 2px; }
 .openContactRow:nth-child(even) { background-color: #E0ECF8; }
-.openContactRow a { text-decoration: none; color:inherit; }
+.openContactRow a { text-decoration: none; color:inherit; font-size: 10pt; }
 
+#searchInputVessel { max-width: 150px; }
 
-
-#searchInputVessel { max-width: 170px; }
+#vesselForecast { margin-top: 10px; }
+#vesselForecast table { font-size: 9pt; }
+#vesselForecast td { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100px; }

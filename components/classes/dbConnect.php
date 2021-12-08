@@ -56,6 +56,10 @@ class dbConnect
         
         return $result;
     }
+    
+    public static function getLastID() {
+        return self::$PDOdb->lastInsertId();
+    }
 }
 
 ?>

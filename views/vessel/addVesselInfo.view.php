@@ -12,6 +12,16 @@ if(isset($_GET['infoID'])) {
 ?>
 
 <form id="addVesselInfo" class="ui form" autocomplete="off">
+    <div class="ui icon orange message">
+        <i class="exclamation icon"></i>
+        <div class="content">
+            <div class="header">
+            	Achtung!
+            </div>
+        	<p>Denke bitte daran, dass aus Gründen des Datenschutzes, hier keine persönlichen Informationen zu Mitgliedern der Crew hinterlegt werden dürfen.</p>
+        </div>
+    </div>
+    
     <div class="ui error message">
 		<div id="errorMessage"></div>
     </div>

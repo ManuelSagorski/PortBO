@@ -25,8 +25,8 @@
 .flexBox { clear: both; display: flex; flex-wrap: wrap; gap: 5px; }
 .mainCol { background-color: #ffffff; padding: 10px; box-shadow: 0px 2px 5px #56386b; min-height: 660px; }
 
-.vesselSearchCol { flex-basis: 200px; }
-.vesselContactCol { flex-basis: 200px; }
+.vesselSearchCol { flex-basis: 180px; }
+.vesselContactCol { flex-basis: 220px; }
 .agencySearchCol { flex-basis: 300px; }
 .portSearchCol { flex-basis: 200px; }
 .settingsSearchCol { flex-basis: 200px; }

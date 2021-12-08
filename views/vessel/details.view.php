@@ -9,6 +9,8 @@ use components\classes\user;
 
 include '../../components/config.php';
 
+$forecast = dbConnect::execute("select * from port_bo_scedule order by arriving", null);
+
 if(!empty($_GET["id"])) {
     $vessel = dbConnect::fetchSingle("select * from port_bo_vessel where id = ?", vessel::class, array($_GET["id"]));
     $_SESSION['vessID'] = $vessel->getID();
@@ -127,7 +129,7 @@ if(!empty($_GET["id"])) {
 			<td data-label="select"><input type="radio" name="selectContact" value="<?php echo $contact->getID(); ?>"></td>
 			<td data-label="timestamp"><?php echo date("d.m.Y", strtotime($contact->getDate())); ?></td>
 			<td data-label="portName"><?php echo port::getPortName($contact->getPortID()); ?></td>			
-			<td data-label="userName"><?php echo $contact->getContactName(); ?></td>
+			<td data-label="userName"<?php echo (!empty($contact->getContactName()))?' class="three wide"':''; ?>><?php echo $contact->getContactName(); ?></td>
 			<td data-label="contactType"><?php echo $contact->getContactType(); ?></td>
 			<td data-label="agency"><?php echo agency::getAgentShort($contact->getAgentID()); ?></td>
 			<td data-label="agency"><?php echo $contact->getInfo(); ?></td>
@@ -152,4 +154,6 @@ if(!empty($_GET["id"])) {
 	<div><img src="../resources/img/iconVessel.png" /></div>
 	<div>Kein Schiff ausgewählt</div>
 </div>
+
+<div id="vesselForecast"></div>
 <?php }?>

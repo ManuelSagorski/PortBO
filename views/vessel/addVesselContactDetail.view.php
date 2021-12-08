@@ -12,6 +12,16 @@ if(isset($_GET['contactDetailID'])) {
 ?>
 
 <form id="addVesselContactDetail" class="ui form" autocomplete="off">
+    <div class="ui icon orange message">
+        <i class="exclamation icon"></i>
+        <div class="content">
+            <div class="header">
+            	Achtung!
+            </div>
+        	<p>Denke bitte daran, dass aus Gründen des Datenschutzes, hier keine private Kontaktdaten von Crewmitgliedern hinterlegt werden dürfen.</p>
+        </div>
+    </div>
+    
     <div class="ui error message">
 		<div id="errorMessage"></div>
     </div>

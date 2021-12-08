@@ -33,7 +33,7 @@ require_once(PATH . '/components/configCredentials.php');
  */
 spl_autoload_register(function($class) {
     $class_name = explode('\\', $class);
-    $classFolders = array("classes", "classes/PHPMailer", "types", "controller");
+    $classFolders = array("classes", "classes/PHPMailer", "classes/forecast", "types", "controller");
     
     foreach($classFolders as $folder) {
         $file = PATH . '/components/' . $folder . '/' . str_replace('\\', '/', $class_name[count($class_name)-1]) . '.php';
