@@ -18,6 +18,7 @@ class company implements JsonSerializable
         "HABEMA 2" => "HaBeMa",
         "CTA 1" => "CTA",
         "CTA 2" => "CTA",
+        "CTA 4" => "CTA",
         "CTT 5" => "CTT",
         "Eurogate-CTH" => "Eurogate",
         "BUKAI 1-2" => "Burchardkai"

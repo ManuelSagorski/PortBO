@@ -8,7 +8,7 @@ class scraping
 {    
     public $expectedVessels = [];
     
-    protected function getHTML($url) {
+    protected function getHTML($url, $type = 'html') {
         $getSite = curl_init();
         
         curl_setopt($getSite, CURLOPT_URL, $url);
@@ -21,7 +21,12 @@ class scraping
             $retVal = false;
         }
         elseif(($statuscode=curl_getinfo($getSite, CURLINFO_HTTP_CODE)) == 200){
-            $retVal = str_get_html($data);
+            if($type == 'html') {
+                $retVal = str_get_html($data);
+            }
+            if($type == 'json') {
+                $retVal = $data;
+            }
         }
         else{
             $message = curl_error($getSite) . " - " . $url;
@@ -58,7 +63,7 @@ class scraping
             $parameter[] = $vessel['name'];
             $parameter[] = $arrival->format('Y-m-d');
             if(!empty($vessel['company'])) {
-                $sqlstrg .= " and company = ?";
+                $sqlstrg .= " and (company = ? or company = '')";
                 $parameter[] = $vessel['company'];
             }
             
@@ -79,6 +84,10 @@ class scraping
                 if(!empty($vessel['agency'])) {
                     $updateValues .= ", agency = ?";
                     $parameter[] = $vessel['agency'];
+                }
+                if(!empty($vessel['company'])) {
+                    $updateValues .= ", company = ?";
+                    $parameter[] = $vessel['company'];
                 }
                 $parameter[] = $row['id'];
                  

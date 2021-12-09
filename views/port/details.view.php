@@ -30,7 +30,7 @@ if(!empty($_GET["id"])) {
     </div>
 </div>
 <div class="detailActions ui icon menu">
-	<a class="item" onclick="portC.newPort(1);">
+	<a class="item" onclick="portC.newPort(<?php echo $port->getID(); ?>);">
 		<i class="edit icon"></i>
 	</a>
 	<a class="item" onClick="alert('Häfen können derzeit nur durch einen Administrator gelöscht werden.');">

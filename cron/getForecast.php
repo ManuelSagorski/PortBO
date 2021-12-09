@@ -4,6 +4,7 @@ namespace cron;
 use components\classes\logger;
 use components\classes\forecast\eurogate;
 use components\classes\forecast\portTicker;
+use components\classes\forecast\hhla;
 
 $independent = true;
 include '../components/config.php';
@@ -25,6 +26,16 @@ $portTicker->getForecast();
 
 echo "<table>";
 foreach ($portTicker->expectedVessels as $vessel) {
+    echo "<tr><td>" . $vessel['arrivalDate'] . "</td><td>" . $vessel['name'] . "</td><td>" . $vessel['agency'] . "</td><td>" . $vessel['name'] . "</td><td>" . $vessel['company'] . "</td></tr>";
+}
+echo "</table>";
+
+
+$hhla = new hhla();
+$hhla->getForecast();
+
+echo "<table>";
+foreach ($hhla->expectedVessels as $vessel) {
     echo "<tr><td>" . $vessel['arrivalDate'] . "</td><td>" . $vessel['name'] . "</td><td>" . $vessel['agency'] . "</td><td>" . $vessel['name'] . "</td><td>" . $vessel['company'] . "</td></tr>";
 }
 echo "</table>";

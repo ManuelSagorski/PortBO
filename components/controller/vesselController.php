@@ -7,6 +7,7 @@ use components\classes\vesselInfo;
 use components\classes\vesselContact;
 use components\classes\vesselContactDetails;
 use components\types\vesselTypes;
+use components\classes\forecast;
 
 include '../config.php';
 
@@ -70,6 +71,10 @@ switch($_POST['type']) {
         
     case("deleteVesselContactDetail"):
         vesselContactDetails::deleteContactDetail($_POST['contactDetailID']);
+        break;
+        
+    case("forecastItemDone"):
+        forecast::forecastItemDone($_POST['id']);
         break;
 }
 

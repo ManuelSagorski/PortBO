@@ -28,6 +28,10 @@ class forecast
         $this->vessel = dbConnect::fetchSingle("select * from port_bo_vessel v where UPPER(name) = ?", vessel::class, Array(strtoupper($this->name)));
     }
     
+    public static function forecastItemDone($id) {
+        dbConnect::execute("update port_bo_scedule set status = 1 where id = ?", Array($id));
+    }
+    
     /*
      Getter und Setter
      */

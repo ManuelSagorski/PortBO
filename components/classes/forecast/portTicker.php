@@ -6,60 +6,61 @@ use components\classes\company;
 
 class portTicker extends scraping
 {
-    const URL_PORTTICKER = 'https://api-20.portticker.com/data/?api=1&port=DEHAM&s=1&_=1633355308225';
+    const URL_PORTTICKER = 'https://api-20.portticker.com/data/?api=1&port={{portName}}&s=1&_=1633355308225';
     
     private $json;
+    private $ports = [1 => 'DEHAM', 11 => 'DEBUZ'];
     
     public function getForecast() {
-        if(!$this->getSegelliste()) {
-            return false;
-        }
-        
-        $vessel['port'] = 1;
-        
-        foreach($this->json->data as $ship) {
-            $vessel['name'] = strip_tags($ship->name);
-            $vessel['imo'] = $ship->imo;
-            $vessel['arrivalDate'] = '';
-            if(!empty($ship->reta)) {
-                $vessel['arrivalDate'] = date("Y-m-d H:i:s", $ship->reta);
-            }
-            if(empty($vessel['arrivalDate']) && !empty($ship->seta)) {
-                $vessel['arrivalDate'] = date("Y-m-d H:i:s", $ship->seta);
-            }
-            if(empty($vessel['arrivalDate']) && !empty($ship->aeta)) {
-                $vessel['arrivalDate'] = date("Y-m-d H:i:s", $ship->aeta);
+        foreach ($this->ports as $key => $port) {
+            if(!$this->getSegelliste(str_replace('{{portName}}', $port, self::URL_PORTTICKER))) {
+                continue;
             }
             
-            if(!empty($ship->term)) {
-                if(isset(company::$companyNameMapper[$ship->term])) {
-                    $vessel['company'] = company::$companyNameMapper[$ship->term];
+            $vessel['port'] = $key;
+            
+            foreach($this->json->data as $ship) {
+                $vessel['name'] = strip_tags($ship->name);
+                $vessel['imo'] = $ship->imo;
+                $vessel['arrivalDate'] = '';
+                if(!empty($ship->reta)) {
+                    $vessel['arrivalDate'] = date("Y-m-d H:i:s", $ship->reta);
+                }
+                if(empty($vessel['arrivalDate']) && !empty($ship->seta)) {
+                    $vessel['arrivalDate'] = date("Y-m-d H:i:s", $ship->seta);
+                }
+                if(empty($vessel['arrivalDate']) && !empty($ship->aeta)) {
+                    $vessel['arrivalDate'] = date("Y-m-d H:i:s", $ship->aeta);
+                }
+                
+                if(!empty($ship->term)) {
+                    if(isset(company::$companyNameMapper[$ship->term])) {
+                        $vessel['company'] = company::$companyNameMapper[$ship->term];
+                    }
+                    else {
+                        $vessel['company'] = $ship->term;
+                    }
                 }
                 else {
-                    $vessel['company'] = $ship->term;
+                    $vessel['company'] = '';
                 }
+                if(!empty($ship->agentl)) {
+                    $vessel['agency'] = $ship->agentl;
+                }
+                else {
+                    $vessel['agency'] = '';
+                }
+                $vessel['leavingDateTime'] = '';
+                
+                $this->expectedVessels[] = $vessel;
             }
-            else {
-                $vessel['company'] = '';
-            }
-            if(!empty($ship->agentl)) {
-                $vessel['agency'] = $ship->agentl;
-            }
-            else {
-                $vessel['agency'] = '';
-            }
-            $vessel['leavingDateTime'] = '';
             
-            $this->expectedVessels[] = $vessel;
+            $this->updateDB();
         }
-        
-        $this->updateDB();
-        
-        return true;
     }
     
-    private function getSegelliste() {
-        $this->json = json_decode($this->getHTML(self::URL_PORTTICKER));
+    private function getSegelliste($url) {
+        $this->json = json_decode($this->getHTML($url));
         
         if(empty($this->json)) {
             logger::writeLogError('getPortTicker', 'PortTicker Scrapping lieferte keine Daten.');

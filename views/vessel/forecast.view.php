@@ -24,7 +24,7 @@ foreach($user->getUserPorts() as $userPorts) {
         <table class="detailTable ui very compact celled striped table">
         	<thead>
         		<tr>
-        			<th colspan="7">Erwartete Schiffe für <?php echo port::getPortName($userPorts->getPortID()); ?></th>
+        			<th colspan="8">Erwartete Schiffe für <?php echo port::getPortName($userPorts->getPortID()); ?></th>
         		</tr>
         	</thead>
             <tbody>
@@ -35,19 +35,24 @@ foreach($forecast as $expectedVessel) {
         $arrivingDay = $tmpDay->format('Y-m-d');
     ?>
 				<tr class="positive">
-					<td colspan="7"><?php echo $tmpDay->format('Y-m-d'); ?></td>
+					<td colspan="8"><?php echo $tmpDay->format('Y-m-d'); ?></td>
 				</tr>
     <?php    
     }
 ?>
-        		<tr>
+        		<tr<?php echo ($expectedVessel->getStatus() == 1)?' class="disabled"':'';?>>
         			<td data-label="arriving"><?php echo $expectedVessel->getArriving(); ?></td>			
         			<td data-label="leaving"><?php echo $expectedVessel->getLeaving(); ?></td>
         			<td data-label="name"><?php echo $expectedVessel->getName(); ?></td>
-    				<td data-label="inSystem"><?php echo (!empty($expectedVessel->vessel))?'<a onClick="vessel.openDetails(' . $expectedVessel->vessel->getID() . ');"><i class="address card outline icon"></i></a>':''; ?></td>
-        			<td data-label="email"><?php echo ($expectedVessel->hasMail)?'<i class="envelope outline icon"></i>':''; ?></td>
+    				<td data-label="inSystem" class="center aligned"><?php echo (!empty($expectedVessel->vessel))?'<a onClick="vessel.openDetails(' . $expectedVessel->vessel->getID() . ');"><i class="address card outline icon"></i></a>':''; ?></td>
+        			<td data-label="email" class="center aligned"><?php echo ($expectedVessel->hasMail)?'<i class="envelope outline icon"></i>':''; ?></td>
         			<td data-label="company"><?php echo $expectedVessel->getCompany(); ?></td>
         			<td data-label="agency"><?php echo $expectedVessel->getAgency(); ?></td>
+        			<td data-label="done" class="center aligned">
+        			<?php if($expectedVessel->getStatus() == 0) { ?>
+        				<a onClick="vessel.forecastItemDone(<?php echo $expectedVessel->getID(); ?>, this);"><i class="check icon"></i></a>
+        			<?php } ?>
+        			</td>
         		</tr>
 <?php } ?>
             </tbody>

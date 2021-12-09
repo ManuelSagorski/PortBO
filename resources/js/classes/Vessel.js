@@ -40,6 +40,17 @@ define(function() {
 				$('#vesselForecast').html(data);
 			});			
 		}
+
+		/*
+		 *	Erledigt eine Forecast Position
+		 */			
+		that.forecastItemDone = function(id, that) {
+			$.post('../components/controller/vesselController.php', {type: 'forecastItemDone', id: id}, 
+				function() {
+					$(that).closest("tr").addClass('disabled');
+					$(that).remove();
+				});			
+		}
 		
 		/*
 		 *	Sidebar Suche nach Schiffen
