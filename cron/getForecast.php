@@ -5,6 +5,7 @@ use components\classes\logger;
 use components\classes\forecast\eurogate;
 use components\classes\forecast\portTicker;
 use components\classes\forecast\hhla;
+use components\classes\forecast\unikai;
 
 $independent = true;
 include '../components/config.php';
@@ -37,6 +38,16 @@ $hhla->getForecast();
 echo "<table>";
 foreach ($hhla->expectedVessels as $vessel) {
     echo "<tr><td>" . $vessel['arrivalDate'] . "</td><td>" . $vessel['name'] . "</td><td>" . $vessel['agency'] . "</td><td>" . $vessel['name'] . "</td><td>" . $vessel['company'] . "</td></tr>";
+}
+echo "</table>";
+
+
+$unikai = new unikai();
+$unikai->getForecast();
+
+echo "<table>";
+foreach ($unikai->expectedVessels as $vessel) {
+    echo "<tr><td>" . $vessel['arrivalDate'] . "</td><td>" . $vessel['name'] . "</td><td>" . $vessel['agency'] . "</td><td>" . $vessel['company'] . "</td></tr>";
 }
 echo "</table>";
 
