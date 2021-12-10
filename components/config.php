@@ -17,7 +17,7 @@ ini_set('display_errors', 'On');
 /*
  * Pfadangaben
  */
-define("FOLDER",'boNew');
+define("FOLDER",'bo');
 define("PATH",$_SERVER["DOCUMENT_ROOT"] . FOLDER);
 
 $hostname = $_SERVER['HTTP_HOST'];

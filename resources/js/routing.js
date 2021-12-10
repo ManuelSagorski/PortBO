@@ -31,7 +31,7 @@ require(['classes/Vessel'], function() {
 /* Router wird initialisiert */
 var router = new Router({
     mode: 'history',
-	root: '/boNew/public/',
+	root: '/bo/public/',
     page404: function (path) {
         console.log('"/' + path + '" Page not found');
     }
