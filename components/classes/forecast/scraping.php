@@ -11,9 +11,12 @@ class scraping
     protected function getHTML($url, $type = 'html') {
         $getSite = curl_init();
         
+        $agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36';
+        
         curl_setopt($getSite, CURLOPT_URL, $url);
         curl_setopt($getSite, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($getSite, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($getSite, CURLOPT_USERAGENT, $agent);
         
         if(($data = curl_exec($getSite)) === false){
             $message = curl_error($getSite) . " - " . $url;
@@ -110,6 +113,7 @@ class scraping
     
     private function cleanDB() {
         dbConnect::execute("delete from port_bo_scedule where leaving < CURDATE()", Array());
+        dbConnect::execute("delete from port_bo_scedule where arriving < CURDATE() and status = 1", Array());
     }
 }
 

@@ -26,3 +26,6 @@
 #vesselForecast { margin-top: 10px; }
 #vesselForecast table { font-size: 9pt; }
 #vesselForecast td { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100px; }
+
+.addForecast input { padding: 1px; font-size: 100%; width: 100%; }
+.addForecast button { padding: 5px !important; margin: 0px !important; }

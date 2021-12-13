@@ -6,6 +6,12 @@ define(function() {
 	var Vessel = function() {
 		var constructor, that = {}, my = {};
 	
+		my.CONTROLLER = '../components/controller/vesselController.php';
+		my.SEARCH_VIEW = '../views/vessel/search.view.php?';
+		my.DETAILS_VIEW = '../views/vessel/details.view.php?';
+		my.OPEN_CONTACTS_VIEW = '../views/vessel/openContacts.view.php?';
+		my.FORECAST_VIEW = '../views/vessel/forecast.view.php';
+
 		constructor = function() {
 			return that;
 		}
@@ -18,16 +24,16 @@ define(function() {
 			prepareCol($('#mainColLeft'), 'vesselSearchCol');
 			prepareCol($('#mainColRight'), 'vesselContactCol');
 			
-			$.get('../views/vessel/search.view.php', function(data) {
+			$.get(my.SEARCH_VIEW, function(data) {
 				$('#mainColLeft').html(data);
 			});
 			
-			$.get('../views/vessel/details.view.php', function(data) {
+			$.get(my.DETAILS_VIEW, function(data) {
 				$('#mainColMiddle').html(data);				
 				that.getForecast();
 			});
 			
-			$.get('../views/vessel/openContacts.view.php', function(data) {
+			$.get(my.OPEN_CONTACTS_VIEW, function(data) {
 				$('#mainColRight').html(data);
 			});
 		}
@@ -36,7 +42,7 @@ define(function() {
 		 *	Lädt den Forecast
 		 */		
 		that.getForecast = function() {
-			$.get('../views/vessel/forecast.view.php', function(data) {
+			$.get(my.FORECAST_VIEW, function(data) {
 				$('#vesselForecast').html(data);
 			});			
 		}
@@ -45,7 +51,10 @@ define(function() {
 		 *	Erledigt eine Forecast Position
 		 */			
 		that.forecastItemDone = function(id, that) {
-			$.post('../components/controller/vesselController.php', {type: 'forecastItemDone', id: id}, 
+			$.post(my.CONTROLLER, {
+					type: 'forecastItemDone', 
+					id: id
+				}, 
 				function() {
 					$(that).closest("tr").addClass('disabled');
 					$(that).remove();
@@ -65,7 +74,7 @@ define(function() {
 		 *	Öffnet die Details zu einem bestimmten Schiff
 		 */		
 		that.openDetails = function(id) {
-			$.get('../views/vessel/details.view.php?id=' + id, function(data) {
+			$.get(my.DETAILS_VIEW + 'id=' + id, function(data) {
 				$('#mainColMiddle').html(data);
 			});			
 		}
@@ -99,7 +108,11 @@ define(function() {
 				return;
 			}
 
-			$.post('../components/controller/vesselController.php', {type: 'addVessel', id: id, data: newVesselValidate.getFormData()}, 
+			$.post(my.CONTROLLER, {
+					type: 'addVessel', 
+					id: id, 
+					data: newVesselValidate.getFormData()
+				}, 
 				function(data) {
 					if(data.type == "error") {
 						formValidate.setError(Array(data.msg.field));
@@ -135,7 +148,10 @@ define(function() {
 			else {
 				$('#addVesselLoader').addClass("active");
 				
-				$.post('../components/controller/vesselController.php', {type: 'getVesselData', parameter: number}, 
+				$.post(my.CONTROLLER, {
+						type: 'getVesselData', 
+						parameter: number
+					}, 
 					function(data) {
 						$('#vesselName').val(data.name);
 						$('#vesselIMO').val(data.imo);
@@ -162,7 +178,10 @@ define(function() {
 			else {
 				$('#addVesselLoader').addClass("active");
 				
-				$.post('../components/controller/vesselController.php', {type: 'getVesselLanguages', parameter: imo}, 
+				$.post(my.CONTROLLER, {
+						type: 'getVesselLanguages', 
+						parameter: imo
+					}, 
 					function(data) {
 						$('#vesselLanguage').append(data);						
 						$('#addVesselLoader').removeClass("active");
@@ -201,7 +220,11 @@ define(function() {
 				return;
 			}
 
-			$.post('../components/controller/vesselController.php', {type: 'addVesselInfo', data: newVesselInfoValidate.getFormData(), infoID: infoID}, 
+			$.post(my.CONTROLLER, {
+					type: 'addVesselInfo', 
+					data: newVesselInfoValidate.getFormData(), 
+					infoID: infoID
+				}, 
 				function() {
 					closeWindow();
 					that.openDetails(newVesselInfoValidate.getFormData().vesselID);
@@ -214,7 +237,10 @@ define(function() {
 		that.deleteVesselInfo = function(vesselID, infoID) {
 			if(infoID) {
 				if(confirm("Möchtest du das gewählte Element wirklich löschen?")) {
-					$.post('../components/controller/vesselController.php', {type: 'deleteVesselInfo', infoID: infoID}, 
+					$.post(my.CONTROLLER, {
+							type: 'deleteVesselInfo', 
+							infoID: infoID
+						}, 
 						function() {
 							closeWindow();
 							that.openDetails(vesselID);
@@ -251,7 +277,11 @@ define(function() {
 			event.preventDefault();			
 			vesselContactValidate = new FormValidate($('#addVesselContact').serializeArray());
 
-			$.post('../components/controller/vesselController.php', {type: "addVesselContact", data: vesselContactValidate.getFormData(), contactID: ContactID},
+			$.post(my.CONTROLLER, {
+					type: "addVesselContact", 
+					data: vesselContactValidate.getFormData(), 
+					contactID: ContactID
+				},
 				function(data) {
 					if (!$.isEmptyObject(data) && data.status == 'error') {
 						formValidate.setError(Array(data.msg.field));
@@ -262,7 +292,7 @@ define(function() {
 					closeWindow();
 					that.openDetails(vesselID);
 					
-					$.get('../views/vessel/openContacts.view.php', function(data) {
+					$.get(my.OPEN_CONTACTS_VIEW, function(data) {
 						$('#mainColRight').html(data);
 					});
 
@@ -275,7 +305,10 @@ define(function() {
 		that.deleteVesselContact = function(vesselID, contactID) {
 			if(contactID) {
 				if(confirm("Möchtest du das gewählte Element wirklich löschen?")) {
-					$.post('../components/controller/vesselController.php', {type: 'deleteVesselContact', contactID: contactID}, 
+					$.post(my.CONTROLLER, {
+							type: 'deleteVesselContact', 
+							contactID: contactID
+						}, 
 						function() {
 							closeWindow();
 							that.openDetails(vesselID);
@@ -318,7 +351,7 @@ define(function() {
 				return;
 			}	
 
-			$.post('../components/controller/vesselController.php', {
+			$.post(my.CONTROLLER, {
 					type: "addVesselContactDetail", 
 					data: vesselContactDetailValidate.getFormData(), 
 					contactDetailID: contactDetailID
@@ -335,7 +368,10 @@ define(function() {
 		that.deleteVesselContactDetail = function(vesselID, contactDetailID) {
 			if(contactDetailID) {
 				if(confirm("Möchtest du das gewählte Element wirklich löschen?")) {
-					$.post('../components/controller/vesselController.php', {type: 'deleteVesselContactDetail', contactDetailID: contactDetailID}, 
+					$.post(my.CONTROLLER, {
+							type: 'deleteVesselContactDetail', 
+							contactDetailID: contactDetailID
+						}, 
 						function() {
 							closeWindow();
 							that.openDetails(vesselID);
@@ -345,6 +381,32 @@ define(function() {
 			else {
 				alert('Bitte zuerst ein Element auswählen.');
 			}			
+		}
+		
+		/*************************************************** Forecast ***************************************************/
+		
+		that.addForecast = function(formID) {
+			event.preventDefault();
+			newForecastValidate = new FormValidate($('#' + formID).serializeArray());
+
+			if(falseFields = newForecastValidate.fieldsNotEmpty(Array('eta', 'name'))) {
+				formValidate.setError(falseFields);
+				return;
+			}
+			
+			
+			//alert(formID);
+			
+			/*
+			event.preventDefault();
+			newForecastValidate = new FormValidate($('#addUser').serializeArray());
+			
+			if(falseFields = newUserValidate.fieldsNotEmpty(Array('userFirstName', 'userSurname', 'userPhone', 'userEmail'))) {
+				formValidate.setError(falseFields);
+				formValidate.setErrorMessage('Bitte alle Pflichtfelder ausfüllen.');
+				return;
+			}
+			*/
 		}
 		
 		return constructor.call(null);

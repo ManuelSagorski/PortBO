@@ -1,7 +1,6 @@
 <?php
 namespace cron;
 
-use components\classes\logger;
 use components\classes\forecast\eurogate;
 use components\classes\forecast\portTicker;
 use components\classes\forecast\hhla;

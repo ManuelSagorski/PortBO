@@ -9,7 +9,7 @@ class portTicker extends scraping
     const URL_PORTTICKER = 'https://api-20.portticker.com/data/?api=1&port={{portName}}&s=1&_=1633355308225';
     
     private $json;
-    private $ports = [1 => 'DEHAM', 11 => 'DEBUZ'];
+    private $ports = [1 => 'DEHAM', 2 => 'DEKEL', 3 => 'DELBC', 10 => 'DEBRB', 11 => 'DEBUZ'];
     
     public function getForecast() {
         foreach ($this->ports as $key => $port) {
