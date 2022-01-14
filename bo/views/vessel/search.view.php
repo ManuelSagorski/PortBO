@@ -1,7 +1,7 @@
 <div>
     <div class="ui action input">
     	<input type="text" id="searchInputVessel" placeholder="Suchen..." onkeyup="vessel.searchVessel(this.value);">
-    	<button class="ui icon button" onclick="vessel.searchVessel($('#searchInput').val());">
+    	<button class="ui icon button" onclick="vessel.searchVessel($('#searchInputVessel').val());">
 			<i class="search icon"></i>
       	</button>
     </div>

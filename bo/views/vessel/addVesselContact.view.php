@@ -108,7 +108,7 @@ if(isset($_GET['contactID'])) {
     			type="checkbox" 
     			id="contactPlanned" 
     			name="contactPlanned" 
-    			<?php if(!empty($contact)){echo ($contact->getPlanned() == 1)?" checked":"";} ?>
+    			<?php echo (!empty($contact) && $contact->getPlanned() == 0)?"":" checked"; ?>
     		>
         </div>
 	</div>

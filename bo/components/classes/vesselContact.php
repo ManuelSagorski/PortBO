@@ -68,24 +68,26 @@ class vesselContact
     public static function editContact($contactData, $contactID) {
         
         if(!isset($contactData['contactPlanned'])) {
-            $planned  = 0; }
-            else {
-                $planned  = 1; }
+            $planned  = 0; 
+        }
+        else {
+            $planned  = 1; 
+        }
                 
-                $sqlstrg = "update port_bo_vesselContact
-                       set user_id = ?,
-                           contact_type = ?,
-                           contact_name = ?,
-                           info = ?,
-                           date = ?,
-                           agent_id = ?,
-                           port_id = ?,
-                           planned = ?
-                     where id = ?";
-                dbConnect::execute($sqlstrg, array($_SESSION['user'], $contactData['contactType'], $contactData['contactName'], $contactData['contactInfo'],
-                    $contactData['contactDate'], agency::getAgentID($contactData['contactAgent']), $contactData['contactPort'], $planned, $contactID));
-                
-                vessel::setTS($_SESSION['vessID']);
+        $sqlstrg = "update port_bo_vesselContact
+               set user_id = ?,
+                   contact_type = ?,
+                   contact_name = ?,
+                   info = ?,
+                   date = ?,
+                   agent_id = ?,
+                   port_id = ?,
+                   planned = ?
+             where id = ?";
+        dbConnect::execute($sqlstrg, array($_SESSION['user'], $contactData['contactType'], $contactData['contactName'], $contactData['contactInfo'],
+            $contactData['contactDate'], agency::getAgentID($contactData['contactAgent']), $contactData['contactPort'], $planned, $contactID));
+        
+        vessel::setTS($_SESSION['vessID']);
     }
     
     public static function getOpenContactsForUser($userID) {
@@ -93,7 +95,7 @@ class vesselContact
                       from port_bo_vesselContact vc left join port_bo_userToPort up on vc.port_id = up.port_id
                      where vc.planned = 1
                        and up.user_id = ?
-                     order by vc.date";
+                     order by vc.port_id, vc.date";
         return dbConnect::fetchAll($sqlstrg, vesselContact::class, array($userID));
     }
     

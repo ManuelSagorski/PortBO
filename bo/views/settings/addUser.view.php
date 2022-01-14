@@ -121,6 +121,9 @@ $editMode = !empty($userToEdit);
     <?php } ?>
 
 	<button class="ui button" type="submit">Speichern</button>
+	<?php if($editMode && $userToEdit->getLevel() > 1) { ?>
+		<button class="ui button" onClick="settings.sendInvitationMail(<?php echo $userToEdit->getID(); ?>)">Einladungsmail</button>
+	<?php } ?>
 </form>
 
 <script>

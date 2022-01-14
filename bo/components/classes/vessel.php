@@ -16,6 +16,9 @@ class vessel
     private $vesselContacts = [];
     private $vesselContactDetails = [];
     
+    public $hasMail;
+    public $hasPhone;
+    
     /**
      * Konstruktor
      *
@@ -102,6 +105,16 @@ class vessel
     private function loadContactDetails() {
         $sqlstrg = "select * from port_bo_vesselContactDetails where vessel_id = ? order by type";
         $this->vesselContactDetails = dbConnect::fetchAll($sqlstrg, vesselContactDetails::class, array($this->id));
+        
+        foreach($this->vesselContactDetails as $contactDetail) {
+            if($contactDetail->getType() == 'Email') {
+                $this->hasMail = true;
+            }
+            if($contactDetail->getType() == 'Telefon') {
+                $this->hasPhone = true;
+            }
+        }
+        
     }
     
     /**
@@ -115,6 +128,19 @@ class vessel
         $result = dbConnect::execute($sqlstrg, array($id));
         $row = $result->fetch();
         return $row['name'] ?? '';
+    }
+
+    /**
+     * static function getVesselType($id)
+     *
+     * @param int $id ID des Schiffes
+     * @return string ID des Shiffstyps
+     */
+    public static function getVesselType($id) {
+        $sqlstrg = "select * from port_bo_vessel where id = ?";
+        $result = dbConnect::execute($sqlstrg, array($id));
+        $row = $result->fetch();
+        return $row['typ'] ?? '';
     }
     
     /**

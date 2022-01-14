@@ -22,11 +22,13 @@ class user
     private $password_code;
     private $password_code_time;
     private $telegram_id;
+    private $planning_id;
     
     private $userPorts = [];
     private $userLanguages = [];
     
-    public static $userLevel = array(1 => "Verkündiger", 2 => "BO Mitarbeiter", 5 => "BO Supervisor", 9 => "Administrator");
+    public static $userLevel = array(1 => "Verkündiger", 2 => "Foreign Port", 4 => "BO Mitarbeiter", 5 => "BO Supervisor", 9 => "Administrator");
+    public static $defaultPage = array(2 => "lookup", 4 => "index", 5 => "index", 9 => "index");
     
     /**
      * Konstructor
@@ -43,20 +45,13 @@ class user
     public static function addUser($data) {
         global $ports;
         
-        $pwd = "";
-        $pwd_hash = "";
-        
-        if($data['userLevel'] > 1) {
-            $bytes = openssl_random_pseudo_bytes(4);
-            $pwd = bin2hex($bytes);
-            $pwd_hash = password_hash($pwd, PASSWORD_DEFAULT);
-        }
+        $pwd = self::generateHashForRandPassword($data['userLevel']);
         
         $sqlstrg = "insert into port_bo_user
                         (username, secret, email, phone, first_name, surname, level)
                     values
                         (?, ?, ?, ?, ?, ?, ?)";
-        dbConnect::execute($sqlstrg, array($data['userUsername'], $pwd_hash, $data['userEmail'], $data['userPhone'], $data['userFirstName'], $data['userSurname'],
+        dbConnect::execute($sqlstrg, array($data['userUsername'], $pwd['pwdHash'], $data['userEmail'], $data['userPhone'], $data['userFirstName'], $data['userSurname'],
             $data['userLevel']));
         
         logger::writeLogCreate('settings', 'Neuer Benutzer angelegt: ' . $data['userFirstName'] . ' ' . $data['userSurname']);
@@ -75,11 +70,11 @@ class user
             }
         }
         
-        if(!empty($pwd) && isset($data['userSendInfo'])) {
+        if(!empty($pwd['pwd']) && isset($data['userSendInfo'])) {
             $mail = new sendMail();
             $mail->mail->addAddress($data['userEmail']);
             $mail->mail->Subject = "Dein Zugang zum Hafendienst-Backoffice";
-            $mail->applyTemplate('_welcomeMail', array("Vorname" => $data['userFirstName'], "Benutzername" => $data['userUsername'], "Passwort" => $pwd));
+            $mail->applyTemplate('_welcomeMail', array("Vorname" => $data['userFirstName'], "Benutzername" => $data['userUsername'], "Passwort" => $pwd['pwd']));
             
             $mail->mail->send();
         }
@@ -156,9 +151,26 @@ class user
             return 0;
         }
     }
+
+    /**
+     *  Function die dem Benutzer eine Einladungsmail mit Informationen zu seinem Benutzerkonto zuschickt
+     *  Dabei wird das Passwort des Benutzers zurückgesetzt.
+     */  
+    public function sendInvitationMail() {
+        $pwd = self::generateHashForRandPassword($this->level);
+        
+        dbConnect::execute("update port_bo_user set secret = ? where id = ?", Array($pwd['pwdHash'], $this->id));
+        
+        $mail = new sendMail();
+        $mail->mail->addAddress($this->email);
+        $mail->mail->Subject = "Dein Zugang zum Hafendienst-Backoffice";
+        $mail->applyTemplate('_welcomeMail', array("Vorname" => $this->first_name, "Benutzername" => $this->username, "Passwort" => $pwd['pwd']));
+        
+        $mail->mail->send();
+    }
     
     /**
-     * Static Function die dem Benutzer einen Link zum zurücksetzen des Passwortes zuschickt
+     *  Function die dem Benutzer einen Link zum zurücksetzen des Passwortes zuschickt
      */    
     public function sendResetPasswordLink() {
         $bytes = md5(time());
@@ -180,6 +192,16 @@ class user
         dbConnect::execute($sqlstrg, array(password_hash($newPassword, PASSWORD_DEFAULT), $this->id));
     }
     
+    public function setNewEmail($newMail) {
+        $sqlstrg = "update port_bo_user set email = ? where id = ?";
+        dbConnect::execute($sqlstrg, Array($newMail, $this->id));
+    }
+
+    public function setNewPhone($newPhone) {
+        $sqlstrg = "update port_bo_user set phone = ? where id = ?";
+        dbConnect::execute($sqlstrg, Array($newPhone, $this->id));
+    }
+    
     public function getLevelDescription() {
         return user::$userLevel[$this->getLevel()];
     }
@@ -187,17 +209,30 @@ class user
     public function userGetPorts() {
         $this->userPorts = dbConnect::fetchAll('select * from port_bo_userToPort where user_id = ?', userToPort::class, array($this->id));
     }
-    
-    private function userGetLanguages() {
-        $this->userLanguages = dbConnect::fetchAll('select * from port_bo_userToLanguage where user_id = ?', userToLanguage::class, array($this->id));
-    }
-    
+  
     public function userHasPort($portID) {
         return isset(array_column($this->userPorts, null, 'port_id')[$portID]);
     }
     
     public function userHasLanguage($languageID) {
         return isset(array_column($this->userLanguages, null, 'language_id')[$languageID]);
+    }
+
+    private static function generateHashForRandPassword($userLevel) {
+        $pwd = "";
+        $pwdHash = "";
+        
+        if($userLevel > 1) {
+            $bytes = openssl_random_pseudo_bytes(4);
+            $pwd = bin2hex($bytes);
+            $pwdHash = password_hash($pwd, PASSWORD_DEFAULT);
+        }
+        
+        return Array("pwd" => $pwd, "pwdHash" => $pwdHash);
+    }
+    
+    private function userGetLanguages() {
+        $this->userLanguages = dbConnect::fetchAll('select * from port_bo_userToLanguage where user_id = ?', userToLanguage::class, array($this->id));
     }
     
     private function addUserToPort($portID) {
@@ -286,6 +321,9 @@ class user
     }
     public function getTelegramID() {
         return $this->telegram_id;
+    }
+    public function getPlanningID() {
+        return $this->planning_id;
     }
 }
 

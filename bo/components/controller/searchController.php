@@ -15,8 +15,19 @@ switch ($_GET['type']) {
                      where name like ? 
                         or IMO like ? 
                         or ENI like ? 
+                        or MMSI like ?
                      order by ts_erf desc limit 20";
-        $parameter = array($searchExpression1, $searchExpression2, $searchExpression2);
+        $parameter = array($searchExpression1, $searchExpression2, $searchExpression2, $searchExpression2);
+        break;        
+    case 'vesselLookup':
+        $sqlstrg = "select *
+                      from port_bo_vessel
+                     where name like ?
+                        or IMO like ?
+                        or ENI like ?
+                        or MMSI like ?
+                     order by ts_erf desc limit 10";
+        $parameter = array($searchExpression1, $searchExpression2, $searchExpression2, $searchExpression2);
         break;
     case 'userForContact':
         $sqlstrg = "select * from port_bo_user where first_name like ? or surname like ? limit 10";
@@ -38,6 +49,11 @@ switch ($_GET['type']) {
     case 'vessel':
         while($row = $result->fetch()) {?>
 	    <div class="searchResultRow"><a onClick="vessel.openDetails(<?php echo $row['id']; ?>)"><?php echo $row['name']; ?></a></div>
+		<?php }
+        break;
+    case 'vesselLookup':
+        while($row = $result->fetch()) {?>
+	    <div class="searchResultRow"><a onClick="lookup.openDetails(<?php echo $row['id']; ?>)"><?php echo $row['name']; ?></a></div>
 		<?php }
         break;
     case 'userForContact':

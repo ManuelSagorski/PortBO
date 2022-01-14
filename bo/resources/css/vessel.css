@@ -21,6 +21,8 @@
 .openContactRow:nth-child(even) { background-color: #E0ECF8; }
 .openContactRow a { text-decoration: none; color:inherit; font-size: 10pt; }
 
+.openContactRowHeader { margin-top: 5px; text-align: center; border-bottom-style: solid; border-bottom-width: 1px; border-color: #6E6E6E; }
+
 #searchInputVessel { max-width: 150px; }
 
 #vesselForecast { margin-top: 10px; }
@@ -29,3 +31,12 @@
 
 .addForecast input { padding: 1px; font-size: 100%; width: 100%; }
 .addForecast button { padding: 5px !important; margin: 0px !important; }
+
+.forecastDisabled { color: #BDBDBD; }
+
+@media only screen and (max-width: 600px) {
+	#searchInputVessel { max-width: 100%; }
+	#mainColLeft .ui.action.input { width: 100%; }
+	
+	.mainCol { min-height: auto !important; }
+}

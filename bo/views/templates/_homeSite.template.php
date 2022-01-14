@@ -25,6 +25,7 @@
 		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 		<link rel="stylesheet" type="text/css" href="../resources/css/libraries/semantic.min.css" />
 		<link rel="stylesheet" type="text/css" href="../resources/css/libraries/icon.min.css" />
+		<link rel="stylesheet" type="text/css" href="../resources/css/libraries/flag.min.css" />
 		<link rel="stylesheet" type="text/css" href="../resources/css/global.css" />
 		<link rel="stylesheet" type="text/css" href="../resources/css/home.css" />
 		<link rel="stylesheet" type="text/css" href="../resources/css/vessel.css" />
@@ -45,8 +46,16 @@
     				<div class="navElement"><a href="vessel">Schiffe</a></div>
     				<div class="navElement"><a href="agency">Agenten</a></div>
     				<div class="navElement"><a href="port">Häfen</a></div>
-    				<?php if($user->getLevel() >= 8) {?> <div class="navElement"><a href="settings">Einstellungen</a></div> <?php } ?>
-    				<div class="navElement"><a href="logout">Logout</a></div>
+					<div class="navElement"><a href="profile" title="Profile"><i class="user icon" href="profile"></i></a></div>
+					<?php if($user->getPlanningID() > 0) {?>
+					<div class="navElement">
+						<a class="item" href="https://portbo.xn--zg-eka.de/index.php?id=<?php echo $user->getPlanningID(); ?>" target="_blank">
+							<i class="calendar alternate outline icon" href="https://portbo.xn--zg-eka.de/index.php?id=<?php echo $user->getPlanningID(); ?>" target="_blank"></i>
+						</a>
+					</div>
+					<?php } ?>
+    				<?php if($user->getLevel() >= 8) {?> <div class="navElement"><a href="settings" title="Settings"><i class="cogs icon" href="settings"></i></a></div> <?php } ?>
+    				<div class="navElement"><a href="logout" title="Logout" class="item"><i class="power off icon" href="logout"></i></a></div>
     			</div>
     			<div id="title"><h1>Backoffice Hafendienst Norddeutschland</h1></div>
     		</div>
@@ -71,6 +80,5 @@
 
 
 		<!-- <script data-main="res/js/telegramMessaging" src="res/js/require.js"></script> -->
-		<!-- <script src="res/boFunction.js"></script> -->
 	</body>
 </html>

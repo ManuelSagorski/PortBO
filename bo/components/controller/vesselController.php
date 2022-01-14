@@ -8,6 +8,7 @@ use bo\components\classes\vesselContact;
 use bo\components\classes\vesselContactDetails;
 use bo\components\types\vesselTypes;
 use bo\components\classes\forecast;
+use bo\components\classes\lookup;
 
 include '../config.php';
 
@@ -75,6 +76,22 @@ switch($_POST['type']) {
         
     case("forecastItemDone"):
         forecast::forecastItemDone($_POST['id']);
+        break;
+
+    case("forecastItemReopen"):
+        forecast::forecastItemReopen($_POST['id']);
+        break;
+
+    case("forecastItemRemove"):
+        forecast::forecastItemRemove($_POST['id']);
+        break;
+        
+    case("addForecast"):
+        forecast::addForecast($_POST['data']);
+        break;
+        
+    case("lookupRequestInformation"):
+        lookup::lookupRequestInformation($_POST['id']);
         break;
 }
 

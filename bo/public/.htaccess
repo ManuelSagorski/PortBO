@@ -3,4 +3,5 @@ RewriteEngine On
 RewriteBase /
 
 RewriteCond %{REQUEST_URI} !^/bo/public/(index\.php)?$ [NC]
+RewriteCond %{REQUEST_URI} !^/bo/public/(lookup\.php)?$ [NC]
 RewriteRule ^.*$ /bo/public/index.php [L,R=301]

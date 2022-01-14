@@ -3,11 +3,17 @@ define(function() {
 	/*
 	 *	Klasse formValidate - Funktionen zur Validierung von Formularen
 	 */
-	var FormValidate = function(formData) {
+	var FormValidate = function(formData, formID) {
 		var constructor, that = {}, my = {};
 	
-		constructor = function(formData) {
-			my.formData = formData;
+		constructor = function(formData, formID) {
+			if(formData) {
+				my.formData = formData;				
+			}
+			if(formID) {
+				my.formID = formID;
+				my.formData = $('#' + formID).serializeArray();
+			}
 			return that;
 		}
 		
@@ -85,12 +91,15 @@ define(function() {
 		 */		
 		that.clearAllError = function() {
 			$('[id^=input_]').removeClass("error");
-			$('#errorMessage').html(null);
-			$('#errorMessage').parent().parent().removeClass("error");
+			
+			$('form').each(function() {
+				$(this).find('#errorMessage').html(null);
+				$(this).removeClass("error");
+			});
 		}
 
 		/*
-		 *	Setzt auf die übergebenen Felderr eine Error Markierung
+		 *	Setzt auf die übergebenen Felder eine Error Markierung
 		 */			
 		that.setError = function(fields) {
 			fields.forEach(field => $('#input_' + field).addClass("error"));
@@ -100,8 +109,30 @@ define(function() {
 		 *	Setzt für das Formular eine Fehlermeldung
 		 */			
 		that.setErrorMessage = function(message) {
-			$('#errorMessage').html(message);
-			$('#errorMessage').parent().parent().addClass("error");
+			if(my.formID) {
+				$('#' + my.formID).find('#errorMessage').html(message);
+				$('#' + my.formID).addClass("error");
+			}else {
+				$('#errorMessage').html(message);
+				$('#errorMessage').parent().parent().addClass("error");
+			}
+		}
+
+		/*
+		 *	Setzt für das Formular eine Success Meldung
+		 */			
+		that.setSuccessMessage = function(message) {
+			if(my.formID) {
+				if(message) {
+					$('#' + my.formID).find('#successMessage').html(message);
+				}
+				$('#' + my.formID).addClass("success");
+			}else {
+				if(message) {
+					$('#successMessage').html(message);
+				}
+				$('#errorMessage').parent().parent().addClass("success");
+			}
 		}
 
 		/*
@@ -140,7 +171,30 @@ define(function() {
 			return returnValue;
 		}
 
-		return constructor.call(null, formData);
+		/*
+		 *	Überprüft das zwei Felder den gleichen Inhalt haben (Passwortänderung)
+		 */
+		that.fieldsEqual = function() {
+			if(my.formData.filter(p => p.name == 'secretNew1')[0].value != my.formData.filter(p => p.name == 'secretNew2')[0].value) {
+				that.setError(['secretNew1', 'secretNew2']);
+				that.setErrorMessage('Die eingegebenen Passwörter stimmen nicht überein.');
+				
+				return false;
+			}
+			else {
+				return true;
+			}
+		}
+
+		/*
+		 *	Überprüft das in einem Feld eine valide Email Adresse eingegeben wurde
+		 */
+		that.fieldEmail = function(field) {
+			return String(my.formData.filter(p => p.name == field)[0].value).toLowerCase()
+				.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/);
+		}
+
+		return constructor.call(null, formData, formID);
 	}
 
 	return FormValidate;

@@ -21,6 +21,11 @@ require(['classes/Settings'], function() {
 	settings = new Settings();
 });
 
+require(['classes/Profile'], function() {
+	Profile = require('classes/Profile');
+	profile = new Profile();
+});
+
 require(['classes/Vessel'], function() {
 	Vessel = require('classes/Vessel');
 	vessel = new Vessel();
@@ -33,6 +38,8 @@ var router = new Router({
     mode: 'history',
 	root: '/bo/public/',
     page404: function (path) {
+		alert(path);
+	
         console.log('"/' + path + '" Page not found');
     }
 });
@@ -50,6 +57,10 @@ router.add('port', function () {
     portC.open();
 });
 
+router.add('profile', function () {
+    profile.open();
+});
+
 router.add('settings', function () {
     settings.open();
 });
@@ -60,11 +71,13 @@ router.add('logout', function () {
 
 
 router.addUriListener();
-$('a').on('click', (event) => {
-	event.preventDefault();
+$('a').on('click', (event) => {	
 	const target = $(event.target);
 	const path = target.attr('href');
-	router.navigateTo(path);
+	if(target.attr('target') != '_blank') {
+		event.preventDefault();
+		router.navigateTo(path);
+	}
 });
 
 function prepareCol(col, newClass) {

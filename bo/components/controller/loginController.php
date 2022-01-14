@@ -34,6 +34,7 @@ class loginController
         else {
             If (password_verify($passwort, $user->getSecret())) {
                 $_SESSION['user'] = $user->getId();
+                $_SESSION['userLevel'] = $user->getLevel();
                 logger::writeLogInfo('login', 'Login erfolgreich');
                 return true;
             }

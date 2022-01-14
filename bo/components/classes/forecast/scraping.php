@@ -62,9 +62,10 @@ class scraping
 
             $parameter = [];
             
-            $sqlstrg = "select * from port_bo_scedule where name = ? and DATE(arriving) = ?";
+            $sqlstrg = "select * from port_bo_scedule where name = ? and DATE(arriving) = ? and port_id = ?";
             $parameter[] = $vessel['name'];
             $parameter[] = $arrival->format('Y-m-d');
+            $parameter[] = $vessel['port'];
             if(!empty($vessel['company'])) {
                 $sqlstrg .= " and (company = ? or company = '')";
                 $parameter[] = $vessel['company'];
@@ -77,6 +78,7 @@ class scraping
                 $parameter = [];
                 
                 $sqlstrg = "update port_bo_scedule set arriving = ?{{updateValues}} where id = ?";
+
                 $parameter[] = $arrival->format('Y-m-d H:i:s');
                 
                 $updateValues = '';
@@ -97,7 +99,8 @@ class scraping
                 dbConnect::execute(str_replace('{{updateValues}}', $updateValues, $sqlstrg), $parameter);
             }
             else {
-                $sqlstrg = "insert into port_bo_scedule (arriving, leaving, name, imo, company, agency, port_id) values (?, ?, ?, ?, ?, ?, ?)";                
+                $sqlstrg = "insert into port_bo_scedule (arriving, leaving, name, imo, company, agency, port_id) values (?, ?, ?, ?, ?, ?, ?)";
+
                 dbConnect::execute($sqlstrg, Array(
                     $arrival->format('Y-m-d H:i:s'), 
                     $departure, 
@@ -112,8 +115,8 @@ class scraping
     }
     
     private function cleanDB() {
-        dbConnect::execute("delete from port_bo_scedule where leaving < CURDATE()", Array());
-        dbConnect::execute("delete from port_bo_scedule where arriving < CURDATE() and status = 1", Array());
+        dbConnect::execute("delete from port_bo_scedule where leaving < CURDATE() and arriving <> '0000-00-00 00:00:00'", Array());
+        dbConnect::execute("delete from port_bo_scedule where arriving < CURDATE() and status = 1 and arriving <> '0000-00-00 00:00:00'", Array());
     }
 }
 

@@ -1,6 +1,8 @@
 <?php
 namespace bo\components\classes;
 
+use bo\components\classes\dbConnect;
+
 class forecast
 {
     private $id;
@@ -14,24 +16,53 @@ class forecast
     private $status;
     
     public $hasMail = false;
+    public $inDry = false;
     public $vessel;
     
     public function __construct() {
-        $mail = dbConnect::execute("select v.*
-                                      from port_bo_vessel v right join port_bo_vesselContactDetails vcd on v.id = vcd.vessel_id
-                                     where UPPER(v.name) = ?
-                                       and vcd.type = 'Email'", Array(strtoupper($this->name)));
+        $sqlstrgMail = "select * from port_bo_vessel v right join port_bo_vesselContactDetails vcd on v.id = vcd.vessel_id where vcd.type = 'Email' and ";
+        $sqlstrgVessel = "select * from port_bo_vessel v where ";
+        $sqlstrgDry = "select * from port_bo_dry v where ";
+        
+        if(!empty($this->imo)) {
+            $condition = "v.imo = ?";
+            $param = Array($this->imo);
+        }
+        else {
+            $condition = "UPPER(v.name) = ?";
+            $param = Array(strtoupper($this->name));
+        }        
+        
+        $mail = dbConnect::execute($sqlstrgMail . $condition, $param);        
         if($mail->rowCount() > 0) {
             $this->hasMail = true;
         }
 
-        $this->vessel = dbConnect::fetchSingle("select * from port_bo_vessel v where UPPER(name) = ?", vessel::class, Array(strtoupper($this->name)));
+        $dry = dbConnect::execute($sqlstrgDry . $condition, $param);
+        if($dry->rowCount() > 0) {
+            $this->inDry = true;
+        }
+        
+        $this->vessel = dbConnect::fetchSingle($sqlstrgVessel . $condition, vessel::class, $param);
     }
     
     public static function forecastItemDone($id) {
         dbConnect::execute("update port_bo_scedule set status = 1 where id = ?", Array($id));
     }
+
+    public static function forecastItemReopen($id) {
+        dbConnect::execute("update port_bo_scedule set status = 0 where id = ?", Array($id));
+    }
+
     
+    public static function forecastItemRemove($id) {
+        dbConnect::execute("delete from port_bo_scedule where id = ?", Array($id));
+    }
+    
+    public static function addForecast($data) {
+        $sqlstrg = "insert into port_bo_scedule (arriving, name, company, agency, port_id) values (?, ?, ?, ?, ?)";
+        dbConnect::execute($sqlstrg, Array($data['eta'], $data['name'], $data['terminal'], $data['agency'], $data['portID']));
+    }
     /*
      Getter und Setter
      */

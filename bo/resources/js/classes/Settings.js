@@ -6,6 +6,8 @@ define(function() {
 	var Settings = function() {
 		var constructor, that = {}, my = {};
 	
+		my.CONTROLLER = '../components/controller/userController.php';
+	
 		constructor = function() {
 			return that;
 		}
@@ -28,9 +30,16 @@ define(function() {
 		/*
 		 *	Öffnet die Unterseiten der Einstellungen
 		 */		
-		that.openDetails = function(type) {
+		that.openDetails = function(type, element) {
 			$.get('../views/settings/' + type + '.view.php', function(data) {
 				$('#mainColMiddle').html(data);
+				$('.searchResultRow').removeClass('active');
+				if(element) {
+					$(element).parent().addClass('active');
+				}
+				else {
+					$('.searchResultRow').first().addClass('active');
+				}
 			});			
 		}
 
@@ -57,10 +66,18 @@ define(function() {
 			event.preventDefault();
 			newUserValidate = new FormValidate($('#addUser').serializeArray());
 			
-			if(falseFields = newUserValidate.fieldsNotEmpty(Array('userFirstName', 'userSurname', 'userPhone', 'userEmail'))) {
+			if(falseFields = newUserValidate.fieldsNotEmpty(Array('userFirstName', 'userSurname', 'userEmail'))) {
 				formValidate.setError(falseFields);
 				formValidate.setErrorMessage('Bitte alle Pflichtfelder ausfüllen.');
 				return;
+			}
+	
+			if(parseInt(newUserValidate.getFormData().userLevel) != 2) {
+				if(falseFields = newUserValidate.fieldsNotEmpty(Array('userPhone'))) {
+					formValidate.setError(falseFields);
+					formValidate.setErrorMessage('Bei einem Benutzerlevel ungleich "Foreign Port" muss eine Handynummer angegeben werden.');
+					return;
+				}				
 			}
 		
 			if(parseInt(newUserValidate.getFormData().userLevel) > 1) {
@@ -75,10 +92,46 @@ define(function() {
 			data.userLanguages = $("#userLanguage").dropdown("get value");
 			data.userPorts = $("#userPort").dropdown("get value");
 			
-			$.post('../components/controller/userController.php', {type: 'addUser', id: userID, data: data}, 
+			$.post(my.CONTROLLER, {type: 'addUser', id: userID, data: data}, 
 				function() {
 					that.openDetails('users');
 					closeWindow();
+				});
+		}
+
+		/*
+		 *	Schickt an einen Benutzer erneut eine Einladungsmail
+		 */			
+		that.sendInvitationMail = function(userID) {
+			event.preventDefault();
+			
+			if(!confirm("Möchtest wirklich eine neue Einladungsmail verschicken? Das Passwort des Benutzers wird dabei zurückgesetzt.")) {
+				return;
+			}
+			
+			$.post(my.CONTROLLER, {type: 'sendInvitationMail', id: userID}, 
+				function() {
+					that.openDetails('users');
+					closeWindow();
+				});
+		}
+		
+		/*
+		 *	Lädt die Statstiken
+		 */		
+		that.getStatistics = function() {
+			event.preventDefault();
+			dateForm = new FormValidate($('#statisticsDate').serializeArray());
+			data = dateForm.getFormData();
+			
+			/*
+			$.get('../views/settings/statisticsContend.view.php?startDate=' + dateForm.getFormData().dateFrom + '&endDate=' + dateForm.getFormData().dateTo, function(data) {
+					$('#statisticsContend').html(data);
+				});
+			*/
+			$.post('../views/settings/statisticsContend.view.php', {data: data}, 
+				function(data) {
+					$('#statisticsContend').html(data);
 				});
 		}
 		

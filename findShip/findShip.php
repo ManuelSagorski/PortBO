@@ -6,6 +6,7 @@ use bo\components\classes\forecast\portTicker;
 use bo\components\classes\forecast\hhla;
 use bo\components\classes\forecast\unikai;
 use bo\components\classes\forecast\fleetmon;
+use bo\components\classes\forecast\shipnext;
 
 $independent = true;
 include '../bo/components/config.php';
@@ -20,7 +21,6 @@ if($eurogate->getForecast()) {
     }
     echo "</table>";
 }
-
 
 $portTicker = new portTicker();
 $portTicker->getForecast();
@@ -58,6 +58,15 @@ $fleetmon->getForecast();
 echo "<table>";
 foreach ($fleetmon->expectedVessels as $vessel) {
     echo "<tr><td>" . $vessel['arrivalDate'] . "</td><td>" . $vessel['name'] . "</td><td>" . $vessel['imo'] . "</td><td>" . $vessel['company'] . "</td></tr>";
+}
+echo "</table>";
+
+$shipnext = new shipnext();
+$shipnext->getForecast();
+
+echo "<table>";
+foreach ($shipnext->expectedVessels as $vessel) {
+    echo "<tr><td>" . $vessel['arrivalDate'] . "</td><td>" . $vessel['name'] . "</td><td>" . $vessel['imo'] . "</td></tr>";
 }
 echo "</table>";
 ?>

@@ -2,6 +2,7 @@
 namespace bo\components\controller;
 
 use bo\components\classes\user;
+use bo\components\classes\dbConnect;
 
 include '../config.php';
 
@@ -13,6 +14,23 @@ switch($_POST['type']) {
         else {
             user::editUser($_POST['data'], $_POST['id']);
         }
+        break;
+
+    case("sendInvitationMail"):
+        $userToEdit = dbConnect::fetchSingle("select * from port_bo_user where id = ?", user::class, Array($_POST['id']));
+        $userToEdit->sendInvitationMail();
+        break;
+        
+    case("userChangePassword"):
+        $user->setNewPassword($_POST['data']['secretNew1']);
+        break;
+        
+    case("userChangeMail"):
+        $user->setNewEmail($_POST['data']['emailNew']);
+        break;
+        
+    case("userChangePhone"):
+        $user->setNewPhone($_POST['data']['phoneNew']);
         break;
 }
 

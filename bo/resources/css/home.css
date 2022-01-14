@@ -15,6 +15,7 @@
 #nav {float: right; }
 #nav a { display: block; padding: 10px; background-color:#93b4d5; color: #000000; }
 #nav a:hover { background-color: #102850; color: #ffffff; }
+#nav i { margin: 0px !important; }
 .navElement { float: left; margin: 0px 5px 0px 0px; }
 .navElement.active { padding: 1px; background-color: #193E7A; color: #ffffff; box-shadow: 0px 2px 3px #56386b; }
 .navElement.active:hover { background-color: #3F5B87; color: #ffffff; }
@@ -34,6 +35,10 @@
 .infoCol { flex: 1; }
 .notNeededCol { display: none; }
 
+@media only screen and (max-width: 600px) {
+	.mainCol { flex: 1 100% !important; }
+}
+
 /*****************************/
 /*      Overlay Window       */
 /*****************************/
@@ -45,6 +50,10 @@
 .windowHead .close:hover { cursor: pointer; }
 .windowBody { clear: both; background-color: white; padding: 5px; }
 
+@media only screen and (max-width: 600px) {
+	#window { top: 100px; left: auto; left: 5%; width: 90%; }
+}
+
 /*****************************/
 /*           Suche           */
 /*****************************/
@@ -53,7 +62,7 @@
 .searchResultRow a { display: block; }
 .searchResultRow:nth-child(even) { background-color: #E0ECF8; }
 
-.searchResultRow:hover { padding: 2px 2px 2px 10px; border: 1px solid #BDBDBD; }
+.searchResultRow:hover { padding: 3px 3px 3px 10px; }
 
 /*****************************/
 /*         Suggester         */
@@ -68,3 +77,20 @@
 /**********************************************************/
 
 .userLanguage { float: left; margin-right: 10px; }
+
+
+/**********************************************************/
+/*                      Seite Profile                     */
+/**********************************************************/
+.profile .segment { height: 100%; }
+
+
+/**********************************************************/
+/*                     Seite Settings                     */
+/**********************************************************/
+#statisticsContend { margin-top: 20px; }
+.searchResultRow.active { border-left-width: 2px; border-style: solid; border-color: red; }
+
+@media only screen and (max-width: 600px) {
+	#homeWrapper { margin: 30px 5px 10px 5px; }
+}

@@ -21,7 +21,10 @@ class languages
         9 => "arabisch",
         10 => "hindi",
         11 => "rumänisch",
-        12 => "bulgarisch"
+        12 => "bulgarisch",
+        13 => "französisch",
+        14 => "spanisch",
+        15 => "türkisch"
     );
 }
 

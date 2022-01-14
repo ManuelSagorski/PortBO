@@ -12,20 +12,22 @@ if(isset($_GET['id'])) {
 }
 $editMode = !empty($vessel);
 
+$searchValue = trim($_GET['searchValue']);
+
 $imo = '';
 $mmsi = '';
 $name = '';
 
-if(!empty($_GET['searchValue']) && is_numeric($_GET['searchValue'])) {
-    if(strlen($_GET['searchValue']) == 7) {
-        $imo = $_GET['searchValue'];
+if(!empty($searchValue) && is_numeric($searchValue)) {
+    if(strlen($searchValue) == 7) {
+        $imo = $searchValue;
     }
-    if(strlen($_GET['searchValue']) == 9) {
-        $mmsi = $_GET['searchValue'];
+    if(strlen($searchValue) == 9) {
+        $mmsi = $searchValue;
     }
 }
-if(!empty($_GET['searchValue']) && !is_numeric($_GET['searchValue'])) {
-    $name = $_GET['searchValue'];
+if(!empty($searchValue) && !is_numeric($searchValue)) {
+    $name = $searchValue;
 }
 ?>
 
@@ -37,7 +39,7 @@ if(!empty($_GET['searchValue']) && !is_numeric($_GET['searchValue'])) {
   	
     <div id="infoMessage" class="ui info message">
     	<i class="close icon" onClick="$('#infoMessage').hide();"></i>
-    	Für ein neues Schiff muss mindestens ein Name und eine IMO oder eine ENI angegeben werden.
+    	Zum Speichern eines neuen Schiffes muss mindestens ein Name und eine IMO oder eine ENI angegeben werden.
     </div>
 
     <div class="ui error message">

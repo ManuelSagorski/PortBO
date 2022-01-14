@@ -11,6 +11,8 @@ body, html, div, blockquote, img, label, p, h1, h2, h3, h4, h5, h6, pre, ul, ol,
 li, dl, dt, dd, form, a, fieldset, input, th, td
 { margin: 0; padding: 0; border: 0; outline: none; }
 
+body, html { height: auto !important; }
+
 h1 { font-size: 24px; margin: 15px 0px !important; }
 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; }
 input[type=number] { -moz-appearance: textfield; }
@@ -57,3 +59,13 @@ button:hover { box-shadow: 0px 0px 3px #56386b; }
 
 .detailTable { margin-bottom: 0px !important; }
 .detailTable th { padding: 7px !important; }
+
+@media only screen and (max-width: 600px) {
+	h1 { font-size: 20px; }
+	
+	.elemDetail { padding: 5px; }
+	.elemDetail.vessel { grid-template-columns: 80px 1fr 2fr; }
+	.elemDetailIcon { grid-row-start: 1; grid-row-end: 7; }
+	.elemDetailName { grid-column-start: 3; grid-column-end: 4; }
+	.elemDetailLanguages { grid-column-start: 3; grid-column-end: 4; }
+}

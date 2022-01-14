@@ -41,9 +41,12 @@ define(function() {
 		/*
 		 *	Lädt den Forecast
 		 */		
-		that.getForecast = function() {
+		that.getForecast = function(accordionID) {
 			$.get(my.FORECAST_VIEW, function(data) {
 				$('#vesselForecast').html(data);
+				if(accordionID) {
+					$('.ui.accordion').accordion('open', parseInt(accordionID));
+				}
 			});			
 		}
 
@@ -56,8 +59,37 @@ define(function() {
 					id: id
 				}, 
 				function() {
-					$(that).closest("tr").addClass('disabled');
+					$(that).closest("tr").addClass('forecastDisabled');
+					$(that).closest("td").append('<a onClick="vessel.forecastItemReopen(' + id + ', this);"><i class="undo icon"></i></a>');
 					$(that).remove();
+				});			
+		}
+
+		/*
+		 *	Öffnet eine Forecast Position
+		 */			
+		that.forecastItemReopen = function(id, that) {
+			$.post(my.CONTROLLER, {
+					type: 'forecastItemReopen', 
+					id: id
+				}, 
+				function() {
+					$(that).closest("tr").removeClass('forecastDisabled');
+					$(that).closest("td").append('<a onClick="vessel.forecastItemDone(' + id + ', this);"><i class="check icon"></i></a>');
+					$(that).remove();
+				});			
+		}
+
+		/*
+		 *	Löscht eine Forecast Position
+		 */			
+		that.forecastItemRemove = function(id, that) {
+			$.post(my.CONTROLLER, {
+					type: 'forecastItemRemove', 
+					id: id
+				}, 
+				function() {
+					$(that).closest("tr").remove();
 				});			
 		}
 		
@@ -76,6 +108,7 @@ define(function() {
 		that.openDetails = function(id) {
 			$.get(my.DETAILS_VIEW + 'id=' + id, function(data) {
 				$('#mainColMiddle').html(data);
+				$('#mainColMiddle').get(0).scrollIntoView();
 			});			
 		}
 
@@ -312,6 +345,10 @@ define(function() {
 						function() {
 							closeWindow();
 							that.openDetails(vesselID);
+							
+							$.get(my.OPEN_CONTACTS_VIEW, function(data) {
+								$('#mainColRight').html(data);
+							});							
 						});	
 				}
 			}
@@ -389,24 +426,18 @@ define(function() {
 			event.preventDefault();
 			newForecastValidate = new FormValidate($('#' + formID).serializeArray());
 
-			if(falseFields = newForecastValidate.fieldsNotEmpty(Array('eta', 'name'))) {
-				formValidate.setError(falseFields);
+			if(falseFields = newForecastValidate.fieldsNotEmpty(Array('name'))) {
+				alert('Bitte einen Namen eingeben.');
 				return;
 			}
 			
-			
-			//alert(formID);
-			
-			/*
-			event.preventDefault();
-			newForecastValidate = new FormValidate($('#addUser').serializeArray());
-			
-			if(falseFields = newUserValidate.fieldsNotEmpty(Array('userFirstName', 'userSurname', 'userPhone', 'userEmail'))) {
-				formValidate.setError(falseFields);
-				formValidate.setErrorMessage('Bitte alle Pflichtfelder ausfüllen.');
-				return;
-			}
-			*/
+			$.post(my.CONTROLLER, {
+					type: "addForecast", 
+					data: newForecastValidate.getFormData()
+				},
+				function(data) {
+					that.getForecast(newForecastValidate.getFormData().accordionID);				
+				});
 		}
 		
 		return constructor.call(null);
