@@ -1,0 +1,8 @@
+#homeWrapper { max-width: 700px !important; }
+.mainCol { min-height: 400px; }
+.lookupSearchCol { flex-basis: 180px; }
+#requestInfo { text-align: right; margin-top: 20px;}
+#detailEmpty { font-size: 12pt; }
+
+.lookupTable .check.icon { color: #04B431; font-weight: bold; }
+.lookupTable .thumbs.down.outline.icon { color: #DF0101; font-weight: bold; }
