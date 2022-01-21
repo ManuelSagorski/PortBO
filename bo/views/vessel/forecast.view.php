@@ -45,7 +45,7 @@ foreach($forecast as $expectedVessel) {
         $arrivingDay = $tmpDay->format('Y-m-d');
     ?>
     				<tr class="positive">
-    					<td colspan="10"><?php echo $tmpDay->format('Y-m-d'); ?></td>
+    					<td colspan="9"><?php echo $tmpDay->format('Y-m-d'); ?></td>
     				</tr>
     <?php    
     }
@@ -55,8 +55,11 @@ foreach($forecast as $expectedVessel) {
             			<td data-label="leaving"><?php echo $expectedVessel->getLeaving(); ?></td>
             			<td data-label="name" title="<?php echo $expectedVessel->getName(); ?>"><?php echo $expectedVessel->getName(); ?></td>
         				<td data-label="inSystem" class="center aligned"><?php echo (!empty($expectedVessel->vessel))?'<a onClick="vessel.openDetails(' . $expectedVessel->vessel->getID() . ');"><i class="address card outline icon"></i></a>':''; ?></td>
-            			<td data-label="email" class="center aligned"><?php echo ($expectedVessel->hasMail)?'<i class="envelope outline icon"></i>':''; ?></td>
-            			<td data-label="dry" class="center aligned"><?php echo ($expectedVessel->inDry)?'<i class="gb uk flag"></i>':''; ?></td>
+            			<td data-label="email" class="center aligned">
+            				<?php echo ($expectedVessel->hasMail)?'<i class="envelope outline icon"></i>':''; ?>
+            				<?php echo ($expectedVessel->inDry)?'<i class="gb uk flag"></i>':''; ?>
+            				<?php echo ($expectedVessel->expectMail)?'<i class="question circle outline icon"></i>':''; ?>
+            			</td>
             			<td data-label="company"><?php echo $expectedVessel->getCompany(); ?></td>
             			<td data-label="agency" title="<?php echo $expectedVessel->getAgency(); ?>"><?php echo $expectedVessel->getAgency(); ?></td>
             			<td data-label="done" class="center aligned">
@@ -75,7 +78,7 @@ foreach($forecast as $expectedVessel) {
 						<td><div id="input_eta" class="field"><input type="date" name="eta" id="eta"></div></td>
 						<td><input type="date" name="etd" id="etd"></td>
 						<td><div id="input_name" class="field"><input type="text" name="name" id="name"></div></td>
-						<td colspan="3">
+						<td colspan="2">
 							<input type="hidden" name="portID" value="<?php echo $userPorts->getPortID(); ?>">
 							<input type="hidden" name="accordionID" value="<?php echo $key; ?>">
 						</td>

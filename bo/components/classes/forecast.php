@@ -15,7 +15,10 @@ class forecast
     private $port_id;
     private $status;
     
+    private $companysExpectMail = Array("essberger", "stolt", "maersk", "federal", "naree");
+    
     public $hasMail = false;
+    public $expectMail = false;
     public $inDry = false;
     public $vessel;
     
@@ -37,13 +40,22 @@ class forecast
         if($mail->rowCount() > 0) {
             $this->hasMail = true;
         }
-
-        $dry = dbConnect::execute($sqlstrgDry . $condition, $param);
-        if($dry->rowCount() > 0) {
-            $this->inDry = true;
+        else {
+            $dry = dbConnect::execute($sqlstrgDry . $condition, $param);
+            if($dry->rowCount() > 0) {
+                $this->inDry = true;
+            }
         }
         
         $this->vessel = dbConnect::fetchSingle($sqlstrgVessel . $condition, vessel::class, $param);
+        
+        if(!$this->hasMail and !$this->inDry) {
+            foreach($this->companysExpectMail as $company) {
+                if(is_numeric(stripos($this->name, $company))) {
+                    $this->expectMail = true;
+                }
+            }
+        }
     }
     
     public static function forecastItemDone($id) {

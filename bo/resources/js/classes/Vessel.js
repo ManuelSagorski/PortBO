@@ -119,7 +119,8 @@ define(function() {
 		that.openDetails = function(id) {
 			$.get(my.DETAILS_VIEW + 'id=' + id, function(data) {
 				$('#mainColMiddle').html(data);
-				$('#mainColMiddle').get(0).scrollIntoView();
+				$(window).scrollTop(0);
+				//$('#mainColMiddle').get(0).scrollIntoView();
 			});			
 		}
 
