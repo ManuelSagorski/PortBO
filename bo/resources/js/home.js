@@ -13,6 +13,7 @@ function showWindow() {
 function closeWindow() {
 	$('#windowBody').html('');
 	$('#window').hide();
+	$('#window').css("width", 500);
 }
 
 $( function() {

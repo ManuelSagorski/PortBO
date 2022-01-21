@@ -125,4 +125,7 @@ if(isset($_GET['contactID'])) {
 
 <script>
 $("#addVesselContact").submit(function(event){ vessel.addVesselContact(<?php echo $_GET['vesselID']; ?>, <?php echo (!empty($contact))?$contact->getId():'null'; ?>);});
+if($("#contactAgent").val() != "") {
+	selectSuggested('agent', $("#contactAgent").val());
+}
 </script>

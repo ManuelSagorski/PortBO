@@ -16,6 +16,7 @@ class vesselContact
     private $planned;
     
     private $inputData;
+    private $vesselContactMail = [];
     
     public function __construct($data = null) {
         if(!empty($data)) {
@@ -34,6 +35,9 @@ class vesselContact
                     $this->planned  = 1; }
                     
                     $this->inputData = $data;
+        }
+        else {
+            $this->vesselContactMail = dbConnect::fetchAll("select * from port_bo_vesselContactMail where contact_id = ?", vesselContactMail::class, Array($this->id));
         }
     }
     
@@ -151,6 +155,9 @@ class vesselContact
     }
     public function getPlanned() {
         return $this->planned;
+    }
+    public function getVesselContactMail() {
+        return $this->vesselContactMail;
     }  
 }
 

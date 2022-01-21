@@ -16,7 +16,7 @@ $users = dbConnect::fetchAll('select * from port_bo_user', user::class, array())
 <table class="detailTable ui very compact celled striped table">
 	<thead>
 		<tr>
-			<th colspan="6">Angemeldete Verkündiger</th>
+			<th colspan="7">Angemeldete Verkündiger</th>
 		</tr>
 	</thead>
     <tbody>
@@ -25,12 +25,13 @@ $users = dbConnect::fetchAll('select * from port_bo_user', user::class, array())
 			<td data-label="select"><input type="radio" name="selectUser" value="<?php echo $user->getID(); ?>"></td>
 			<td data-label="userFullName"><?php echo $user->getFirstName() . " " . $user->getSurname(); ?></td>			
 			<td data-label="userEmail"><?php echo $user->getEmail(); ?></td>
-			<td data-label="userPhone">
-			<?php echo $user->getPhone(); ?>
-			<?php echo (!empty($user->getTelegramID()))?'<img class="iconRowElement" src="../resources/img/telegramLogo.png" />':''; ?>			
+			<td data-label="userPhone"><?php echo $user->getPhone(); ?></td>
+			<td data-label="userParameter">
+				<?php echo (!empty($user->getTelegramID()))?'<i class="telegram plane icon"></i>':''; ?>
+				<?php echo (!empty($user->getPlanningID()))?'<i class="calendar alternate outline icon"></i>':''; ?>		
 			</td>
 			<td data-label="userLevel"><?php echo $user->getLevelDescription(); ?></td>
-			<td data-label="userLevel">
+			<td data-label="userLanguage">
     		<?php foreach ($user->getUserLanguages() as $language ) {?>
     			<div class="userLanguage"><?php echo languages::$languages[$language->getLanguageID()]; ?></div>
     		<?php } ?>

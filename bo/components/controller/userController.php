@@ -32,6 +32,11 @@ switch($_POST['type']) {
     case("userChangePhone"):
         $user->setNewPhone($_POST['data']['phoneNew']);
         break;
+        
+    case("addUserKalender"):
+        $userToEdit = dbConnect::fetchSingle("select * from port_bo_user where id = ?", user::class, Array($_POST['id']));
+        $userToEdit->addKalender($_POST['kalender']);
+        break;
 }
 
 ?>

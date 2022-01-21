@@ -124,12 +124,39 @@ $editMode = !empty($userToEdit);
 	<?php if($editMode && $userToEdit->getLevel() > 1) { ?>
 		<button class="ui button" onClick="settings.sendInvitationMail(<?php echo $userToEdit->getID(); ?>)">Einladungsmail</button>
 	<?php } ?>
+	<?php if($editMode && empty($userToEdit->getPlanningID()) && $userToEdit->getLevel() > 3) { ?>
+		<button class="ui icon button" onClick="settings.showAddKalender()"><i class="calendar alternate outline icon"></i></button>
+	<?php } ?>
 </form>
+
+<div id="addKalender" class="ui raised segment">
+	<form id="addKalenderForm" class="ui form">
+        <div id="input_kalender" class="inline fields">
+        	<label for="kalender">Kalender hinzufügen für:</label>
+            <div class="field">
+              <div class="ui radio checkbox">
+                <input type="radio" name="kalender" checked="checked" tabindex="0" class="hidden" value="1">
+                <label>Hamburg</label>
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui radio checkbox">
+                <input type="radio" name="kalender" tabindex="0" class="hidden" value="2">
+                <label>Den echten Norden</label>
+              </div>
+            </div>
+        </div>
+        
+        <div class="buttonLine"><button class="ui button" type="submit">Kalender anlegen</button></div>
+	</form>
+</div>
 
 <script>
 $('#userLanguage').dropdown();
 $('#userPort').dropdown();
-$("#addUser").submit(function(event){ settings.addUser(<?php echo ($editMode)?$userToEdit->getID():'null'; ?>);});
+$("#addUser").submit(function(event){ settings.addUser(<?php echo ($editMode)?$userToEdit->getID():'null'; ?>); });
+$("#addKalenderForm").submit(function(event){ settings.addUserKalender(<?php echo $userToEdit->getID(); ?>); });
+$('.ui.radio.checkbox').checkbox();
 
 <?php 
 if($editMode) {

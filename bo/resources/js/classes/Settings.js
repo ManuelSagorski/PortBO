@@ -115,6 +115,28 @@ define(function() {
 					closeWindow();
 				});
 		}
+
+		/*
+		 *	Blendet die Funktion zum Hinzufügen eines Kalenders ein
+		 */			
+		that.showAddKalender = function() {
+			event.preventDefault();
+			$('#addKalender').show();
+		}
+
+		/*
+		 *	Fügt für den Benutzer eine Kalender auf özg hinzu
+		 */			
+		that.addUserKalender = function(userID) {
+			event.preventDefault();
+			newUserKalender = new FormValidate($('#addKalenderForm').serializeArray());
+			
+			$.post(my.CONTROLLER, {type: 'addUserKalender', id: userID, kalender: newUserKalender.getFormData().kalender}, 
+				function() {
+					that.openDetails('users');
+					closeWindow();
+				});
+		}
 		
 		/*
 		 *	Lädt die Statstiken

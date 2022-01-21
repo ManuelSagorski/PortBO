@@ -202,6 +202,21 @@ class user
         dbConnect::execute($sqlstrg, Array($newPhone, $this->id));
     }
     
+    /**
+     * Legt für den User einen Zugang zum ÖZG Kalender an.
+     */
+    public function addKalender($kalender) { 
+        $kalenderID = ozg::newOzgUser($this->first_name, $this->surname, $this->email, $this->phone, $kalender);
+        
+        if(is_numeric($kalenderID) and $kalenderID > 0) {
+            dbConnect::execute("update port_bo_user set planning_id = ? where id = ?", Array($kalenderID, $this->id));
+            logger::writeLogInfo('addKalender', 'Kalender angelegt für User: ' . $this->id);
+        }
+        else {
+            logger::writeLogError('addKalender', 'OZG Profil konnte nicht erstellt werden für User: ' . $this->id);
+        }
+    }
+    
     public function getLevelDescription() {
         return user::$userLevel[$this->getLevel()];
     }

@@ -7,5 +7,6 @@
     </div>
 </div>
 <div id="searchResult"></div>
+<div id="drySearchResult"></div>
 <button onClick="vessel.newVessel(null, $('#searchInputVessel').val());">Schiff hinzufügen</button>
 <script type="text/javascript">vessel.searchVessel('');</script>

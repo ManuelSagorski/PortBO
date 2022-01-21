@@ -32,6 +32,8 @@ class vesselContactDetails
         $sqlstrg = "insert into port_bo_vesselContactDetails (vessel_id, type, detail, info) values (?, ?, ?, ?)";
         dbConnect::execute($sqlstrg, Array($this->vessel_id, $this->type, $this->detail, $this->info));
         
+        logger::writeLogCreate("vesselContactInfo", "Neue Kontaktdaten für Schiff " . vessel::getVesselName($this->vessel_id) . " hinzugefügt. Typ: " . $this->type);
+        
         vessel::setTS($this->vessel_id);
     }
     

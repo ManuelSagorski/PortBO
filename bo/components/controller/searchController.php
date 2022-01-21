@@ -5,8 +5,8 @@ use bo\components\classes\dbConnect;
 
 include '../config.php';
 
-$searchExpression1 = '%' . $_GET['expression'] . '%';
-$searchExpression2 = $_GET['expression'] . '%';
+$searchExpression1 = '%' . trim($_GET['expression']) . '%';
+$searchExpression2 = trim($_GET['expression']) . '%';
 
 switch ($_GET['type']) {
     case 'vessel':
@@ -18,7 +18,15 @@ switch ($_GET['type']) {
                         or MMSI like ?
                      order by ts_erf desc limit 20";
         $parameter = array($searchExpression1, $searchExpression2, $searchExpression2, $searchExpression2);
-        break;        
+        break;
+    case 'vesselDrySearch':
+        $sqlstrg = "select * 
+                      from port_bo_dry
+                     where name like ?
+                        or imo like ?
+                     limit 5";
+        $parameter = array($searchExpression1, $searchExpression2);
+        break;
     case 'vesselLookup':
         $sqlstrg = "select *
                       from port_bo_vessel
@@ -51,6 +59,11 @@ switch ($_GET['type']) {
 	    <div class="searchResultRow"><a onClick="vessel.openDetails(<?php echo $row['id']; ?>)"><?php echo $row['name']; ?></a></div>
 		<?php }
         break;
+    case 'vesselDrySearch':
+        while($row = $result->fetch()) {?>
+    	    <div class="searchResultRow"><i class="gb uk flag"></i> <?php echo $row['name']; ?></div>
+    		<?php }
+            break;
     case 'vesselLookup':
         while($row = $result->fetch()) {?>
 	    <div class="searchResultRow"><a onClick="lookup.openDetails(<?php echo $row['id']; ?>)"><?php echo $row['name']; ?></a></div>

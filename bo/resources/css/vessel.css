@@ -9,8 +9,6 @@
 /*****************************/
 /*          Details          */
 /*****************************/
-#detailEmpty { text-align: center; font-size: 14pt }
-
 .detailTable .planned { color: #B40404; }
 
 #addVessel .ui.segment { position: static; height: 100%; width: 100%; border-radius: 0px; }
@@ -40,3 +38,11 @@
 	
 	.mainCol { min-height: auto !important; }
 }
+
+/*********************************/
+/*          contactMail          */
+/*********************************/
+#mailComplete { padding: 5px; }
+.mailBody { position: relative; }
+.mailBody * { font-size: 7pt !important; }
+.mailOverlay { position: absolute; top: 0px; height: 100%; width: 100%; }

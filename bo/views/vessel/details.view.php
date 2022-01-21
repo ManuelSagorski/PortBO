@@ -130,7 +130,11 @@ if(!empty($_GET["id"])) {
 			<td data-label="timestamp"><?php echo date("d.m.Y", strtotime($contact->getDate())); ?></td>
 			<td data-label="portName"><?php echo port::getPortName($contact->getPortID()); ?></td>			
 			<td data-label="userName"<?php echo (!empty($contact->getContactName()))?' class="three wide"':''; ?>><?php echo $contact->getContactName(); ?></td>
-			<td data-label="contactType"><?php echo $contact->getContactType(); ?></td>
+			<td data-label="contactType">
+			<?php echo $contact->getContactType(); if(!empty($contact->getVesselContactMail())) { ?>
+                <a class="item" onClick="vessel.getVesselContactMail(<?php echo $contact->getID(); ?>);"><i class="envelope outline icon"></i></a>
+            <?php } ?>
+			</td>
 			<td data-label="agency"><?php echo agency::getAgentShort($contact->getAgentID()); ?></td>
 			<td data-label="agency"><?php echo $contact->getInfo(); ?></td>
 		</tr>

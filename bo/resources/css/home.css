@@ -9,6 +9,9 @@
 				background: rgba(230, 235, 244, .9); border-radius: 5px; }
 #title { float: left; }
 
+#detailEmpty { text-align: center; font-size: 14pt }
+#detailEmpty img { width: 150px; }
+
 /*****************************/
 /*         Navigation        */
 /*****************************/
@@ -42,7 +45,7 @@
 /*****************************/
 /*      Overlay Window       */
 /*****************************/
-#window { display: none; position: absolute; top: 100px; left: 37%; margin: 0 auto; width: 500px; background-color: #D8D8D8; border-color: #6E6E6E; 
+#window { display: none; position: absolute; top: 100px; left: 50%; transform: translate(-50%); width: 500px; background-color: #D8D8D8; border-color: #6E6E6E; 
 			box-shadow: 10px 10px 15px silver; }
 .windowHead { color: #000000;}
 .windowHead .label { float: left; padding: 5px;}
@@ -64,6 +67,8 @@
 
 .searchResultRow:hover { padding: 3px 3px 3px 10px; }
 
+#drySearchResult { margin-top: 5px; }
+
 /*****************************/
 /*         Suggester         */
 /*****************************/
@@ -75,7 +80,6 @@
 /**********************************************************/
 /*                       Seite Port                       */
 /**********************************************************/
-
 .userLanguage { float: left; margin-right: 10px; }
 
 
@@ -94,3 +98,6 @@
 @media only screen and (max-width: 600px) {
 	#homeWrapper { margin: 30px 5px 10px 5px; }
 }
+
+#addKalender { display: none; padding: 10px; margin: 10px 0px 0px 0px; background-color: #F2F2F2; }
+#addKalender .buttonLine { text-align: right; }

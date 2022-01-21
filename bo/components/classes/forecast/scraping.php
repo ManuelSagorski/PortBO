@@ -62,14 +62,28 @@ class scraping
 
             $parameter = [];
             
-            $sqlstrg = "select * from port_bo_scedule where name = ? and DATE(arriving) = ? and port_id = ?";
+            $sqlstrg = "select * from port_bo_scedule where name = ? and DATE(arriving) >= ? and DATE(arriving) <= ? and port_id = ?";
             $parameter[] = $vessel['name'];
+            
+            $arrival->modify('-2 day');
             $parameter[] = $arrival->format('Y-m-d');
+            $arrival->modify('+4 days');
+            $parameter[] = $arrival->format('Y-m-d');
+            $arrival->modify('-2 day');
+            
             $parameter[] = $vessel['port'];
+            
+            /*
+             * 15.01.2022
+             * Unterscheidung zwischen verschiedenen Liegeplätze jetzt während Corona noch nicht notwendig
+             */
+             
+            /*
             if(!empty($vessel['company'])) {
                 $sqlstrg .= " and (company = ? or company = '')";
                 $parameter[] = $vessel['company'];
             }
+            */
             
             $result = dbConnect::execute($sqlstrg, $parameter);
             $row = $result->fetch();
@@ -99,6 +113,13 @@ class scraping
                 dbConnect::execute(str_replace('{{updateValues}}', $updateValues, $sqlstrg), $parameter);
             }
             else {
+                /*
+                $today = new \DateTime();
+                $diffdays = $arrival->diff($today);
+                
+                echo "Tage unterschied: " . $diffdays->days . "<br>";
+                */
+                
                 $sqlstrg = "insert into port_bo_scedule (arriving, leaving, name, imo, company, agency, port_id) values (?, ?, ?, ?, ?, ?, ?)";
 
                 dbConnect::execute($sqlstrg, Array(
@@ -116,7 +137,7 @@ class scraping
     
     private function cleanDB() {
         dbConnect::execute("delete from port_bo_scedule where leaving < CURDATE() and arriving <> '0000-00-00 00:00:00'", Array());
-        dbConnect::execute("delete from port_bo_scedule where arriving < CURDATE() and status = 1 and arriving <> '0000-00-00 00:00:00'", Array());
+        dbConnect::execute("delete from port_bo_scedule where arriving < CURDATE() and status = 0 and arriving <> '0000-00-00 00:00:00'", Array());
     }
 }
 

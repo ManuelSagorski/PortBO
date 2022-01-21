@@ -7,10 +7,13 @@ define(function() {
 		var constructor, that = {}, my = {};
 	
 		my.CONTROLLER = '../components/controller/vesselController.php';
-		my.SEARCH_VIEW = '../views/vessel/search.view.php?';
-		my.DETAILS_VIEW = '../views/vessel/details.view.php?';
-		my.OPEN_CONTACTS_VIEW = '../views/vessel/openContacts.view.php?';
-		my.FORECAST_VIEW = '../views/vessel/forecast.view.php';
+		my.VIEW_FOLDER = '../views/vessel/';
+		
+		my.SEARCH_VIEW = my.VIEW_FOLDER + 'search.view.php?';
+		my.DETAILS_VIEW = my.VIEW_FOLDER + 'details.view.php?';
+		my.OPEN_CONTACTS_VIEW = my.VIEW_FOLDER + 'openContacts.view.php?';
+		my.FORECAST_VIEW = my.VIEW_FOLDER + 'forecast.view.php';
+		my.CONTACT_MAIL_VIEW = my.VIEW_FOLDER + 'vesselContactMail.view.php';
 
 		constructor = function() {
 			return that;
@@ -99,7 +102,15 @@ define(function() {
 		that.searchVessel = function(expression) {
 			$.get('../components/controller/searchController.php?type=vessel&expression=' + expression, function(data) {
 				$('#searchResult').html(data);
-			});				
+			});
+			if(expression != "") {
+				$.get('../components/controller/searchController.php?type=vesselDrySearch&expression=' + expression, function(data) {
+					$('#drySearchResult').html(data);
+				});
+			}
+			else {
+				$('#drySearchResult').html("");
+			}
 		}
 
 		/*
@@ -355,6 +366,19 @@ define(function() {
 			else {
 				alert('Bitte zuerst ein Element auswählen.');
 			}
+		}
+		
+		
+		/*
+		 *	Öffnet die Emails zu einem VesselContact
+		 */
+		that.getVesselContactMail = function(contactID) {
+			$.get(my.CONTACT_MAIL_VIEW + '?contactID=' + contactID, function(data) {
+				$('#windowLabel').html("Emails zu Kontakt");
+				$('#windowBody').html(data);
+			});
+			$('#window').css("width", 800);
+			showWindow();
 		}
 		
 		/*************************************************** Vessel Contact Details ***************************************************/
