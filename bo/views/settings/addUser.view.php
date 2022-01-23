@@ -155,7 +155,7 @@ $editMode = !empty($userToEdit);
 $('#userLanguage').dropdown();
 $('#userPort').dropdown();
 $("#addUser").submit(function(event){ settings.addUser(<?php echo ($editMode)?$userToEdit->getID():'null'; ?>); });
-$("#addKalenderForm").submit(function(event){ settings.addUserKalender(<?php echo $userToEdit->getID(); ?>); });
+$("#addKalenderForm").submit(function(event){ settings.addUserKalender(<?php echo ($editMode)?$userToEdit->getID():''; ?>); });
 $('.ui.radio.checkbox').checkbox();
 
 <?php 

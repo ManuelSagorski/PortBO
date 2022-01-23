@@ -19,7 +19,7 @@
 .openContactRow:nth-child(even) { background-color: #E0ECF8; }
 .openContactRow a { text-decoration: none; color:inherit; font-size: 10pt; }
 
-.openContactRowHeader { margin-top: 5px; text-align: center; border-bottom-style: solid; border-bottom-width: 1px; border-color: #6E6E6E; }
+.openContactRowHeader { margin-top: 5px; text-align: center; border-bottom-style: solid; border-bottom-width: 1px; border-color: #6E6E6E; font-weight: bold; }
 
 #searchInputVessel { max-width: 150px; }
 

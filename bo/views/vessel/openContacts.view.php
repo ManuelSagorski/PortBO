@@ -12,7 +12,7 @@ $tmpPort = 0;
 ?>
 
 <div class="listingHeadline">
-	Offene Kontakte:
+	Geplante Kontakte:
 <?php 
 foreach ($openContacts as $openContact) { 
     if($openContact->getPortID() != $tmpPort) {

@@ -54,9 +54,9 @@ class user
         dbConnect::execute($sqlstrg, array($data['userUsername'], $pwd['pwdHash'], $data['userEmail'], $data['userPhone'], $data['userFirstName'], $data['userSurname'],
             $data['userLevel']));
         
-        logger::writeLogCreate('settings', 'Neuer Benutzer angelegt: ' . $data['userFirstName'] . ' ' . $data['userSurname']);
+        $newUser = dbConnect::fetchSingle("select * from port_bo_user where id = ?", user::class, array(dbConnect::getLastID()));
         
-        $newUser = dbConnect::fetchSingle("select * from port_bo_user where username = ?", user::class, array($data['userUsername']));
+        logger::writeLogCreate('settings', 'Neuer Benutzer angelegt: ' . $data['userFirstName'] . ' ' . $data['userSurname']);
         
         foreach(languages::$languages as $id=>$language) {
             if(in_array($id, $data['userLanguages'])) {

@@ -30,7 +30,6 @@ foreach($user->getUserPorts() as $key => $userPorts) {
             			<th>Name</th>
             			<th></th>
             			<th></th>
-            			<th></th>
             			<th>Terminal</th>
             			<th>Makler?</th>
             			<th></th>
