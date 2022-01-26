@@ -1,8 +1,10 @@
 <?php
 namespace bo\components\classes;
 
-class userToPort
+class userToPort extends abstractDBObject
 {
+    protected static $tableName = "port_bo_userToPort";
+    
     private $id;
     private $user_id;
     

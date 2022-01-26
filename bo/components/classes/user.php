@@ -92,7 +92,7 @@ class user extends abstractDBObject
      * @param int $user_id
      */
     public static function editUser($data, $user_id) {
-        global $ports;
+        $ports = port::getMultipleObjects();
         
         $sqlstrg = "update port_bo_user
                        set username = ?, email = ?, phone = ?, first_name = ?, surname = ?, level = ?
@@ -235,7 +235,11 @@ class user extends abstractDBObject
     }
   
     public function userHasPort($portID) {
-        return isset(array_column($this->userPorts, null, 'port_id')[$portID]);
+        foreach($this->userPorts as $port) {
+            if($port->getID() == $portID)
+                return true;
+        }
+        return false;
     }
     
     public function userHasLanguage($languageID) {
@@ -256,7 +260,7 @@ class user extends abstractDBObject
     }
     
     private function userGetLanguages() {
-        $this->userLanguages = dbConnect::fetchAll('select * from port_bo_userToLanguage where user_id = ?', userToLanguage::class, array($this->id));
+        $this->userLanguages = userToLanguage::getMultipleObjects(Array("user_id" => $this->id));
     }
     
     private function addUserToPort($portID) {

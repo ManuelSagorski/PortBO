@@ -14,7 +14,7 @@ include '../components/config.php';
 $result = dbConnect::execute("select * from tmp_import where status = 0", Array());
 
 while($row = $result->fetch()) {
-    $vessel = dbConnect::fetchSingle("select * from port_bo_vessel where IMO = ?", vessel::class, Array($row['imo']));
+    $vessel = vessel::getSingleObjectByCondition(Array("IMO" => $row['imo']));
     
     if(!empty($vessel)) {
         $emailResult = dbConnect::execute("select * from port_bo_vesselContactDetails where vessel_id = ? and detail = ?", Array($vessel->getID(), $row['email']));
@@ -27,7 +27,7 @@ while($row = $result->fetch()) {
     else {
         dbConnect::execute("insert into port_bo_vessel (name, imo) values (?, ?)", Array($row['name'], $row['imo']));
         
-        $vessel = dbConnect::fetchSingle("select * from port_bo_vessel where IMO = ?", vessel::class, Array($row['imo']));
+        $vessel = vessel::getSingleObjectByCondition(Array("IMO" => $row['imo']));
         
         $emailResult = dbConnect::execute("select * from port_bo_vesselContactDetails where vessel_id = ? and detail = ?", Array($vessel->getID(), $row['email']));
         if($emailResult->rowCount() == 0) {

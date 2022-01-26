@@ -157,13 +157,9 @@ $("#addUser").submit(function(event){ settings.addUser(<?php echo ($editMode)?$u
 $("#addKalenderForm").submit(function(event){ settings.addUserKalender(<?php echo ($editMode)?$userToEdit->getID():''; ?>); });
 $('.ui.radio.checkbox').checkbox();
 
-<?php 
-if($editMode) {
-    foreach ($ports as $port) {
-        if($userToEdit->userHasPort($port->getID())) {
-?>
+<?php if($editMode) { foreach ($userToEdit->getUserPorts() as $port) {?>
 $('#userPort').dropdown('set selected', <?php echo $port->getID(); ?>);
-<?php }}} ?>
+<?php }} ?>
 
 <?php if($editMode) { foreach($userToEdit->getUserLanguages() as $language) { ?>
 $('#userLanguage').dropdown('set selected', <?php echo $language->getLanguageID(); ?>);

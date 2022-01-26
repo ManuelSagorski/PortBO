@@ -10,7 +10,7 @@ use bo\components\classes\user;
 include '../../components/config.php';
 
 if(!empty($_GET["id"])) {
-    $vessel = dbConnect::fetchSingle("select * from port_bo_vessel where id = ?", vessel::class, array($_GET["id"]));
+    $vessel = vessel::getSingleObjectByID($_GET["id"]);
     $_SESSION['vessID'] = $vessel->getID();
 ?>
 <div class="elementDetailWrapper ui segment">

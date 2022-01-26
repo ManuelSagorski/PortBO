@@ -52,7 +52,7 @@ switch($_POST['type']) {
             echo json_encode($vesselContact->addContact());
         }
         else {
-            $vesselContact = dbConnect::fetchSingle("select * from port_bo_vesselContact where id = ?", vesselContact::class, Array($_POST['contactID']));
+            $vesselContact = vesselContact::getSingleObjectByID($_POST['contactID']);
             echo json_encode($vesselContact->editContact($_POST['data']));
         }
         break;

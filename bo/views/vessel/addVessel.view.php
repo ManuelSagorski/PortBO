@@ -8,7 +8,7 @@ use bo\components\types\vesselTypes;
 include '../../components/config.php';
 
 if(isset($_GET['id']))
-    $vessel = dbConnect::fetchSingle("select * from port_bo_vessel where id= ?", vessel::class, array($_GET['id']));
+    $vessel = vessel::getSingleObjectByID($_GET['id']);
 $editMode = !empty($vessel);
 
 $searchValue = trim($_GET['searchValue']);

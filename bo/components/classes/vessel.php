@@ -4,8 +4,10 @@ namespace bo\components\classes;
 use bo\components\classes\helper\dbConnect;
 use bo\components\classes\helper\logger;
 
-class vessel
+class vessel extends abstractDBObject
 {
+    protected static $tableName = "port_bo_vessel";
+    
     private $id;
     private $name;
     private $IMO;
@@ -96,8 +98,7 @@ class vessel
      * Lädt die zu einem Schiff vorhadenen Informationen in $vesselContacts
      */
     private function loadContact() {
-        $sqlstrg = "select * from port_bo_vesselContact where vess_id = ? order by date desc";
-        $this->vesselContacts = dbConnect::fetchAll($sqlstrg, vesselContact::class, array($this->id));
+        $this->vesselContacts = vesselContact::getMultipleObjects(Array("vess_id" => $this->id), "date desc");
     }
 
     /**

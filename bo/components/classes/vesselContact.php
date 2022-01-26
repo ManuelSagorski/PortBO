@@ -4,8 +4,10 @@ namespace bo\components\classes;
 use bo\components\classes\helper\dbConnect;
 use bo\components\classes\helper\logger;
 
-class vesselContact
+class vesselContact extends abstractDBObject
 {
+    protected static $tableName = "port_bo_vesselContact";
+    
     private $id;
     private $vess_id;
     private $user_id;

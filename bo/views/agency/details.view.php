@@ -12,7 +12,7 @@ include '../../components/config.php';
 if(!empty($_GET["id"])) {
     $agency = agency::getSingleObjectByID($_GET["id"]);
     $_SESSION['agencyID'] = $agency->getID();
-    $vesselContacts = dbConnect::fetchAll("select * from port_bo_vesselContact where agent_id = ? order by date desc", vesselContact::class, array($agency->getID()));
+    $vesselContacts = vesselContact::getMultipleObjects(Array("agent_id" => $agency->getID()), "date desc");
 ?>
 <div class="elementDetailWrapper ui segment">
 	<div class="elemDetail agency">

@@ -12,7 +12,7 @@ use bo\components\classes\vessel;
 class lookup
 {
     public static function lookupRequestInformation($vesselID) {
-        $vessel = dbConnect::fetchSingle("select * from port_bo_vessel where id = ?", vessel::class, array($vesselID));
+        $vessel = vessel::getSingleObjectByID($vesselID);
         $adminUsers = user::getMultipleObjects(Array("level" => 9));
         
         foreach ($adminUsers as $adminUser) {

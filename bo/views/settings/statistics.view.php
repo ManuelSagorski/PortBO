@@ -1,6 +1,8 @@
 <?php
 namespace bo\views\settings;
 
+use bo\components\classes\port;
+
 include '../../components/config.php';
 
 if($user->getLevel() != 9)
@@ -36,7 +38,7 @@ if($user->getLevel() != 9)
             	<label>Hafen:</label>
             	<select id="port" name="port" class="ui fluid dropdown" onChange="settings.getStatistics();">
             		<option value="0" selected>Alle Häfen</option>
-            	<?php foreach ($ports as $port) { ?>
+            	<?php foreach (port::getMultipleObjects() as $port) { ?>
         			<option value="<?php echo $port->getID(); ?>"><?php echo $port->getName(); ?></option>
         		<?php } ?>
             	</select>

@@ -17,6 +17,15 @@ abstract class abstractDBObject
         return dbConnect::fetchSingle($query["sqlstrg"], static::class, $query["parameter"]);
     }
     
+    /**
+     * getMultipleObjects
+     * 
+     * Liefert mehrere rows aus der Datenbank zurück die den angegebenen Konditionen entsprechen
+     * 
+     * @param array $conditions - Array von Key-Value Paren ("name" => value)
+     * @param String $orderSequence - optional: order by ...
+     * @return Array of Objects
+     */
     public static function getMultipleObjects($conditions = [], $orderSequence = null) {
         $query = self::prepareQuery($conditions, $orderSequence);        
         return dbConnect::fetchAll($query["sqlstrg"], static::class, $query["parameter"]);

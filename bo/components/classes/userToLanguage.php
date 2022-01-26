@@ -1,8 +1,10 @@
 <?php
 namespace bo\components\classes;
 
-class userToLanguage
+class userToLanguage extends abstractDBObject
 {
+    protected static $tableName = "port_bo_userToLanguage";
+    
     private $id;
     private $user_id;
     
