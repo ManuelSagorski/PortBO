@@ -2,7 +2,6 @@
 namespace bo\components\controller;
 
 use bo\components\classes\user;
-use bo\components\classes\helper\dbConnect;
 
 include '../config.php';
 
@@ -17,7 +16,7 @@ switch($_POST['type']) {
         break;
 
     case("sendInvitationMail"):
-        $userToEdit = dbConnect::fetchSingle("select * from port_bo_user where id = ?", user::class, Array($_POST['id']));
+        $userToEdit = user::getSingleObjectByID($_POST['id']);
         $userToEdit->sendInvitationMail();
         break;
         
@@ -34,7 +33,7 @@ switch($_POST['type']) {
         break;
         
     case("addUserKalender"):
-        $userToEdit = dbConnect::fetchSingle("select * from port_bo_user where id = ?", user::class, Array($_POST['id']));
+        $userToEdit = user::getSingleObjectByID($_POST['id']);
         $userToEdit->addKalender($_POST['kalender']);
         break;
 }

@@ -5,8 +5,10 @@ use bo\components\classes\helper\dbConnect;
 use bo\components\classes\helper\logger;
 use JsonSerializable;
 
-class company implements JsonSerializable
+class company extends abstractDBObject implements JsonSerializable
 {
+    protected static $tableName = "port_bo_company";
+    
     private $id;
     private $name;
     private $port_id;

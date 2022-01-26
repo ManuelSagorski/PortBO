@@ -4,8 +4,10 @@ namespace bo\components\classes;
 use bo\components\classes\helper\dbConnect;
 use bo\components\classes\helper\logger;
 
-class port
+class port extends abstractDBObject
 {
+    protected static $tableName = "port_bo_port";
+    
     private $id;
     private $name;
     private $short;
@@ -26,9 +28,7 @@ class port
         $sqlstrg = "insert into port_bo_port (name, short, mtLink) values (?, ?, ?)";
         dbConnect::execute($sqlstrg, array($this->name, $this->short, $this->mtLink));
         
-        $port = dbConnect::fetchSingle("select * from port_bo_port where name = ? and short = ?", port::class, array($this->name, $this->short));
-        
-        echo $_SESSION['user'];
+        $port = port::getSingleObjectByCondition(Array("name" => $this->name, "short" => $this->short));
         
         $sqlstrg = "insert into port_bo_userToPort (user_id, port_id) values (?, ?)";
         dbConnect::execute($sqlstrg, array($_SESSION['user'], $port->getID()));

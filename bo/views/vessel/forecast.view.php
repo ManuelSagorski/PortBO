@@ -1,7 +1,6 @@
 <?php
 namespace bo\views\vessel;
 
-use bo\components\classes\helper\dbConnect;
 use bo\components\classes\forecast;
 use bo\components\classes\port;
 
@@ -12,7 +11,7 @@ include '../../components/config.php';
 
 <?php 
 foreach($user->getUserPorts() as $key => $userPorts) { 
-    $forecast = dbConnect::fetchAll("select * from port_bo_scedule where port_id = ? order by arriving", forecast::class, Array($userPorts->getID()));
+    $forecast = forecast::getMultipleObjects(Array("port_id" => $userPorts->getID()), "arriving");
     $arrivingDay = "";
 ?>
 

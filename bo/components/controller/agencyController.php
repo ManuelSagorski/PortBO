@@ -3,14 +3,12 @@ namespace bo\components\controller;
 
 use bo\components\classes\agency;
 use bo\components\classes\agencyPortInfo;
-use bo\components\classes\helper\dbConnect;
 
 include '../config.php';
 
 switch($_POST['type']) {    
     case("getAgencyInfo"):
-        $sqlstrg = "select * from port_bo_agencyPortInfo where agency_id = ? and port_id = ?";
-        $agencyPortInfo = dbConnect::fetchAll($sqlstrg, agencyPortInfo::class, array(agency::getAgentID($_POST['agency']), $_POST['port']));
+        $agencyPortInfo = agencyPortInfo::getMultipleObjects(Array("agency_id" => agency::getAgentID($_POST['agency']), "port_id" => $_POST['port']));
         echo json_encode($agencyPortInfo);
         break;
         

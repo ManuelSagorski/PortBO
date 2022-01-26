@@ -33,7 +33,7 @@ class telegram
     
     public function register() {
         if(preg_match(self::TELEGRAM_CODE_REGEX, $this->message)) {
-            $user = dbConnect::fetchSingle("select * from port_bo_user where telegram_code = ?", user::class, array($this->message));
+            $user = user::getSingleObjectByCondition(Array("telegram_code" => $this->message));
             if(empty($user)) {
                 $this->sendMessage(false, 'Der eingegebene Code ist leider verkehrt. ' .
                     'Schicke bitte einer einer separaten Nachricht ausschließlich den erhaltenen Code.');
@@ -78,7 +78,7 @@ class telegram
             logger::writeLogError('telegramBot', 'Nachricht konnte nicht gesendet werden. Meldung: ' . $result['description']);
         }
         else {
-            $userRecipient = dbConnect::fetchSingle("select * from port_bo_user where telegram_id = ?", user::class, array($this->chatID));
+            $userRecipient = user::getSingleObjectByCondition(Array("telegram_id" => $this->chatID));
             if(!empty($userRecipient)) {
                 self::logMessage('send', $userRecipient->getId(), $this->chatID, $_SESSION['user'], $this->tmpl);
             }

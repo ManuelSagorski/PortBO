@@ -1,7 +1,6 @@
 <?php
 namespace bo\components\controller;
 
-use bo\components\classes\helper\dbConnect;
 use bo\components\classes\helper\logger;
 use bo\components\classes\user;
 
@@ -25,7 +24,7 @@ class loginController
         $username = $_POST['username'];
         $passwort = $_POST['secret'];
         
-        $user = dbConnect::fetchSingle("select * from port_bo_user where username = ?", user::class, array($username));
+        $user = user::getSingleObjectByCondition(Array("username" => $username));
         
         If (empty($user)) {
             logger::writeLogError('login', 'Loginversuch mit unbekanntem Benutzername: ' . $username);
@@ -51,7 +50,7 @@ class loginController
      * @param Array $request
      */
     public function forgotPassword($request) {
-        $user = dbConnect::fetchSingle("select * from port_bo_user where username = ?", user::class, array($request['formData']['usernameReset']));
+        $user = user::getSingleObjectByCondition(Array("username" => $request['formData']['usernameReset']));
         
         if(!empty($user)) {
             $user->sendResetPasswordLink();
@@ -66,7 +65,7 @@ class loginController
      * @param String $id
      */
     public function pwReset($request) {
-        $resetUser = dbConnect::fetchSingle("select * from port_bo_user where id = ?", user::class, array($request['id']));
+        $resetUser = user::getSingleObjectByID($request['id']);
         
         if (password_verify($request['code'], $resetUser->getPasswordCode()) && strtotime($resetUser->getPasswordCodeTime()) > (time()-24*3600)) {
             return true;
@@ -83,7 +82,7 @@ class loginController
      * @param Array $request
      */
     public function changePassword($request) {
-        $resetUser = dbConnect::fetchSingle("select * from port_bo_user where id = ?", user::class, array($request['formData']['userID']));
+        $resetUser = user::getSingleObjectByID($request['formData']['userID']);
         
         if (password_verify($request['formData']['userCode'], $resetUser->getPasswordCode()) && strtotime($resetUser->getPasswordCodeTime()) > (time()-24*3600)) {
             $resetUser->setNewPassword($request['formData']['secretNew1']);

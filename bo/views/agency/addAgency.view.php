@@ -4,17 +4,14 @@ namespace bo\views\agency;
 include '../../components/config.php';
 
 use bo\components\classes\agency;
-use bo\components\classes\helper\dbConnect;
 
-if(isset($_GET['id'])) {
-    $agency = dbConnect::fetchSingle("select * from port_bo_agency where id= ?", agency::class, array($_GET['id']));
-}
+if(isset($_GET['id']))
+    $agency = agency::getSingleObjectByID($_GET['id']);
 $editMode = !empty($agency);
 
 $name = '';
-if(!empty($_GET['searchValue'])) {
+if(!empty($_GET['searchValue']))
     $name = $_GET['searchValue'];
-}
 ?>
 
 <form id="addAgency" class="ui form" autocomplete="off">

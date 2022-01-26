@@ -10,9 +10,9 @@ use bo\components\types\languages;
 include '../../components/config.php';
 
 if(!empty($_GET["id"])) {
-    $port = dbConnect::fetchSingle("select * from port_bo_port where id = ?", port::class, array($_GET["id"]));
+    $port = port::getSingleObjectByID($_GET["id"]);
+    $companys = company::getMultipleObjects(Array("port_id" => $_GET["id"]), "name");
     $users = dbConnect::fetchAll("select u.* from port_bo_user u join port_bo_userToPort up on u.id = up.user_id where up.port_id = ?", user::class, array($_GET["id"]));
-    $companys = dbConnect::fetchAll("select * from port_bo_company where port_id = ? order by name", company::class, array($_GET["id"]));
     $_SESSION['portID'] = $port->getID();
 
 ?>

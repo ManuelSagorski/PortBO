@@ -2,7 +2,6 @@
 namespace bo\views\settings;
 
 use bo\components\classes\helper\statistics;
-use bo\components\classes\helper\dbConnect;
 
 include '../../components/config.php';
 

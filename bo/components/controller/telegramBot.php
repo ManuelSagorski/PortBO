@@ -1,7 +1,6 @@
 <?php
 namespace bo\components\controller;
 
-use bo\components\classes\helper\dbConnect;
 use bo\components\classes\helper\logger;
 use bo\components\classes\helper\telegram;
 use bo\components\classes\user;
@@ -12,7 +11,7 @@ include '../config.php';
 $telegram = new telegram(null, json_decode(file_get_contents('php://input'), true));
 logger::writeLogInfo('telegramBot', 'Eingehende Nachricht: ' . $telegram->getMessage());
 
-$userTelegram = dbConnect::fetchSingle("select * from port_bo_user where telegram_id = ?", user::class, array($telegram->getChatID()));
+$userTelegram = user::getSingleObjectByCondition(Array("telegram_id" => $telegram->getChatID()));
 
 if(empty($userTelegram)) {
     $telegram->register();

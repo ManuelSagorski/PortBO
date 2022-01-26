@@ -1,14 +1,12 @@
 <?php
 namespace bo\views\port;
 
-use bo\components\classes\helper\dbConnect;
 use bo\components\classes\company;
 
 include '../../components/config.php';
 
-if(isset($_GET['id'])) {
-    $company = dbConnect::fetchSingle("select * from port_bo_company where id= ?", company::class, array($_GET['id']));
-}
+if(isset($_GET['id']))
+    $company = company::getSingleObjectByID($_GET['id']);
 $editMode = !empty($company);
 ?>
 

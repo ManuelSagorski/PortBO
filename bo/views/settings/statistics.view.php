@@ -1,13 +1,10 @@
 <?php
 namespace bo\views\settings;
 
-use bo\components\classes\helper\dbConnect;
-
 include '../../components/config.php';
 
-if($user->getLevel() != 9) {
+if($user->getLevel() != 9)
     header('Location: http://'.$hostname.'/'.FOLDER.'/index.php');
-}
 ?>
 
 <div>

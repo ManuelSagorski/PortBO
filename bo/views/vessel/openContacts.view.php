@@ -7,7 +7,6 @@ use bo\components\classes\port;
 
 include '../../components/config.php';
 $openContacts = vesselContact::getOpenContactsForUser($_SESSION['user']);
-$tmpDatum = '';
 $tmpPort = 0;
 ?>
 

@@ -59,10 +59,8 @@ if($_SERVER[ 'SCRIPT_NAME' ] != "/" . FOLDER . "/index.php" && !isset($independe
         header('Location: http://'.$hostname.'/' . FOLDER . '/index.php');
     }
     else {
-        $user = dbConnect::fetchSingle("select * from port_bo_user where id = ?", user::class, array($_SESSION['user']));
+        $user = user::getSingleObjectByID($_SESSION['user']);
     }
 }
-
-$ports = dbConnect::fetchAll('select * from port_bo_port', port::class, array());
 
 ?>

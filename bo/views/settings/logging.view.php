@@ -6,9 +6,8 @@ use bo\components\classes\user;
 
 include '../../components/config.php';
 
-if($user->getLevel() != 9) {
+if($user->getLevel() != 9)
     header('Location: http://'.$hostname.'/'.FOLDER.'/index.php');
-}
 $logTable = dbConnect::execute("select * from port_bo_log order by ts_erf desc limit 150", array());
 ?>
 

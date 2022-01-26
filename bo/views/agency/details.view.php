@@ -10,7 +10,7 @@ use bo\components\classes\vesselContact;
 include '../../components/config.php';
 
 if(!empty($_GET["id"])) {
-    $agency = dbConnect::fetchSingle("select * from port_bo_agency where id = ?", agency::class, array($_GET["id"]));
+    $agency = agency::getSingleObjectByID($_GET["id"]);
     $_SESSION['agencyID'] = $agency->getID();
     $vesselContacts = dbConnect::fetchAll("select * from port_bo_vesselContact where agent_id = ? order by date desc", vesselContact::class, array($agency->getID()));
 ?>
@@ -88,4 +88,4 @@ if(!empty($_GET["id"])) {
 	<div><img src="../resources/img/iconAgent.png" /></div>
 	<div>Keine Agentur ausgewählt</div>
 </div>
-<?php }?>
+<?php } ?>

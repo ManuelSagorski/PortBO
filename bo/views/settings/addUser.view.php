@@ -1,15 +1,14 @@
 <?php
 namespace bo\views\settings;
 
-use bo\components\classes\helper\dbConnect;
 use bo\components\classes\user;
 use bo\components\types\languages;
+use bo\components\classes\port;
 
 include '../../components/config.php';
 
-if(isset($_GET['id'])) {
-    $userToEdit = dbConnect::fetchSingle("select * from port_bo_user where id= ?", user::class, array($_GET['id']));
-}
+if(isset($_GET['id'])) 
+    $userToEdit = user::getSingleObjectByID($_GET['id']);
 $editMode = !empty($userToEdit);
 ?>
 
@@ -103,7 +102,7 @@ $editMode = !empty($userToEdit);
     <div id="input_userPort" class="field">
     	<label>Zugewiesene Häfen</label>
     	<select id="userPort" name="userPort" multiple="" class="ui fluid dropdown">
-    	<?php foreach ($ports as $port) { ?>
+    	<?php foreach (port::getMultipleObjects() as $port) { ?>
 			<option value="<?php echo $port->getID(); ?>"><?php echo $port->getName(); ?></option>
 		<?php } ?>
     	</select>

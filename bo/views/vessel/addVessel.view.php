@@ -7,9 +7,8 @@ use bo\components\types\vesselTypes;
 
 include '../../components/config.php';
 
-if(isset($_GET['id'])) {
+if(isset($_GET['id']))
     $vessel = dbConnect::fetchSingle("select * from port_bo_vessel where id= ?", vessel::class, array($_GET['id']));
-}
 $editMode = !empty($vessel);
 
 $searchValue = trim($_GET['searchValue']);
@@ -19,16 +18,13 @@ $mmsi = '';
 $name = '';
 
 if(!empty($searchValue) && is_numeric($searchValue)) {
-    if(strlen($searchValue) == 7) {
+    if(strlen($searchValue) == 7)
         $imo = $searchValue;
-    }
-    if(strlen($searchValue) == 9) {
+    if(strlen($searchValue) == 9)
         $mmsi = $searchValue;
-    }
 }
-if(!empty($searchValue) && !is_numeric($searchValue)) {
+if(!empty($searchValue) && !is_numeric($searchValue))
     $name = $searchValue;
-}
 ?>
 
 

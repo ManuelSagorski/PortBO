@@ -4,8 +4,10 @@ namespace bo\components\classes;
 use bo\components\classes\helper\dbConnect;
 use JsonSerializable;
 
-class agencyPortInfo implements JsonSerializable
+class agencyPortInfo extends abstractDBObject implements JsonSerializable
 {
+    protected static $tableName = "port_bo_agencyPortInfo";
+    
     private $id;
     private $agency_id;
     private $port_id;

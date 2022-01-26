@@ -12,8 +12,10 @@ use bo\components\types\languages;
  * @author Manuel Sagorski
  *
  */
-class user
+class user extends abstractDBObject
 {
+    protected static $tableName = "port_bo_user";
+    
     private $id;
     private $username;
     private $secret;
@@ -58,7 +60,7 @@ class user
         dbConnect::execute($sqlstrg, array($data['userUsername'], $pwd['pwdHash'], $data['userEmail'], $data['userPhone'], $data['userFirstName'], $data['userSurname'],
             $data['userLevel']));
         
-        $newUser = dbConnect::fetchSingle("select * from port_bo_user where id = ?", user::class, array(dbConnect::getLastID()));
+        $newUser = user::getSingleObjectByID(dbConnect::getLastID());
         
         logger::writeLogCreate('settings', 'Neuer Benutzer angelegt: ' . $data['userFirstName'] . ' ' . $data['userSurname']);
         
@@ -98,7 +100,7 @@ class user
         dbConnect::execute($sqlstrg, array($data['userUsername'], $data['userEmail'], $data['userPhone'], $data['userFirstName'], $data['userSurname'],
             $data['userLevel'], $user_id));
         
-        $actualUser = dbConnect::fetchSingle("select * from port_bo_user where id = ?", user::class, array($user_id));
+        $actualUser = user::getSingleObjectByID($user_id);
         
         foreach(languages::$languages as $id=>$language) {
             if(in_array($id, $data['userLanguages']) && !$actualUser->userHasLanguage($id)) {
@@ -147,7 +149,7 @@ class user
      * Static Funktion die zu einem Namen die UserID zurückliefert
      */
     public static function getUserByFullName($name) {
-        $result = dbConnect::fetchSingle("select * from port_bo_user where concat(first_name, ' ', surname) = ?", user::class, array($name));
+        $result = user::getSingleObjectByCondition(Array("concat(first_name, ' ', surname)" => $name));
         if(!empty($result)) {
             return $result->getID();
         }

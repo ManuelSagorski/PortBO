@@ -3,8 +3,10 @@ namespace bo\components\classes;
 
 use bo\components\classes\helper\dbConnect;
 
-class forecast
+class forecast extends abstractDBObject
 {
+    protected static $tableName = "port_bo_scedule";
+    
     private $id;
     private $arriving;
     private $leaving;

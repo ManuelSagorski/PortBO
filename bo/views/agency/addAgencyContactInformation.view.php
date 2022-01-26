@@ -1,14 +1,12 @@
 <?php
-namespace bo\vieviews\agency;
+namespace bo\views\agency;
 
 use bo\components\classes\agencyPortInfo;
-use bo\components\classes\helper\dbConnect;
 
 include '../../components/config.php';
 
-if(isset($_GET['id'])) {
-    $contact = dbConnect::fetchSingle("select * from port_bo_agencyPortInfo where id= ?", agencyPortInfo::class, array($_GET['id']));
-}
+if(isset($_GET['id']))
+    $contact = agencyPortInfo::getSingleObjectByID($_GET['id']);
 ?>
 
 <form id="addAgencyPortInfo" class="ui form" autocomplete="off">
@@ -19,7 +17,7 @@ if(isset($_GET['id'])) {
     <div id="input_contactPort" class="field">
     	<label>Hafen</label>
 		<select id="contactPort" name="contactPort">
-			<?php foreach ($ports as $port) { ?>
+			<?php foreach ($user->getUserPorts() as $port) { ?>
 			<option 
 				value="<?php echo $port->getId(); ?>"
 				<?php if(!empty($contact)){echo ($contact->getPortID() == $port->getId())?' selected':'';} ?>

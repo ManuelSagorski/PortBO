@@ -1,16 +1,14 @@
 <?php
 namespace bo\views\settings;
 
-use bo\components\classes\helper\dbConnect;
 use bo\components\classes\user;
 use bo\components\types\languages;
 
 include '../../components/config.php';
 
-if($user->getLevel() != 9) {
+if($user->getLevel() != 9)
     header('Location: http://'.$hostname.'/'.FOLDER.'/index.php');
-}
-$users = dbConnect::fetchAll('select * from port_bo_user', user::class, array());
+$users = user::getMultipleObjects();
 ?>
 
 <table class="detailTable ui very compact celled striped table">

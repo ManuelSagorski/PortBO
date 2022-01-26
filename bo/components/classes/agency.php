@@ -9,8 +9,10 @@ use bo\components\classes\helper\logger;
  * @author Manuel Sagorski
  *
  */
-class agency
+class agency extends abstractDBObject
 {
+    protected static $tableName = "port_bo_agency";
+    
     private $id;
     private $name;
     private $short;
@@ -134,8 +136,7 @@ class agency
     }
     
     private function loadAgencyPortInfo() {
-        $sqlstrg = "select * from port_bo_agencyPortInfo where agency_id = ? order by port_id";
-        $this->agencyPortInfo = dbConnect::fetchAll($sqlstrg, agencyPortInfo::class, array($this->id));
+        $this->agencyPortInfo = agencyPortInfo::getMultipleObjects(Array("agency_id" => $this->id), "port_id");
     }
     
     private function validateNewAgencyInput() {

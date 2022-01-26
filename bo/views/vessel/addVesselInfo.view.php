@@ -6,9 +6,8 @@ use bo\components\classes\vesselInfo;
 
 include '../../components/config.php';
 
-if(isset($_GET['infoID'])) {
+if(isset($_GET['infoID']))
     $info = dbConnect::fetchSingle("select * from port_bo_vesselInfo where id= ?", vesselInfo::class, array($_GET['infoID']));
-}
 ?>
 
 <form id="addVesselInfo" class="ui form" autocomplete="off">
