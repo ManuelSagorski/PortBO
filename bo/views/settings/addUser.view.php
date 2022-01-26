@@ -1,7 +1,7 @@
 <?php
 namespace bo\views\settings;
 
-use bo\components\classes\dbConnect;
+use bo\components\classes\helper\dbConnect;
 use bo\components\classes\user;
 use bo\components\types\languages;
 

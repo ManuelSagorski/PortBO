@@ -1,8 +1,8 @@
 <?php
 namespace bo\components\classes\forecast;
 
-use bo\components\classes\logger;
-use bo\components\classes\dbConnect;
+use bo\components\classes\helper\logger;
+use bo\components\classes\helper\dbConnect;
 
 class scraping
 {    

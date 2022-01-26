@@ -1,6 +1,14 @@
 <?php
-namespace bo\components\classes;
+namespace bo\components\classes\helper;
 
+use bo\components\classes\user;
+use bo\components\classes\vessel;
+
+/**
+ * Klasse lookup - stellt Funktionen für foreignPorts zur Verfügung 
+ * @author Manuel Sagorski
+ *
+ */
 class lookup
 {
     public static function lookupRequestInformation($vesselID) {

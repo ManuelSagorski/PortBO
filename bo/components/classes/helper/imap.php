@@ -1,5 +1,7 @@
 <?php
-namespace bo\components\classes;
+namespace bo\components\classes\helper;
+
+use bo\components\classes\vesselContact;
 
 class imap
 {

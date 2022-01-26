@@ -1,6 +1,9 @@
 <?php
 namespace bo\components\classes;
 
+use bo\components\classes\helper\dbConnect;
+use bo\components\classes\helper\logger;
+
 /**
  * Klasse vesselContactDetails
  * @author Manuel Sagorski

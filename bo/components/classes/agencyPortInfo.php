@@ -1,6 +1,7 @@
 <?php
 namespace bo\components\classes;
 
+use bo\components\classes\helper\dbConnect;
 use JsonSerializable;
 
 class agencyPortInfo implements JsonSerializable

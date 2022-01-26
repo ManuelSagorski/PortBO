@@ -1,7 +1,7 @@
 <?php
 namespace bo\components\classes\forecast;
 
-use bo\components\classes\logger;
+use bo\components\classes\helper\logger;
 use bo\components\classes\company;
 
 class shipnext extends scraping

@@ -4,7 +4,7 @@ namespace bo\views\agency;
 include '../../components/config.php';
 
 use bo\components\classes\agency;
-use bo\components\classes\dbConnect;
+use bo\components\classes\helper\dbConnect;
 
 if(isset($_GET['id'])) {
     $agency = dbConnect::fetchSingle("select * from port_bo_agency where id= ?", agency::class, array($_GET['id']));

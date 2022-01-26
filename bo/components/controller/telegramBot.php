@@ -1,9 +1,9 @@
 <?php
 namespace bo\components\controller;
 
-use bo\components\classes\dbConnect;
-use bo\components\classes\logger;
-use bo\components\classes\telegram;
+use bo\components\classes\helper\dbConnect;
+use bo\components\classes\helper\logger;
+use bo\components\classes\helper\telegram;
 use bo\components\classes\user;
 
 $independent = true;

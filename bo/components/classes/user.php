@@ -1,6 +1,10 @@
 <?php
 namespace bo\components\classes;
 
+use bo\components\classes\helper\dbConnect;
+use bo\components\classes\helper\logger;
+use bo\components\classes\helper\ozg;
+use bo\components\classes\helper\sendMail;
 use bo\components\types\languages;
 
 /**

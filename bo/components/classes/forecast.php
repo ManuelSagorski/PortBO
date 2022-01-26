@@ -1,7 +1,7 @@
 <?php
 namespace bo\components\classes;
 
-use bo\components\classes\dbConnect;
+use bo\components\classes\helper\dbConnect;
 
 class forecast
 {

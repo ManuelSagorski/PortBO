@@ -1,7 +1,7 @@
 <?php
 namespace bo\cron;
 
-use bo\components\classes\dbConnect;
+use bo\components\classes\helper\dbConnect;
 use bo\components\classes\vessel;
 
 $independent = true;

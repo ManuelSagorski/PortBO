@@ -1,8 +1,8 @@
 <?php
 namespace bo\components;
 
-use bo\components\classes\dbConnect;
-use bo\components\classes\logger;
+use bo\components\classes\helper\dbConnect;
+use bo\components\classes\helper\logger;
 use bo\components\classes\user;
 use bo\components\classes\port;
 
@@ -33,7 +33,7 @@ require_once(PATH . '/components/configCredentials.php');
  */
 spl_autoload_register(function($class) {
     $class_name = explode('\\', $class);
-    $classFolders = array("classes", "classes/PHPMailer", "classes/forecast", "types", "controller");
+    $classFolders = array("classes", "classes/PHPMailer", "classes/forecast", "classes/helper", "types", "controller");
     
     foreach($classFolders as $folder) {
         $file = PATH . '/components/' . $folder . '/' . str_replace('\\', '/', $class_name[count($class_name)-1]) . '.php';

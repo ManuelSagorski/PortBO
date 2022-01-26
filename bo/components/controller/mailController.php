@@ -1,7 +1,7 @@
 <?php
 namespace bo\components\controller;
 
-use bo\components\classes\imap;
+use bo\components\classes\helper\imap;
 
 include '../config.php';
 

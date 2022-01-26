@@ -1,7 +1,7 @@
 <?php
 namespace bo\components\controller;
 
-use bo\components\classes\dbConnect;
+use bo\components\classes\helper\dbConnect;
 
 include '../config.php';
 

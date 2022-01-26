@@ -1,6 +1,11 @@
 <?php
-namespace bo\components\classes;
+namespace bo\components\classes\helper;
 
+/**
+ * Klasse ozg - ermöglicht Anbingung an die özg Schichtplanung 
+ * @author Manuel Sagorski
+ *
+ */
 class ozg
 {
     const OZG_CREATE_USER_URL = "https://xn--zg-eka.de/api/createUser.php";

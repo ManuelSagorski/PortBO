@@ -1,14 +1,14 @@
 <?php
 namespace bo\components\controller;
 
-use bo\components\classes\logger;
+use bo\components\classes\helper\logger;
 use bo\components\classes\vessel;
 use bo\components\classes\vesselInfo;
 use bo\components\classes\vesselContact;
 use bo\components\classes\vesselContactDetails;
 use bo\components\types\vesselTypes;
 use bo\components\classes\forecast;
-use bo\components\classes\lookup;
+use bo\components\classes\helper\lookup;
 
 include '../config.php';
 

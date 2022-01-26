@@ -1,11 +1,8 @@
 <?php 
 namespace bo\views\lookup;
 
-use bo\components\classes\agency;
-use bo\components\classes\dbConnect;
-use bo\components\classes\port;
+use bo\components\classes\helper\dbConnect;
 use bo\components\classes\vessel;
-use bo\components\classes\user;
 use bo\components\types\contactTypes;
 
 include '../../components/config.php';

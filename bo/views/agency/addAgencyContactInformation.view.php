@@ -2,7 +2,7 @@
 namespace bo\vieviews\agency;
 
 use bo\components\classes\agencyPortInfo;
-use bo\components\classes\dbConnect;
+use bo\components\classes\helper\dbConnect;
 
 include '../../components/config.php';
 

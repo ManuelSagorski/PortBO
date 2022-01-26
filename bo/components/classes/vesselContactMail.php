@@ -10,8 +10,7 @@ class vesselContactMail
     private $message;
     private $attachment;
     
-    public function __construct() {
-        
+    public function __construct() {      
     }
     
     /*

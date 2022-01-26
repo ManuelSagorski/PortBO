@@ -1,7 +1,7 @@
 <?php 
 namespace bo\views\port;
 
-use bo\components\classes\dbConnect;
+use bo\components\classes\helper\dbConnect;
 use bo\components\classes\port;
 
 include '../../components/config.php';
