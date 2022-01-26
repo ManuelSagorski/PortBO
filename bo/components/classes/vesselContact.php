@@ -34,10 +34,11 @@ class vesselContact
             $this->date         = $data['contactDate'];
             if(!isset($data['contactPlanned'])) {
                 $this->planned  = 0; }
-                else {
-                    $this->planned  = 1; }
-                    
-                    $this->inputData = $data;
+            else {
+                $this->planned  = 1; 
+            }
+            
+            $this->inputData = $data;
         }
         else {
             $this->vesselContactMail = dbConnect::fetchAll("select * from port_bo_vesselContactMail where contact_id = ?", vesselContactMail::class, Array($this->id));
@@ -72,7 +73,14 @@ class vesselContact
     /*
      * Funktion zum Ändern eines vesselContacts
      */
-    public static function editContact($contactData, $contactID) {
+    public function editContact($contactData) {        
+        $this->agent_id     = agency::getAgentID($contactData['contactAgent']);
+        $this->contactUserID= user::getUserByFullName($contactData['contactName']);
+        $this->inputData = $contactData;
+        
+        if ($msg = $this->validateContactInput()) {
+            return array("status" => "error", "msg" => $msg);
+        }
         
         if(!isset($contactData['contactPlanned'])) {
             $planned  = 0; 
@@ -92,9 +100,13 @@ class vesselContact
                    planned = ?
              where id = ?";
         dbConnect::execute($sqlstrg, array($_SESSION['user'], $contactData['contactType'], $contactData['contactName'], $contactData['contactInfo'],
-            $contactData['contactDate'], agency::getAgentID($contactData['contactAgent']), $contactData['contactPort'], $planned, $contactID));
+            $contactData['contactDate'], agency::getAgentID($contactData['contactAgent']), $contactData['contactPort'], $planned, $this->id));
+        
+        logger::writeLogInfo('vesselContact', 'Kontakt für Schiff ' . vessel::getVesselName($this->vess_id) . ' bearbeitet. InfoText: ' . $contactData['contactInfo']);
         
         vessel::setTS($_SESSION['vessID']);
+        
+        return array("status" => "success");
     }
     
     public static function getOpenContactsForUser($userID) {

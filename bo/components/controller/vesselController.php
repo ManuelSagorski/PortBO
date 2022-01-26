@@ -9,6 +9,7 @@ use bo\components\classes\vesselContactDetails;
 use bo\components\types\vesselTypes;
 use bo\components\classes\forecast;
 use bo\components\classes\helper\lookup;
+use bo\components\classes\helper\dbConnect;
 
 include '../config.php';
 
@@ -51,8 +52,8 @@ switch($_POST['type']) {
             echo json_encode($vesselContact->addContact());
         }
         else {
-            vesselContact::editContact($_POST['data'], $_POST['contactID']);
-            echo json_encode(array("status" => "success"));
+            $vesselContact = dbConnect::fetchSingle("select * from port_bo_vesselContact where id = ?", vesselContact::class, Array($_POST['contactID']));
+            echo json_encode($vesselContact->editContact($_POST['data']));
         }
         break;
         

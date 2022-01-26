@@ -1,4 +1,8 @@
 <?php
+/*
+ * import.php - zum manuellen Import von Schiffen in die Datenbank 
+ */
+
 namespace bo\cron;
 
 use bo\components\classes\helper\dbConnect;
