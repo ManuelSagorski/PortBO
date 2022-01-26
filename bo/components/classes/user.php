@@ -49,8 +49,6 @@ class user extends abstractDBObject
      * @param Array $data
      */
     public static function addUser($data) {
-        global $ports;
-        
         $pwd = self::generateHashForRandPassword($data['userLevel']);
         
         $sqlstrg = "insert into port_bo_user
@@ -70,7 +68,7 @@ class user extends abstractDBObject
             }
         }
         
-        foreach($ports as $port) {
+        foreach(port::getMultipleObjects() as $port) {
             if(in_array($port->getID(), $data['userPorts'])) {
                 $newUser->addUserToPort($port->getID());
             }
@@ -92,8 +90,6 @@ class user extends abstractDBObject
      * @param int $user_id
      */
     public static function editUser($data, $user_id) {
-        $ports = port::getMultipleObjects();
-        
         $sqlstrg = "update port_bo_user
                        set username = ?, email = ?, phone = ?, first_name = ?, surname = ?, level = ?
                      where id = ?";
@@ -111,7 +107,7 @@ class user extends abstractDBObject
             }
         }
         
-        foreach($ports as $port) {
+        foreach(port::getMultipleObjects() as $port) {
             if(in_array($port->getID(), $data['userPorts']) && !$actualUser->userHasPort($port->getID())) {
                 $actualUser->addUserToPort($port->getID());
             }
