@@ -56,10 +56,10 @@ if(isset($_GET['contactID'])) {
 	    <div id="input_contactPort" class="field">
         	<label>Hafen</label>
     		<select id="contactPort" name="contactPort">
-    			<?php foreach ($ports as $port) { ?>
+    			<?php foreach ($user->getUserPorts() as $port) { ?>
     			<option 
-    				value="<?php echo $port->getId(); ?>"
-    				<?php if(!empty($contact)){echo ($contact->getPortID() == $port->getId())?' selected':'';} ?>
+    				value="<?php echo $port->getID(); ?>"
+    				<?php if(!empty($contact)){echo ($contact->getPortID() == $port->getID())?' selected':'';} ?>
     			><?php echo $port->getName(); ?></option> 
     			<?php } ?>
     		</select>

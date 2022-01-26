@@ -222,7 +222,10 @@ class user
     }
     
     public function userGetPorts() {
-        $this->userPorts = dbConnect::fetchAll('select * from port_bo_userToPort where user_id = ?', userToPort::class, array($this->id));
+        $sqlstrg = "select p.* 
+                     from port_bo_port p join port_bo_userToPort utp on p.id = utp.port_id 
+                    where utp.user_id = ?";
+        $this->userPorts = dbConnect::fetchAll($sqlstrg, port::class, array($this->id));
     }
   
     public function userHasPort($portID) {

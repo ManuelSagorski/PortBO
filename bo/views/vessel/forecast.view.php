@@ -12,16 +12,16 @@ include '../../components/config.php';
 
 <?php 
 foreach($user->getUserPorts() as $key => $userPorts) { 
-    $forecast = dbConnect::fetchAll("select * from port_bo_scedule where port_id = ? order by arriving", forecast::class, Array($userPorts->getPortID()));
+    $forecast = dbConnect::fetchAll("select * from port_bo_scedule where port_id = ? order by arriving", forecast::class, Array($userPorts->getID()));
     $arrivingDay = "";
 ?>
 
 	<div class="title">
     	<i class="dropdown icon"></i>
-    	Forecast für <?php echo port::getPortName($userPorts->getPortID()); ?>
+    	Forecast für <?php echo port::getPortName($userPorts->getID()); ?>
 	</div>
 	<div class="content">
-		<form id="addForecast<?php echo $userPorts->getPortID(); ?>" class="addForecast">
+		<form id="addForecast<?php echo $userPorts->getID(); ?>" class="addForecast">
             <table class="detailTable ui very compact celled striped table">
             	<thead>
             		<tr>
@@ -78,7 +78,7 @@ foreach($forecast as $expectedVessel) {
 						<td><input type="date" name="etd" id="etd"></td>
 						<td><div id="input_name" class="field"><input type="text" name="name" id="name"></div></td>
 						<td colspan="2">
-							<input type="hidden" name="portID" value="<?php echo $userPorts->getPortID(); ?>">
+							<input type="hidden" name="portID" value="<?php echo $userPorts->getID(); ?>">
 							<input type="hidden" name="accordionID" value="<?php echo $key; ?>">
 						</td>
 						<td><input type="text" name="terminal" id="terminal"></td>
