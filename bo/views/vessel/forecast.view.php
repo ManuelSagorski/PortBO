@@ -24,9 +24,8 @@ foreach($user->getUserPorts() as $key => $userPorts) {
             <table class="detailTable ui very compact celled striped table">
             	<thead>
             		<tr>
-            			<th>ETA</th>
-            			<th>ETD</th>
-            			<th>Name</th>
+            			<th>ETA / ETD</th>
+            			<th>Name / IMO</th>
             			<th></th>
             			<th></th>
             			<th>Terminal</th>
@@ -43,38 +42,45 @@ foreach($forecast as $expectedVessel) {
         $arrivingDay = $tmpDay->format('Y-m-d');
     ?>
     				<tr class="positive">
-    					<td colspan="9"><?php echo $tmpDay->format('Y-m-d'); ?></td>
+    					<td colspan="8"><?php echo $tmpDay->format('Y-m-d'); ?></td>
     				</tr>
     <?php    
     }
 ?>
             		<tr<?php echo ($expectedVessel->getStatus() == 1)?' class="forecastDisabled"':'';?>>
-            			<td data-label="arriving"><?php echo $expectedVessel->getArriving(); ?></td>			
-            			<td data-label="leaving"><?php echo $expectedVessel->getLeaving(); ?></td>
-            			<td data-label="name" title="<?php echo $expectedVessel->getName(); ?>"><?php echo $expectedVessel->getName(); ?></td>
-        				<td data-label="inSystem" class="center aligned"><?php echo (!empty($expectedVessel->vessel))?'<a onClick="vessel.openDetails(' . $expectedVessel->vessel->getID() . ');"><i class="address card outline icon"></i></a>':''; ?></td>
-            			<td data-label="email" class="center aligned">
+            			<td data-label="etad">
+            				<div><?php echo $expectedVessel->getArriving(); ?></div>
+            				<div><?php echo $expectedVessel->getLeaving(); ?></div>
+            			</td>			
+            			<td data-label="name_imo" title="<?php echo $expectedVessel->getName(); ?>">
+            				<div><?php echo $expectedVessel->getName(); ?></div>
+            				<div><?php echo $expectedVessel->getIMO(); ?></div>
+            			</td>
+        				<td data-label="inSystem" class="center aligned collapsing"><?php echo (!empty($expectedVessel->vessel))?'<a onClick="vessel.openDetails(' . $expectedVessel->vessel->getID() . ');"><i class="address card outline icon"></i></a>':''; ?></td>
+            			<td data-label="email" class="center aligned collapsing">
             				<?php echo ($expectedVessel->hasMail)?'<i class="envelope outline icon"></i>':''; ?>
             				<?php echo ($expectedVessel->inDry)?'<i class="gb uk flag"></i>':''; ?>
             				<?php echo ($expectedVessel->expectMail)?'<i class="question circle outline icon"></i>':''; ?>
             			</td>
-            			<td data-label="company"><?php echo $expectedVessel->getCompany(); ?></td>
+            			<td data-label="company" class="collapsing"><?php echo $expectedVessel->getCompany(); ?></td>
             			<td data-label="agency" title="<?php echo $expectedVessel->getAgency(); ?>"><?php echo $expectedVessel->getAgency(); ?></td>
-            			<td data-label="done" class="center aligned">
+            			<td data-label="done" class="center aligned collapsing">
             			<?php if($expectedVessel->getStatus() == 0) { ?>
             				<a onClick="vessel.forecastItemDone(<?php echo $expectedVessel->getID(); ?>, this);"><i class="check icon"></i></a>
             			<?php } else { ?>
             				<a onClick="vessel.forecastItemReopen(<?php echo $expectedVessel->getID(); ?>, this);"><i class="undo icon"></i></a>
             			<?php } ?>
             			</td>
-            			<td data-label="remove" class="center aligned">
+            			<td data-label="remove" class="center aligned collapsing">
             				<a onClick="vessel.forecastItemRemove(<?php echo $expectedVessel->getID(); ?>, this);"><i class="trash icon"></i></a>
             			</td>
             		</tr>
 <?php } ?>
     				<tr>
-						<td><div id="input_eta" class="field"><input type="date" name="eta" id="eta"></div></td>
-						<td><input type="date" name="etd" id="etd"></td>
+						<td>
+							<div id="input_eta" class="field"><input type="date" name="eta" id="eta"></div>
+							<div id="input_etd" class="field"><input type="date" name="etd" id="etd"></div>
+						</td>
 						<td><div id="input_name" class="field"><input type="text" name="name" id="name"></div></td>
 						<td colspan="2">
 							<input type="hidden" name="portID" value="<?php echo $userPorts->getID(); ?>">

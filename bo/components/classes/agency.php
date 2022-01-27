@@ -44,9 +44,8 @@ class agency extends abstractDBObject
         if($msg = $this->validateNewAgencyInput()) {
             return array("type" => "error", "msg" => $msg);
         }
-        else {
-            $sqlstrg = "insert into port_bo_agency (name, short) values (?, ?)";
-            dbConnect::execute($sqlstrg, array($this->name, $this->short));
+        else {            
+            $this->insertDB(Array("name" => $this->name, "short" => $this->short));
             
             logger::writeLogCreate('agency', 'Neue Agentur angelegt: ' . $this->name);
             return array("type" => "added", "name" => $this->name);
@@ -63,8 +62,7 @@ class agency extends abstractDBObject
             return array("type" => "error", "msg" => $msg);
         }
         else {
-            $sqlstrg = "update port_bo_agency set name = ?, short = ? where id = ?";
-            dbConnect::execute($sqlstrg, array($this->name, $this->short, $this->id));
+            $this->updateDB(Array("name" => $this->name, "short" => $this->short), Array("id" => $this->id));
             
             logger::writeLogCreate('agency', 'Agentur bearbeitet: ' . $this->name);
             return array("type" => "changed");

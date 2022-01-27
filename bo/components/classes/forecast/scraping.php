@@ -108,6 +108,15 @@ class scraping
                     $updateValues .= ", company = ?";
                     $parameter[] = $vessel['company'];
                 }
+
+                if(intval($vessel['imo']) == 0) {
+                    $vessel['imo'] = "";
+                }
+                
+                if(!empty($vessel['imo'])) {
+                    $updateValues .= ", imo = ?";
+                    $parameter[] = $vessel['imo'];
+                }
                 $parameter[] = $row['id'];
                  
                 dbConnect::execute(str_replace('{{updateValues}}', $updateValues, $sqlstrg), $parameter);
@@ -122,6 +131,10 @@ class scraping
                 
                 $sqlstrg = "insert into port_bo_scedule (arriving, leaving, name, imo, company, agency, port_id) values (?, ?, ?, ?, ?, ?, ?)";
 
+                if(intval($vessel['imo']) == 0) {
+                    $vessel['imo'] = "";
+                }
+                
                 dbConnect::execute($sqlstrg, Array(
                     $arrival->format('Y-m-d H:i:s'), 
                     $departure, 

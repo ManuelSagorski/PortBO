@@ -4,7 +4,6 @@ namespace bo\views\agency;
 use bo\components\classes\agency;
 use bo\components\classes\port;
 use bo\components\classes\vessel;
-use bo\components\classes\helper\dbConnect;
 use bo\components\classes\vesselContact;
 
 include '../../components/config.php';

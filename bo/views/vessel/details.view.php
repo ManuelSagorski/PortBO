@@ -2,7 +2,6 @@
 namespace bo\views\vessel;
 
 use bo\components\classes\agency;
-use bo\components\classes\helper\dbConnect;
 use bo\components\classes\port;
 use bo\components\classes\vessel;
 use bo\components\classes\user;

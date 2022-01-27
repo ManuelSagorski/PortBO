@@ -25,6 +25,9 @@ switch($_POST['type']) {
         
     case("addAgencyPortInfo"):
             if(empty($_POST['id'])) {
+                $agencyPortInfo = new agencyPortInfo($_POST['data']);
+                $agencyPortInfo->addAgencyPortInfo();
+                
                 agencyPortInfo::addAgencyPortInfo($_POST['data']);
             }
             else {

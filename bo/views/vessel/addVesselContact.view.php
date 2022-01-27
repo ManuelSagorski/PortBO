@@ -1,7 +1,6 @@
 <?php
 namespace bo\views\vessel;
 
-use bo\components\classes\helper\dbConnect;
 use bo\components\classes\vesselContact;
 use bo\components\classes\agency;
 use bo\components\types\contactTypes;

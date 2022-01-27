@@ -14,13 +14,23 @@ class agencyPortInfo extends abstractDBObject implements JsonSerializable
     private $info;
     private $email;
     
-    public function __construct()
-    {}
+    public function __construct($data = null) {
+        if(!empty($data)) {
+            $this->agency_id = $_SESSION['agencyID'];
+            $this->port_id = $data['contactPort'];
+            $this->info = $data['agencyContactInfo'];
+            $this->email = $data['agencyContactEmail'];
+        }
+    }
     
-    public static function addAgencyPortInfo($agencyPortInfoData) {
-        $sqlstrg = "insert into port_bo_agencyPortInfo (agency_id, port_id, info, email) values (?, ?, ?, ?)";
-        dbConnect::execute($sqlstrg, array($_SESSION['agencyID'], $agencyPortInfoData['contactPort'],
-            $agencyPortInfoData['agencyContactInfo'], $agencyPortInfoData['agencyContactEmail']));
+    public function addAgencyPortInfo() {
+        $this->insertDB(Array(
+            "agency_id" => $this->agency_id, 
+            "port_id" => $this->port_id, 
+            "info" => $this->info, 
+            "email" => $this->email
+        ));
+        
         agency::setTS($_SESSION['agencyID']);
     }
     
