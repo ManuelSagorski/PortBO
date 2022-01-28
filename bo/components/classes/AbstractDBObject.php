@@ -2,9 +2,63 @@
 namespace bo\components\classes;
 
 use bo\components\classes\helper\DBConnect;
+use bo\components\classes\helper\Query;
 
 abstract class AbstractDBObject
 {
+    /**
+     * getSingleObjectByID
+     *
+     * Liefert als Objekt eine row aus der Datenbank zurück die der angegebenen ID entspricht
+     *
+     * @param int $id
+     * @return Object
+     */
+    public static function getSingleObjectByID($id) {        
+        $query = (new Query("select"))
+            ->table(static::$tableName)
+            ->condition(Array("id" => $id))
+            ->build();
+        return DBConnect::fetchSingle($query->sqlstrg, static::class, $query->parameter);
+    }
+    
+    /**
+     * getSingleObjectByCondition
+     *
+     * Liefert als Objekt eine row aus der Datenbank zurück die den angegebenen Konditionen entspricht
+     *
+     * @param array $conditions - Array von Key-Value Paren ("name" => value)
+     * @param String $orderSequence - optional: order by ...
+     * @return Object
+     */
+    public static function getSingleObjectByCondition($conditions = [], $orderSequence = null) {
+        $query = (new Query("select"))
+            ->table(static::$tableName)
+            ->condition($conditions)
+            ->order($orderSequence)
+            ->build();
+        return DBConnect::fetchSingle($query->sqlstrg, static::class, $query->parameter);
+    }
+    
+    /**
+     * getMultipleObjects
+     *
+     * Liefert als Objekte mehrere rows aus der Datenbank zurück die den angegebenen Konditionen entsprechen
+     *
+     * @param array $conditions - Array von Key-Value Paren ("name" => value)
+     * @param String $orderSequence - optional: order by ...
+     * @return Array of Objects
+     */
+    public static function getMultipleObjects($conditions = [], $orderSequence = null) {
+        $query = (new Query("select"))
+            ->table(static::$tableName)
+            ->condition($conditions)
+            ->order($orderSequence)
+            ->build();
+        return DBConnect::fetchAll($query->sqlstrg, static::class, $query->parameter);
+    }
+    
+    
     /**
      * insertDB
      * 
@@ -13,22 +67,11 @@ abstract class AbstractDBObject
      * @param Array $fields - Array von Key-Value Paren ("name" => value)
      */
     public function insertDB($fields) {
-        $sqlstrg = "insert into " . static::$tableName . " ({{names}}) values ({{values}})";
-        $names = "";
-        $values = "";
-        $parameter = [];
-        
-        foreach($fields as $name => $value) {
-            if($name !== array_key_first($fields)) {
-                $names .= ", ";
-                $values .= ", ";
-            }
-            $names .= $name;
-            $values .= "?";
-            array_push($parameter, $value);
-        }
-        
-        DBConnect::execute(str_replace(Array("{{names}}", "{{values}}"), Array($names, $values), $sqlstrg), $parameter);
+        $query = (new Query("insert"))
+            ->table(static::$tableName)
+            ->values($fields)
+            ->build();        
+        DBConnect::execute($query->sqlstrg, $query->parameter);
     }
     
     /**
@@ -40,96 +83,12 @@ abstract class AbstractDBObject
      * @param Array $conditions - Array von Key-Value Paren ("name" => value)
      */
     public function updateDB($fields, $conditions) {
-        $sqlstrg = "update " . static::$tableName . " set ";
-        $parameter = [];
-        
-        foreach($fields as $name => $value) {
-            if($name !== array_key_first($fields)) {
-                $sqlstrg .= ", ";
-            }
-            $sqlstrg .= $name . " = ?";
-            array_push($parameter, $value);
-        }
-        
-        foreach ($conditions as $name => $value) {
-            if($name === array_key_first($conditions)) {
-                $sqlstrg .= " where ";
-            }
-            else {
-                $sqlstrg .= " and ";
-            }
-            
-            $sqlstrg .= $name . " = ?";
-            
-            array_push($parameter, $value);
-        }
-        
-        DBConnect::execute($sqlstrg, $parameter);
-    }
-    
-    /**
-     * getSingleObjectByID
-     * 
-     * Liefert als Objekt eine row aus der Datenbank zurück die der angegebenen ID entspricht
-     * 
-     * @param int $id
-     * @return Object
-     */
-    public static function getSingleObjectByID($id) {
-        $sqlstrg = "select * from " . static::$tableName . " where id = ?";
-        return DBConnect::fetchSingle($sqlstrg, static::class, array($id));
-    }
-    
-    /**
-     * getSingleObjectByCondition
-     * 
-     * Liefert als Objekt eine row aus der Datenbank zurück die den angegebenen Konditionen entspricht
-     * 
-     * @param array $conditions - Array von Key-Value Paren ("name" => value)
-     * @param String $orderSequence - optional: order by ...
-     * @return Object
-     */
-    public static function getSingleObjectByCondition($conditions = [], $orderSequence = null) {
-        $query = self::prepareQuerySelect($conditions, $orderSequence);        
-        return DBConnect::fetchSingle($query["sqlstrg"], static::class, $query["parameter"]);
-    }
-    
-    /**
-     * getMultipleObjects
-     * 
-     * Liefert als Objekte mehrere rows aus der Datenbank zurück die den angegebenen Konditionen entsprechen
-     * 
-     * @param array $conditions - Array von Key-Value Paren ("name" => value)
-     * @param String $orderSequence - optional: order by ...
-     * @return Array of Objects
-     */
-    public static function getMultipleObjects($conditions = [], $orderSequence = null) {
-        $query = self::prepareQuerySelect($conditions, $orderSequence);        
-        return DBConnect::fetchAll($query["sqlstrg"], static::class, $query["parameter"]);
-    }
-    
-    private static function prepareQuerySelect($conditions, $orderSequence) {
-        $sqlstrg = "select * from " . static::$tableName;
-        $parameter = [];
-        
-        foreach ($conditions as $name => $value) {
-            if($name === array_key_first($conditions)) {
-                $sqlstrg .= " where ";
-            }
-            else {
-                $sqlstrg .= " and ";
-            }
-            
-            $sqlstrg .= $name . " = ?";
-            
-            array_push($parameter, $value);
-        }
-        
-        if(!empty($orderSequence)) {
-            $sqlstrg .= " order by " . $orderSequence;
-        }
-        
-        return Array("sqlstrg" => $sqlstrg, "parameter" => $parameter);
+        $query = (new Query("update"))
+            ->table(static::$tableName)
+            ->values($fields)
+            ->condition($conditions)
+            ->build();        
+        DBConnect::execute($query->sqlstrg, $query->parameter);
     }
 }
 
