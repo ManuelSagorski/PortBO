@@ -1,18 +1,18 @@
 <?php 
 namespace bo\views\port;
 
-use bo\components\classes\company;
-use bo\components\classes\helper\dbConnect;
-use bo\components\classes\port;
-use bo\components\classes\user;
-use bo\components\types\languages;
+use bo\components\classes\Company;
+use bo\components\classes\helper\DBConnect;
+use bo\components\classes\Port;
+use bo\components\classes\User;
+use bo\components\types\Languages;
 
 include '../../components/config.php';
 
 if(!empty($_GET["id"])) {
-    $port = port::getSingleObjectByID($_GET["id"]);
-    $companys = company::getMultipleObjects(Array("port_id" => $_GET["id"]), "name");
-    $users = dbConnect::fetchAll("select u.* from port_bo_user u join port_bo_userToPort up on u.id = up.user_id where up.port_id = ?", user::class, array($_GET["id"]));
+    $port = Port::getSingleObjectByID($_GET["id"]);
+    $companys = Company::getMultipleObjects(Array("port_id" => $_GET["id"]), "name");
+    $users = DBConnect::fetchAll("select u.* from port_bo_user u join port_bo_userToPort up on u.id = up.user_id where up.port_id = ?", User::class, array($_GET["id"]));
     $_SESSION['portID'] = $port->getID();
 
 ?>

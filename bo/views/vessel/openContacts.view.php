@@ -1,12 +1,12 @@
 <?php
 namespace bo\views\vessel;
 
-use bo\components\classes\vesselContact;
-use bo\components\classes\vessel;
-use bo\components\classes\port;
+use bo\components\classes\VesselContact;
+use bo\components\classes\Vessel;
+use bo\components\classes\Port;
 
 include '../../components/config.php';
-$openContacts = vesselContact::getOpenContactsForUser($_SESSION['user']);
+$openContacts = VesselContact::getOpenContactsForUser($_SESSION['user']);
 $tmpPort = 0;
 ?>
 
@@ -19,14 +19,14 @@ foreach ($openContacts as $openContact) {
 ?>
 </div>
 <div>
-	<div class="openContactRowHeader"><?php echo port::getPortName($openContact->getPortID()); ?></div>
+	<div class="openContactRowHeader"><?php echo Port::getPortName($openContact->getPortID()); ?></div>
 <?php } ?>
 
 <div class="openContactRow">
 	<a onClick="vessel.openDetails(<?php echo $openContact->getVesselID(); ?>)">
 		<div>
-			<?php echo (vessel::getVesselType($openContact->getVesselID()) == 'Cruise')?'<i class="ship icon"></i>':''; ?>
-			<?php echo $openContact->getDate(); ?> | <?php echo vessel::getVesselName($openContact->getVesselID())?>
+			<?php echo (Vessel::getVesselType($openContact->getVesselID()) == 'Cruise')?'<i class="ship icon"></i>':''; ?>
+			<?php echo $openContact->getDate(); ?> | <?php echo Vessel::getVesselName($openContact->getVesselID())?>
 		</div>
 		<div><?php echo $openContact->getContactName(); ?></div>
 	</a>

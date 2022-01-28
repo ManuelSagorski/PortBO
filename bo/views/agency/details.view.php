@@ -1,17 +1,17 @@
 <?php 
 namespace bo\views\agency;
 
-use bo\components\classes\agency;
-use bo\components\classes\port;
-use bo\components\classes\vessel;
-use bo\components\classes\vesselContact;
+use bo\components\classes\Agency;
+use bo\components\classes\Port;
+use bo\components\classes\Vessel;
+use bo\components\classes\VesselContact;
 
 include '../../components/config.php';
 
 if(!empty($_GET["id"])) {
-    $agency = agency::getSingleObjectByID($_GET["id"]);
+    $agency = Agency::getSingleObjectByID($_GET["id"]);
     $_SESSION['agencyID'] = $agency->getID();
-    $vesselContacts = vesselContact::getMultipleObjects(Array("agent_id" => $agency->getID()), "date desc");
+    $vesselContacts = VesselContact::getMultipleObjects(Array("agent_id" => $agency->getID()), "date desc");
 ?>
 <div class="elementDetailWrapper ui segment">
 	<div class="elemDetail agency">
@@ -45,7 +45,7 @@ if(!empty($_GET["id"])) {
     <?php foreach ($agency->getAgencyPortInfo() as $info) { ?>
 		<tr>
 			<td data-label="select"><input type="radio" name="selectAgencyDetail" value="<?php echo $info->getID();?>"></td>
-			<td data-label="portName"><?php echo port::getPortName($info->getPortID()); ?></td>			
+			<td data-label="portName"><?php echo Port::getPortName($info->getPortID()); ?></td>			
 			<td data-label="email"><?php echo $info->getEmail(); ?></td>
 			<td data-label="info"><?php echo $info->getInfo(); ?></td>
 		</tr>
@@ -75,7 +75,7 @@ if(!empty($_GET["id"])) {
 		<tr>
 			<td data-label="timestamp"><?php echo $vesselContact->getDate(); ?></td>
 			<td data-label="contactType"><?php echo $vesselContact->getContactType(); ?></td>			
-			<td data-label="vesselName"><?php echo vessel::getVesselName($vesselContact->getVesselID()); ?></td>
+			<td data-label="vesselName"><?php echo Vessel::getVesselName($vesselContact->getVesselID()); ?></td>
 			<td data-label="contactName"><?php echo $vesselContact->getContactName(); ?></td>
 		</tr>
 	<?php } ?>

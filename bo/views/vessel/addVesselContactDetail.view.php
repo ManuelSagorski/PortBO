@@ -1,13 +1,13 @@
 <?php
 namespace bo\views\vessel;
 
-use bo\components\classes\helper\dbConnect;
-use bo\components\classes\vesselContactDetails;
+use bo\components\classes\helper\DBConnect;
+use bo\components\classes\VesselContactDetails;
 
 include '../../components/config.php';
 
 if(isset($_GET['contactDetailID']))
-    $contactDetail = dbConnect::fetchSingle("select * from port_bo_vesselContactDetails where id= ?", vesselContactDetails::class, array($_GET['contactDetailID']));
+    $contactDetail = DBConnect::fetchSingle("select * from port_bo_vesselContactDetails where id= ?", VesselContactDetails::class, array($_GET['contactDetailID']));
 ?>
 
 <form id="addVesselContactDetail" class="ui form" autocomplete="off">
@@ -29,7 +29,7 @@ if(isset($_GET['contactDetailID']))
         <div id="input_contactDetailType" class="field">
         	<label>Kontakt Typ</label>
         	<select id="contactDetailType" name="contactDetailType" class="ui fluid dropdown">
-        	<?php foreach (vesselContactDetails::$contactDetailTypes as $type) { ?>
+        	<?php foreach (VesselContactDetails::$contactDetailTypes as $type) { ?>
     			<option 
     				value="<?php echo $type; ?>"
     				<?php if(!empty($contactDetail)){echo ($contactDetail->getType() == $type)?' selected':'';} ?>

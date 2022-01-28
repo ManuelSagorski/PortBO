@@ -1,7 +1,7 @@
 <?php 
 namespace bo\views\port;
 
-'../../components/config.php';
+include '../../components/config.php';
 ?>
 
 <div class="listingHeadline">Meine Häfen:</div>

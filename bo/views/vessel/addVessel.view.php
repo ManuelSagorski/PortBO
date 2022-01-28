@@ -1,13 +1,13 @@
 <?php
 namespace bo\views\vessel;
 
-use bo\components\classes\vessel;
-use bo\components\types\vesselTypes;
+use bo\components\classes\Vessel;
+use bo\components\types\VesselTypes;
 
 include '../../components/config.php';
 
 if(isset($_GET['id']))
-    $vessel = vessel::getSingleObjectByID($_GET['id']);
+    $vessel = Vessel::getSingleObjectByID($_GET['id']);
 $editMode = !empty($vessel);
 
 $searchValue = trim($_GET['searchValue']);

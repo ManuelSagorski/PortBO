@@ -1,15 +1,15 @@
 <?php 
 namespace bo\views\vessel;
 
-use bo\components\classes\agency;
-use bo\components\classes\port;
-use bo\components\classes\vessel;
-use bo\components\classes\user;
+use bo\components\classes\Agency;
+use bo\components\classes\Port;
+use bo\components\classes\Vessel;
+use bo\components\classes\User;
 
 include '../../components/config.php';
 
 if(!empty($_GET["id"])) {
-    $vessel = vessel::getSingleObjectByID($_GET["id"]);
+    $vessel = Vessel::getSingleObjectByID($_GET["id"]);
     $_SESSION['vessID'] = $vessel->getID();
 ?>
 <div class="elementDetailWrapper ui segment">
@@ -66,7 +66,7 @@ if(!empty($_GET["id"])) {
     <?php foreach ($vessel->getVesselInfo() as $info) { ?>
 		<tr>
 			<td data-label="select"><input type="radio" name="selectInfo" value="<?php echo $info->getID();?>"></td>
-			<td data-label="userFullName"><?php echo user::getUserFullName($info->getUser()); ?></td>			
+			<td data-label="userFullName"><?php echo User::getUserFullName($info->getUser()); ?></td>			
 			<td data-label="timestamp"><?php echo date("d.m.Y", strtotime($info->getTs_erf())); ?></td>
 			<td data-label="info"><?php echo $info->getInfo(); ?></td>
 		</tr>
@@ -125,14 +125,14 @@ if(!empty($_GET["id"])) {
 		<tr<?php echo ($contact->getPlanned() == 1)?' class="planned"':''; ?>>
 			<td data-label="select"><input type="radio" name="selectContact" value="<?php echo $contact->getID(); ?>"></td>
 			<td data-label="timestamp"><?php echo date("d.m.Y", strtotime($contact->getDate())); ?></td>
-			<td data-label="portName"><?php echo port::getPortName($contact->getPortID()); ?></td>			
+			<td data-label="portName"><?php echo Port::getPortName($contact->getPortID()); ?></td>			
 			<td data-label="userName"<?php echo (!empty($contact->getContactName()))?' class="three wide"':''; ?>><?php echo $contact->getContactName(); ?></td>
 			<td data-label="contactType">
 			<?php echo $contact->getContactType(); if(!empty($contact->getVesselContactMail())) { ?>
                 <a class="item" onClick="vessel.getVesselContactMail(<?php echo $contact->getID(); ?>);"><i class="envelope outline icon"></i></a>
             <?php } ?>
 			</td>
-			<td data-label="agency"><?php echo agency::getAgentShort($contact->getAgentID()); ?></td>
+			<td data-label="agency"><?php echo Agency::getAgentShort($contact->getAgentID()); ?></td>
 			<td data-label="agency"><?php echo $contact->getInfo(); ?></td>
 		</tr>
 	<?php } ?>

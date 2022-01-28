@@ -1,12 +1,12 @@
 <?php
 namespace bo\views\port;
 
-use bo\components\classes\port;
+use bo\components\classes\Port;
 
 include '../../components/config.php';
 
 if(isset($_GET['id']))
-    $port = port::getSingleObjectByID($_GET['id']);
+    $port = Port::getSingleObjectByID($_GET['id']);
 $editMode = !empty($port);
 ?>
 

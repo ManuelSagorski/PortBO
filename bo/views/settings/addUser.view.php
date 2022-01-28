@@ -1,14 +1,14 @@
 <?php
 namespace bo\views\settings;
 
-use bo\components\classes\user;
-use bo\components\types\languages;
-use bo\components\classes\port;
+use bo\components\classes\User;
+use bo\components\types\Languages;
+use bo\components\classes\Port;
 
 include '../../components/config.php';
 
 if(isset($_GET['id'])) 
-    $userToEdit = user::getSingleObjectByID($_GET['id']);
+    $userToEdit = User::getSingleObjectByID($_GET['id']);
 $editMode = !empty($userToEdit);
 ?>
 
@@ -80,7 +80,7 @@ $editMode = !empty($userToEdit);
         <div id="input_userLevel" class="field">
         	<label>Benutzerlevel</label>
         	<select id="userLevel" name="userLevel" class="ui fluid dropdown">
-        	<?php foreach (user::$userLevel as $levelID=>$level) { ?>
+        	<?php foreach (User::$userLevel as $levelID=>$level) { ?>
     			<option 
     				value="<?php echo $levelID; ?>"
     				<?php if($editMode){echo ($userToEdit->getLevel() == $levelID)?' selected':'';} ?>
@@ -102,7 +102,7 @@ $editMode = !empty($userToEdit);
     <div id="input_userPort" class="field">
     	<label>Zugewiesene Häfen</label>
     	<select id="userPort" name="userPort" multiple="" class="ui fluid dropdown">
-    	<?php foreach (port::getMultipleObjects() as $port) { ?>
+    	<?php foreach (Port::getMultipleObjects() as $port) { ?>
 			<option value="<?php echo $port->getID(); ?>"><?php echo $port->getName(); ?></option>
 		<?php } ?>
     	</select>

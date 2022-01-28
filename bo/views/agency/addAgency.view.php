@@ -3,10 +3,10 @@ namespace bo\views\agency;
 
 include '../../components/config.php';
 
-use bo\components\classes\agency;
+use bo\components\classes\Agency;
 
 if(isset($_GET['id']))
-    $agency = agency::getSingleObjectByID($_GET['id']);
+    $agency = Agency::getSingleObjectByID($_GET['id']);
 $editMode = !empty($agency);
 
 $name = '';

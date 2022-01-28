@@ -1,13 +1,13 @@
 <?php
 namespace bo\views\vessel;
 
-use bo\components\classes\helper\dbConnect;
-use bo\components\classes\vesselInfo;
+use bo\components\classes\helper\DBConnect;
+use bo\components\classes\VesselInfo;
 
 include '../../components/config.php';
 
 if(isset($_GET['infoID']))
-    $info = dbConnect::fetchSingle("select * from port_bo_vesselInfo where id= ?", vesselInfo::class, array($_GET['infoID']));
+    $info = DBConnect::fetchSingle("select * from port_bo_vesselInfo where id= ?", VesselInfo::class, array($_GET['infoID']));
 ?>
 
 <form id="addVesselInfo" class="ui form" autocomplete="off">

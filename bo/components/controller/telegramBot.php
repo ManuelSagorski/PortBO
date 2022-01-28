@@ -1,17 +1,17 @@
 <?php
 namespace bo\components\controller;
 
-use bo\components\classes\helper\logger;
-use bo\components\classes\helper\telegram;
-use bo\components\classes\user;
+use bo\components\classes\helper\Logger;
+use bo\components\classes\helper\Telegram;
+use bo\components\classes\User;
 
 $independent = true;
 include '../config.php';
 
 $telegram = new telegram(null, json_decode(file_get_contents('php://input'), true));
-logger::writeLogInfo('telegramBot', 'Eingehende Nachricht: ' . $telegram->getMessage());
+Logger::writeLogInfo('telegramBot', 'Eingehende Nachricht: ' . $telegram->getMessage());
 
-$userTelegram = user::getSingleObjectByCondition(Array("telegram_id" => $telegram->getChatID()));
+$userTelegram = User::getSingleObjectByCondition(Array("telegram_id" => $telegram->getChatID()));
 
 if(empty($userTelegram)) {
     $telegram->register();
@@ -28,7 +28,7 @@ else {
         $telegram->sendMessage(false,false);
     }
     
-    if(!isset($sent) && !user::isBoUserActive()) {
+    if(!isset($sent) && !User::isBoUserActive()) {
         $telegram->sendMessage(false, "Hallo " . $userTelegram->getFirstName() .
             ". Derzeit ist kein Back-Office Mitarbeiter online. Wir werden dir so schnell wie möglich antworten. " .
             "Um eine Übersicht der möglichen Befehle zu erhalten, sende bitte '/hilfe'.");

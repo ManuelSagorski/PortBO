@@ -1,12 +1,12 @@
 <?php
 namespace bo\views\port;
 
-use bo\components\classes\company;
+use bo\components\classes\Company;
 
 include '../../components/config.php';
 
 if(isset($_GET['id']))
-    $company = company::getSingleObjectByID($_GET['id']);
+    $company = Company::getSingleObjectByID($_GET['id']);
 $editMode = !empty($company);
 ?>
 

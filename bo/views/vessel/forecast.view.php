@@ -1,8 +1,8 @@
 <?php
 namespace bo\views\vessel;
 
-use bo\components\classes\forecast;
-use bo\components\classes\port;
+use bo\components\classes\Forecast;
+use bo\components\classes\Port;
 
 include '../../components/config.php';
 ?>
@@ -11,13 +11,13 @@ include '../../components/config.php';
 
 <?php 
 foreach($user->getUserPorts() as $key => $userPorts) { 
-    $forecast = forecast::getMultipleObjects(Array("port_id" => $userPorts->getID()), "arriving");
+    $forecast = Forecast::getMultipleObjects(Array("port_id" => $userPorts->getID()), "arriving");
     $arrivingDay = "";
 ?>
 
 	<div class="title">
     	<i class="dropdown icon"></i>
-    	Forecast für <?php echo port::getPortName($userPorts->getID()); ?>
+    	Forecast für <?php echo Port::getPortName($userPorts->getID()); ?>
 	</div>
 	<div class="content">
 		<form id="addForecast<?php echo $userPorts->getID(); ?>" class="addForecast">

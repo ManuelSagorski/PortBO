@@ -1,22 +1,22 @@
 <?php
 namespace bo\components\controller;
 
-use bo\components\classes\user;
+use bo\components\classes\User;
 
 include '../config.php';
 
 switch($_POST['type']) {
     case("addUser"):
         if(empty($_POST['id'])) {
-            user::addUser($_POST['data']);
+            User::addUser($_POST['data']);
         }
         else {
-            user::editUser($_POST['data'], $_POST['id']);
+            User::editUser($_POST['data'], $_POST['id']);
         }
         break;
 
     case("sendInvitationMail"):
-        $userToEdit = user::getSingleObjectByID($_POST['id']);
+        $userToEdit = User::getSingleObjectByID($_POST['id']);
         $userToEdit->sendInvitationMail();
         break;
         
@@ -33,7 +33,7 @@ switch($_POST['type']) {
         break;
         
     case("addUserKalender"):
-        $userToEdit = user::getSingleObjectByID($_POST['id']);
+        $userToEdit = User::getSingleObjectByID($_POST['id']);
         $userToEdit->addKalender($_POST['kalender']);
         break;
 }

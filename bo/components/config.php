@@ -1,10 +1,9 @@
 <?php
 namespace bo\components;
 
-use bo\components\classes\helper\dbConnect;
-use bo\components\classes\helper\logger;
-use bo\components\classes\user;
-use bo\components\classes\port;
+use bo\components\classes\helper\DBConnect;
+use bo\components\classes\helper\Logger;
+use bo\components\classes\User;
 
 session_start();
 
@@ -47,7 +46,7 @@ spl_autoload_register(function($class) {
 /*
  * Aufbau der DB Verbindung
  */
-dbConnect::initDB();
+DBConnect::initDB();
 
 /*
  * Instanz der Logging Klasse
@@ -59,7 +58,7 @@ if($_SERVER[ 'SCRIPT_NAME' ] != "/" . FOLDER . "/index.php" && !isset($independe
         header('Location: http://'.$hostname.'/' . FOLDER . '/index.php');
     }
     else {
-        $user = user::getSingleObjectByID($_SESSION['user']);
+        $user = User::getSingleObjectByID($_SESSION['user']);
     }
 }
 

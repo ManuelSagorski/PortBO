@@ -1,14 +1,14 @@
 <?php
 namespace bo\views\settings;
 
-use bo\components\classes\helper\dbConnect;
-use bo\components\classes\user;
+use bo\components\classes\helper\DBConnect;
+use bo\components\classes\User;
 
 include '../../components/config.php';
 
 if($user->getLevel() != 9)
     header('Location: http://'.$hostname.'/'.FOLDER.'/index.php');
-$logTable = dbConnect::execute("select * from port_bo_log order by ts_erf desc limit 150", array());
+$logTable = DBConnect::execute("select * from port_bo_log order by ts_erf desc limit 150", array());
 ?>
 
 <table class="detailTable ui very compact celled striped table">
@@ -21,7 +21,7 @@ $logTable = dbConnect::execute("select * from port_bo_log order by ts_erf desc l
     <?php while ($row = $logTable->fetch()) { ?>
 		<tr<?php echo($row['logLevel'] == 'error')?' class="error"':''; ?>>
 			<td data-label="timestamp" class="three wide"><?php echo $row['ts_erf']; ?></td>
-			<td data-label="userFullName" class="three wide"><?php echo (!empty($row['user_id']))?user::getUserFullName($row['user_id']):"&nbsp;"; ?></td>			
+			<td data-label="userFullName" class="three wide"><?php echo (!empty($row['user_id']))?User::getUserFullName($row['user_id']):"&nbsp;"; ?></td>			
 			<td data-label="loglevel"><?php echo $row['logLevel']; ?></td>
 			<td data-label="component"><?php echo $row['component']; ?></td>
 			<td data-label="message"><?php echo $row['message']; ?></td>

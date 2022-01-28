@@ -1,12 +1,12 @@
 <?php
 namespace bo\views\agency;
 
-use bo\components\classes\agencyPortInfo;
+use bo\components\classes\AgencyPortInfo;
 
 include '../../components/config.php';
 
 if(isset($_GET['id']))
-    $contact = agencyPortInfo::getSingleObjectByID($_GET['id']);
+    $contact = AgencyPortInfo::getSingleObjectByID($_GET['id']);
 ?>
 
 <form id="addAgencyPortInfo" class="ui form" autocomplete="off">

@@ -1,26 +1,25 @@
 <?php
 namespace bo\components\controller;
 
-use bo\components\classes\helper\logger;
-use bo\components\classes\vessel;
-use bo\components\classes\vesselInfo;
-use bo\components\classes\vesselContact;
-use bo\components\classes\vesselContactDetails;
-use bo\components\types\vesselTypes;
-use bo\components\classes\forecast;
-use bo\components\classes\helper\lookup;
-use bo\components\classes\helper\dbConnect;
+use bo\components\classes\helper\Logger;
+use bo\components\classes\Vessel;
+use bo\components\classes\VesselInfo;
+use bo\components\classes\VesselContact;
+use bo\components\classes\VesselContactDetails;
+use bo\components\types\VesselTypes;
+use bo\components\classes\Forecast;
+use bo\components\classes\helper\Lookup;
 
 include '../config.php';
 
 switch($_POST['type']) {
     case("addVessel"):
         if(empty($_POST['id'])) {
-            $vessel = new vessel($_POST['data']);
+            $vessel = new Vessel($_POST['data']);
             echo json_encode($vessel->addVessel());
         }
         else {
-            $vessel = new vessel($_POST['data'], $_POST['id']);
+            $vessel = new Vessel($_POST['data'], $_POST['id']);
             echo json_encode($vessel->editVessel());
         }
         break;
@@ -35,60 +34,60 @@ switch($_POST['type']) {
         
     case("addVesselInfo"):
         if(empty($_POST['infoID'])) {
-            vesselInfo::safeInfo($_POST['data']);
+            VesselInfo::safeInfo($_POST['data']);
         }
         else {
-            vesselInfo::editInfo($_POST['data'], $_POST['infoID']);
+            VesselInfo::editInfo($_POST['data'], $_POST['infoID']);
         }
         break;
         
     case("deleteVesselInfo"):
-        vesselInfo::deleteInfo($_POST['infoID']);
+        VesselInfo::deleteInfo($_POST['infoID']);
         break;
         
     case("addVesselContact"):
         if(empty($_POST['contactID'])) {
-            $vesselContact = new vesselContact($_POST['data']);
+            $vesselContact = new VesselContact($_POST['data']);
             echo json_encode($vesselContact->addContact());
         }
         else {
-            $vesselContact = vesselContact::getSingleObjectByID($_POST['contactID']);
+            $vesselContact = VesselContact::getSingleObjectByID($_POST['contactID']);
             echo json_encode($vesselContact->editContact($_POST['data']));
         }
         break;
         
     case("deleteVesselContact"):
-        vesselContact::deleteContact($_POST['contactID']);
+        VesselContact::deleteContact($_POST['contactID']);
         break;
         
     case("addVesselContactDetail"):
         if(empty($_POST['contactDetailID'])) {
-            $vesselContactDetails = new vesselContactDetails($_POST['data']);
+            $vesselContactDetails = new VesselContactDetails($_POST['data']);
             $vesselContactDetails->addContactDetail();
         }
         else {
-            vesselContactDetails::editContactDetail($_POST['data'], $_POST['contactDetailID']);
+            VesselContactDetails::editContactDetail($_POST['data'], $_POST['contactDetailID']);
         }
         break;
         
     case("deleteVesselContactDetail"):
-        vesselContactDetails::deleteContactDetail($_POST['contactDetailID']);
+        VesselContactDetails::deleteContactDetail($_POST['contactDetailID']);
         break;
         
     case("forecastItemDone"):
-        forecast::forecastItemDone($_POST['id']);
+        Forecast::forecastItemDone($_POST['id']);
         break;
 
     case("forecastItemReopen"):
-        forecast::forecastItemReopen($_POST['id']);
+        Forecast::forecastItemReopen($_POST['id']);
         break;
 
     case("forecastItemRemove"):
-        forecast::forecastItemRemove($_POST['id']);
+        Forecast::forecastItemRemove($_POST['id']);
         break;
         
     case("addForecast"):
-        forecast::addForecast($_POST['data']);
+        Forecast::addForecast($_POST['data']);
         break;
         
     case("lookupRequestInformation"):
@@ -123,7 +122,7 @@ function getData($parameter){
                         $arr['shipType'] = vesselTypes::$vesselTypeMapper[$arr['shipType']];
                     }
                     else {
-                        logger::writeLogError('getData', 'Noch nicht bekannter Shiffstyp: ' . $arr['shipType']);
+                        Logger::writeLogError('getData', 'Noch nicht bekannter Shiffstyp: ' . $arr['shipType']);
                     }
                 }
                 $json = json_encode($arr);

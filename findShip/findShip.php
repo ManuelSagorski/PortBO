@@ -1,19 +1,19 @@
 <?php
 namespace findShip;
 
-use bo\components\classes\forecast\eurogate;
-use bo\components\classes\forecast\portTicker;
-use bo\components\classes\forecast\hhla;
-use bo\components\classes\forecast\unikai;
-use bo\components\classes\forecast\fleetmon;
-use bo\components\classes\forecast\shipnext;
-use bo\components\classes\port;
+use bo\components\classes\forecast\Eurogate;
+use bo\components\classes\forecast\PortTicker;
+use bo\components\classes\forecast\HHLA;
+use bo\components\classes\forecast\Unikai;
+use bo\components\classes\forecast\Fleetmon;
+use bo\components\classes\forecast\Shipnext;
+use bo\components\classes\Port;
 
 $independent = true;
 include '../bo/components/config.php';
 include '../bo/components/libs/simple_html_dom.php';
 
-$eurogate = new eurogate();
+$eurogate = new Eurogate();
 if($eurogate->getForecast()) {
     echo "<table>";
     foreach ($eurogate->expectedVessels as $vessel) {
@@ -22,7 +22,7 @@ if($eurogate->getForecast()) {
     echo "</table>";
 }
 
-$portTicker = new portTicker();
+$portTicker = new PortTicker();
 $portTicker->getForecast();
 
 echo "<table>";
@@ -31,7 +31,7 @@ foreach ($portTicker->expectedVessels as $vessel) {
 }
 echo "</table>";
 
-$hhla = new hhla();
+$hhla = new HHLA();
 $hhla->getForecast();
 
 echo "<table>";
@@ -41,7 +41,7 @@ foreach ($hhla->expectedVessels as $vessel) {
 echo "</table>";
 
 
-$unikai = new unikai();
+$unikai = new Unikai();
 $unikai->getForecast();
 
 echo "<table>";
@@ -51,7 +51,7 @@ foreach ($unikai->expectedVessels as $vessel) {
 echo "</table>";
 
 
-$fleetmon = new fleetmon();
+$fleetmon = new Fleetmon();
 $fleetmon->getForecast();
 
 echo "<table>";
@@ -60,12 +60,12 @@ foreach ($fleetmon->expectedVessels as $vessel) {
 }
 echo "</table>";
 
-$shipnext = new shipnext();
+$shipnext = new Shipnext();
 $shipnext->getForecast();
 
 echo "<table>";
 foreach ($shipnext->expectedVessels as $vessel) {
-    echo "<tr><td>" . port::getPortName($vessel['port']) . "</td><td>" . $vessel['arrivalDate'] . "</td><td>" . $vessel['name'] . "</td><td>" . $vessel['imo'] . "</td></tr>";
+    echo "<tr><td>" . Port::getPortName($vessel['port']) . "</td><td>" . $vessel['arrivalDate'] . "</td><td>" . $vessel['name'] . "</td><td>" . $vessel['imo'] . "</td></tr>";
 }
 echo "</table>";
 

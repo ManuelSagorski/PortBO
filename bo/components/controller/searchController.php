@@ -1,7 +1,7 @@
 <?php
 namespace bo\components\controller;
 
-use bo\components\classes\helper\dbConnect;
+use bo\components\classes\helper\DBConnect;
 
 include '../config.php';
 
@@ -51,7 +51,7 @@ switch ($_GET['type']) {
         break;
 }
 
-$result = dbConnect::execute($sqlstrg, $parameter);
+$result = DBConnect::execute($sqlstrg, $parameter);
 
 switch ($_GET['type']) {
     case 'vessel':

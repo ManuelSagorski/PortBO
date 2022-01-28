@@ -1,14 +1,13 @@
 <?php 
 namespace bo\views\lookup;
 
-use bo\components\classes\helper\dbConnect;
-use bo\components\classes\vessel;
-use bo\components\types\contactTypes;
+use bo\components\classes\Vessel;
+use bo\components\types\ContactTypes;
 
 include '../../components/config.php';
 
 if(!empty($_GET["id"])) {
-    $vessel = vessel::getSingleObjectByID($_GET["id"]);
+    $vessel = Vessel::getSingleObjectByID($_GET["id"]);
     $_SESSION['vessID'] = $vessel->getID();
 ?>
 <div class="elementDetailWrapper ui segment">

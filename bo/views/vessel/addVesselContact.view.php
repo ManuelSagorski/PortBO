@@ -1,14 +1,14 @@
 <?php
 namespace bo\views\vessel;
 
-use bo\components\classes\vesselContact;
-use bo\components\classes\agency;
-use bo\components\types\contactTypes;
+use bo\components\classes\VesselContact;
+use bo\components\classes\Agency;
+use bo\components\types\ContactTypes;
 
 include '../../components/config.php';
 
 if(isset($_GET['contactID']))
-    $contact = vesselContact::getSingleObjectByID($_GET['contactID']);
+    $contact = VesselContact::getSingleObjectByID($_GET['contactID']);
 ?>
 
 <form id="addVesselContact" class="ui form" autocomplete="off">
@@ -89,7 +89,7 @@ if(isset($_GET['contactID']))
             		type="text" 
             		id="contactAgent" 
             		name="contactAgent" 
-            		value="<?php echo(!empty($contact))?agency::getAgentName($contact->getAgentID()):''; ?>"
+            		value="<?php echo(!empty($contact))?Agency::getAgentName($contact->getAgentID()):''; ?>"
             		onkeyup="(this.value.length > 0)?inputSearch('agentForContact', this.value):hideInputSearchResults(); 
             		         $('#agentInfoContainer').hide('slow'); 
             		         formValidate.clearAllError();"

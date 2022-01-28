@@ -1,14 +1,14 @@
 <?php
 namespace bo\views\settings;
 
-use bo\components\classes\user;
-use bo\components\types\languages;
+use bo\components\classes\User;
+use bo\components\types\Languages;
 
 include '../../components/config.php';
 
 if($user->getLevel() != 9)
     header('Location: http://'.$hostname.'/'.FOLDER.'/index.php');
-$users = user::getMultipleObjects();
+$users = User::getMultipleObjects();
 ?>
 
 <table class="detailTable ui very compact celled striped table">

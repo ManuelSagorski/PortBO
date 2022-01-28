@@ -1,11 +1,11 @@
 <?php
-use bo\components\classes\user;
-use bo\components\controller\loginController;
+use bo\components\classes\User;
+use bo\components\controller\LoginController;
 
 include 'components/config.php';
 
 if(isset($_GET['logout'])) { $_SESSION = array(); }
-if(isset($_SESSION['user'])) { header('Location: http://'.$hostname.($path == '/' ? '' : $path).'/public/' . user::$defaultPage[$_SESSION['userLevel']] . '.php'); }
+if(isset($_SESSION['user'])) { header('Location: http://'.$hostname.($path == '/' ? '' : $path).'/public/' . User::$defaultPage[$_SESSION['userLevel']] . '.php'); }
 
 $loginController = new loginController();
 $view = '';
@@ -15,7 +15,7 @@ switch($_SERVER['REQUEST_METHOD']) {
         if (isset($_POST['username'])) {
             $msg = $loginController->login($_REQUEST);
             if($msg === true) {
-                header('Location: http://'.$hostname.($path == '/' ? '' : $path).'/public/' . user::$defaultPage[$_SESSION['userLevel']] . '.php');
+                header('Location: http://'.$hostname.($path == '/' ? '' : $path).'/public/' . User::$defaultPage[$_SESSION['userLevel']] . '.php');
             }
         }
         

@@ -1,11 +1,11 @@
 <?php
 namespace bo\views\vessel;
 
-use bo\components\classes\helper\dbConnect;
-use bo\components\classes\vesselContactMail;
+use bo\components\classes\helper\DBConnect;
+use bo\components\classes\VesselContactMail;
 
 include '../../components/config.php';
-$vesselContactMails = dbConnect::fetchAll("select * from port_bo_vesselContactMail where contact_id = ?", vesselContactMail::class, Array($_GET['contactID']))
+$vesselContactMails = DBConnect::fetchAll("select * from port_bo_vesselContactMail where contact_id = ?", VesselContactMail::class, Array($_GET['contactID']))
 ?>
 
 <?php foreach ($vesselContactMails as $vesselContactMail) { ?>

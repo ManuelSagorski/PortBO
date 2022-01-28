@@ -1,7 +1,7 @@
 <?php
 namespace bo\views\settings;
 
-use bo\components\classes\helper\statistics;
+use bo\components\classes\helper\Statistics;
 
 include '../../components/config.php';
 
