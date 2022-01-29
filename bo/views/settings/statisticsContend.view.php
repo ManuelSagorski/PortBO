@@ -2,7 +2,6 @@
 namespace bo\views\settings;
 
 use bo\components\classes\helper\Statistics;
-use bo\components\classes\helper\Query;
 
 include '../../components/config.php';
 

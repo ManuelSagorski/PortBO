@@ -6,7 +6,7 @@ use bo\components\classes\helper\Logger;
 
 class Vessel extends AbstractDBObject
 {
-    protected static $tableName = "port_bo_vessel";
+    public const TABLE_NAME = "port_bo_vessel";
     
     private $id;
     private $name;

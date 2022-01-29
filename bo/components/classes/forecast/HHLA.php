@@ -3,7 +3,7 @@ namespace bo\components\classes\forecast;
 
 use bo\components\classes\helper\Logger;
 
-class HHLA extends  scraping
+class HHLA extends  Scraping
 {
     const URL_HHLA_SEGELLISTE = "https://coast.hhla.de/api/execute-report/Standard-Report-Segelliste";
     

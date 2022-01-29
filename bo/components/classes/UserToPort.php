@@ -3,7 +3,7 @@ namespace bo\components\classes;
 
 class UserToPort extends AbstractDBObject
 {
-    protected static $tableName = "port_bo_userToPort";
+    public const TABLE_NAME = "port_bo_userToPort";
     
     private $id;
     private $user_id;

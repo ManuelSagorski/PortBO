@@ -3,7 +3,7 @@ namespace bo\components\classes\forecast;
 
 use bo\components\classes\helper\Logger;
 
-class Eurogate extends scraping
+class Eurogate extends Scraping
 {
     const URL_EUROGATE_SEGELLISTE = "https://www.eurogate.de/segelliste/state/show?_state=7i1bpj8n1j8g&_unique=1sof6jwexsptz&_transition=start&period=1&internal=false&languageNo=30&locationCode=HAM&order=+0";
     // const URL_EUROGATE_SEGELLISTE = "http://www.port-mission.de/resultlist.html";

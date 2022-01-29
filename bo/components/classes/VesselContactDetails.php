@@ -9,8 +9,10 @@ use bo\components\classes\helper\Logger;
  * @author Manuel Sagorski
  *
  */
-class VesselContactDetails
+class VesselContactDetails extends AbstractDBObject
 {
+    public const TABLE_NAME = "port_bo_vesselContactDetails";
+    
     private $id;
     private $vessel_id;
     private $type;
@@ -32,21 +34,17 @@ class VesselContactDetails
      * Speichert eine Kontaktinformation in der Datenbank
      */
     public function addContactDetail() {
-        $sqlstrg = "insert into port_bo_vesselContactDetails (vessel_id, type, detail, info) values (?, ?, ?, ?)";
-        DBConnect::execute($sqlstrg, Array($this->vessel_id, $this->type, $this->detail, $this->info));
-        
+        $this->insertDB(["vessel_id" => $this->vessel_id, "type" => $this->type, "detail" => $this->detail, "info" => $this->info]);
+       
         Logger::writeLogCreate("vesselContactInfo", "Neue Kontaktdaten für Schiff " . Vessel::getVesselName($this->vessel_id) . " hinzugefügt. Typ: " . $this->type);
-        
         Vessel::setTS($this->vessel_id);
     }
     
     /**
      * Ändert eine bestehende Kontaktinformation in der Datenbank
      */
-    public static function editContactDetail($data, $contactDetailID) {
-        $sqlstrg = "update port_bo_vesselContactDetails set type = ?, detail = ?, info = ? where id = ?";
-        DBConnect::execute($sqlstrg, Array($data['contactDetailType'], $data['contactDetail'], $data['contactDetailInfo'], $contactDetailID));
-        
+    public function editContactDetail($data) {
+        $this->updateDB(["type" => $data['contactDetailType'], "detail" => $data['contactDetail'], "info" => $data['contactDetailInfo']], ["id" => $this->id]);
         Vessel::setTS($_SESSION['vessID']);
     }
     

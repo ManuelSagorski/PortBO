@@ -47,12 +47,10 @@ switch($_POST['type']) {
         
     case("addVesselContact"):
         if(empty($_POST['contactID'])) {
-            $vesselContact = new VesselContact($_POST['data']);
-            echo json_encode($vesselContact->addContact());
+            echo json_encode((new VesselContact($_POST['data']))->addContact());
         }
         else {
-            $vesselContact = VesselContact::getSingleObjectByID($_POST['contactID']);
-            echo json_encode($vesselContact->editContact($_POST['data']));
+            echo json_encode((VesselContact::getSingleObjectByID($_POST['contactID']))->editContact($_POST['data']));
         }
         break;
         
@@ -62,11 +60,10 @@ switch($_POST['type']) {
         
     case("addVesselContactDetail"):
         if(empty($_POST['contactDetailID'])) {
-            $vesselContactDetails = new VesselContactDetails($_POST['data']);
-            $vesselContactDetails->addContactDetail();
+            (new VesselContactDetails($_POST['data']))->addContactDetail();
         }
         else {
-            VesselContactDetails::editContactDetail($_POST['data'], $_POST['contactDetailID']);
+            (VesselContactDetails::getSingleObjectByID($_POST['contactDetailID']))->editContactDetail($_POST['data']);
         }
         break;
         

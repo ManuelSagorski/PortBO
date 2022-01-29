@@ -1,13 +1,13 @@
 <?php
 namespace bo\components\classes;
 
-use bo\components\classes\helper\DBConnect;
 use bo\components\classes\helper\Logger;
 use JsonSerializable;
+use bo\components\classes\helper\Query;
 
 class Company extends AbstractDBObject implements JsonSerializable
 {
-    protected static $tableName = "port_bo_company";
+    public const TABLE_NAME = "port_bo_company";
     
     private $id;
     private $name;
@@ -42,34 +42,45 @@ class Company extends AbstractDBObject implements JsonSerializable
      * Funktion die einen neuen Liegeplatz anlegt
      */
     public function addCompany() {
-        $sqlstrg = "insert into port_bo_company (name, port_id, info, mtLink, pmLink) values (?, ?, ?, ?, ?)";
-        DBConnect::execute($sqlstrg, array($this->name, $this->port_id, $this->info, $this->mtLink, $this->pmLink));
-        
+        $this->insertDB([
+            "name" => $this->name,
+            "port_id" => $this->port_id,
+            "info" => $this->info,
+            "mtLink" => $this->mtLink,
+            "pmLink" => $this->pmLink
+        ]);
+       
         Logger::writeLogCreate('company', 'Neuer Liegeplatz angelegt: ' . $this->name);
     }
     
     /*
      * Static Funktion zum Bearbeiten eines Liegeplatzes
      */
-    public static function editCompany($data, $id) {
-        $sqlstrg = "update port_bo_company set name = ?, info = ?, mtLink = ?, pmLink = ? where id = ?";
-        DBConnect::execute($sqlstrg, array($data['companyName'], $data['companyInfo'], $data['companyMTLink'], $data['companyPMLink'], $id));
+    public function editCompany($data) {
+        $this->updateDB([
+            "name" => $data['companyName'],
+            "info" => $data['companyInfo'],
+            "mtLink" => $data['companyMTLink'],
+            "pmLink" => $data['companyPMLink']
+        ], ["id" => $this->id]);
     }
     
     /*
      * Static Funktion die einen Liegeplatz löscht
      */
-    public static function deleteCompany($id) {
-        $sqlstrg = "delete from port_bo_company where id = ?";
-        DBConnect::execute($sqlstrg, array($id));
+    public function deleteCompany() {
+        $this->deleteDB(["id" => $this->id]);
     }
     
     /*
      * Static Funktion die den Namen zu einer LiegeplatzID liefert
      */
     public static function getCompanyName($id) {
-        $sqlstrg = "select * from port_bo_company where id = ?";
-        $result = DBConnect::execute($sqlstrg, array($id));
+        $result = (new Query("select"))
+            ->table(self::TABLE_NAME)
+            ->condition(["id" => $id])
+            ->execute();
+        
         $row = $result->fetch();
         return $row['name'] ?? '';
     }

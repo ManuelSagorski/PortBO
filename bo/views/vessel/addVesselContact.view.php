@@ -4,6 +4,7 @@ namespace bo\views\vessel;
 use bo\components\classes\VesselContact;
 use bo\components\classes\Agency;
 use bo\components\types\ContactTypes;
+use bo\components\classes\Port;
 
 include '../../components/config.php';
 
@@ -59,6 +60,12 @@ if(isset($_GET['contactID']))
     				value="<?php echo $port->getID(); ?>"
     				<?php if(!empty($contact)){echo ($contact->getPortID() == $port->getID())?' selected':'';} ?>
     			><?php echo $port->getName(); ?></option> 
+    			<?php } ?>
+    			<?php if(!empty($contact) && !$user->userHasPort($contact->getPortID())) {?>
+    			<option
+    				value="<?php echo $contact->getPortID(); ?>"
+    				selected
+    			><?php echo Port::getPortName($contact->getPortID())?></option>
     			<?php } ?>
     		</select>
         </div>

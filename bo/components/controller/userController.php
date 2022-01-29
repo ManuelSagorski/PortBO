@@ -8,10 +8,10 @@ include '../config.php';
 switch($_POST['type']) {
     case("addUser"):
         if(empty($_POST['id'])) {
-            User::addUser($_POST['data']);
+            (new User($_POST['data']))->addUser();
         }
         else {
-            User::editUser($_POST['data'], $_POST['id']);
+            (User::getSingleObjectByID($_POST['id']))->editUser($_POST['data']);
         }
         break;
 

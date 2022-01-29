@@ -2,6 +2,7 @@
 namespace bo\views\agency;
 
 use bo\components\classes\AgencyPortInfo;
+use bo\components\classes\Port;
 
 include '../../components/config.php';
 
@@ -17,7 +18,7 @@ if(isset($_GET['id']))
     <div id="input_contactPort" class="field">
     	<label>Hafen</label>
 		<select id="contactPort" name="contactPort">
-			<?php foreach ($user->getUserPorts() as $port) { ?>
+			<?php foreach (Port::getMultipleObjects() as $port) { ?>
 			<option 
 				value="<?php echo $port->getId(); ?>"
 				<?php if(!empty($contact)){echo ($contact->getPortID() == $port->getId())?' selected':'';} ?>

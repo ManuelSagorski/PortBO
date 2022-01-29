@@ -16,8 +16,8 @@ abstract class AbstractDBObject
      */
     public static function getSingleObjectByID($id) {        
         $query = (new Query("select"))
-            ->table(static::$tableName)
-            ->condition(Array("id" => $id))
+            ->table((get_called_class())::TABLE_NAME)
+            ->condition(["id" => $id])
             ->build();
         return DBConnect::fetchSingle($query->sqlstrg, static::class, $query->parameter);
     }
@@ -33,7 +33,7 @@ abstract class AbstractDBObject
      */
     public static function getSingleObjectByCondition($conditions = [], $orderSequence = null) {
         $query = (new Query("select"))
-            ->table(static::$tableName)
+            ->table((get_called_class())::TABLE_NAME)
             ->condition($conditions)
             ->order($orderSequence)
             ->build();
@@ -51,10 +51,11 @@ abstract class AbstractDBObject
      */
     public static function getMultipleObjects($conditions = [], $orderSequence = null) {
         $query = (new Query("select"))
-            ->table(static::$tableName)
+            ->table((get_called_class())::TABLE_NAME)
             ->condition($conditions)
             ->order($orderSequence)
             ->build();
+            
         return DBConnect::fetchAll($query->sqlstrg, static::class, $query->parameter);
     }
     
@@ -68,7 +69,7 @@ abstract class AbstractDBObject
      */
     public function insertDB($fields) {
         $query = (new Query("insert"))
-            ->table(static::$tableName)
+            ->table((get_called_class())::TABLE_NAME)
             ->values($fields)
             ->build();        
         DBConnect::execute($query->sqlstrg, $query->parameter);
@@ -84,11 +85,25 @@ abstract class AbstractDBObject
      */
     public function updateDB($fields, $conditions) {
         $query = (new Query("update"))
-            ->table(static::$tableName)
+            ->table((get_called_class())::TABLE_NAME)
             ->values($fields)
             ->condition($conditions)
             ->build();        
         DBConnect::execute($query->sqlstrg, $query->parameter);
+    }
+
+    /**
+     * deleteDB
+     *
+     * Löscht ein bestimmtes Element aus der Datenbank
+     *
+     * @param Array $conditions - Array von Key-Value Paren ("name" => value)
+     */
+    public function deleteDB($conditions) {
+        (new Query("delete"))
+            ->table((get_called_class())::TABLE_NAME)
+            ->condition($conditions)
+            ->execute();
     }
 }
 

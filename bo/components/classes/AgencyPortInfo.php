@@ -1,12 +1,11 @@
 <?php
 namespace bo\components\classes;
 
-use bo\components\classes\helper\DBConnect;
 use JsonSerializable;
 
 class AgencyPortInfo extends AbstractDBObject implements JsonSerializable
 {
-    protected static $tableName = "port_bo_agencyPortInfo";
+    public const TABLE_NAME = "port_bo_agencyPortInfo";
     
     private $id;
     private $agency_id;
@@ -24,27 +23,28 @@ class AgencyPortInfo extends AbstractDBObject implements JsonSerializable
     }
     
     public function addAgencyPortInfo() {
-        $this->insertDB(Array(
+        $this->insertDB([
             "agency_id" => $this->agency_id, 
             "port_id" => $this->port_id, 
             "info" => $this->info, 
             "email" => $this->email
-        ));
+        ]);
         
         Agency::setTS($_SESSION['agencyID']);
     }
     
-    public static function deleteAgencyPortInfo($id) {
-        $sqlstrg = "delete from port_bo_agencyPortInfo where id = ?";
-        DBConnect::execute($sqlstrg, array($id));
-        Agency::setTS($id);
+    public function deleteAgencyPortInfo() {
+        $this->deleteDB(["id" => $this->id]);
     }
     
-    public static function editAgencyPortInfo($agencyPortInfoData, $id) {
-        $sqlstrg = "update port_bo_agencyPortInfo set port_id = ?, info = ?, email = ? where id = ?";
-        DBConnect::execute($sqlstrg, array($agencyPortInfoData['contactPort'], $agencyPortInfoData['agencyContactInfo'],
-            $agencyPortInfoData['agencyContactEmail'], $id));
-        Agency::setTS($id);
+    public function editAgencyPortInfo($data) {
+        $this->updateDB([
+            "port_id" => $data['contactPort'], 
+            "info" => $data['agencyContactInfo'], 
+            "email" => $data['agencyContactEmail']
+        ], ["id" => $this->id]);
+
+        Agency::setTS($this->id);
     }
     
     /*

@@ -6,6 +6,7 @@ use bo\components\classes\helper\Logger;
 use bo\components\classes\helper\OZG;
 use bo\components\classes\helper\SendMail;
 use bo\components\types\Languages;
+use bo\components\classes\helper\Query;
 
 /**
  * Klasse user
@@ -14,7 +15,7 @@ use bo\components\types\Languages;
  */
 class User extends AbstractDBObject
 {
-    protected static $tableName = "port_bo_user";
+    public const TABLE_NAME = "port_bo_user";
     
     private $id;
     private $username;
@@ -33,86 +34,104 @@ class User extends AbstractDBObject
     private $userPorts = [];
     private $userLanguages = [];
     
+    private $sendInfo;
+    
     public static $userLevel = array(1 => "Verkündiger", 2 => "Foreign Port", 4 => "BO Mitarbeiter", 5 => "BO Supervisor", 9 => "Administrator");
     public static $defaultPage = array(2 => "lookup", 4 => "index", 5 => "index", 9 => "index");
     
     /**
      * Konstructor
      */
-    public function __construct() {
-        $this->userGetPorts();
-        $this->userGetLanguages();
+    public function __construct($data = null) {
+        if(!empty($data)) {
+            $this->username = $data['userUsername'];
+            $this->email = $data['userEmail'];
+            $this->phone = $data['userPhone'];
+            $this->first_name = $data['userFirstName'];
+            $this->surname = $data['userSurname'];
+            $this->level = $data['userLevel'];
+            $this->userLanguages = $data['userLanguages'];
+            $this->userPorts = $data['userPorts'];
+            if(isset($data['userSendInfo']))
+                $this->sendInfo = $data['userSendInfo'];
+        }
+        else {
+            $this->userGetPorts();
+            $this->userGetLanguages();
+        }
     }    
 
     /**
-     * Static Function - speichert einen neuen Mitarbeiter in der Datenbank
+     * addUser - speichert einen neuen Mitarbeiter in der Datenbank
      * @param Array $data
      */
-    public static function addUser($data) {
-        $pwd = self::generateHashForRandPassword($data['userLevel']);
+    public function addUser() {
+        $pwd = $this->generateHashForRandPassword($this->level);
         
-        $sqlstrg = "insert into port_bo_user
-                        (username, secret, email, phone, first_name, surname, level)
-                    values
-                        (?, ?, ?, ?, ?, ?, ?)";
-        DBConnect::execute($sqlstrg, array($data['userUsername'], $pwd['pwdHash'], $data['userEmail'], $data['userPhone'], $data['userFirstName'], $data['userSurname'],
-            $data['userLevel']));
+        $this->insertDB([
+            "username" => $this->username,
+            "secret" => $pwd['pwdHash'],
+            "email" => $this->email,
+            "phone" => $this->phone,
+            "first_name" => $this->first_name,
+            "surname" => $this->surname,
+            "level" => $this->level
+        ]);
         
-        $newUser = User::getSingleObjectByID(DBConnect::getLastID());
-        
-        Logger::writeLogCreate('settings', 'Neuer Benutzer angelegt: ' . $data['userFirstName'] . ' ' . $data['userSurname']);
+        Logger::writeLogCreate('settings', 'Neuer Benutzer angelegt: ' . $this->first_name . ' ' . $this->surname);
         
         foreach(languages::$languages as $id=>$language) {
-            if(in_array($id, $data['userLanguages'])) {
-                $newUser->addUserLanguage($id);
+            if(in_array($id, $this->userLanguages)) {
+                $this->addUserLanguage($id);
             }
         }
         
         foreach(Port::getMultipleObjects() as $port) {
-            if(in_array($port->getID(), $data['userPorts'])) {
-                $newUser->addUserToPort($port->getID());
+            if(in_array($port->getID(), $this->userPorts)) {
+                $this->addUserToPort($port->getID());
             }
         }
         
-        if(!empty($pwd['pwd']) && isset($data['userSendInfo'])) {
+        if(!empty($pwd['pwd']) && !empty($this->sendInfo)) {
             $mail = new sendMail();
-            $mail->mail->addAddress($data['userEmail']);
+            $mail->mail->addAddress($this->email);
             $mail->mail->Subject = "Dein Zugang zum Hafendienst-Backoffice";
-            $mail->applyTemplate('_welcomeMail', array("Vorname" => $data['userFirstName'], "Benutzername" => $data['userUsername'], "Passwort" => $pwd['pwd']));
+            $mail->applyTemplate('_welcomeMail', array("Vorname" => $this->first_name, "Benutzername" => $this->username, "Passwort" => $pwd['pwd']));
             
             $mail->mail->send();
         }
     }
     
     /**
-     * Static Funktion die die Daten eines bestehenden Benutzers ändert
+     * editUser - Funktion die die Daten eines bestehenden Benutzers ändert
      * @param Array $data
      * @param int $user_id
      */
-    public static function editUser($data, $user_id) {
-        $sqlstrg = "update port_bo_user
-                       set username = ?, email = ?, phone = ?, first_name = ?, surname = ?, level = ?
-                     where id = ?";
-        DBConnect::execute($sqlstrg, array($data['userUsername'], $data['userEmail'], $data['userPhone'], $data['userFirstName'], $data['userSurname'],
-            $data['userLevel'], $user_id));
-        
-        $actualUser = User::getSingleObjectByID($user_id);
-        
+    public function editUser($data) {
+        $this->updateDB([
+            "username" => $data['userUsername'],
+            "email" => $data['userEmail'],
+            "phone" => $data['userPhone'],
+            "first_name" => $data['userFirstName'],
+            "surname" => $data['userSurname'],
+            "level" => $data['userLevel']
+        ], ["id" => $this->id]);
+       
         foreach(languages::$languages as $id=>$language) {
-            if(in_array($id, $data['userLanguages']) && !$actualUser->userHasLanguage($id)) {
-                $actualUser->addUserLanguage($id);
+            if(in_array($id, $data['userLanguages']) && !$this->userHasLanguage($id)) {
+                $this->addUserLanguage($id);
             }
-            if(!in_array($id, $data['userLanguages']) && $actualUser->userHasLanguage($id)) {
-                $actualUser->removeUserLanguage($id);
+            if(!in_array($id, $data['userLanguages']) && $this->userHasLanguage($id)) {
+                $this->removeUserLanguage($id);
             }
         }
         
         foreach(Port::getMultipleObjects() as $port) {
-            if(in_array($port->getID(), $data['userPorts']) && !$actualUser->userHasPort($port->getID())) {
-                $actualUser->addUserToPort($port->getID());
+            if(in_array($port->getID(), $data['userPorts']) && !$this->userHasPort($port->getID())) {
+                $this->addUserToPort($port->getID());
             }
-            if(!in_array($port->getID(), $data['userPorts']) && $actualUser->userHasPort($port->getID())) {
-                $actualUser->removeUserFromPort($port->getID());
+            if(!in_array($port->getID(), $data['userPorts']) && $this->userHasPort($port->getID())) {
+                $this->removeUserFromPort($port->getID());
             }
         }
     }
@@ -120,24 +139,28 @@ class User extends AbstractDBObject
     /**
      * Static Funktion die einen bestehenden Benutzer löscht
      */
-    public static function deleteUser($id) {
-        $sqlstrg = "delete from port_bo_userToPort where user_id = ?";
-        DBConnect::execute($sqlstrg, array($id));
-        
-        $sqlstrg = "delete from port_bo_userToLanguage where user_id = ?";
-        DBConnect::execute($sqlstrg, array($id));
-        
-        $sqlstrg = "delete from port_bo_user where id = ?";
-        DBConnect::execute($sqlstrg, array($id));
+    public function deleteUser() {
+        (new Query("delete"))
+            ->table(UserToPort::TABLE_NAME)
+            ->condition(["user_id" => $this->id])
+            ->execute();
+        (new Query("delete"))
+            ->table(UserToLanguage::TABLE_NAME)
+            ->condition(["user_id" => $this->id])
+            ->execute();
+        $this->deleteDB(["id" => $this->id]);
     }
     
     /**
      * Static Funktion die den vollen Namen zu einer UserID liefert
      */
     public static function getUserFullName($id) {
-        $sqlstrg = "select * from port_bo_user where id = ?";
-        $result = DBConnect::execute($sqlstrg, array($id));
-        $row = $result->fetch();
+        $row = (new Query("select"))
+            ->table(self::TABLE_NAME)
+            ->condition(["id" => $id])
+            ->execute()
+            ->fetch();
+        
         return $row['first_name'] . " " . $row['surname'];
     }
 
@@ -159,10 +182,12 @@ class User extends AbstractDBObject
      *  Dabei wird das Passwort des Benutzers zurückgesetzt.
      */  
     public function sendInvitationMail() {
-        $pwd = self::generateHashForRandPassword($this->level);
+        $pwd = $this->generateHashForRandPassword($this->level);
         
-        DBConnect::execute("update port_bo_user set secret = ? where id = ?", Array($pwd['pwdHash'], $this->id));
-        
+        $this->updateDB([
+            "secret" => $pwd['pwdHash']
+        ], ["id" => $this->id]);
+       
         $mail = new sendMail();
         $mail->mail->addAddress($this->email);
         $mail->mail->Subject = "Dein Zugang zum Hafendienst-Backoffice";
@@ -190,18 +215,19 @@ class User extends AbstractDBObject
     }
     
     public function setNewPassword($newPassword) {
-        $sqlstrg = "update port_bo_user set secret = ?, password_code = null, password_code_time = null where id = ?";
-        DBConnect::execute($sqlstrg, array(password_hash($newPassword, PASSWORD_DEFAULT), $this->id));
+        $this->updateDB([
+            "secret" => password_hash($newPassword, PASSWORD_DEFAULT),
+            "password_code" => null,
+            "password_code_time" => null
+        ], ["id" => $this->id]);
     }
     
     public function setNewEmail($newMail) {
-        $sqlstrg = "update port_bo_user set email = ? where id = ?";
-        DBConnect::execute($sqlstrg, Array($newMail, $this->id));
+        $this->updateDB(["email" => $newMail], ["id" => $this->id]);
     }
 
     public function setNewPhone($newPhone) {
-        $sqlstrg = "update port_bo_user set phone = ? where id = ?";
-        DBConnect::execute($sqlstrg, Array($newPhone, $this->id));
+        $this->updateDB(["phone" => $newPhone], ["id" => $this->id]);
     }
     
     /**
@@ -211,7 +237,7 @@ class User extends AbstractDBObject
         $kalenderID = ozg::newOzgUser($this->first_name, $this->surname, $this->email, $this->phone, $kalender);
         
         if(is_numeric($kalenderID) and $kalenderID > 0) {
-            DBConnect::execute("update port_bo_user set planning_id = ? where id = ?", Array($kalenderID, $this->id));
+            $this->updateDB(["planning_id" => $kalenderID], ["id" => $this->id]);
             Logger::writeLogInfo('addKalender', 'Kalender angelegt für User: ' . $this->id);
         }
         else {
@@ -224,10 +250,12 @@ class User extends AbstractDBObject
     }
     
     public function userGetPorts() {
-        $sqlstrg = "select p.* 
-                     from port_bo_port p join port_bo_userToPort utp on p.id = utp.port_id 
-                    where utp.user_id = ?";
-        $this->userPorts = DBConnect::fetchAll($sqlstrg, Port::class, array($this->id));
+        $this->userPorts = (new Query("select"))
+            ->fields("p.*")
+            ->table(Port::TABLE_NAME, "p")
+            ->join(UserToPort::TABLE_NAME, "utp", "id", "port_id")
+            ->condition(["utp.user_id" => $this->id])
+            ->fetchAll(Port::class);
     }
   
     public function userHasPort($portID) {
@@ -242,7 +270,7 @@ class User extends AbstractDBObject
         return isset(array_column($this->userLanguages, null, 'language_id')[$languageID]);
     }
 
-    private static function generateHashForRandPassword($userLevel) {
+    private function generateHashForRandPassword($userLevel) {
         $pwd = "";
         $pwdHash = "";
         
@@ -260,23 +288,31 @@ class User extends AbstractDBObject
     }
     
     private function addUserToPort($portID) {
-        $sqlstrg ="insert into port_bo_userToPort (user_id, port_id) values (?, ?)";
-        DBConnect::execute($sqlstrg, array($this->id, $portID));
+        (new Query("insert"))
+            ->table(UserToPort::TABLE_NAME)
+            ->values(["user_id" => $this->id, "port_id" => $portID])
+            ->execute();
     }
     
     private function removeUserFromPort($portID) {
-        $sqlstrg ="delete from port_bo_userToPort where user_id = ? and port_id = ?";
-        DBConnect::execute($sqlstrg, array($this->id, $portID));
+        (new Query("delete"))
+            ->table(UserToPort::TABLE_NAME)
+            ->condition(["user_id" => $this->id, "port_id" => $portID])
+            ->execute();
     }
     
     private function addUserLanguage($languageID) {
-        $sqlstrg ="insert into port_bo_userToLanguage (user_id, language_id) values (?, ?)";
-        DBConnect::execute($sqlstrg, array($this->id, $languageID));
+        (new Query("insert"))
+            ->table(UserToLanguage::TABLE_NAME)
+            ->values(["user_id" => $this->id, "language_id" => $languageID])
+            ->execute();
     }
     
     private function removeUserLanguage($languageID) {
-        $sqlstrg ="delete from port_bo_userToLanguage where user_id = ? and language_id = ?";
-        DBConnect::execute($sqlstrg, array($this->id, $languageID));
+        (new Query("delete"))
+            ->table(UserToLanguage::TABLE_NAME)
+            ->condition(["user_id" => $this->id, "language_id" => $languageID])
+            ->execute();
     }
     
     /**

@@ -3,6 +3,7 @@ namespace bo\components\classes;
 
 use bo\components\classes\helper\DBConnect;
 use bo\components\classes\helper\Logger;
+use bo\components\classes\helper\Query;
 
 /**
  * Klasse Agency
@@ -11,7 +12,7 @@ use bo\components\classes\helper\Logger;
  */
 class Agency extends AbstractDBObject
 {
-    protected static $tableName = "port_bo_agency";
+    public const TABLE_NAME = "port_bo_agency";
     
     private $id;
     private $name;
@@ -42,10 +43,10 @@ class Agency extends AbstractDBObject
      */
     public function addAgency() {
         if($msg = $this->validateNewAgencyInput()) {
-            return array("type" => "error", "msg" => $msg);
+            return ["type" => "error", "msg" => $msg];
         }
         else {            
-            $this->insertDB(Array("name" => $this->name, "short" => $this->short));
+            $this->insertDB(["name" => $this->name, "short" => $this->short]);
             
             Logger::writeLogCreate('agency', 'Neue Agentur angelegt: ' . $this->name);
             return array("type" => "added", "name" => $this->name);
@@ -59,13 +60,14 @@ class Agency extends AbstractDBObject
      */
     public function editAgency() {
         if($msg = $this->validateNewAgencyInput()) {
-            return array("type" => "error", "msg" => $msg);
+            return ["type" => "error", "msg" => $msg];
         }
         else {
-            $this->updateDB(Array("name" => $this->name, "short" => $this->short), Array("id" => $this->id));
+            $this->updateDB(["name" => $this->name, "short" => $this->short], ["id" => $this->id]);
+            self::setTS($this->id);
             
             Logger::writeLogCreate('agency', 'Agentur bearbeitet: ' . $this->name);
-            return array("type" => "changed");
+            return ["type" => "changed"];
         }
     }
     
@@ -78,8 +80,11 @@ class Agency extends AbstractDBObject
      * @return string
      */
     public static function getAgentName($id) {
-        $sqlstrg = "select * from port_bo_agency where id = ?";
-        $result = DBConnect::execute($sqlstrg, array($id));
+        $result = (new Query("select"))
+            ->table(self::TABLE_NAME)
+            ->condition(["id" => $id])
+            ->execute();
+        
         $row = $result->fetch();
         return $row['name'] ?? '';
     }
@@ -93,8 +98,11 @@ class Agency extends AbstractDBObject
      * @return string
      */
     public static function getAgentShort($id) {
-        $sqlstrg = "select * from port_bo_agency where id = ?";
-        $result = DBConnect::execute($sqlstrg, array($id));
+        $result = (new Query("select"))
+            ->table(self::TABLE_NAME)
+            ->condition(["id" => $id])
+            ->execute();
+        
         $row = $result->fetch();
         return $row['short'] ?? '';
     }
@@ -108,8 +116,11 @@ class Agency extends AbstractDBObject
      * @return string
      */
     public static function getAgentID($name) {
-        $sqlstrg = "select * from port_bo_agency where name = ?";
-        $result = DBConnect::execute($sqlstrg, array($name));
+        $result = (new Query("select"))
+            ->table(self::TABLE_NAME)
+            ->condition(["name" => $name])
+            ->execute();
+        
         $row = $result->fetch();
         return $row['id'] ?? '0';
     }
@@ -122,8 +133,11 @@ class Agency extends AbstractDBObject
      * @param int $id ID der Agency
      */
     public static function setTS($id) {
-        $sqlstrg = "update port_bo_agency set ts_erf = ? where id = ?";
-        DBConnect::execute($sqlstrg, array(date('Y-m-d H:i:s'), $id));
+        (new Query("update"))
+            ->table(self::TABLE_NAME)
+            ->values(["ts_erf" => date('Y-m-d H:i:s')])
+            ->condition(["id" => $id])
+            ->execute();
     }
     
     public static function getLastContactToAgent($agencyID, $portID) {
@@ -138,19 +152,23 @@ class Agency extends AbstractDBObject
     }
     
     private function validateNewAgencyInput() {
-        $sqlstrg = "select * from port_bo_agency where name = ?";
+        $query = (new Query("select"))
+            ->table(self::TABLE_NAME)
+            ->condition(["name" => $this->name]);
         if(!empty($this->id)){
-            $sqlstrg .= " and id != " . $this->id;
+            $query->conditionNot(["id" => $this->id]);
         }
-        if(DBConnect::execute($sqlstrg, array($this->name))->rowCount() > 0) {
+        if(($query->execute())->rowCount() > 0) {
             return array("field" => "agencyName", "msg" => "Es existiert bereits ein Agent mit diesem Namen.");
         }
 
-        $sqlstrg = "select * from port_bo_agency where short = ?";
+        $query = (new Query("select"))
+            ->table(self::TABLE_NAME)
+            ->condition(["short" => $this->short]);
         if(!empty($this->id)){
-            $sqlstrg .= " and id != " . $this->id;
+            $query->conditionNot(["id" => $this->id]);
         }
-        if(DBConnect::execute($sqlstrg, array($this->short))->rowCount() > 0) {
+        if(($query->execute())->rowCount() > 0) {
             return array("field" => "agencyShort", "msg" => "Es existiert bereits ein Agent mit diesem Kürzel.");
         }
     }

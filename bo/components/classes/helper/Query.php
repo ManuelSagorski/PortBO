@@ -57,13 +57,43 @@ class Query
     }
     
     public function condition($condition) {
-        $this->conditions = $condition;
+        $this->conditions['equal'] = $condition;
+        return $this;
+    }
+
+    public function conditionNot($condition) {
+        $this->conditions['notEqual'] = $condition;
+        return $this;
+    }
+
+    public function conditionGreater($condition) {
+        $this->conditions['greater'] = $condition;
+        return $this;
+    }
+
+    public function conditionLower($condition) {
+        $this->conditions['lower'] = $condition;
         return $this;
     }
     
     public function order($order) {
         $this->order = $order;
         return $this;
+    }
+    
+    public function execute() {
+        $this->build();
+        return DBConnect::execute($this->sqlstrg, $this->parameter);
+    }
+    
+    public function fetchSingle($class) {
+        $this->build();
+        return DBConnect::fetchSingle($this->sqlstrg, $class, $this->parameter);
+    }
+    
+    public function fetchAll($class) {
+        $this->build();
+        return DBConnect::fetchAll($this->sqlstrg, $class, $this->parameter);
     }
     
     public function build() {
@@ -85,6 +115,10 @@ class Query
                 
             case "insert":
                 $this->sqlstrg .= "into ";
+                break;
+                
+            case "delete":
+                $this->sqlstrg .= "from ";
                 break;
         }
         
@@ -144,17 +178,37 @@ class Query
         /*
          * conditions
          */
+        $first = false;
         if(!empty($this->conditions)) {
-            foreach($this->conditions as $name => $value) {
-                if($name === array_key_first($this->conditions)) {
-                    $this->sqlstrg .= "where ";
+            foreach($this->conditions as $type => $conditions) {
+                foreach ($conditions as $name => $value) {                
+                    if(!$first) {
+                        $this->sqlstrg .= "where ";
+                        $first = true;
+                    }
+                    else {
+                        $this->sqlstrg .= "and ";
+                    }
+                        
+                    $this->sqlstrg .= $name;
+                    
+                    switch($type) {
+                        case "equal":
+                            $this->sqlstrg .= " = ? ";
+                            break;
+                        case "notEqual":
+                            $this->sqlstrg .= " <> ? ";
+                            break;
+                        case "greater":
+                            $this->sqlstrg .= " > ? ";
+                            break;
+                        case "lower":
+                            $this->sqlstrg .= " < ? ";
+                            break;
+                    }
+                    
+                    $this->parameter[] = $value;
                 }
-                else {
-                    $this->sqlstrg .= "and ";
-                }
-                $this->sqlstrg .= $name . " = ? ";
-                
-                $this->parameter[] = $value;
             }
         }
         

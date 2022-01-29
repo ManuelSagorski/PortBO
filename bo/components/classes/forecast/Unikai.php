@@ -3,7 +3,7 @@ namespace bo\components\classes\forecast;
 
 use bo\components\classes\helper\Logger;
 
-class Unikai extends scraping
+class Unikai extends Scraping
 {
     const URL_UNIKAI_SEGELLISTE = "http://sailinglist.unikai.de/";
 

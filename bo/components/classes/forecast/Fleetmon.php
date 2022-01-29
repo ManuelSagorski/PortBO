@@ -3,7 +3,7 @@ namespace bo\components\classes\forecast;
 
 use bo\components\classes\helper\Logger;
 
-class Fleetmon extends scraping
+class Fleetmon extends Scraping
 {
     const URL_FLEETMON_SEGELLISTE = "https://www.fleetmon.com/ports/{{portName}}/#tab-scheduled-arrivals";
     // const URL_FLEETMON_SEGELLISTE = "http://www.port-mission.de/findShip/fleetmon.html";

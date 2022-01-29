@@ -8,22 +8,20 @@ include '../config.php';
 
 switch($_POST['type']) {
     case("addPort"):
-        $port = new Port($_POST['data']);
-        $port->addPort();
+        (new Port($_POST['data']))->addPort();
         break;
 
     case("addPortCompany"):
         if(empty($_POST['companyID'])) {
-            $company = new Company($_POST['data']);
-            $company->addCompany();
+            (new Company($_POST['data']))->addCompany();
         }
         else {
-            Company::editCompany($_POST['data'], $_POST['companyID']);
+            (Company::getSingleObjectByID($_POST['companyID']))->editCompany($_POST['data']);
         }
         break;
         
     case("deletePortCompany"):
-        Company::deleteCompany($_POST['id']);
+        (Company::getSingleObjectByID($_POST['id']))->deleteCompany();
         break;
 }
 ?>

@@ -4,10 +4,11 @@ namespace bo\components\classes;
 use bo\components\classes\helper\DBConnect;
 use bo\components\classes\helper\Logger;
 use JsonSerializable;
+use bo\components\classes\helper\Query;
 
 class Port extends AbstractDBObject
 {
-    protected static $tableName = "port_bo_port";
+    public const TABLE_NAME = "port_bo_port";
     
     private $id;
     private $name;
@@ -26,13 +27,20 @@ class Port extends AbstractDBObject
      * Funktion die einen neuen Hafen anlegt
      */
     public function addPort() {
-        $sqlstrg = "insert into port_bo_port (name, short, mtLink) values (?, ?, ?)";
-        DBConnect::execute($sqlstrg, array($this->name, $this->short, $this->mtLink));
+        $this->insertDB([
+            "name" => $this->name,
+            "short" => $this->short,
+            "mtLink" => $this->mtLink
+        ]);
         
         $port = Port::getSingleObjectByCondition(Array("name" => $this->name, "short" => $this->short));
         
-        $sqlstrg = "insert into port_bo_userToPort (user_id, port_id) values (?, ?)";
-        DBConnect::execute($sqlstrg, array($_SESSION['user'], $port->getID()));
+        (new Query("insert"))
+            ->table(UserToPort::TABLE_NAME)
+            ->values([
+                "user_id" => $_SESSION['user'], 
+                "port_id" => $port->getID()
+            ])->execute();
         
         Logger::writeLogCreate('port', 'Neuen Hafen angelegt: ' . $this->name);
     }
@@ -41,9 +49,12 @@ class Port extends AbstractDBObject
      * Static Funktion die den Namen zu einer PortID liefert
      */
     public static function getPortName($id) {
-        $sqlstrg = "select * from port_bo_port where id = ?";
-        $result = DBConnect::execute($sqlstrg, array($id));
-        $row = $result->fetch();
+        $row = (new Query("select"))
+            ->table(self::TABLE_NAME)
+            ->condition(["id" => $id])
+            ->execute()
+            ->fetch();
+
         return $row['name'] ?? '';
     }
     
@@ -51,9 +62,12 @@ class Port extends AbstractDBObject
      * Static Funktion die die ID zu einem Hafen liefert
      */
     public static function getPortID($name) {
-        $sqlstrg = "select * from port_bo_port where name = ?";
-        $result = DBConnect::execute($sqlstrg, array($name));
-        $row = $result->fetch();
+        $row = (new Query("select"))
+            ->table(self::TABLE_NAME)
+            ->condition(["name" => $name])
+            ->execute()
+            ->fetch();
+
         return $row['id'] ?? '0';
     }
     

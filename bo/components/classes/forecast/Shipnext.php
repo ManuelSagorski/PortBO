@@ -3,12 +3,12 @@ namespace bo\components\classes\forecast;
 
 use bo\components\classes\helper\Logger;
 
-class Shipnext extends scraping
+class Shipnext extends Scraping
 {
     const URL_SHIPNEXT = 'https://shipnext.com/api/v1/ports/public/{{portName}}';
     
     private $json;
-    private $ports = [1 => 'hamburg-deham-deu', 2 => 'kiel-dekel-deu', 3 => 'lubeck-delbc-deu', 10 => 'brunsbuttel-debrb-deu', 11 => 'stade-desta-deu', 111 => 'butzfleth-debuz-deu'];
+    private $ports = [1 => 'hamburg-deham-deu', 2 => 'kiel-dekel-deu', 3 => 'lubeck-delbc-deu', 4 => 'rendsburg-deren-deu', 8 => 'travemunde-detrv-deu', 10 => 'brunsbuttel-debrb-deu', 11 => 'stade-desta-deu', 111 => 'butzfleth-debuz-deu'];
     
     public function getForecast() {
         foreach ($this->ports as $key => $port) {

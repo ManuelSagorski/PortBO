@@ -4,7 +4,7 @@ namespace bo\components\classes\forecast;
 use bo\components\classes\helper\Logger;
 use bo\components\classes\Company;
 
-class PortTicker extends scraping
+class PortTicker extends Scraping
 {
     const URL_PORTTICKER = 'https://api-20.portticker.com/data/?api=1&port={{portName}}&s=1&_=1633355308225';
     

@@ -25,18 +25,15 @@ switch($_POST['type']) {
         
     case("addAgencyPortInfo"):
             if(empty($_POST['id'])) {
-                $agencyPortInfo = new AgencyPortInfo($_POST['data']);
-                $agencyPortInfo->addAgencyPortInfo();
-                
-                AgencyPortInfo::addAgencyPortInfo($_POST['data']);
+                (new AgencyPortInfo($_POST['data']))->addAgencyPortInfo();
             }
             else {
-                AgencyPortInfo::editAgencyPortInfo($_POST['data'], $_POST['id']);
+                (AgencyPortInfo::getSingleObjectByID($_POST['id']))->editAgencyPortInfo($_POST['data']);
             }
             break;
             
     case("deleteAgencyPortInfo"):
-        AgencyPortInfo::deleteAgencyPortInfo($_POST['id']);
+        (AgencyPortInfo::getSingleObjectByID($_POST['id']))->deleteAgencyPortInfo();
         break;
 }
 ?>

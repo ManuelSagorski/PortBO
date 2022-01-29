@@ -3,7 +3,7 @@ namespace bo\components\classes;
 
 class UserToLanguage extends AbstractDBObject
 {
-    protected static $tableName = "port_bo_userToLanguage";
+    public const TABLE_NAME = "port_bo_userToLanguage";
     
     private $id;
     private $user_id;

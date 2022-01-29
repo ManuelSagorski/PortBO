@@ -1,11 +1,11 @@
 <?php
 namespace bo\components\classes;
 
-use bo\components\classes\helper\DBConnect;
+use bo\components\classes\helper\Query;
 
 class Forecast extends AbstractDBObject
 {
-    protected static $tableName = "port_bo_scedule";
+    public const TABLE_NAME = "port_bo_scedule";
     
     private $id;
     private $arriving;
@@ -25,31 +25,38 @@ class Forecast extends AbstractDBObject
     public $vessel;
     
     public function __construct() {
-        $sqlstrgMail = "select * from port_bo_vessel v right join port_bo_vesselContactDetails vcd on v.id = vcd.vessel_id where vcd.type = 'Email' and ";
-        $sqlstrgVessel = "select * from port_bo_vessel v where ";
-        $sqlstrgDry = "select * from port_bo_dry v where ";
+        $mailQuery = (new Query("select"))
+            ->table(Vessel::TABLE_NAME, "v")
+            ->rightJoin(VesselContactDetails::TABLE_NAME, "vcd", "id", "vessel_id")
+            ->condition(["vcd.type" => "Email"]);
         
+        $dryQuery = (new Query("select"))
+            ->table(Dry::TABLE_NAME);
+        
+        $vesselQuery = (new Query("select"))
+            ->table(Vessel::TABLE_NAME);
+            
         if(!empty($this->imo)) {
-            $condition = "v.imo = ?";
-            $param = Array($this->imo);
+            $mailQuery->condition(["v.imo" => $this->imo]);
+            $dryQuery->condition(["imo" => $this->imo]);
+            $vesselQuery->condition(["imo" => $this->imo]);
         }
         else {
-            $condition = "UPPER(v.name) = ?";
-            $param = Array(strtoupper($this->name));
+            $mailQuery->condition(["UPPER(v.name)" => strtoupper($this->name)]);
+            $dryQuery->condition(["UPPER(name)" => strtoupper($this->name)]);
+            $vesselQuery->condition(["UPPER(name)" => strtoupper($this->name)]);
         }        
         
-        $mail = DBConnect::execute($sqlstrgMail . $condition, $param);        
-        if($mail->rowCount() > 0) {
+        if($mailQuery->execute()->rowCount() > 0) {
             $this->hasMail = true;
         }
         else {
-            $dry = DBConnect::execute($sqlstrgDry . $condition, $param);
-            if($dry->rowCount() > 0) {
+            if($dryQuery->execute()->rowCount() > 0) {
                 $this->inDry = true;
             }
         }
-        
-        $this->vessel = DBConnect::fetchSingle($sqlstrgVessel . $condition, Vessel::class, $param);
+
+        $this->vessel = $vesselQuery->fetchSingle(Vessel::class);
         
         if(!$this->hasMail and !$this->inDry) {
             foreach($this->companysExpectMail as $company) {
@@ -61,21 +68,40 @@ class Forecast extends AbstractDBObject
     }
     
     public static function forecastItemDone($id) {
-        DBConnect::execute("update port_bo_scedule set status = 1 where id = ?", Array($id));
+        (new Query("update"))
+            ->table(self::TABLE_NAME)
+            ->values(["status" => "1"])
+            ->condition(["id" => $id])
+            ->execute();
     }
 
     public static function forecastItemReopen($id) {
-        DBConnect::execute("update port_bo_scedule set status = 0 where id = ?", Array($id));
+        (new Query("update"))
+            ->table(self::TABLE_NAME)
+            ->values(["status" => "0"])
+            ->condition(["id" => $id])
+            ->execute();
     }
 
     
     public static function forecastItemRemove($id) {
-        DBConnect::execute("delete from port_bo_scedule where id = ?", Array($id));
+        (new Query("delete"))
+            ->table(self::TABLE_NAME)
+            ->condition(["id" => $id])
+            ->execute();
     }
     
     public static function addForecast($data) {
-        $sqlstrg = "insert into port_bo_scedule (arriving, name, company, agency, port_id) values (?, ?, ?, ?, ?)";
-        DBConnect::execute($sqlstrg, Array($data['eta'], $data['name'], $data['terminal'], $data['agency'], $data['portID']));
+        (new Query("insert"))
+            ->table(self::TABLE_NAME)
+            ->values([
+                "arriving" => $data['eta'],
+                "name" => $data['name'],
+                "company" => $data['terminal'],
+                "agency" => $data['agency'],
+                "port_id" => $data['portID']
+            ])
+            ->execute();
     }
     /*
      Getter und Setter
