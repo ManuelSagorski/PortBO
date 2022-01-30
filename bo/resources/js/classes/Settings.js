@@ -6,7 +6,8 @@ define(function() {
 	var Settings = function() {
 		var constructor, that = {}, my = {};
 	
-		my.CONTROLLER = '../components/controller/userController.php';
+		my.CONTROLLER = '../components/controller/settingsController.php';
+		my.USER_CONTROLLER = '../components/controller/userController.php';
 	
 		constructor = function() {
 			return that;
@@ -92,7 +93,7 @@ define(function() {
 			data.userLanguages = $("#userLanguage").dropdown("get value");
 			data.userPorts = $("#userPort").dropdown("get value");
 			
-			$.post(my.CONTROLLER, {type: 'addUser', id: userID, data: data}, 
+			$.post(my.USER_CONTROLLER, {type: 'addUser', id: userID, data: data}, 
 				function() {
 					that.openDetails('users');
 					closeWindow();
@@ -109,7 +110,7 @@ define(function() {
 				return;
 			}
 			
-			$.post(my.CONTROLLER, {type: 'sendInvitationMail', id: userID}, 
+			$.post(my.USER_CONTROLLER, {type: 'sendInvitationMail', id: userID}, 
 				function() {
 					that.openDetails('users');
 					closeWindow();
@@ -131,11 +132,68 @@ define(function() {
 			event.preventDefault();
 			newUserKalender = new FormValidate($('#addKalenderForm').serializeArray());
 			
-			$.post(my.CONTROLLER, {type: 'addUserKalender', id: userID, kalender: newUserKalender.getFormData().kalender}, 
+			$.post(my.USER_CONTROLLER, {type: 'addUserKalender', id: userID, kalender: newUserKalender.getFormData().kalender}, 
 				function() {
 					that.openDetails('users');
 					closeWindow();
 				});
+		}
+		
+		/*
+		 *	Öffnet das Formular zum Anlegen eines neuen externen Links
+		 */			
+		that.newLink = function(linkID, edit) {
+			if(edit && !linkID) {
+				alert('Bitte zuerst einen bestehenden Link auswählen.');
+			}
+			else {
+				$.get('../views/settings/addLink.view.php?id=' + linkID, function(data) {
+					$('#windowLabel').html("Neuen Link hinzufügen");
+					$('#windowBody').html(data);
+				});
+				showWindow();
+			}
+		}
+		
+		/*
+		 *	Speichert einen neuen externen Link in der Datenbank
+		 */			
+		that.addLink = function(linkID) {
+			event.preventDefault();
+			newLinkValidate = new FormValidate($('#addLink').serializeArray());
+			
+			if(falseFields = newLinkValidate.fieldsNotEmpty(Array('linkName', 'linkUrl'))) {
+				formValidate.setError(falseFields);
+				formValidate.setErrorMessage('Bitte alle Pflichtfelder ausfüllen.');
+				return;
+			}
+			
+			$.post(my.CONTROLLER, {type: 'addLink', id: linkID, data: newLinkValidate.getFormData()}, 
+				function() {
+					that.openDetails('settings');
+					closeWindow();
+				});
+		}
+		
+		/*
+		 *	Externen Link löschen
+		 */			
+		that.deleteLink = function(linkID) {
+			if(linkID) {
+				if(confirm("Möchtest du den gewählten Link wirklich löschen?")) {
+					$.post(my.CONTROLLER, {
+							type: 'deleteLink', 
+							linkID: linkID
+						}, 
+						function() {
+							closeWindow();
+							that.openDetails('settings');
+						});	
+				}
+			}
+			else {
+				alert('Bitte zuerst einen Link auswählen.');
+			}
 		}
 		
 		/*

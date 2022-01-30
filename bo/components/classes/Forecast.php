@@ -20,6 +20,7 @@ class Forecast extends AbstractDBObject
     private $companysExpectMail = Array("essberger", "stolt", "maersk", "federal", "naree");
     
     public $hasMail = false;
+    public $hasPhone = false;
     public $expectMail = false;
     public $inDry = false;
     public $vessel;
@@ -30,6 +31,11 @@ class Forecast extends AbstractDBObject
             ->rightJoin(VesselContactDetails::TABLE_NAME, "vcd", "id", "vessel_id")
             ->condition(["vcd.type" => "Email"]);
         
+        $phoneQuery = (new Query("select"))
+            ->table(Vessel::TABLE_NAME, "v")
+            ->rightJoin(VesselContactDetails::TABLE_NAME, "vcd", "id", "vessel_id")
+            ->condition(["vcd.type" => "Telefon"]);
+            
         $dryQuery = (new Query("select"))
             ->table(Dry::TABLE_NAME);
         
@@ -38,11 +44,13 @@ class Forecast extends AbstractDBObject
             
         if(!empty($this->imo)) {
             $mailQuery->condition(["v.imo" => $this->imo]);
+            $phoneQuery->condition(["v.imo" => $this->imo]);
             $dryQuery->condition(["imo" => $this->imo]);
             $vesselQuery->condition(["imo" => $this->imo]);
         }
         else {
             $mailQuery->condition(["UPPER(v.name)" => strtoupper($this->name)]);
+            $phoneQuery->condition(["UPPER(v.name)" => strtoupper($this->name)]);
             $dryQuery->condition(["UPPER(name)" => strtoupper($this->name)]);
             $vesselQuery->condition(["UPPER(name)" => strtoupper($this->name)]);
         }        
@@ -56,6 +64,10 @@ class Forecast extends AbstractDBObject
             }
         }
 
+        if($phoneQuery->execute()->rowCount() > 0) {
+            $this->hasPhone = true;
+        }
+        
         $this->vessel = $vesselQuery->fetchSingle(Vessel::class);
         
         if(!$this->hasMail and !$this->inDry) {

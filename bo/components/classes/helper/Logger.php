@@ -8,8 +8,7 @@ namespace bo\components\classes\helper;
  */
 class Logger
 {
-    public function __construct() {
-    }
+    public const LOG_TABLE = "port_bo_log";
     
     public static function writeLogInfo($component, $message) {
         self::writeLog($component, 'info', $message);
@@ -32,11 +31,15 @@ class Logger
             $user = $_SESSION['user'];
         }
         
-        $sqlstrg = "insert into port_bo_log
-                        (user_id, logLevel, component, message)
-                    values
-                        (?, ?, ?, ?)";
-        DBConnect::execute($sqlstrg, array($user, $logLevel, $component, $message));
+        (new Query("insert"))
+            ->table(self::LOG_TABLE)
+            ->values([
+                "user_id" => $user, 
+                "logLevel" => $logLevel, 
+                "component" => $component, 
+                "message" => $message
+            ])
+            ->execute();
     }
 }
 

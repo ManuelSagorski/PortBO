@@ -3,6 +3,7 @@ namespace bo\views\vessel;
 
 use bo\components\classes\Forecast;
 use bo\components\classes\Port;
+use bo\components\classes\SettingsForecastLists;
 
 include '../../components/config.php';
 ?>
@@ -40,11 +41,11 @@ foreach($forecast as $expectedVessel) {
     $tmpDay = new \DateTime($expectedVessel->getArriving());
     if($tmpDay->format('Y-m-d') != $arrivingDay) {
         $arrivingDay = $tmpDay->format('Y-m-d');
-    ?>
+?>
     				<tr class="positive">
     					<td colspan="8"><?php echo $tmpDay->format('Y-m-d'); ?></td>
     				</tr>
-    <?php    
+<?php    
     }
 ?>
             		<tr<?php echo ($expectedVessel->getStatus() == 1)?' class="forecastDisabled"':'';?>>
@@ -59,6 +60,7 @@ foreach($forecast as $expectedVessel) {
         				<td data-label="inSystem" class="center aligned collapsing"><?php echo (!empty($expectedVessel->vessel))?'<a onClick="vessel.openDetails(' . $expectedVessel->vessel->getID() . ');"><i class="address card outline icon"></i></a>':''; ?></td>
             			<td data-label="email" class="center aligned collapsing">
             				<?php echo ($expectedVessel->hasMail)?'<i class="envelope outline icon"></i>':''; ?>
+            				<?php echo ($expectedVessel->hasPhone)?'<i class="phone icon"></i>':''; ?>
             				<?php echo ($expectedVessel->inDry)?'<i class="gb uk flag"></i>':''; ?>
             				<?php echo ($expectedVessel->expectMail)?'<i class="question circle outline icon"></i>':''; ?>
             			</td>
@@ -96,6 +98,15 @@ foreach($forecast as $expectedVessel) {
 	</div>
 <?php } ?>	
 </div>
+
+<h4 class="ui horizontal divider header">
+  <i class="linkify icon"></i>
+  Externe Links
+</h4>
+
+<?php foreach(SettingsForecastLists::getMultipleObjects() as $externForecastList) {?>
+<div class="externLink"><a href="<?php echo $externForecastList->getLink(); ?>" target="_blank"><?php echo $externForecastList->getName(); ?></a></div>
+<?php }?>
 
 <script>
 $('.ui.accordion').accordion();

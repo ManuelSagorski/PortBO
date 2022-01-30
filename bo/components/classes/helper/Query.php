@@ -57,22 +57,22 @@ class Query
     }
     
     public function condition($condition) {
-        $this->conditions['equal'] = $condition;
+        $this->conditions['equal'][] = $condition;
         return $this;
     }
 
     public function conditionNot($condition) {
-        $this->conditions['notEqual'] = $condition;
+        $this->conditions['notEqual'][] = $condition;
         return $this;
     }
 
     public function conditionGreater($condition) {
-        $this->conditions['greater'] = $condition;
+        $this->conditions['greater'][] = $condition;
         return $this;
     }
 
     public function conditionLower($condition) {
-        $this->conditions['lower'] = $condition;
+        $this->conditions['lower'][] = $condition;
         return $this;
     }
     
@@ -181,33 +181,35 @@ class Query
         $first = false;
         if(!empty($this->conditions)) {
             foreach($this->conditions as $type => $conditions) {
-                foreach ($conditions as $name => $value) {                
-                    if(!$first) {
-                        $this->sqlstrg .= "where ";
-                        $first = true;
-                    }
-                    else {
-                        $this->sqlstrg .= "and ";
-                    }
+                foreach ($conditions as $condition) {
+                    foreach ($condition as $name => $value) {
+                        if(!$first) {
+                            $this->sqlstrg .= "where ";
+                            $first = true;
+                        }
+                        else {
+                            $this->sqlstrg .= "and ";
+                        }
+                            
+                        $this->sqlstrg .= $name;
                         
-                    $this->sqlstrg .= $name;
-                    
-                    switch($type) {
-                        case "equal":
-                            $this->sqlstrg .= " = ? ";
-                            break;
-                        case "notEqual":
-                            $this->sqlstrg .= " <> ? ";
-                            break;
-                        case "greater":
-                            $this->sqlstrg .= " > ? ";
-                            break;
-                        case "lower":
-                            $this->sqlstrg .= " < ? ";
-                            break;
+                        switch($type) {
+                            case "equal":
+                                $this->sqlstrg .= " = ? ";
+                                break;
+                            case "notEqual":
+                                $this->sqlstrg .= " <> ? ";
+                                break;
+                            case "greater":
+                                $this->sqlstrg .= " > ? ";
+                                break;
+                            case "lower":
+                                $this->sqlstrg .= " < ? ";
+                                break;
+                        }
+                        
+                        $this->parameter[] = $value;
                     }
-                    
-                    $this->parameter[] = $value;
                 }
             }
         }
