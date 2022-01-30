@@ -3,6 +3,7 @@ namespace bo\components\classes;
 
 use bo\components\classes\helper\DBConnect;
 use bo\components\classes\helper\Logger;
+use bo\components\classes\helper\Query;
 
 class Vessel extends AbstractDBObject
 {
@@ -57,11 +58,17 @@ class Vessel extends AbstractDBObject
             return array("type" => "error", "msg" => $msg);
         }
         else {
-            $sqlstrg = "insert into port_bo_vessel (name, IMO, MMSI, ENI, typ, language) values (?, ?, ?, ?, ?, ?) RETURNING id";
-            $result = DBConnect::execute($sqlstrg, array($this->name, $this->IMO, $this->MMSI, $this->ENI, $this->typ, $this->language));
+            $lastID = $this->insertDB([
+                "name" => $this->name,
+                "IMO" => $this->IMO,
+                "MMSI" => $this->MMSI,
+                "ENI" => $this->ENI,
+                "typ" => $this->typ,
+                "language" => $this->language
+            ]);
             
             Logger::writeLogCreate('vessel', 'Neues Schiff anlgelegt: ' . $this->name);
-            return array("type" => "added", "name" => $this->name, "id" => $result->fetchColumn());
+            return array("type" => "added", "name" => $this->name, "id" => $lastID);
         }
     }
     
@@ -75,8 +82,15 @@ class Vessel extends AbstractDBObject
             return array("type" => "error", "msg" => $msg);
         }
         else {
-            $sqlstrg = "update port_bo_vessel set name = ?, IMO = ?, MMSI = ?, ENI = ?, typ = ?, language = ? where id = ?";
-            DBConnect::execute($sqlstrg, array($this->name, $this->IMO, $this->MMSI, $this->ENI, $this->typ, $this->language, $this->id));
+            $this->updateDB([
+                "name" => $this->name,
+                "IMO" => $this->IMO,
+                "MMSI" => $this->MMSI,
+                "ENI" => $this->ENI,
+                "typ" => $this->typ,
+                "language" => $this->language
+            ], ["id" => $this->id]);
+            
             Vessel::setTS($this->id);
             return array("type" => "changed");
         }
@@ -88,8 +102,11 @@ class Vessel extends AbstractDBObject
      * Lädt die zu einem Schiff vorhandenen Informationen in $vesselInfos
      */
     private function loadInfo() {
-        $sqlstrg = "select * from port_bo_vesselInfo where vess_id = ? order by ts_erf desc";
-        $this->vesselInfos = DBConnect::fetchAll($sqlstrg, VesselInfo::class, array($this->id));
+        $this->vesselInfos = (new Query("select"))
+            ->table(VesselInfo::TABLE_NAME)
+            ->condition(["vess_id" => $this->id])
+            ->order("ts_erf desc")
+            ->fetchAll(VesselInfo::class);
     }
     
     /**
@@ -107,8 +124,11 @@ class Vessel extends AbstractDBObject
      * Lädt die zu dem Schiff vorhandenen Kontaktinformationen
      */
     private function loadContactDetails() {
-        $sqlstrg = "select * from port_bo_vesselContactDetails where vessel_id = ? order by type";
-        $this->vesselContactDetails = DBConnect::fetchAll($sqlstrg, VesselContactDetails::class, array($this->id));
+        $this->vesselContactDetails = (new Query("select"))
+            ->table(VesselContactDetails::TABLE_NAME)
+            ->condition(["vessel_id" => $this->id])
+            ->order("type")
+            ->fetchAll(VesselContactDetails::class);
         
         foreach($this->vesselContactDetails as $contactDetail) {
             if($contactDetail->getType() == 'Email') {
@@ -128,9 +148,12 @@ class Vessel extends AbstractDBObject
      * @return string Name zu der Schiffs-ID
      */
     public static function getVesselName($id) {
-        $sqlstrg = "select * from port_bo_vessel where id = ?";
-        $result = DBConnect::execute($sqlstrg, array($id));
-        $row = $result->fetch();
+        $row = (new Query("select"))
+            ->table(self::TABLE_NAME)
+            ->condition(["id" => $id])
+            ->execute()
+            ->fetch();
+        
         return $row['name'] ?? '';
     }
 
@@ -141,9 +164,12 @@ class Vessel extends AbstractDBObject
      * @return string ID des Shiffstyps
      */
     public static function getVesselType($id) {
-        $sqlstrg = "select * from port_bo_vessel where id = ?";
-        $result = DBConnect::execute($sqlstrg, array($id));
-        $row = $result->fetch();
+        $row = (new Query("select"))
+            ->table(self::TABLE_NAME)
+            ->condition(["id" => $id])
+            ->execute()
+            ->fetch();
+
         return $row['typ'] ?? '';
     }
     
@@ -155,8 +181,11 @@ class Vessel extends AbstractDBObject
      * @param int $id ID des Schiffes
      */
     public static function setTS($id) {
-        $sqlstrg = "update port_bo_vessel set ts_Erf = ? where id = ?";
-        DBConnect::execute($sqlstrg, array(date('Y-m-d H:i:s'), $id));
+        (new Query("update"))
+            ->table(self::TABLE_NAME)
+            ->values(["ts_erf" => date('Y-m-d H:i:s')])
+            ->condition(["id" => $id])
+            ->execute();
     }
     
     private function validateVesselInput() {

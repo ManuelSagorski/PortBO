@@ -34,7 +34,12 @@ class VesselContactDetails extends AbstractDBObject
      * Speichert eine Kontaktinformation in der Datenbank
      */
     public function addContactDetail() {
-        $this->insertDB(["vessel_id" => $this->vessel_id, "type" => $this->type, "detail" => $this->detail, "info" => $this->info]);
+        $this->insertDB([
+            "vessel_id" => $this->vessel_id, 
+            "type" => $this->type, 
+            "detail" => $this->detail, 
+            "info" => $this->info
+        ]);
        
         Logger::writeLogCreate("vesselContactInfo", "Neue Kontaktdaten für Schiff " . Vessel::getVesselName($this->vessel_id) . " hinzugefügt. Typ: " . $this->type);
         Vessel::setTS($this->vessel_id);
@@ -44,17 +49,19 @@ class VesselContactDetails extends AbstractDBObject
      * Ändert eine bestehende Kontaktinformation in der Datenbank
      */
     public function editContactDetail($data) {
-        $this->updateDB(["type" => $data['contactDetailType'], "detail" => $data['contactDetail'], "info" => $data['contactDetailInfo']], ["id" => $this->id]);
+        $this->updateDB([
+            "type" => $data['contactDetailType'], 
+            "detail" => $data['contactDetail'], 
+            "info" => $data['contactDetailInfo'
+        ]], ["id" => $this->id]);
         Vessel::setTS($_SESSION['vessID']);
     }
     
     /**
      * Löscht eine Kontaktinformation aus der Datenbank
      */
-    public static function deleteContactDetail($contactDetailID) {
-        $sqlstrg = "delete from port_bo_vesselContactDetails where id = ?";
-        DBConnect::execute($sqlstrg, Array($contactDetailID));
-        
+    public function deleteContactDetail() {
+        $this->deleteDB(["id" => $this->id]);
         Vessel::setTS($_SESSION['vessID']);
     }
     

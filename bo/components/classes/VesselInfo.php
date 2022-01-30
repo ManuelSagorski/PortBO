@@ -9,8 +9,10 @@ use bo\components\classes\helper\Logger;
  * @author Manuel Sagorski
  *
  */
-class VesselInfo
+class VesselInfo extends AbstractDBObject
 {
+    public const TABLE_NAME = "port_bo_vesselInfo";
+    
     private $id;
     private $vess_id;
     private $user_id;

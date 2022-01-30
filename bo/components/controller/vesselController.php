@@ -55,7 +55,7 @@ switch($_POST['type']) {
         break;
         
     case("deleteVesselContact"):
-        VesselContact::deleteContact($_POST['contactID']);
+        (VesselContact::getSingleObjectByID($_POST['contactID']))->deleteContact();
         break;
         
     case("addVesselContactDetail"):
@@ -68,7 +68,7 @@ switch($_POST['type']) {
         break;
         
     case("deleteVesselContactDetail"):
-        VesselContactDetails::deleteContactDetail($_POST['contactDetailID']);
+        (VesselContactDetails::getSingleObjectByID($_POST['contactDetailID']))->deleteContactDetail();
         break;
         
     case("forecastItemDone"):

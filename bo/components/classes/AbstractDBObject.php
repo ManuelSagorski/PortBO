@@ -73,6 +73,8 @@ abstract class AbstractDBObject
             ->values($fields)
             ->build();        
         DBConnect::execute($query->sqlstrg, $query->parameter);
+        
+        return DBConnect::getLastID();
     }
     
     /**

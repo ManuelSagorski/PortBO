@@ -1,8 +1,10 @@
 <?php
 namespace bo\components\classes;
 
-class VesselContactMail
+class VesselContactMail extends AbstractDBObject
 {
+    public const TABLE_NAME = "port_bo_vesselContactMail";
+    
     private $id;
     private $contact_id;
     private $ts_erf;

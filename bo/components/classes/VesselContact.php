@@ -1,8 +1,8 @@
 <?php
 namespace bo\components\classes;
 
-use bo\components\classes\helper\DBConnect;
 use bo\components\classes\helper\Logger;
+use bo\components\classes\helper\Query;
 
 class VesselContact extends AbstractDBObject
 {
@@ -43,7 +43,7 @@ class VesselContact extends AbstractDBObject
             $this->inputData = $data;
         }
         else {
-            $this->vesselContactMail = DBConnect::fetchAll("select * from port_bo_vesselContactMail where contact_id = ?", VesselContactMail::class, Array($this->id));
+            $this->vesselContactMail = VesselContactMail::getMultipleObjects(["contact_id" => $this->id]);
         }
     }
     
@@ -57,12 +57,17 @@ class VesselContact extends AbstractDBObject
             return array("status" => "error", "msg" => $msg);
         }
         else {
-            $sqlstrg = "insert into port_bo_vesselContact
-                            (vess_id, user_id, contact_type, contact_name, info, date, agent_id, port_id, planned)
-                        values
-                            (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            DBConnect::execute($sqlstrg, array($this->vess_id, $this->user_id, $this->contact_type, $this->contact_name, $this->info, $this->date,
-                $this->agent_id, $this->port_id, $this->planned));
+            $this->insertDB([
+                "vess_id" => $this->vess_id,
+                "user_id" => $this->user_id,
+                "contact_type" => $this->contact_type,
+                "contact_name" => $this->contact_name,
+                "info" => $this->info,
+                "date" => $this->date,
+                "agent_id" => $this->agent_id,
+                "port_id" => $this->port_id,
+                "planned" => $this->planned
+            ]);
             
             Logger::writeLogCreate('vesselContact', 'Neuen Kontakt für Schiff ' . Vessel::getVesselName($this->vess_id) . ' hinzugefügt. InfoText: ' . $this->info);
             Vessel::setTS($_SESSION['vessID']);
@@ -75,58 +80,53 @@ class VesselContact extends AbstractDBObject
     /*
      * Funktion zum Ändern eines vesselContacts
      */
-    public function editContact($contactData) {        
-        $this->agent_id     = Agency::getAgentID($contactData['contactAgent']);
-        $this->contactUserID= User::getUserByFullName($contactData['contactName']);
-        $this->inputData = $contactData;
+    public function editContact($data) {        
+        $this->agent_id     = Agency::getAgentID($data['contactAgent']);
+        $this->contactUserID= User::getUserByFullName($data['contactName']);
+        $this->inputData = $data;
         
-        if ($msg = $this->validateContactInput()) {
+        if ($msg = $this->validateContactInput())
             return array("status" => "error", "msg" => $msg);
-        }
         
-        if(!isset($contactData['contactPlanned'])) {
+        if(!isset($data['contactPlanned'])) {
             $planned  = 0; 
         }
         else {
             $planned  = 1; 
         }
-                
-        $sqlstrg = "update port_bo_vesselContact
-               set user_id = ?,
-                   contact_type = ?,
-                   contact_name = ?,
-                   info = ?,
-                   date = ?,
-                   agent_id = ?,
-                   port_id = ?,
-                   planned = ?
-             where id = ?";
-        DBConnect::execute($sqlstrg, array($_SESSION['user'], $contactData['contactType'], $contactData['contactName'], $contactData['contactInfo'],
-            $contactData['contactDate'], Agency::getAgentID($contactData['contactAgent']), $contactData['contactPort'], $planned, $this->id));
         
-        Logger::writeLogInfo('vesselContact', 'Kontakt für Schiff ' . Vessel::getVesselName($this->vess_id) . ' bearbeitet. InfoText: ' . $contactData['contactInfo']);
-        
+        $this->updateDB([
+            "user_id" => $_SESSION['user'],
+            "contact_type" => $data['contactType'],
+            "contact_name" => $data['contactName'],
+            "info" => $data['contactInfo'],
+            "date" => $data['contactDate'],
+            "agent_id" => Agency::getAgentID($data['contactAgent']),
+            "port_id" => $data['contactPort'],
+            "planned" => $planned
+        ], ["id" => $this->id]);
+       
+        Logger::writeLogInfo('vesselContact', 'Kontakt für Schiff ' . Vessel::getVesselName($this->vess_id) . ' bearbeitet. InfoText: ' . $data['contactInfo']);
         Vessel::setTS($_SESSION['vessID']);
         
         return array("status" => "success");
     }
     
     public static function getOpenContactsForUser($userID) {
-        $sqlstrg = "select vc.*
-                      from port_bo_vesselContact vc left join port_bo_userToPort up on vc.port_id = up.port_id
-                     where vc.planned = 1
-                       and up.user_id = ?
-                     order by vc.port_id, vc.date";
-        return DBConnect::fetchAll($sqlstrg, VesselContact::class, array($userID));
+        return (new Query("select"))
+            ->fields("vc.*")
+            ->table(self::TABLE_NAME, "vc")
+            ->leftJoin(UserToPort::TABLE_NAME, "up", "port_id", "port_id")
+            ->condition(["vc.planned" => 1, "up.user_id" => $userID])
+            ->order("vc.port_id, vc.date")
+            ->fetchAll(self::class);
     }
     
     /*
      * Funktion zum Löschen eines vesselContacts
      */
-    public static function deleteContact($id) {
-        $sqlstrg = "delete from port_bo_vesselContact where id = ?";
-        DBConnect::execute($sqlstrg, array($id));
-        
+    public function deleteContact() {
+        $this->deleteDB(["id" => $this->id]);
         Vessel::setTS($_SESSION['vessID']);
     }
     
