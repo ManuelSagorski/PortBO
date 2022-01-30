@@ -36,6 +36,10 @@ switch($_POST['type']) {
         $userToEdit = User::getSingleObjectByID($_POST['id']);
         $userToEdit->addKalender($_POST['kalender']);
         break;
+        
+    case("userSendMessage"):
+        $user->userSendMessage($_POST['data']);
+        break;
 }
 
 ?>

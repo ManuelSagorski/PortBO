@@ -7,6 +7,7 @@ use bo\components\classes\helper\OZG;
 use bo\components\classes\helper\SendMail;
 use bo\components\types\Languages;
 use bo\components\classes\helper\Query;
+use bo\components\classes\helper\Telegram;
 
 /**
  * Klasse user
@@ -270,6 +271,24 @@ class User extends AbstractDBObject
         return isset(array_column($this->userLanguages, null, 'language_id')[$languageID]);
     }
 
+    /*
+     * Auf der Profilseite eingegebene Nachricht des Nutzers wird an das Koordinatoren-Team geschickt
+     */
+    public function userSendMessage($data) {
+        $adminUsers = User::getMultipleObjects(Array("level" => 9));
+        
+        foreach ($adminUsers as $adminUser) {
+            $telegram = new telegram($adminUser->getTelegramID());
+            
+            $telegram->applyTemplate("_userSendMessage", Array(
+                "name" => User::getUserFullName($_SESSION['user']), 
+                "message" => $data['message']
+            ));
+            
+            $telegram->sendMessage(false);
+        }
+    }
+    
     private function generateHashForRandPassword($userLevel) {
         $pwd = "";
         $pwdHash = "";

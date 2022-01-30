@@ -83,6 +83,23 @@ define(function() {
 				});
 		}
 	
+		that.sendMessage = function(formID) {
+			event.preventDefault();
+			sendMessageValidate = new FormValidate(null, formID);
+			
+			if(!sendMessageValidate.fieldsNotAllEmpty(Array('message'))) {
+				sendMessageValidate.setError(Array('message'));
+				sendMessageValidate.setErrorMessage('Bitte eine Nachricht eingeben.');
+				return;
+			}
+			
+			$.post(my.CONTROLLER, { type: 'userSendMessage', data: sendMessageValidate.getFormData() }, 
+				function() {
+					sendMessageValidate.setSuccessMessage();
+					$('#message').val('');
+				});
+		}
+	
 		return constructor.call(null);
 	}
 

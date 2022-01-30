@@ -77,9 +77,17 @@ include '../../components/config.php';
     	<div class="ui raised segment">
     		<h4 class="ui header">Kontakt</h4>
 			<form id="sendMessage" class="ui form" autocomplete="off">
-			    <div class="field">
+				<div class="ui error message">
+            		<div id="errorMessage"></div>
+                </div>
+                
+                <div class="ui success message">
+                	<p>Deine Nachricht wurde veschickt. Wir werden dir so bald wie möglich antworten.</p>
+                </div>
+                
+			    <div id="input_message" class="required field">
                 	<label>Nachricht an das Koordinations-Team</label>
-                	<textarea rows="4" id="message" name="messaage"></textarea>
+                	<textarea rows="4" id="message" name="message"></textarea>
                 </div>
 				<button class="ui button" type="submit">Senden</button>
 			</form>
@@ -122,4 +130,5 @@ include '../../components/config.php';
 $("#changePassword").submit(function(event){ profile.changePassword(this.id); });
 $("#changeEmail").submit(function(event){ profile.changeMail(this.id); });
 $("#changePhone").submit(function(event){ profile.changePhone(this.id); });
+$("#sendMessage").submit(function(event){ profile.sendMessage(this.id); });
 </script>
