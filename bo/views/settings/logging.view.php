@@ -1,13 +1,11 @@
 <?php
 namespace bo\views\settings;
-
 use bo\components\classes\helper\DBConnect;
 use bo\components\classes\User;
-
 include '../../components/config.php';
 
 if($user->getLevel() != 9)
-    header('Location: http://'.$hostname.'/'.FOLDER.'/index.php');
+    header('Location: ' . MAIN_PATH . 'index.php');
 $logTable = DBConnect::execute("select * from port_bo_log order by ts_erf desc limit 150", array());
 ?>
 

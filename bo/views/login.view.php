@@ -21,8 +21,8 @@
 			/>
 			<div id="msgSecret"></div>
 		</div>
-		<?php echo (isset($msg['error']))?'<div class="errorMsgForm">' . $msg['error'] . '</div>':''; ?>
-		<?php echo (isset($msg['info']))?'<div class="msgForm">' . $msg['info'] . '</div>':''; ?>
+		<?php echo (isset($result['message']['error']))?'<div class="errorMsgForm">' . $result['message']['error'] . '</div>':''; ?>
+		<?php echo (isset($result['message']['info']))?'<div class="msgForm">' . $result['message']['info'] . '</div>':''; ?>
 		<div class="loginRow">
 			<input class="inputButton" type="submit" onClick="validateLogin()" value="Anmelden" />
 		</div>

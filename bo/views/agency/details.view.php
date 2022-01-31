@@ -1,17 +1,14 @@
 <?php 
 namespace bo\views\agency;
-
 use bo\components\classes\Agency;
 use bo\components\classes\Port;
 use bo\components\classes\Vessel;
 use bo\components\classes\VesselContact;
-
 include '../../components/config.php';
 
 if(!empty($_GET["id"])) {
     $agency = Agency::getSingleObjectByID($_GET["id"]);
     $_SESSION['agencyID'] = $agency->getID();
-    $vesselContacts = VesselContact::getMultipleObjects(Array("agent_id" => $agency->getID()), "date desc");
 ?>
 <div class="elementDetailWrapper ui segment">
 	<div class="elemDetail agency">
@@ -71,7 +68,7 @@ if(!empty($_GET["id"])) {
 		</tr>
 	</thead>
     <tbody>
-    <?php foreach ($vesselContacts as $vesselContact) { ?>
+    <?php foreach (VesselContact::getMultipleObjects(["agent_id" => $agency->getID()], "date desc") as $vesselContact) { ?>
 		<tr>
 			<td data-label="timestamp"><?php echo $vesselContact->getDate(); ?></td>
 			<td data-label="contactType"><?php echo $vesselContact->getContactType(); ?></td>			

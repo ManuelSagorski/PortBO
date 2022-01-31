@@ -1,20 +1,17 @@
 <?php 
 namespace bo\views\port;
-
 use bo\components\classes\Company;
-use bo\components\classes\helper\DBConnect;
 use bo\components\classes\Port;
 use bo\components\classes\User;
 use bo\components\types\Languages;
-
+use bo\components\classes\helper\Query;
+use bo\components\classes\UserToPort;
 include '../../components/config.php';
 
 if(!empty($_GET["id"])) {
     $port = Port::getSingleObjectByID($_GET["id"]);
-    $companys = Company::getMultipleObjects(Array("port_id" => $_GET["id"]), "name");
-    $users = DBConnect::fetchAll("select u.* from port_bo_user u join port_bo_userToPort up on u.id = up.user_id where up.port_id = ?", User::class, array($_GET["id"]));
-    $_SESSION['portID'] = $port->getID();
-
+  
+$_SESSION['portID'] = $port->getID();
 ?>
 <div class="elementDetailWrapper ui segment">
 	<div class="elemDetail agency">
@@ -48,7 +45,7 @@ if(!empty($_GET["id"])) {
 		</tr>
 	</thead>
     <tbody>
-    <?php foreach ($companys as $company) { ?>
+    <?php foreach (Company::getMultipleObjects(["port_id" => $_GET["id"]], "name") as $company) { ?>
 		<tr>
 			<td data-label="select"><input type="radio" name="selectCompany" value="<?php echo $company->getID(); ?>"></td>
 			<td data-label="companyName"><?php echo $company->getName(); ?></td>			
@@ -86,7 +83,7 @@ if(!empty($_GET["id"])) {
 		</tr>
 	</thead>
     <tbody>
-    <?php foreach ($users as $user) { ?>
+    <?php foreach (Port::getUsersForPort($_GET["id"]) as $user) { ?>
 		<tr>
 			<td data-label="publisherName"><?php echo $user->getFirstName();?> <?php echo $user->getSurname();?></td>			
 			<td data-label="publisherEmail"><?php echo $user->getEmail();?></td>

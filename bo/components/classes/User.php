@@ -208,7 +208,7 @@ class User extends AbstractDBObject
         $mail = new sendMail();
         $mail->mail->addAddress($this->email);
         $mail->mail->Subject = "Hafendienst-Backoffice - Passwort vergessen";
-        $mail->applyTemplate('_passwordResetMail', array("Vorname" => $this->first_name, "LinkAdresse" => "http://".$_SERVER['HTTP_HOST']."/" . FOLDER . "/index.php?id=" . $this->id . "&code=" . $bytes));
+        $mail->applyTemplate('_passwordResetMail', array("Vorname" => $this->first_name, "LinkAdresse" => MAIN_PATH . "index.php?id=" . $this->id . "&code=" . $bytes));
         
         $mail->mail->send();
         

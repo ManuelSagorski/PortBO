@@ -2,7 +2,7 @@
 include '../components/config.php';
 
 if($_SESSION['userLevel'] < 4) {
-    header('Location: http://'.$hostname.($path == '/' ? '' : $path).'/lookup.php');
+    header('Location: ' . PUBLIC_PATH . 'lookup.php');
 }
 
 ob_start();

@@ -1,9 +1,7 @@
 <?php
 namespace bo\components\classes;
 
-use bo\components\classes\helper\DBConnect;
 use bo\components\classes\helper\Logger;
-use JsonSerializable;
 use bo\components\classes\helper\Query;
 
 class Port extends AbstractDBObject
@@ -69,6 +67,18 @@ class Port extends AbstractDBObject
             ->fetch();
 
         return $row['id'] ?? '0';
+    }
+    
+    /*
+     * Liefert alle User zurück die in einem bestimmten Hafen tätig sind
+     */
+    public static function getUsersForPort($id) {
+        return (new Query("select"))
+            ->fields("u.*")
+            ->table(User::TABLE_NAME, "u")
+            ->join(UserToPort::TABLE_NAME, "up", "id", "user_id")
+            ->condition(["up.port_id" => $id])
+            ->fetchAll(User::class);
     }
     
     /*

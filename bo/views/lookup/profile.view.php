@@ -1,6 +1,5 @@
 <?php 
 namespace bo\views\lookup;
-
 include '../../components/config.php';
 ?>
 

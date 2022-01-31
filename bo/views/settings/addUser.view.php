@@ -1,15 +1,12 @@
 <?php
 namespace bo\views\settings;
-
 use bo\components\classes\User;
 use bo\components\types\Languages;
 use bo\components\classes\Port;
-
 include '../../components/config.php';
 
 if(isset($_GET['id'])) 
     $userToEdit = User::getSingleObjectByID($_GET['id']);
-$editMode = !empty($userToEdit);
 ?>
 
 <form id="addUser" class="ui form" autocomplete="off">
@@ -25,7 +22,7 @@ $editMode = !empty($userToEdit);
         		id="userFirstName" 
         		name="userFirstName" 
         		onkeyup="formValidate.clearAllError();" 
-        		value="<?php echo($editMode)?$userToEdit->getFirstName():''; ?>"
+        		value="<?php echo(!empty($userToEdit))?$userToEdit->getFirstName():''; ?>"
         	>
         </div>
 
@@ -36,7 +33,7 @@ $editMode = !empty($userToEdit);
         		id="userSurname" 
         		name="userSurname" 
         		onkeyup="formValidate.clearAllError();" 
-        		value="<?php echo($editMode)?$userToEdit->getSurname():''; ?>"
+        		value="<?php echo(!empty($userToEdit))?$userToEdit->getSurname():''; ?>"
         	>
         </div>    
     </div>
@@ -49,7 +46,7 @@ $editMode = !empty($userToEdit);
         		id="userUsername" 
         		name="userUsername" 
         		onkeyup="formValidate.clearAllError();" 
-        		value="<?php echo($editMode)?$userToEdit->getUsername():''; ?>"
+        		value="<?php echo(!empty($userToEdit))?$userToEdit->getUsername():''; ?>"
         	>
         </div>
 
@@ -60,7 +57,7 @@ $editMode = !empty($userToEdit);
         		id="userPhone" 
         		name="userPhone" 
         		onkeyup="formValidate.clearAllError();" 
-        		value="<?php echo($editMode)?$userToEdit->getPhone():''; ?>"
+        		value="<?php echo(!empty($userToEdit))?$userToEdit->getPhone():''; ?>"
         	>
         </div>    
     </div>
@@ -73,7 +70,7 @@ $editMode = !empty($userToEdit);
         		id="userEmail" 
         		name="userEmail" 
         		onkeyup="formValidate.clearAllError();" 
-        		value="<?php echo($editMode)?$userToEdit->getEmail():''; ?>"
+        		value="<?php echo(!empty($userToEdit))?$userToEdit->getEmail():''; ?>"
         	>
         </div>
     
@@ -83,7 +80,7 @@ $editMode = !empty($userToEdit);
         	<?php foreach (User::$userLevel as $levelID=>$level) { ?>
     			<option 
     				value="<?php echo $levelID; ?>"
-    				<?php if($editMode){echo ($userToEdit->getLevel() == $levelID)?' selected':'';} ?>
+    				<?php if(!empty($userToEdit)){echo ($userToEdit->getLevel() == $levelID)?' selected':'';} ?>
     			><?php echo $level; ?></option>
     		<?php } ?>
         	</select>
@@ -92,7 +89,7 @@ $editMode = !empty($userToEdit);
     
     <div id="input_userLanguage" class="field">
     	<label>Sprachen</label>
-    	<select id="userLanguage" name="userLanguage" multiple="" class="ui fluid dropdown">
+    	<select id="userLanguage" name="userLanguage" multiple="multiple" class="ui fluid dropdown">
     	<?php foreach (languages::$languages as $id=>$language) { ?>
 			<option value="<?php echo $id; ?>"><?php echo $language; ?></option>
 		<?php } ?>
@@ -101,14 +98,14 @@ $editMode = !empty($userToEdit);
 
     <div id="input_userPort" class="field">
     	<label>Zugewiesene Häfen</label>
-    	<select id="userPort" name="userPort" multiple="" class="ui fluid dropdown">
+    	<select id="userPort" name="userPort" multiple="multiple" class="ui fluid dropdown">
     	<?php foreach (Port::getMultipleObjects() as $port) { ?>
 			<option value="<?php echo $port->getID(); ?>"><?php echo $port->getName(); ?></option>
 		<?php } ?>
     	</select>
     </div>
 
-    <?php if(!$editMode) { ?>
+    <?php if(empty($userToEdit)) { ?>
     <div id="input_userSendInfo" class="field">
     	<label>Email mit Benutzerdaten an den Verkündiger schicken</label>
 		<input 
@@ -120,10 +117,10 @@ $editMode = !empty($userToEdit);
     <?php } ?>
 
 	<button class="ui button" type="submit">Speichern</button>
-	<?php if($editMode && $userToEdit->getLevel() > 1) { ?>
+	<?php if(!empty($userToEdit) && $userToEdit->getLevel() > 1) { ?>
 		<button class="ui button" onClick="settings.sendInvitationMail(<?php echo $userToEdit->getID(); ?>)">Einladungsmail</button>
 	<?php } ?>
-	<?php if($editMode && empty($userToEdit->getPlanningID()) && $userToEdit->getLevel() > 3) { ?>
+	<?php if(!empty($userToEdit) && empty($userToEdit->getPlanningID()) && $userToEdit->getLevel() > 3) { ?>
 		<button class="ui icon button" onClick="settings.showAddKalender()"><i class="calendar alternate outline icon"></i></button>
 	<?php } ?>
 </form>
@@ -153,15 +150,15 @@ $editMode = !empty($userToEdit);
 <script>
 $('#userLanguage').dropdown();
 $('#userPort').dropdown();
-$("#addUser").submit(function(event){ settings.addUser(<?php echo ($editMode)?$userToEdit->getID():'null'; ?>); });
-$("#addKalenderForm").submit(function(event){ settings.addUserKalender(<?php echo ($editMode)?$userToEdit->getID():''; ?>); });
+$("#addUser").submit(function(event){ settings.addUser(<?php echo (!empty($userToEdit))?$userToEdit->getID():'null'; ?>); });
+$("#addKalenderForm").submit(function(event){ settings.addUserKalender(<?php echo (!empty($userToEdit))?$userToEdit->getID():''; ?>); });
 $('.ui.radio.checkbox').checkbox();
 
-<?php if($editMode) { foreach ($userToEdit->getUserPorts() as $port) {?>
+<?php if(!empty($userToEdit)) { foreach ($userToEdit->getUserPorts() as $port) {?>
 $('#userPort').dropdown('set selected', <?php echo $port->getID(); ?>);
 <?php }} ?>
 
-<?php if($editMode) { foreach($userToEdit->getUserLanguages() as $language) { ?>
+<?php if(!empty($userToEdit)) { foreach($userToEdit->getUserLanguages() as $language) { ?>
 $('#userLanguage').dropdown('set selected', <?php echo $language->getLanguageID(); ?>);
 <?php }} ?>
 </script>

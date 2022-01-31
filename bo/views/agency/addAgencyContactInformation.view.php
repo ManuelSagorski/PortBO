@@ -1,9 +1,7 @@
 <?php
 namespace bo\views\agency;
-
 use bo\components\classes\AgencyPortInfo;
 use bo\components\classes\Port;
-
 include '../../components/config.php';
 
 if(isset($_GET['id']))

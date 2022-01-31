@@ -7,7 +7,7 @@ use bo\components\types\Languages;
 include '../../components/config.php';
 
 if($user->getLevel() != 9)
-    header('Location: http://'.$hostname.'/'.FOLDER.'/index.php');
+    header('Location: ' . MAIN_PATH . 'index.php');
 $users = User::getMultipleObjects();
 ?>
 

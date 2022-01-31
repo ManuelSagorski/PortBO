@@ -13,7 +13,7 @@ class Telegram
     
     private $tmpl;
     
-    const TEMPLATE_PATH = PATH . "/views/templates/";
+    const TEMPLATE_PATH = MAIN_DOCUMENT_PATH . "views/templates/";
     const TELEGRAM_CODE_REGEX = "/[a-zA-Z0-9]{3}-[a-zA-Z0-9]{3}/";
     
     public function __construct($chatID, $json = null) {

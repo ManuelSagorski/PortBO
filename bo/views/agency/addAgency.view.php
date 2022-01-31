@@ -1,13 +1,10 @@
 <?php
 namespace bo\views\agency;
-
 include '../../components/config.php';
-
 use bo\components\classes\Agency;
 
 if(isset($_GET['id']))
     $agency = Agency::getSingleObjectByID($_GET['id']);
-$editMode = !empty($agency);
 
 $name = '';
 if(!empty($_GET['searchValue']))
@@ -26,7 +23,7 @@ if(!empty($_GET['searchValue']))
     		id="agencyName" 
     		name="agencyName" 
     		onkeyup="formValidate.clearAllError();" 
-    		value="<?php echo($editMode)?$agency->getName():$name; ?>"
+    		value="<?php echo(!empty($agency))?$agency->getName():$name; ?>"
     	>
     </div>
 
@@ -37,7 +34,7 @@ if(!empty($_GET['searchValue']))
     		id="agencyShort" 
     		name="agencyShort" 
     		onkeyup="formValidate.clearAllError();" 
-    		value="<?php echo($editMode)?$agency->getShort():''; ?>"
+    		value="<?php echo(!empty($agency))?$agency->getShort():''; ?>"
     	>
     </div>
     
@@ -45,5 +42,5 @@ if(!empty($_GET['searchValue']))
 </form>
 
 <script>
-$("#addAgency").submit(function(event){ agency.addAgency(<?php echo ($editMode)?$agency->getID():'null'; ?>);});
+$("#addAgency").submit(function(event){ agency.addAgency(<?php echo (!empty($agency))?$agency->getID():'null'; ?>);});
 </script>

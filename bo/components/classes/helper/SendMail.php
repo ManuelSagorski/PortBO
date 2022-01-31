@@ -9,7 +9,7 @@ class SendMail
     
     public $mail;
     
-    const TEMPLATE_PATH = PATH . "/views/templates/";
+    const TEMPLATE_PATH = MAIN_DOCUMENT_PATH . "views/templates/";
     
     public function __construct() {
         $this->mail = new PHPMailer(true);

@@ -1,6 +1,5 @@
 <?php
 namespace bo\views\profile;
-
 include '../../components/config.php';
 ?>
 

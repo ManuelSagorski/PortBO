@@ -12,7 +12,60 @@ use bo\components\classes\User;
  */
 class LoginController
 {
-    public function __construct() {}
+    private const DEFAULT_VIEW = 'views/login.view.php';
+    private const PW_RESET_VIEW = 'views/pwReset.view.php';
+    
+    public function __construct() {
+        if(isset($_SESSION['user'])) {
+            header('Location: ' . PUBLIC_PATH . User::$defaultPage[$_SESSION['userLevel']] . '.php');
+        }
+    }
+    
+    /**
+     * Führt je nach Aufrufart der index.php die entsprechenden Aktionen durch
+     * 
+     * @return Array [optional Message | zu ladende View]
+     */
+    public function start() {
+        if(isset($_GET['logout'])) {
+            $_SESSION = [];
+        }
+        
+        switch($_SERVER['REQUEST_METHOD']) {
+            case('POST'):
+                if (isset($_POST['username'])) {
+                    $msg = $this->login();
+                    if($msg === true) {
+                        header('Location: ' . PUBLIC_PATH . User::$defaultPage[$_SESSION['userLevel']] . '.php');
+                    }
+                }
+                
+                if (isset($_POST['formData']['secretNew1']) && isset($_POST['formData']['secretNew2'])) {
+                    $msg['info'] = $this->changePassword($_REQUEST);
+                }
+                
+                if (isset($_POST['formData']['usernameReset'])) {
+                    echo $this->forgotPassword($_REQUEST);
+                }
+                else {
+                    return ["message" => $msg, "view" => self::DEFAULT_VIEW];
+                }                
+                break;
+                
+            case('GET'):
+                if(isset($_GET['id']) && isset($_GET['code'])) {
+                    if($this->pwReset($_REQUEST)) {
+                        return ["view" => self::PW_RESET_VIEW];
+                    }
+                    else {
+                        $msg['error'] = "Der verwendete Link zum Zurücksetzen des Passwortes ist ungültig.";
+                        return ["message" => $msg, "view" => self::DEFAULT_VIEW];
+                    }
+                }
+                return ["view" => self::DEFAULT_VIEW];
+                break;
+        }
+    }
     
     /**
      * Login eines Benutzers
@@ -20,7 +73,7 @@ class LoginController
      * @param Array $request
      * @return string[]
      */
-    public function login($request) {
+    public function login() {
         $username = $_POST['username'];
         $passwort = $_POST['secret'];
         

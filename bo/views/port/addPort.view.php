@@ -1,13 +1,10 @@
 <?php
 namespace bo\views\port;
-
 use bo\components\classes\Port;
-
 include '../../components/config.php';
 
 if(isset($_GET['id']))
     $port = Port::getSingleObjectByID($_GET['id']);
-$editMode = !empty($port);
 ?>
 
 <form id="addPort" class="ui form" autocomplete="off">
@@ -22,7 +19,7 @@ $editMode = !empty($port);
     		id="portName" 
     		name="portName" 
     		onkeyup="formValidate.clearAllError();" 
-    		value="<?php echo($editMode)?$port->getName():''; ?>"
+    		value="<?php echo(!empty($port))?$port->getName():''; ?>"
     	>
     </div>
 
@@ -33,18 +30,18 @@ $editMode = !empty($port);
     		id="portShort" 
     		name="portShort" 
     		onkeyup="formValidate.clearAllError();" 
-    		value="<?php echo($editMode)?$port->getShort():''; ?>"
+    		value="<?php echo(!empty($port))?$port->getShort():''; ?>"
     	>
     </div>
     
     <div id="input_portMTLink" class="field">
     	<label>MarineTraffic Link</label>
-    	<textarea rows="2" id="portMTLink" name="portMTLink"><?php echo($editMode)?$port->getMTLink():''; ?></textarea>
+    	<textarea rows="2" id="portMTLink" name="portMTLink"><?php echo(!empty($port))?$port->getMTLink():''; ?></textarea>
     </div>
     
     <button class="ui button" type="submit">Speichern</button>
 </form>
 
 <script>
-$("#addPort").submit(function(event){ portC.addPort(<?php echo ($editMode)?$port->getID():'null'; ?>);});
+$("#addPort").submit(function(event){ portC.addPort(<?php echo (!empty($port))?$port->getID():'null'; ?>);});
 </script>

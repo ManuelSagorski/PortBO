@@ -1,9 +1,7 @@
 <?php 
 namespace bo\views\lookup;
-
 use bo\components\classes\Vessel;
 use bo\components\types\ContactTypes;
-
 include '../../components/config.php';
 
 if(!empty($_GET["id"])) {

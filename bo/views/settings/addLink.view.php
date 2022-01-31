@@ -1,7 +1,6 @@
 <?php
 namespace bo\views\settings;
 use bo\components\classes\SettingsForecastLists;
-
 include '../../components/config.php';
 
 if(isset($_GET['id']))
