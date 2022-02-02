@@ -44,6 +44,17 @@ class Port extends AbstractDBObject
     }
     
     /*
+     * Aktualisiert einen Hafen in der Datenbank
+     */
+    public function updatePort($data) {
+        $this->updateDB([
+            "name" => $data['portName'],
+            "short" => $data['portShort'],
+            "mtLink" => $data['portMTLink']
+        ], ["id" => $this->id]);
+    }
+    
+    /*
      * Static Funktion die den Namen zu einer PortID liefert
      */
     public static function getPortName($id) {

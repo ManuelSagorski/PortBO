@@ -8,7 +8,12 @@ include '../config.php';
 
 switch($_POST['type']) {
     case("addPort"):
-        (new Port($_POST['data']))->addPort();
+        if(!isset($_POST['id'])) {
+            (new Port($_POST['data']))->addPort();
+        }
+        else {
+            (Port::getSingleObjectByID($_POST['id']))->updatePort($_POST['data']);
+        }        
         break;
 
     case("addPortCompany"):

@@ -26,6 +26,7 @@ $_SESSION['portID'] = $port->getID();
     	<div><?php echo $port->getShort(); ?></div>
     </div>
 </div>
+<?php if($user->getLevel() > 8 ) { ?>
 <div class="detailActions ui icon menu">
 	<a class="item" onclick="portC.newPort(<?php echo $port->getID(); ?>);">
 		<i class="edit icon"></i>
@@ -37,6 +38,7 @@ $_SESSION['portID'] = $port->getID();
 		<img class="iconRowElement" src="../resources/img/marineTrafficLogo.png" />
 	</a>
 </div>
+<?php } ?>
 
 <table class="detailTable ui very compact celled striped table">
 	<thead>
@@ -64,6 +66,7 @@ $_SESSION['portID'] = $port->getID();
 	<?php } ?>
     </tbody>
 </table>
+<?php if($user->getLevel() > 8 ) { ?>
 <div class="detailActions ui icon menu">
 	<a class="item" onclick="portC.newCompany(<?php echo $port->getID(); ?>);">
 		<i class="plus icon"></i>
@@ -75,6 +78,7 @@ $_SESSION['portID'] = $port->getID();
 		<i class="trash alternate icon"></i>
 	</a>
 </div>
+<?php } ?>
 
 <table class="detailTable ui very compact celled striped table">
 	<thead>

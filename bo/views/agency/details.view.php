@@ -23,6 +23,7 @@ if(!empty($_GET["id"])) {
     	<div><?php echo $agency->getShort(); ?></div>
     </div>
 </div>
+<?php if($user->getLevel() > 8 ) { ?>
 <div class="detailActions ui icon menu">
 	<a class="item" onclick="agency.newAgency(<?php echo $agency->getID(); ?>)">
 		<i class="edit icon"></i>
@@ -31,6 +32,7 @@ if(!empty($_GET["id"])) {
 		<i class="trash alternate icon"></i>
 	</a>
 </div>	
+<?php } ?>
 
 <table class="detailTable ui very compact celled striped table">
 	<thead>
@@ -49,6 +51,7 @@ if(!empty($_GET["id"])) {
 	<?php } ?>
     </tbody>
 </table>
+<?php if($user->getLevel() > 8 ) { ?>
 <div class="detailActions ui icon menu">
 	<a class="item" onclick="agency.newAgencyPortInfo(<?php echo $agency->getID(); ?>);">
 		<i class="plus icon"></i>
@@ -60,6 +63,7 @@ if(!empty($_GET["id"])) {
 		<i class="trash alternate icon"></i>
 	</a>
 </div>
+<?php } ?>
 
 <table class="detailTable ui very compact celled striped table">
 	<thead>
