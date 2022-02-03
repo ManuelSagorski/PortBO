@@ -65,7 +65,7 @@ $shipnext->getForecast();
 
 echo "<table>";
 foreach ($shipnext->expectedVessels as $vessel) {
-    echo "<tr><td>" . Port::getPortName($vessel['port']) . "</td><td>" . $vessel['arrivalDate'] . "</td><td>" . $vessel['name'] . "</td><td>" . $vessel['imo'] . "</td></tr>";
+    echo "<tr><td>" . $vessel['quelle'] . "</td><td>" . Port::getPortName($vessel['port']) . "</td><td>" . $vessel['arrivalDate'] . "</td><td>" . $vessel['name'] . "</td><td>" . $vessel['imo'] . "</td></tr>";
 }
 echo "</table>";
 
