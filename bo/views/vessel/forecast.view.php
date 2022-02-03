@@ -57,7 +57,12 @@ foreach($forecast as $expectedVessel) {
             				<div><?php echo $expectedVessel->getName(); ?></div>
             				<div><?php echo $expectedVessel->getIMO(); ?></div>
             			</td>
-        				<td data-label="inSystem" class="center aligned collapsing"><?php echo (!empty($expectedVessel->vessel))?'<a onClick="vessel.openDetails(' . $expectedVessel->vessel->getID() . ');"><i class="address card outline icon"></i></a>':''; ?></td>
+        				<td data-label="inSystem" class="center aligned collapsing">
+        				<?php echo (!empty($expectedVessel->vessel))?'
+                            <a onClick="vessel.openDetails(' . $expectedVessel->vessel->getID() . '); safeForecastPosition();">
+                                <i class="address card outline icon"></i>
+                            </a>':''; ?>
+        				</td>
             			<td data-label="email" class="center aligned collapsing">
             				<?php echo ($expectedVessel->hasMail)?'<i class="envelope outline icon"></i>':''; ?>
             				<?php echo ($expectedVessel->hasPhone)?'<i class="phone icon"></i>':''; ?>
@@ -109,6 +114,10 @@ foreach($forecast as $expectedVessel) {
 <?php }?>
 
 <script>
-$('.ui.accordion').accordion();
+$('.ui.accordion').accordion({
+	onOpening: function() {
+		forecastAccordionOpen = this.index(".content");
+	}
+});
 $(".addForecast").submit(function(event){ vessel.addForecast(this.id); });
 </script>

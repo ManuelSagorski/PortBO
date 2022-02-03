@@ -1,3 +1,6 @@
+var scrollPosition = null;
+var forecastAccordionOpen = null;
+
 require(['routing']);
 
 require(['classes/FormValidate'], function() {
@@ -51,4 +54,8 @@ function selectSuggested(type, value) {
 			agency.loadAgencyInfoForInput(value);
 			break;
 	}
+}
+
+function safeForecastPosition() {
+	scrollPosition = window.pageYOffset;
 }

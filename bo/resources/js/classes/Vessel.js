@@ -47,8 +47,12 @@ define(function() {
 		that.getForecast = function(accordionID) {
 			$.get(my.FORECAST_VIEW, function(data) {
 				$('#vesselForecast').html(data);
-				if(accordionID) {
-					$('.ui.accordion').accordion('open', parseInt(accordionID));
+				
+				if(scrollPosition !== null && forecastAccordionOpen !== null) {
+					$('.ui.accordion').accordion('open', forecastAccordionOpen);
+					window.scrollTo(0, scrollPosition);
+
+					scrollPosition = null;
 				}
 			});			
 		}
