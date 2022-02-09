@@ -4,6 +4,7 @@ namespace bo\views\vessel;
 use bo\components\classes\Forecast;
 use bo\components\classes\Port;
 use bo\components\classes\SettingsForecastLists;
+use bo\components\classes\Vessel;
 
 include '../../components/config.php';
 ?>
@@ -18,7 +19,7 @@ foreach($user->getUserPorts() as $key => $userPorts) {
 
 	<div class="title">
     	<i class="dropdown icon"></i>
-    	Forecast für <?php echo Port::getPortName($userPorts->getID()); ?>
+    	Forecast für <?php echo Port::getPortName($userPorts->getID()); ?> (<?php echo Forecast::getCountOpenForecastPort($userPorts->getID()); ?>)
 	</div>
 	<div class="content">
 		<form id="addForecast<?php echo $userPorts->getID(); ?>" class="addForecast">
@@ -29,8 +30,8 @@ foreach($user->getUserPorts() as $key => $userPorts) {
             			<th>Name / IMO</th>
             			<th></th>
             			<th></th>
-            			<th>Terminal</th>
-            			<th>Makler?</th>
+            			<th>Last cont.</th>
+            			<th>Terminal / Agent</th>
             			<th></th>
             			<th></th>
             		</tr>
@@ -69,8 +70,17 @@ foreach($forecast as $expectedVessel) {
             				<?php echo ($expectedVessel->inDry)?'<i class="gb uk flag"></i>':''; ?>
             				<?php echo ($expectedVessel->expectMail)?'<i class="question circle outline icon"></i>':''; ?>
             			</td>
-            			<td data-label="company" class="collapsing"><?php echo $expectedVessel->getCompany(); ?></td>
-            			<td data-label="agency" title="<?php echo $expectedVessel->getAgency(); ?>"><?php echo $expectedVessel->getAgency(); ?></td>
+            			<td data-label="last_contact" class="collapsing">
+            			<?php 
+                			if (!empty($expectedVessel->vessel)) {
+                			    echo Vessel::getLastContactVessel($expectedVessel->vessel->getID());
+                			}
+            			?>
+            			</td>
+            			<td data-label="agency_company">
+            				<div><?php echo $expectedVessel->getCompany(); ?></div>
+            				<div><?php echo $expectedVessel->getAgency(); ?></div>
+            			</td>
             			<td data-label="done" class="center aligned collapsing">
             			<?php if($expectedVessel->getStatus() == 0) { ?>
             				<a onClick="vessel.forecastItemDone(<?php echo $expectedVessel->getID(); ?>, this);"><i class="check icon"></i></a>

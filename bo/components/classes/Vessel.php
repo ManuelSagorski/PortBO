@@ -172,6 +172,23 @@ class Vessel extends AbstractDBObject
 
         return $row['typ'] ?? '';
     }
+
+    /**
+     * static function getLastContactVessel($id)
+     *
+     * @param int $id ID des Schiffes
+     * @return string Datum
+     */
+    public static function getLastContactVessel($id) {
+        $row = (new Query("select"))
+            ->table(VesselContact::TABLE_NAME)
+            ->condition(["vess_id" => $id]) 
+            ->order("date desc")
+            ->execute()
+            ->fetch();
+        
+        return $row['date'];
+    }
     
     /**
      * static function setTS($id)

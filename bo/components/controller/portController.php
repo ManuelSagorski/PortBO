@@ -8,7 +8,7 @@ include '../config.php';
 
 switch($_POST['type']) {
     case("addPort"):
-        if(!isset($_POST['id'])) {
+        if(empty($_POST['id'])) {
             (new Port($_POST['data']))->addPort();
         }
         else {

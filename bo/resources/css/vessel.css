@@ -21,6 +21,8 @@
 
 .openContactRowHeader { margin-top: 5px; text-align: center; border-bottom-style: solid; border-bottom-width: 1px; border-color: #6E6E6E; font-weight: bold; }
 
+.openContactRow.ownContact { color: #B40404; }
+
 #searchInputVessel { max-width: 150px; }
 
 #vesselForecast { margin-top: 10px; }

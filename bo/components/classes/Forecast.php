@@ -17,7 +17,7 @@ class Forecast extends AbstractDBObject
     private $port_id;
     private $status;
     
-    private $companysExpectMail = Array("essberger", "stolt", "maersk", "federal", "naree");
+    private $companysExpectMail = Array("essberger", "stolt", "maersk", "federal", "naree", "schulte", "thun", "cma", "sti", "knutsen");
     
     public $hasMail = false;
     public $hasPhone = false;
@@ -79,6 +79,17 @@ class Forecast extends AbstractDBObject
         }
     }
     
+    public static function getCountOpenForecastPort($portID) {
+        $row = (new Query("select"))
+            ->fields("count(*) as openCount")
+            ->table(self::TABLE_NAME)
+            ->condition(["port_id" => $portID, "status" => 0])
+            ->execute()
+            ->fetch();
+        
+        return $row['openCount'];
+    }
+    
     public static function forecastItemDone($id) {
         (new Query("update"))
             ->table(self::TABLE_NAME)
@@ -115,6 +126,7 @@ class Forecast extends AbstractDBObject
             ])
             ->execute();
     }
+    
     /*
      Getter und Setter
      */
