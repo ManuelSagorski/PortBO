@@ -23,6 +23,12 @@ function loadPwReset() {
 	});
 }
 
+function loadImprint() {
+	$.get('views/imprint.view.php', function(data) {
+		$('#indexWrapper').html(data);	
+	});
+}
+
 function askPwResetLink() {
 	formValidate = new FormValidate($('#sendLink').serializeArray());
 	

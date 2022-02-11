@@ -16,8 +16,9 @@ class Forecast extends AbstractDBObject
     private $agency;
     private $port_id;
     private $status;
+    private $type;
     
-    private $companysExpectMail = Array("essberger", "stolt", "maersk", "federal", "naree", "schulte", "thun", "cma", "sti", "knutsen");
+    private $companysExpectMail = Array("essberger", "stolt", "maersk", "federal", "naree", "schulte", "thun", "cma", "sti", "knutsen", "straum");
     
     public $hasMail = false;
     public $hasPhone = false;
@@ -153,6 +154,9 @@ class Forecast extends AbstractDBObject
     }
     public function getStatus() {
         return $this->status;
+    }
+    public function getType() {
+        return $this->type;
     }
 }
 

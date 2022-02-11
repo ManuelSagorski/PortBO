@@ -55,7 +55,7 @@ foreach($forecast as $expectedVessel) {
             				<div><?php echo $expectedVessel->getLeaving(); ?></div>
             			</td>			
             			<td data-label="name_imo" title="<?php echo $expectedVessel->getName(); ?>">
-            				<div><?php echo $expectedVessel->getName(); ?></div>
+            				<div><?php echo $expectedVessel->getName(); ?><?php echo ($expectedVessel->getType() == 'tanker')?' <i class="tint icon"></i>':''; ?></div>
             				<div><?php echo $expectedVessel->getIMO(); ?></div>
             			</td>
         				<td data-label="inSystem" class="center aligned collapsing">

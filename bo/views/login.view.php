@@ -29,5 +29,5 @@
 	</form>
 </div>
 <div id="newPW">
-	<a onclick="loadPwReset();">Passwort vergessen</a>
+	<a onclick="loadPwReset();">Passwort vergessen</a> | <a onclick="loadImprint();">Impressum</a>
 </div>
