@@ -1,7 +1,10 @@
 <?php
 namespace bo\views\settings;
 use bo\components\classes\SettingsForecastLists;
+use bo\components\classes\helper\Security;
+
 include '../../components/config.php';
+Security::grantAccess(8);
 ?>
 
 <table class="detailTable ui very compact celled striped table">

@@ -37,8 +37,8 @@ class User extends AbstractDBObject
     
     private $sendInfo;
     
-    public static $userLevel = array(1 => "Verkündiger", 2 => "Foreign Port", 4 => "BO Mitarbeiter", 5 => "BO Supervisor", 9 => "Administrator");
-    public static $defaultPage = array(2 => "lookup", 4 => "index", 5 => "index", 9 => "index");
+    public static $userLevel = array(1 => "Verkündiger", 2 => "Foreign Port", 4 => "BO Mitarbeiter", 5 => "BO Supervisor", 8 => "Projekt Admin", 9 => "Administrator");
+    public static $defaultPage = array(2 => "lookup", 4 => "index", 5 => "index", 8 => "index", 9 => "index");
     
     /**
      * Konstructor

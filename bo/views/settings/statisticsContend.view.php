@@ -1,9 +1,10 @@
 <?php
 namespace bo\views\settings;
-
+use bo\components\classes\helper\Security;
 use bo\components\classes\helper\Statistics;
 
 include '../../components/config.php';
+Security::grantAccess(8);
 
 $statistics = new statistics($_POST['data']);
 ?>

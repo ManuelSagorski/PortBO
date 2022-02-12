@@ -1,13 +1,12 @@
 <?php
 namespace bo\views\settings;
-
 use bo\components\classes\User;
 use bo\components\types\Languages;
+use bo\components\classes\helper\Security;
 
 include '../../components/config.php';
+Security::grantAccess(8);
 
-if($user->getLevel() != 9)
-    header('Location: ' . MAIN_PATH . 'index.php');
 $users = User::getMultipleObjects();
 ?>
 

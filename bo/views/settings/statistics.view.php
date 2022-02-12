@@ -1,10 +1,10 @@
 <?php
 namespace bo\views\settings;
 use bo\components\classes\Port;
-include '../../components/config.php';
+use bo\components\classes\helper\Security;
 
-if($user->getLevel() != 9)
-    header('Location: ' . MAIN_PATH . 'index.php');
+include '../../components/config.php';
+Security::grantAccess(8);
 ?>
 
 <div>
