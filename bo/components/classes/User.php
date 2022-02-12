@@ -79,6 +79,8 @@ class User extends AbstractDBObject
             "level" => $this->level
         ]);
         
+        $this->id = DBConnect::getLastID();
+        
         Logger::writeLogCreate('settings', 'Neuer Benutzer angelegt: ' . $this->first_name . ' ' . $this->surname);
         
         foreach(languages::$languages as $id=>$language) {
