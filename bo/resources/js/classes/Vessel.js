@@ -13,7 +13,6 @@ define(function() {
 		my.DETAILS_VIEW = my.VIEW_FOLDER + 'details.view.php?';
 		my.OPEN_CONTACTS_VIEW = my.VIEW_FOLDER + 'openContacts.view.php?';
 		my.FORECAST_VIEW = my.VIEW_FOLDER + 'forecast.view.php';
-		my.CONTACT_MAIL_VIEW = my.VIEW_FOLDER + 'vesselContactMail.view.php';
 
 		constructor = function() {
 			return that;
@@ -371,19 +370,6 @@ define(function() {
 			else {
 				alert('Bitte zuerst ein Element auswählen.');
 			}
-		}
-		
-		
-		/*
-		 *	Öffnet die Emails zu einem VesselContact
-		 */
-		that.getVesselContactMail = function(contactID) {
-			$.get(my.CONTACT_MAIL_VIEW + '?contactID=' + contactID, function(data) {
-				$('#windowLabel').html("Emails zu Kontakt");
-				$('#windowBody').html(data);
-			});
-			$('#window').css("width", 800);
-			showWindow();
 		}
 		
 		/*************************************************** Vessel Contact Details ***************************************************/

@@ -22,7 +22,6 @@ class VesselContact extends AbstractDBObject
     private $planned;
     
     private $inputData;
-    private $vesselContactMail = [];
     
     public function __construct($data = null) {
         if(!empty($data)) {
@@ -42,9 +41,6 @@ class VesselContact extends AbstractDBObject
             }
             
             $this->inputData = $data;
-        }
-        else {
-            $this->vesselContactMail = VesselContactMail::getMultipleObjects(["contact_id" => $this->id]);
         }
     }
     
@@ -176,10 +172,7 @@ class VesselContact extends AbstractDBObject
     }
     public function getPlanned() {
         return $this->planned;
-    }
-    public function getVesselContactMail() {
-        return $this->vesselContactMail;
-    }  
+    } 
 }
 
 ?>
