@@ -26,7 +26,7 @@ $_SESSION['portID'] = $port->getID();
     	<div><?php echo $port->getShort(); ?></div>
     </div>
 </div>
-<?php if($user->getLevel() > 8 ) { ?>
+<?php if($user->getLevel() >= 8 ) { ?>
 <div class="detailActions ui icon menu">
 	<a class="item" onclick="portC.newPort(<?php echo $port->getID(); ?>);">
 		<i class="edit icon"></i>
@@ -66,7 +66,7 @@ $_SESSION['portID'] = $port->getID();
 	<?php } ?>
     </tbody>
 </table>
-<?php if($user->getLevel() > 8 ) { ?>
+<?php if($user->getLevel() >= 8 ) { ?>
 <div class="detailActions ui icon menu">
 	<a class="item" onclick="portC.newCompany(<?php echo $port->getID(); ?>);">
 		<i class="plus icon"></i>
