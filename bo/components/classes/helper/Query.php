@@ -126,12 +126,31 @@ class Query
         /*
          * Project relevance
          */
-        switch($this->type) {
-            case "insert":
-                if(in_array($this->from[0][0], $this->projectTables)) {
-                    $this->values["project_id"] = $_SESSION['project'];
-                }
-                break;
+        if(isset($_SESSION['project']) && $this->project === null) {
+            $this->project = $_SESSION['project'];
+        }
+        
+        if($this->project !== null) {
+            switch($this->type) {
+                case "insert":
+                    if(in_array($this->from[0][0], $this->projectTables)) {
+                        $this->values["project_id"] = $this->project;
+                    }
+                    break;
+                case "select":
+                    foreach ($this->from as $key => $table) {
+                        if(in_array($table[0], $this->projectTables)) {
+                            $condition = '';
+                            if(!empty($table[1])) {
+                                $condition = $table[1] . ".";
+                            }
+                            $condition .= "project_id";
+                            
+                            $this->conditions['equal'][] = [$condition => $this->project];
+                        }
+                    }
+                    break;
+            }
         }
                 
         /*
@@ -164,13 +183,13 @@ class Query
         foreach($this->from as $key => $table) {
             if($key !== array_key_first($this->from))
                 $this->sqlstrg .= $this->join[0][0] . " ";
-                $this->sqlstrg .= $table[0] . " ";
-                if(!empty($table[0])) {
-                    $this->sqlstrg .= $table[1] . " ";
-                }
-                if($key !== array_key_first($this->from)) {
-                    $this->sqlstrg .= "on " . $this->from[0][1] . "." . $this->join[0][1] . " = " . $this->from[1][1] . "." . $this->join[0][2] . " ";
-                }
+            $this->sqlstrg .= $table[0] . " ";
+            if(!empty($table[0])) {
+                $this->sqlstrg .= $table[1] . " ";
+            }
+            if($key !== array_key_first($this->from)) {
+                $this->sqlstrg .= "on " . $this->from[0][1] . "." . $this->join[0][1] . " = " . $this->from[1][1] . "." . $this->join[0][2] . " ";
+            }
         }
         
         /*

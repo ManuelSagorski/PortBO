@@ -11,6 +11,6 @@ include '../../components/config.php';
 	<div class="searchResultRow"><a onclick="portC.openDetails(<?php echo $port->getID(); ?>);"><?php echo $port->getName(); ?></a></div>
 <?php } ?>
 </div>
-<?php if($user->getLevel() > 8 ) { ?>
+<?php if($user->getLevel() >= 8 ) { ?>
 <button onClick="portC.newPort();">Hafen hinzufügen</button>
 <?php } ?>
