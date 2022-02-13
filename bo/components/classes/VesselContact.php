@@ -9,6 +9,7 @@ class VesselContact extends AbstractDBObject
     public const TABLE_NAME = "port_bo_vesselContact";
     
     private $id;
+    private $project_id;
     private $vess_id;
     private $user_id;
     private $agent_id;
@@ -145,6 +146,9 @@ class VesselContact extends AbstractDBObject
      */
     public function getID() {
         return $this->id;
+    }
+    public function getProjectId() {
+        return $this->project_id;
     }
     public function getVesselID() {
         return $this->vess_id;

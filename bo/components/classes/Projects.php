@@ -10,6 +10,7 @@ class Projects extends AbstractDBObject
     private $short;
     
     private $mod_forecast;
+    private $mod_planning;
     
     public function __construct()
     {}
@@ -23,8 +24,12 @@ class Projects extends AbstractDBObject
     public function getShort() {
         return $this->short;
     }
+    
     public function getModForecast() {
         return $this->mod_forecast;
+    }
+    public function getModPlanning() {
+        return $this->mod_planning;
     }
 }
 

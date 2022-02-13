@@ -1,7 +1,6 @@
 <?php
 namespace bo\components\classes;
 
-use bo\components\classes\helper\DBConnect;
 use bo\components\classes\helper\Logger;
 
 /**

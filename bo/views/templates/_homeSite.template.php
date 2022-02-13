@@ -47,7 +47,7 @@
     				<div class="navElement"><a href="agency">Agenten</a></div>
     				<div class="navElement"><a href="port">Häfen</a></div>
 					<div class="navElement"><a href="profile" title="Profile"><i class="user icon" href="profile"></i></a></div>
-					<?php if($user->getPlanningID() > 0) {?>
+					<?php if($project->getModPlanning() && $user->getPlanningID() > 0) {?>
 					<div class="navElement">
 						<a class="item" href="https://portbo.xn--zg-eka.de/index.php?id=<?php echo $user->getPlanningID(); ?>" target="_blank">
 							<i class="calendar alternate outline icon" href="https://portbo.xn--zg-eka.de/index.php?id=<?php echo $user->getPlanningID(); ?>" target="_blank"></i>

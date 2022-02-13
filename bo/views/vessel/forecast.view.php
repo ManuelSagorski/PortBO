@@ -1,12 +1,13 @@
 <?php
 namespace bo\views\vessel;
-
 use bo\components\classes\Forecast;
 use bo\components\classes\Port;
 use bo\components\classes\SettingsForecastLists;
 use bo\components\classes\Vessel;
 
 include '../../components/config.php';
+if(!$project->getModForecast())
+    exit;
 ?>
 
 <div class="ui accordion">

@@ -4,6 +4,7 @@ namespace bo\components;
 use bo\components\classes\helper\DBConnect;
 use bo\components\classes\helper\Logger;
 use bo\components\classes\User;
+use bo\components\classes\Projects;
 
 session_start();
 
@@ -40,6 +41,7 @@ if($_SERVER[ 'SCRIPT_NAME' ] != "/" . FOLDER . "index.php" && !isset($independen
     }
     else {
         $user = User::getSingleObjectByID($_SESSION['user']);
+        $project = Projects::getSingleObjectByID($_SESSION['project']);
     }
 }
 

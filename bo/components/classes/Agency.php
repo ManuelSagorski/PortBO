@@ -15,6 +15,7 @@ class Agency extends AbstractDBObject
     public const TABLE_NAME = "port_bo_agency";
     
     private $id;
+    private $project_id;
     private $name;
     private $short;
     private $agencyPortInfo = [];
@@ -178,6 +179,9 @@ class Agency extends AbstractDBObject
      */
     public function getID() {
         return $this->id;
+    }
+    public function getProjectId() {
+        return $this->project_id;
     }
     public function getName() {
         return $this->name;

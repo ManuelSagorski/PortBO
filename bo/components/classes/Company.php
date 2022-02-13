@@ -10,6 +10,7 @@ class Company extends AbstractDBObject implements JsonSerializable
     public const TABLE_NAME = "port_bo_company";
     
     private $id;
+    private $project_id;
     private $name;
     private $port_id;
     private $info;
@@ -90,6 +91,9 @@ class Company extends AbstractDBObject implements JsonSerializable
      */
     public function getID() {
         return $this->id;
+    }
+    public function getProjectId() {
+        return $this->project_id;
     }
     public function getName() {
         return $this->name;

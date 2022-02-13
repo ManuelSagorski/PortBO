@@ -87,6 +87,7 @@ class LoginController
             If (password_verify($passwort, $user->getSecret())) {
                 $_SESSION['user'] = $user->getId();
                 $_SESSION['userLevel'] = $user->getLevel();
+                $_SESSION['project'] = $user->getProjectId();
                 Logger::writeLogInfo('login', 'Login erfolgreich');
                 return true;
             }

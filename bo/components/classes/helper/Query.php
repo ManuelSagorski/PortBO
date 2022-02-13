@@ -1,6 +1,13 @@
 <?php
 namespace bo\components\classes\helper;
 
+use bo\components\classes\Agency;
+use bo\components\classes\Company;
+use bo\components\classes\Port;
+use bo\components\classes\User;
+use bo\components\classes\VesselContact;
+use bo\components\classes\VesselInfo;
+
 class Query
 {
     private $type;
@@ -10,17 +17,34 @@ class Query
     private $values = [];
     private $conditions = [];
     private $order;
+    private $project;
+   
+    private $projectTables = [
+        Agency::TABLE_NAME,
+        Company::TABLE_NAME,
+        Logger::LOG_TABLE,
+        Port::TABLE_NAME,
+        User::TABLE_NAME,
+        VesselContact::TABLE_NAME,
+        VesselInfo::TABLE_NAME
+    ];
     
     public $sqlstrg;
     public $parameter = [];
     
     public function __construct($type) {
         $this->type = $type;
+        $this->project = null;
     }
 
     public function __toString() {
         $this->build();
         return $this->sqlstrg;
+    }
+    
+    public function project($projectID) {
+        $this->project = $projectID;
+        return $this;
     }
     
     public function fields(...$fields) {
@@ -99,6 +123,17 @@ class Query
     public function build() {
         $this->parameter = [];
         
+        /*
+         * Project relevance
+         */
+        switch($this->type) {
+            case "insert":
+                if(in_array($this->from[0][0], $this->projectTables)) {
+                    $this->values["project_id"] = $_SESSION['project'];
+                }
+                break;
+        }
+                
         /*
          * type
          */

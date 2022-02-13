@@ -19,6 +19,7 @@ class User extends AbstractDBObject
     public const TABLE_NAME = "port_bo_user";
     
     private $id;
+    private $project_id;
     private $username;
     private $secret;
     private $email;
@@ -26,7 +27,6 @@ class User extends AbstractDBObject
     private $first_name;
     private $surname;
     private $level;
-    private $language;
     private $password_code;
     private $password_code_time;
     private $telegram_id;
@@ -364,6 +364,9 @@ class User extends AbstractDBObject
     public function getId() {
         return $this->id;
     }
+    public function getProjectId() {
+        return $this->project_id;
+    }
     public function getUsername() {
         return $this->username;
     }
@@ -384,9 +387,6 @@ class User extends AbstractDBObject
     }
     public function getLevel() {
         return $this->level;
-    }
-    public function getLanguage() {
-        return $this->language;
     }
     public function getPasswordCode() {
         return $this->password_code;

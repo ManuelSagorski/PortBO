@@ -71,7 +71,7 @@ abstract class AbstractDBObject
         $query = (new Query("insert"))
             ->table((get_called_class())::TABLE_NAME)
             ->values($fields)
-            ->build();        
+            ->build();            
         DBConnect::execute($query->sqlstrg, $query->parameter);
         
         return DBConnect::getLastID();

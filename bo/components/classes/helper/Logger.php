@@ -37,7 +37,8 @@ class Logger
                 "user_id" => $user, 
                 "logLevel" => $logLevel, 
                 "component" => $component, 
-                "message" => $message
+                "message" => $message,
+                "project_id" => $_SESSION['project']
             ])
             ->execute();
     }

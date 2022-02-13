@@ -14,6 +14,7 @@ class VesselInfo extends AbstractDBObject
     public const TABLE_NAME = "port_bo_vesselInfo";
     
     private $id;
+    private $project_id;
     private $vess_id;
     private $user_id;
     private $ts_erf;
@@ -26,8 +27,8 @@ class VesselInfo extends AbstractDBObject
      * Funktion zum Speichern einer neuen vesselInfo
      */
     public static function safeInfo($data) {
-        $sqlstrg = "insert into port_bo_vesselInfo (vess_id, user_id, ts_erf, info) values (?, ?, now(), ?)";
-        DBConnect::execute($sqlstrg, array($data['vesselID'], $_SESSION['user'], $data['vesselInfo']));
+        $sqlstrg = "insert into port_bo_vesselInfo (project_id, vess_id, user_id, ts_erf, info) values (?, ?, ?, now(), ?)";
+        DBConnect::execute($sqlstrg, array($_SESSION['project'], $data['vesselID'], $_SESSION['user'], $data['vesselInfo']));
         
         Logger::writeLogCreate('vesselInfo', 'Neue Info für das Schiff ' . Vessel::getVesselName($data['vesselID']) . ' hinzugefügt. InfoText: ' . $data['vesselInfo']);
         Vessel::setTS($data['vesselID']);
@@ -58,6 +59,9 @@ class VesselInfo extends AbstractDBObject
      */
     public function getID() {
         return $this->id;
+    }
+    public function getProjectId() {
+        return $this->project_id;
     }
     public function getUser() {
         return $this->user_id;
