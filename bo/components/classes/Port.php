@@ -58,10 +58,11 @@ class Port extends AbstractDBObject
     /*
      * Static Funktion die den Namen zu einer PortID liefert
      */
-    public static function getPortName($id) {
+    public static function getPortName($id, $project = null) {
         $row = (new Query("select"))
             ->table(self::TABLE_NAME)
             ->condition(["id" => $id])
+            ->project($project)
             ->execute()
             ->fetch();
 

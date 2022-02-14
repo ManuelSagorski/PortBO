@@ -5,6 +5,7 @@ use bo\components\classes\Agency;
 use bo\components\classes\Port;
 use bo\components\classes\Vessel;
 use bo\components\classes\User;
+use bo\components\classes\Projects;
 
 include '../../components/config.php';
 
@@ -123,13 +124,22 @@ if(!empty($_GET["id"])) {
     <tbody>
     <?php foreach ($vessel->getVesselContact() as $contact) { ?>
 		<tr<?php echo ($contact->getPlanned() == 1)?' class="planned"':''; ?>>
-			<td data-label="select"><input type="radio" name="selectContact" value="<?php echo $contact->getID(); ?>"></td>
+			<td data-label="select">
+			<?php if ($contact->getProjectId() == $user->getProjectId()) { ?>
+				<input type="radio" name="selectContact" value="<?php echo $contact->getID(); ?>">
+			<?php } ?>	
+			</td>
 			<td data-label="timestamp"><?php echo date("d.m.Y", strtotime($contact->getDate())); ?></td>
-			<td data-label="portName"><?php echo Port::getPortName($contact->getPortID()); ?></td>			
+			<td data-label="portName">
+			<?php 
+                echo Port::getPortName($contact->getPortID(), 0);
+                echo ($contact->getProjectId() != $user->getProjectId())?" (" . Projects::getProjectShort($contact->getProjectId()) . ")":'';
+            ?>
+            </td>			
 			<td data-label="userName"<?php echo (!empty($contact->getContactName()))?' class="three wide"':''; ?>><?php echo $contact->getContactName(); ?></td>
 			<td data-label="contactType"><?php echo $contact->getContactType(); ?></td>
-			<td data-label="agency"><?php echo Agency::getAgentShort($contact->getAgentID()); ?></td>
-			<td data-label="agency"><?php echo $contact->getInfo(); ?></td>
+			<td data-label="agency"><?php echo ($contact->getProjectId() == $user->getProjectId())?Agency::getAgentShort($contact->getAgentID()):''; ?></td>
+			<td data-label="info"><?php echo ($contact->getProjectId() == $user->getProjectId())?$contact->getInfo():''; ?></td>
 		</tr>
 	<?php } ?>
     </tbody>

@@ -1,7 +1,6 @@
 <?php
 namespace bo\components\controller;
 
-use bo\components\classes\helper\DBConnect;
 use bo\components\classes\helper\Query;
 use bo\components\classes\Vessel;
 use bo\components\classes\Dry;

@@ -149,7 +149,7 @@ class Query
             $this->project = $_SESSION['project'];
         }
         
-        if($this->project !== null) {
+        if($this->project !== null && $this->project != 0) {
             switch($this->type) {
                 case "insert":
                     if(in_array($this->from[0][0], $this->projectTables)) {

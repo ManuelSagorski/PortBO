@@ -1,6 +1,8 @@
 <?php
 namespace bo\components\classes;
 
+use bo\components\classes\helper\Query;
+
 class Projects extends AbstractDBObject
 {
     public const TABLE_NAME = "port_bo_projects";
@@ -14,6 +16,26 @@ class Projects extends AbstractDBObject
     
     public function __construct()
     {}
+
+    public static function getProjectName($id) {
+        $row = (new Query("select"))
+        ->table(self::TABLE_NAME)
+        ->condition(["id" => $id])
+        ->execute()
+        ->fetch();
+        
+        return $row['name'] ?? '';
+    }
+    
+    public static function getProjectShort($id) {
+        $row = (new Query("select"))
+            ->table(self::TABLE_NAME)
+            ->condition(["id" => $id])
+            ->execute()
+            ->fetch();
+        
+        return $row['short'] ?? '';
+    }
     
     public function getID() {
         return $this->id;

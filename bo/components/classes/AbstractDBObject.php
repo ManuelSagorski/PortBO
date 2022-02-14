@@ -14,11 +14,15 @@ abstract class AbstractDBObject
      * @param int $id
      * @return Object
      */
-    public static function getSingleObjectByID($id) {        
+    public static function getSingleObjectByID($id, $project = null) {        
         $query = (new Query("select"))
             ->table((get_called_class())::TABLE_NAME)
-            ->condition(["id" => $id])
-            ->build();
+            ->condition(["id" => $id]);
+            
+        if(!empty($project))
+            $query->project($project);
+            
+        $query->build();
         return DBConnect::fetchSingle($query->sqlstrg, static::class, $query->parameter);
     }
     
@@ -31,12 +35,16 @@ abstract class AbstractDBObject
      * @param String $orderSequence - optional: order by ...
      * @return Object
      */
-    public static function getSingleObjectByCondition($conditions = [], $orderSequence = null) {
+    public static function getSingleObjectByCondition($conditions = [], $orderSequence = null, $project = null) {
         $query = (new Query("select"))
             ->table((get_called_class())::TABLE_NAME)
             ->condition($conditions)
-            ->order($orderSequence)
-            ->build();
+            ->order($orderSequence);
+        
+        if(!empty($project))
+            $query->project($project);
+            
+        $query->build();
         return DBConnect::fetchSingle($query->sqlstrg, static::class, $query->parameter);
     }
     
@@ -49,12 +57,16 @@ abstract class AbstractDBObject
      * @param String $orderSequence - optional: order by ...
      * @return Array of Objects
      */
-    public static function getMultipleObjects($conditions = [], $orderSequence = null) {
+    public static function getMultipleObjects($conditions = [], $orderSequence = null, $project = null) {
         $query = (new Query("select"))
             ->table((get_called_class())::TABLE_NAME)
             ->condition($conditions)
-            ->order($orderSequence)
-            ->build();
+            ->order($orderSequence);
+        
+        if($project !== null)
+            $query->project($project);
+            
+        $query->build();
             
         return DBConnect::fetchAll($query->sqlstrg, static::class, $query->parameter);
     }

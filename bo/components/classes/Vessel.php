@@ -115,7 +115,7 @@ class Vessel extends AbstractDBObject
      * Lädt die zu einem Schiff vorhadenen Informationen in $vesselContacts
      */
     private function loadContact() {
-        $this->vesselContacts = VesselContact::getMultipleObjects(Array("vess_id" => $this->id), "date desc");
+        $this->vesselContacts = VesselContact::getMultipleObjects(Array("vess_id" => $this->id), "date desc", 0);
     }
 
     /**

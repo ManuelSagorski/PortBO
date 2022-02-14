@@ -37,7 +37,7 @@
         	}
         </script>
 	
-		<title>BackOffice Hafendienst Norddeutschland</title>
+		<title>BackOffice <?php echo $project->getName(); ?></title>
 	</head>
 	<body>
 		<div id="homeWrapper">
@@ -57,7 +57,7 @@
     				<?php if($user->getLevel() >= 8) {?> <div class="navElement"><a href="settings" title="Settings"><i class="cogs icon" href="settings"></i></a></div> <?php } ?>
     				<div class="navElement"><a href="logout" title="Logout" class="item"><i class="power off icon" href="logout"></i></a></div>
     			</div>
-    			<div id="title"><h1>Backoffice Hafendienst Norddeutschland</h1></div>
+    			<div id="title"><h1>Backoffice <?php echo $project->getName(); ?></h1></div>
     		</div>
     		<div id="homeContend" class="flexBox">
     			<div id="mainColLeft" class="mainCol">&nbsp;</div>
