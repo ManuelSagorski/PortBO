@@ -34,7 +34,7 @@ switch($_POST['type']) {
         
     case("addVesselInfo"):
         if(empty($_POST['infoID'])) {
-            VesselInfo::safeInfo($_POST['data']);
+            (new VesselInfo($_POST['data']))->safeInfo();
         }
         else {
             VesselInfo::editInfo($_POST['data'], $_POST['infoID']);
@@ -42,7 +42,7 @@ switch($_POST['type']) {
         break;
         
     case("deleteVesselInfo"):
-        VesselInfo::deleteInfo($_POST['infoID']);
+        (VesselInfo::getSingleObjectByID($_POST['infoID']))->deleteInfo();
         break;
         
     case("addVesselContact"):

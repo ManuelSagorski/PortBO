@@ -16,8 +16,11 @@ class Query
     private $join = [];
     private $values = [];
     private $conditions = [];
+    private $conditionLogic;
     private $order;
+    private $limit;
     private $project;
+    private $projectCondition = [];
    
     private $projectTables = [
         Agency::TABLE_NAME,
@@ -34,6 +37,7 @@ class Query
     
     public function __construct($type) {
         $this->type = $type;
+        $this->conditionLogic = "and";
         $this->project = null;
     }
 
@@ -85,6 +89,11 @@ class Query
         return $this;
     }
 
+    public function conditionLike($condition) {
+        $this->conditions['like'][] = $condition;
+        return $this;
+    }
+    
     public function conditionNot($condition) {
         $this->conditions['notEqual'][] = $condition;
         return $this;
@@ -100,8 +109,18 @@ class Query
         return $this;
     }
     
+    public function or() {
+        $this->conditionLogic = "or";
+        return $this;
+    }
+    
     public function order($order) {
         $this->order = $order;
+        return $this;
+    }
+
+    public function limit($limit) {
+        $this->limit = $limit;
         return $this;
     }
     
@@ -146,7 +165,7 @@ class Query
                             }
                             $condition .= "project_id";
                             
-                            $this->conditions['equal'][] = [$condition => $this->project];
+                            $this->projectCondition = [$condition => $this->project];
                         }
                     }
                     break;
@@ -238,11 +257,11 @@ class Query
                 foreach ($conditions as $condition) {
                     foreach ($condition as $name => $value) {
                         if(!$first) {
-                            $this->sqlstrg .= "where ";
+                            $this->sqlstrg .= "where (";
                             $first = true;
                         }
                         else {
-                            $this->sqlstrg .= "and ";
+                            $this->sqlstrg .= $this->conditionLogic . " ";
                         }
                             
                         $this->sqlstrg .= $name;
@@ -250,6 +269,9 @@ class Query
                         switch($type) {
                             case "equal":
                                 $this->sqlstrg .= " = ? ";
+                                break;
+                            case "like":
+                                $this->sqlstrg .= " like ? ";
                                 break;
                             case "notEqual":
                                 $this->sqlstrg .= " <> ? ";
@@ -266,6 +288,23 @@ class Query
                     }
                 }
             }
+            if($first)
+                $this->sqlstrg .= ") ";
+        }
+        
+        if(!empty($this->projectCondition)) {
+            foreach ($this->projectCondition as $name => $value) {
+                if(!$first) {
+                    $this->sqlstrg .= "where ";
+                    $first = true;
+                }
+                else {
+                    $this->sqlstrg .= "and ";
+                }
+                
+                $this->sqlstrg .= $name . " = ? ";
+                $this->parameter[] = $value;
+            }
         }
         
         /*
@@ -273,6 +312,13 @@ class Query
          */
         if(!empty($this->order)) {
             $this->sqlstrg .= "order by " . $this->order;
+        }
+
+        /*
+         * limit
+         */
+        if(!empty($this->limit)) {
+            $this->sqlstrg .= " limit " . $this->limit;
         }
         
         return $this;

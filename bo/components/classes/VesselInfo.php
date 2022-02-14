@@ -20,18 +20,25 @@ class VesselInfo extends AbstractDBObject
     private $ts_erf;
     private $info;
     
-    public function __construct() {
+    public function __construct($data = null) {
+        if(!empty($data)) {
+            $this->vess_id = $data['vesselID'];
+            $this->info = $data['vesselInfo'];
+        }
     }
     
     /*
      * Funktion zum Speichern einer neuen vesselInfo
      */
-    public static function safeInfo($data) {
-        $sqlstrg = "insert into port_bo_vesselInfo (project_id, vess_id, user_id, ts_erf, info) values (?, ?, ?, now(), ?)";
-        DBConnect::execute($sqlstrg, array($_SESSION['project'], $data['vesselID'], $_SESSION['user'], $data['vesselInfo']));
-        
-        Logger::writeLogCreate('vesselInfo', 'Neue Info für das Schiff ' . Vessel::getVesselName($data['vesselID']) . ' hinzugefügt. InfoText: ' . $data['vesselInfo']);
-        Vessel::setTS($data['vesselID']);
+    public function safeInfo() {
+        $this->insertDB([
+            "vess_id" => $this->vess_id, 
+            "user_id" => $_SESSION['user'], 
+            "info" => $this->info
+        ]);
+
+        Logger::writeLogCreate('vesselInfo', 'Neue Info für das Schiff ' . Vessel::getVesselName($this->vess_id) . ' hinzugefügt. InfoText: ' . $this->info);
+        Vessel::setTS($this->vess_id);
     }
     
     /*
@@ -47,10 +54,8 @@ class VesselInfo extends AbstractDBObject
     /*
      * Funktion zum löschen einer vesselInfo
      */
-    public static function deleteInfo($id) {
-        $sqlstrg = "delete from port_bo_vesselInfo where id = ?";
-        DBConnect::execute($sqlstrg, array($id));
-        
+    public function deleteInfo() {
+        $this->deleteDB(["id" => $this->id]);
         Vessel::setTS($_SESSION['vessID']);
     }
     

@@ -79,13 +79,16 @@ if(isset($_GET['id']))
     
         <div id="input_userLevel" class="field">
         	<label>Benutzerlevel</label>
-        	<select id="userLevel" name="userLevel" class="ui fluid dropdown">
-        	<?php foreach (User::$userLevel as $levelID=>$level) { ?>
+        	<select id="userLevel" name="userLevel" class="ui fluid dropdown"<?php echo (!empty($userToEdit) && $userToEdit->getLevel() > $user->getLevel())?" disabled":""; ?>>
+        	<?php 
+        	foreach (User::$userLevel as $levelID=>$level) {
+        	    if((!empty($userToEdit) && $userToEdit->getLevel() > $user->getLevel()) || $levelID <= $user->getLevel()) { 
+        	?>
     			<option 
     				value="<?php echo $levelID; ?>"
     				<?php if(!empty($userToEdit)){echo ($userToEdit->getLevel() == $levelID)?' selected':'';} ?>
     			><?php echo $level; ?></option>
-    		<?php } ?>
+    		<?php }} ?>
         	</select>
         </div>
     </div>
