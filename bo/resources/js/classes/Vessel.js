@@ -13,6 +13,7 @@ define(function() {
 		my.DETAILS_VIEW = my.VIEW_FOLDER + 'details.view.php?';
 		my.OPEN_CONTACTS_VIEW = my.VIEW_FOLDER + 'openContacts.view.php?';
 		my.FORECAST_VIEW = my.VIEW_FOLDER + 'forecast.view.php';
+		my.LINKS_VIEW = my.VIEW_FOLDER + 'externLinks.view.php';
 
 		constructor = function() {
 			return that;
@@ -33,6 +34,7 @@ define(function() {
 			$.get(my.DETAILS_VIEW, function(data) {
 				$('#mainColMiddle').html(data);				
 				that.getForecast();
+				that.getExternLinks();
 			});
 			
 			$.get(my.OPEN_CONTACTS_VIEW, function(data) {
@@ -53,6 +55,15 @@ define(function() {
 
 					scrollPosition = null;
 				}
+			});			
+		}
+
+		/*
+		 *	Lädt die externen Links
+		 */		
+		that.getExternLinks = function() {
+			$.get(my.LINKS_VIEW, function(data) {
+				$('#externLinks').html(data);
 			});			
 		}
 
@@ -168,7 +179,7 @@ define(function() {
 					}
 					else {
 						if(data.type == "added") {
-							that.searchVessel(data.name);
+							that.searchVessel(data.imo);
 							that.openDetails(data.id);
 							closeWindow();
 						}

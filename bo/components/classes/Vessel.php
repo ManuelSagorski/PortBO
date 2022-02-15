@@ -68,7 +68,7 @@ class Vessel extends AbstractDBObject
             ]);
             
             Logger::writeLogCreate('vessel', 'Neues Schiff anlgelegt: ' . $this->name);
-            return array("type" => "added", "name" => $this->name, "id" => $lastID);
+            return array("type" => "added", "name" => $this->name, "imo" => $this->IMO, "id" => $lastID);
         }
     }
     

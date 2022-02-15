@@ -163,4 +163,5 @@ if(!empty($_GET["id"])) {
 </div>
 
 <div id="vesselForecast"></div>
+<div id="externLinks"></div>
 <?php }?>

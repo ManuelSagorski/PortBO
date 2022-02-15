@@ -7,7 +7,12 @@ use bo\components\classes\helper\Security;
 include '../../components/config.php';
 Security::grantAccess(8);
 
-$logTable = DBConnect::execute("select * from port_bo_log order by ts_erf desc limit 150", array());
+$sqlstrg = "select * from port_bo_log";
+if($user->getLevel() != 9)
+    $sqlstrg .= " where project_id = " . $user->getProjectId();
+$sqlstrg .= " order by ts_erf desc limit 150";
+
+$logTable = DBConnect::execute($sqlstrg, array());
 ?>
 
 <table class="detailTable ui very compact celled striped table">
