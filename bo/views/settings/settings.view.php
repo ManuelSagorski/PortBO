@@ -1,7 +1,7 @@
 <?php
 namespace bo\views\settings;
-use bo\components\classes\SettingsForecastLists;
 use bo\components\classes\helper\Security;
+use bo\components\classes\SettingsExternLinks;
 
 include '../../components/config.php';
 Security::grantAccess(8);
@@ -14,7 +14,7 @@ Security::grantAccess(8);
 		</tr>
 	</thead>
     <tbody>
-    <?php foreach (SettingsForecastLists::getMultipleObjects() as $externLink) { ?>
+    <?php foreach (SettingsExternLinks::getMultipleObjects() as $externLink) { ?>
     	<tr>
 			<td data-label="select"><input type="radio" name="selectLink" value="<?php echo $externLink->getID(); ?>"></td>
 			<td data-label="linkName"><?php echo $externLink->getName(); ?></td>

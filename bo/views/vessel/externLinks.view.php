@@ -1,6 +1,6 @@
 <?php
 namespace bo\views\vessel;
-use bo\components\classes\SettingsForecastLists;
+use bo\components\classes\SettingsExternLinks;
 
 include '../../components/config.php';
 ?>
@@ -10,6 +10,6 @@ include '../../components/config.php';
   Externe Links
 </h4>
 
-<?php foreach(SettingsForecastLists::getMultipleObjects() as $externForecastList) {?>
+<?php foreach(SettingsExternLinks::getMultipleObjects() as $externForecastList) {?>
 <div class="externLink"><a href="<?php echo $externForecastList->getLink(); ?>" target="_blank"><?php echo $externForecastList->getName(); ?></a></div>
 <?php }?>

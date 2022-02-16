@@ -1,13 +1,13 @@
 <?php
 namespace bo\views\settings;
-use bo\components\classes\SettingsForecastLists;
 use bo\components\classes\helper\Security;
+use bo\components\classes\SettingsExternLinks;
 
 include '../../components/config.php';
 Security::grantAccess(8);
 
 if(isset($_GET['id']))
-    $link = SettingsForecastLists::getSingleObjectByID($_GET['id']);
+    $link = SettingsExternLinks::getSingleObjectByID($_GET['id']);
 ?>
 
 <form id="addLink" class="ui form" autocomplete="off">

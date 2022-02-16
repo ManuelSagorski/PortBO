@@ -7,6 +7,7 @@ use bo\components\classes\Port;
 use bo\components\classes\User;
 use bo\components\classes\VesselContact;
 use bo\components\classes\VesselInfo;
+use bo\components\classes\SettingsExternLinks;
 
 class Query
 {
@@ -31,7 +32,8 @@ class Query
         Port::TABLE_NAME,
         User::TABLE_NAME,
         VesselContact::TABLE_NAME,
-        VesselInfo::TABLE_NAME
+        VesselInfo::TABLE_NAME,
+        SettingsExternLinks::TABLE_NAME
     ];
     
     public $sqlstrg;

@@ -1,9 +1,9 @@
 <?php
 namespace bo\components\classes;
 
-class SettingsForecastLists extends AbstractDBObject
+class SettingsExternLinks extends AbstractDBObject
 {
-    public const TABLE_NAME = "port_bo_settingsForecastLists";
+    public const TABLE_NAME = "port_bo_settingsExternLinks";
     
     private $id;
     private $name;
