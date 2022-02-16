@@ -1,6 +1,8 @@
 var scrollPosition = null;
 var forecastAccordionOpen = null;
 
+let mql = window.matchMedia("(min-width:600px)");
+
 require(['routing']);
 
 require(['classes/FormValidate'], function() {

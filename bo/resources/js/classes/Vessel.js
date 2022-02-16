@@ -118,7 +118,12 @@ define(function() {
 		 *	Sidebar Suche nach Schiffen
 		 */
 		that.searchVessel = function(expression) {
-			$.get('../components/controller/searchController.php?type=vessel&expression=' + expression, function(data) {
+			var searchLimit = 20;
+			if(!mql.matches) {
+				searchLimit = 3;
+			}
+			
+			$.get('../components/controller/searchController.php?type=vessel&searchLimit=' + searchLimit + '&expression=' + expression, function(data) {
 				$('#searchResult').html(data);
 			});
 			if(expression != "") {
