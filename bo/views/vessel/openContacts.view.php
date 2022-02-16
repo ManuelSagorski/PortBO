@@ -23,13 +23,13 @@ foreach ($openContacts as $openContact) {
 	<div class="openContactRowHeader"><?php echo Port::getPortName($openContact->getPortID()); ?></div>
 <?php } ?>
 
-<div class="openContactRow<?php echo (User::getUserByFullName($openContact->getContactName()) == $user->getID())?' ownContact':''; ?>">
+<div class="openContactRow<?php echo ($openContact->getContactUserID() == $user->getID())?' ownContact':''; ?>">
 	<a onClick="vessel.openDetails(<?php echo $openContact->getVesselID(); ?>)">
 		<div>
 			<?php echo (Vessel::getVesselType($openContact->getVesselID()) == 'Cruise')?'<i class="ship icon"></i>':''; ?>
 			<?php echo $openContact->getDate(); ?> | <?php echo Vessel::getVesselName($openContact->getVesselID())?>
 		</div>
-		<div><?php echo $openContact->getContactName(); ?></div>
+		<div><?php echo User::getUserFullName($openContact->getContactUserID()); ?></div>
 	</a>
 </div>
 <?php } ?>

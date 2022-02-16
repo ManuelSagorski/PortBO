@@ -136,7 +136,9 @@ if(!empty($_GET["id"])) {
                 echo ($contact->getProjectId() != $user->getProjectId())?" (" . Projects::getProjectShort($contact->getProjectId()) . ")":'';
             ?>
             </td>			
-			<td data-label="userName"<?php echo (!empty($contact->getContactName()))?' class="three wide"':''; ?>><?php echo $contact->getContactName(); ?></td>
+			<td data-label="userName"<?php echo (!empty($contact->getContactUserID()))?' class="three wide"':''; ?>>
+				<?php echo User::getUserFullName($contact->getContactUserID()); ?>
+			</td>
 			<td data-label="contactType"><?php echo $contact->getContactType(); ?></td>
 			<td data-label="agency"><?php echo ($contact->getProjectId() == $user->getProjectId())?Agency::getAgentShort($contact->getAgentID()):''; ?></td>
 			<td data-label="info"><?php echo ($contact->getProjectId() == $user->getProjectId())?$contact->getInfo():''; ?></td>

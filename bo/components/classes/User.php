@@ -176,7 +176,7 @@ class User extends AbstractDBObject
             return $result->getID();
         }
         else {
-            return 0;
+            return null;
         }
     }
 

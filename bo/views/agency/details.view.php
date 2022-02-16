@@ -4,6 +4,7 @@ use bo\components\classes\Agency;
 use bo\components\classes\Port;
 use bo\components\classes\Vessel;
 use bo\components\classes\VesselContact;
+use bo\components\classes\User;
 include '../../components/config.php';
 
 if(!empty($_GET["id"])) {
@@ -77,7 +78,7 @@ if(!empty($_GET["id"])) {
 			<td data-label="timestamp"><?php echo $vesselContact->getDate(); ?></td>
 			<td data-label="contactType"><?php echo $vesselContact->getContactType(); ?></td>			
 			<td data-label="vesselName"><?php echo Vessel::getVesselName($vesselContact->getVesselID()); ?></td>
-			<td data-label="contactName"><?php echo $vesselContact->getContactName(); ?></td>
+			<td data-label="contactName"><?php echo User::getUserFullName($vesselContact->getContactUserID()); ?></td>
 		</tr>
 	<?php } ?>
     </tbody>

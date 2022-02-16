@@ -166,9 +166,6 @@ class VesselContact extends AbstractDBObject
     public function getContactType() {
         return $this->contact_type;
     }
-    public function getContactName() {
-        return $this->contact_name;
-    }
     public function getContactUserID() {
         return $this->contact_user_id;
     }

@@ -5,6 +5,7 @@ use bo\components\classes\VesselContact;
 use bo\components\classes\Agency;
 use bo\components\types\ContactTypes;
 use bo\components\classes\Port;
+use bo\components\classes\User;
 
 include '../../components/config.php';
 
@@ -77,7 +78,7 @@ if(isset($_GET['contactID']))
     				type="text" 
     				id="contactName" 
     				name="contactName" 
-    				value="<?php echo(!empty($contact))?$contact->getContactName():''; ?>" 
+    				value="<?php echo(!empty($contact))?User::getUserFullName($contact->getContactUserID()):''; ?>" 
     				onkeyup="(this.value.length > 0)?inputSearch('userForContact', this.value):hideInputSearchResults(); 
     				         formValidate.clearAllError();"
     				onblur="hideInputSearchResults();"
