@@ -1,6 +1,8 @@
 <?php
 namespace bo\components\classes\helper;
 
+use bo\components\classes\VesselContact;
+
 class Statistics
 {
     private $startDate;
@@ -49,12 +51,15 @@ class Statistics
         $parameter = Array($this->startDate, $this->endDate);
 
         $sqlstrg = "select count(*) as {{fieldName}} 
-                      from port_bo_vesselContact 
+                      from " . VesselContact::TABLE_NAME . "  
                      where contact_type = '{{contactType}}' 
                        and planned = 0 
                        and date >= ? 
                        and date <= ? 
-                       {{condition}}";
+                       {{condition}}
+                       and project_id = ?";
+        
+        array_push($parameter, $_SESSION['project']);
         
         if($this->port > 0) {
             $sqlstrg .= " and port_id = ?";
