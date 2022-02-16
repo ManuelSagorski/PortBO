@@ -46,8 +46,12 @@ define(function() {
 		 *	Lädt den Forecast
 		 */		
 		that.getForecast = function(accordionID) {
+			$('#forecastLoader').show();
+			
 			$.get(my.FORECAST_VIEW, function(data) {
 				$('#vesselForecast').html(data);
+				
+				$('#forecastLoader').hide();
 				
 				if(scrollPosition !== null && forecastAccordionOpen !== null) {
 					$('.ui.accordion').accordion('open', forecastAccordionOpen);

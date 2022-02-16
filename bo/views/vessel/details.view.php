@@ -164,6 +164,8 @@ if(!empty($_GET["id"])) {
 	<div>Kein Schiff ausgewählt</div>
 </div>
 
-<div id="vesselForecast"></div>
+<div id="vesselForecast">
+	<div id="forecastLoader"><img src="../resources/img/loader.gif" /></div>
+</div>
 <div id="externLinks"></div>
 <?php }?>
