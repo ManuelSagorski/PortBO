@@ -16,6 +16,7 @@ class VesselContact extends AbstractDBObject
     private $port_id;
     private $contact_type;
     private $contact_name;
+    private $contact_user_id;
     private $contactUserID;
     private $info;
     private $date;
@@ -59,6 +60,7 @@ class VesselContact extends AbstractDBObject
                 "user_id" => $this->user_id,
                 "contact_type" => $this->contact_type,
                 "contact_name" => $this->contact_name,
+                "contact_user_id" => User::getUserByFullName($this->contact_name),
                 "info" => $this->info,
                 "date" => $this->date,
                 "agent_id" => $this->agent_id,
@@ -96,6 +98,7 @@ class VesselContact extends AbstractDBObject
             "user_id" => $_SESSION['user'],
             "contact_type" => $data['contactType'],
             "contact_name" => $data['contactName'],
+            "contact_user_id" => User::getUserByFullName($data['contactName']),
             "info" => $data['contactInfo'],
             "date" => $data['contactDate'],
             "agent_id" => Agency::getAgentID($data['contactAgent']),
@@ -111,10 +114,12 @@ class VesselContact extends AbstractDBObject
     
     public static function getOpenContactsForUser($userID) {
         return (new Query("select"))
+            ->distinct()
             ->fields("vc.*")
             ->table(self::TABLE_NAME, "vc")
             ->leftJoin(UserToPort::TABLE_NAME, "up", "port_id", "port_id")
-            ->condition(["vc.planned" => 1, "up.user_id" => $userID])
+            ->condition(["vc.planned" => 1])
+            ->conditionString(["vc.contact_user_id = ? or up.user_id = ?" => [$userID, $userID]])
             ->order("vc.port_id, vc.date")
             ->fetchAll(self::class);
     }
@@ -163,6 +168,9 @@ class VesselContact extends AbstractDBObject
     }
     public function getContactName() {
         return $this->contact_name;
+    }
+    public function getContactUserID() {
+        return $this->contact_user_id;
     }
     public function getInfo() {
         return $this->info;

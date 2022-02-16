@@ -12,10 +12,12 @@ class Query
 {
     private $type;
     private $fields = [];
+    private $distinct;
     private $from;
     private $join = [];
     private $values = [];
     private $conditions = [];
+    private $conditionString;
     private $conditionLogic;
     private $order;
     private $limit;
@@ -39,6 +41,7 @@ class Query
         $this->type = $type;
         $this->conditionLogic = "and";
         $this->project = null;
+        $this->distinct = false;
     }
 
     public function __toString() {
@@ -48,6 +51,11 @@ class Query
     
     public function project($projectID) {
         $this->project = $projectID;
+        return $this;
+    }
+    
+    public function distinct() {
+        $this->distinct = true;
         return $this;
     }
     
@@ -106,6 +114,19 @@ class Query
 
     public function conditionLower($condition) {
         $this->conditions['lower'][] = $condition;
+        return $this;
+    }
+    
+    /**
+     * Beispiel: conditionSting(["vc.user_id = ? or up.user_id = ?" => [$wert1, $wert2]])
+     * 
+     * Wird nach den anderen Bedinungen geklammert als and Block angefügt.
+     * 
+     * @param Array $conditionString
+     * @return \bo\components\classes\helper\Query
+     */
+    public function conditionString($conditionString) {
+        $this->conditionString = $conditionString;
         return $this;
     }
     
@@ -178,6 +199,9 @@ class Query
         $this->sqlstrg = $this->type . " ";
         switch($this->type) {
             case "select":
+                if($this->distinct)
+                    $this->sqlstrg .= "distinct ";
+                
                 if(empty($this->fields)) {
                     $this->sqlstrg .= "* from ";
                 }
@@ -288,6 +312,21 @@ class Query
                     }
                 }
             }
+            
+            if(!empty($this->conditionString)) {
+                if(!$first) {
+                    $this->sqlstrg .= "where (";
+                    $first = true;
+                }
+                else {
+                    $this->sqlstrg .= "and ";
+                }
+                $this->sqlstrg .= "(" . key($this->conditionString) . ")";
+                foreach ($this->conditionString[key($this->conditionString)] as $parameter) {
+                    $this->parameter[] = $parameter;
+                }
+            }
+            
             if($first)
                 $this->sqlstrg .= ") ";
         }
