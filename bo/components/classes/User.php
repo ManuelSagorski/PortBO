@@ -164,7 +164,12 @@ class User extends AbstractDBObject
             ->execute()
             ->fetch();
         
-        return $row['first_name'] . " " . $row['surname'];
+        if(!empty($row)) {
+            return $row['first_name'] . " " . $row['surname'];
+        }
+        else {
+            return null;
+        }
     }
 
     /**
