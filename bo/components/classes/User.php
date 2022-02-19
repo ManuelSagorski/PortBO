@@ -327,13 +327,19 @@ class User extends AbstractDBObject
     }
     
     /*
-     * Liefert alle User-Level zurück die in der gewählten Kombination vergeben werden dürfen
+     * Liefert alle User-Level die in der jeweiligen Situation vergeben werden dürfen
      */
     public static function returnAllowedUserLevels($user, $userToEdit, $project) {
         $allowedLevel = [];
+       
         foreach(self::$userLevel as $levelID => $level) {
-            if((!empty($userToEdit) && $userToEdit->getLevel() > $user->getLevel()) || $levelID <= $user->getLevel()) {
-                if(empty($project) || $levelID >= 8) {
+
+            $editHigherLevel = (!empty($userToEdit) && $userToEdit->getLevel() > $user->getLevel());
+            $lowerEqualOwn = ($levelID <= $user->getLevel());
+            $allowedForeingPort = ($levelID != 2 || $user->getLevel() == 9);
+            
+            if(($editHigherLevel || $lowerEqualOwn) && $allowedForeingPort) {
+                if(empty($project) || ($levelID == 2 || $levelID >= 8)) {
                     $allowedLevel[$levelID] = $level;
                 }
             }

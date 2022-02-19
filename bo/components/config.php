@@ -43,12 +43,17 @@ register_shutdown_function(function () {
 
 if($_SERVER[ 'SCRIPT_NAME' ] != "/" . FOLDER . "index.php" && !isset($independent)) {
     if(!isset($_SESSION['user'])) {
-        header('Location: ' . MAIN_PATH . 'index.php');
+        if($_SERVER[ 'SCRIPT_NAME' ] == "/" . FOLDER . "public/index.php") {
+            header('Location: ' . MAIN_PATH . 'index.php');
+        }
+        else {
+            echo "<script>location.href='" . MAIN_PATH . "index.php';</script>";
+            exit;
+        }
     }
     else {
         $user = User::getSingleObjectByID($_SESSION['user']);
         $project = Projects::getSingleObjectByID($_SESSION['project']);
     }
 }
-
 ?>
