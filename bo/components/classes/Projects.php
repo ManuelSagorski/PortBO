@@ -13,6 +13,7 @@ class Projects extends AbstractDBObject
     
     private $mod_forecast;
     private $mod_planning;
+    private $mod_planning_project;
     private $mod_externLinks;
     
     public function __construct()
@@ -61,6 +62,9 @@ class Projects extends AbstractDBObject
     }
     public function getModPlanning() {
         return $this->mod_planning;
+    }
+    public function getModPlanningProject() {
+        return $this->mod_planning_project;
     }
     public function getModExternLinks() {
         return $this->mod_externLinks;

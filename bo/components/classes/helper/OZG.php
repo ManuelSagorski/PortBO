@@ -10,14 +10,15 @@ class OZG
 {
     const OZG_CREATE_USER_URL = "https://xn--zg-eka.de/api/createUser.php";
   
-    public static function newOzgUser($firstname, $surname, $email, $mobile, $domain) {
+    public static function newOzgUser($firstname, $surname, $email, $mobile, $domain, $project) {
         $data = array(
             'token' => OZG_TOKEN,
             'username' => $firstname[0] . $surname, 
             'name' => $firstname . " " . $surname,
             'email' => $email,
             'mobile' => $mobile,
-            'domain' => $domain
+            'domain' => $domain,
+            'project' => $project
         );
         
         $options = array(

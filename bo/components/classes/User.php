@@ -270,7 +270,9 @@ class User extends AbstractDBObject
      * Legt für den User einen Zugang zum ÖZG Kalender an.
      */
     public function addKalender($kalender) { 
-        $kalenderID = ozg::newOzgUser($this->first_name, $this->surname, $this->email, $this->phone, $kalender);
+        global $project;
+        
+        $kalenderID = ozg::newOzgUser($this->first_name, $this->surname, $this->email, $this->phone, $kalender, $project->getModPlanningProject());
         
         if(is_numeric($kalenderID) and $kalenderID > 0) {
             $this->updateDB(["planning_id" => $kalenderID], ["id" => $this->id]);

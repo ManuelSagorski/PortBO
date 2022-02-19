@@ -50,7 +50,7 @@
 					<?php if($project->getModPlanning() && $user->getPlanningID() > 0) {?>
 					<div class="navElement">
 						<a class="item" href="https://portbo.xn--zg-eka.de/index.php?id=<?php echo $user->getPlanningID(); ?>" target="_blank">
-							<i class="calendar alternate outline icon" href="https://portbo.xn--zg-eka.de/index.php?id=<?php echo $user->getPlanningID(); ?>" target="_blank"></i>
+							<i class="calendar alternate outline icon" href="https://<?php echo $project->getModPlanningProject(); ?>.xn--zg-eka.de/index.php?id=<?php echo $user->getPlanningID(); ?>" target="_blank"></i>
 						</a>
 					</div>
 					<?php } ?>
