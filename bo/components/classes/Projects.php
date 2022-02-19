@@ -13,10 +13,19 @@ class Projects extends AbstractDBObject
     
     private $mod_forecast;
     private $mod_planning;
+    private $mod_externLinks;
     
     public function __construct()
     {}
 
+    public function getProjectAdmins() {
+        return (new Query("select"))
+            ->table(User::TABLE_NAME)
+            ->conditionGreater(["level" => 7])
+            ->project($this->id)
+            ->fetchAll(User::class);
+    }
+    
     public static function getProjectName($id) {
         $row = (new Query("select"))
         ->table(self::TABLE_NAME)
@@ -52,6 +61,9 @@ class Projects extends AbstractDBObject
     }
     public function getModPlanning() {
         return $this->mod_planning;
+    }
+    public function getModExternLinks() {
+        return $this->mod_externLinks;
     }
 }
 

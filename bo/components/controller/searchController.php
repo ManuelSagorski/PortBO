@@ -20,8 +20,12 @@ $vesselQuery = (new Query("select"))
 
 switch ($_GET['type']) {
     case 'vessel':
+        $searchLimit = "20";
+        if(isset($_GET['searchLimit']))
+            $searchLimit = $_GET['searchLimit'];            
+        
         $result = $vesselQuery
-            ->limit($_GET['searchLimit'])
+            ->limit($searchLimit)
             ->execute();
             
         while($row = $result->fetch()) {?>

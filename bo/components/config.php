@@ -32,8 +32,14 @@ spl_autoload_register(function($class) {
 });
 
 DBConnect::initDB();
-
 $logger = new logger();
+
+register_shutdown_function(function () {
+    $err = error_get_last();
+    if (! is_null($err)) {
+        Logger::writeLogError("php error", $err['message'] . " - " . $err['line'] . " - " . $err['file']);
+    }
+});
 
 if($_SERVER[ 'SCRIPT_NAME' ] != "/" . FOLDER . "index.php" && !isset($independent)) {
     if(!isset($_SESSION['user'])) {

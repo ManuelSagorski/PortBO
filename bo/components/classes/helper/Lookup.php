@@ -16,7 +16,7 @@ class Lookup
         $adminUsers = User::getMultipleObjects(Array("level" => 9));
         
         foreach ($adminUsers as $adminUser) {
-            $telegram = new telegram($adminUser->getTelegramID());
+            $telegram = new Telegram($adminUser->getTelegramID());
             
             $telegram->applyTemplate("_lookupRequest", Array("name" => User::getUserFullName($_SESSION['user']), "vesselName" => $vessel->getName(), "IMO" => $vessel->getIMO()));
             

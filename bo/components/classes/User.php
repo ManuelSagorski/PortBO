@@ -44,17 +44,21 @@ class User extends AbstractDBObject
      * Konstructor
      */
     public function __construct($data = null) {
-        if(!empty($data)) {
+        if(!empty($data)) {            
             $this->username = $data['userUsername'];
             $this->email = $data['userEmail'];
             $this->phone = $data['userPhone'];
             $this->first_name = $data['userFirstName'];
             $this->surname = $data['userSurname'];
             $this->level = $data['userLevel'];
-            $this->userLanguages = $data['userLanguages'];
-            $this->userPorts = $data['userPorts'];
+            if(isset($data['userLanguages']))
+                $this->userLanguages = $data['userLanguages'];
+            if(isset($data['userPorts']))
+                $this->userPorts = $data['userPorts'];
             if(isset($data['userSendInfo']))
                 $this->sendInfo = $data['userSendInfo'];
+            if(isset($data['projectID']))
+                $this->project_id = $data['projectID'];
         }
         else {
             $this->userGetPorts();
@@ -67,17 +71,30 @@ class User extends AbstractDBObject
      * @param Array $data
      */
     public function addUser() {
+        global $user;
+        
+        if($msg = $this->validateNewUserInput()) {
+            return ["type" => "error", "msg" => $msg];
+        }
+        
         $pwd = $this->generateHashForRandPassword($this->level);
         
-        $this->insertDB([
-            "username" => $this->username,
-            "secret" => $pwd['pwdHash'],
-            "email" => $this->email,
-            "phone" => $this->phone,
-            "first_name" => $this->first_name,
-            "surname" => $this->surname,
-            "level" => $this->level
-        ]);
+        $insertRequest = (new Query("insert"))
+            ->table(self::TABLE_NAME)
+            ->values([
+                "username" => $this->username,
+                "secret" => $pwd['pwdHash'],
+                "email" => $this->email,
+                "phone" => $this->phone,
+                "first_name" => $this->first_name,
+                "surname" => $this->surname,
+                "level" => $this->level
+            ]);
+        
+        if(!empty($this->project_id) && $user->getLevel() == 9)
+            $insertRequest->project($this->project_id);
+        
+        $insertRequest->execute();
         
         $this->id = DBConnect::getLastID();
         
@@ -103,6 +120,8 @@ class User extends AbstractDBObject
             
             $mail->mail->send();
         }
+        
+        return ["type" => "success"];
     }
     
     /**
@@ -111,6 +130,10 @@ class User extends AbstractDBObject
      * @param int $user_id
      */
     public function editUser($data) {
+        if($msg = $this->validateNewUserInput($data)) {
+            return ["type" => "error", "msg" => $msg];
+        }
+        
         $this->updateDB([
             "username" => $data['userUsername'],
             "email" => $data['userEmail'],
@@ -137,6 +160,8 @@ class User extends AbstractDBObject
                 $this->removeUserFromPort($port->getID());
             }
         }
+        
+        return ["type" => "success"];
     }
     
     /**
@@ -157,12 +182,15 @@ class User extends AbstractDBObject
     /**
      * Static Funktion die den vollen Namen zu einer UserID liefert
      */
-    public static function getUserFullName($id) {
-        $row = (new Query("select"))
+    public static function getUserFullName($id, $project = false) {
+        $query = (new Query("select"))
             ->table(self::TABLE_NAME)
-            ->condition(["id" => $id])
-            ->execute()
-            ->fetch();
+            ->condition(["id" => $id]);
+        
+        if($project !== false)
+            $query->project($project);
+            
+        $row = $query->execute()->fetch();
         
         if(!empty($row)) {
             return $row['first_name'] . " " . $row['surname'];
@@ -285,7 +313,7 @@ class User extends AbstractDBObject
         $adminUsers = User::getMultipleObjects(Array("level" => 9));
         
         foreach ($adminUsers as $adminUser) {
-            $telegram = new telegram($adminUser->getTelegramID());
+            $telegram = new Telegram($adminUser->getTelegramID());
             
             $telegram->applyTemplate("_userSendMessage", Array(
                 "name" => User::getUserFullName($_SESSION['user']), 
@@ -294,6 +322,41 @@ class User extends AbstractDBObject
             
             $telegram->sendMessage(false);
         }
+    }
+    
+    /*
+     * Liefert alle User-Level zurück die in der gewählten Kombination vergeben werden dürfen
+     */
+    public static function returnAllowedUserLevels($user, $userToEdit, $project) {
+        $allowedLevel = [];
+        foreach(self::$userLevel as $levelID => $level) {
+            if((!empty($userToEdit) && $userToEdit->getLevel() > $user->getLevel()) || $levelID <= $user->getLevel()) {
+                if(empty($project) || $levelID >= 8) {
+                    $allowedLevel[$levelID] = $level;
+                }
+            }
+        }
+        return $allowedLevel;
+    }
+    
+    private function validateNewUserInput($data = null) {
+        $usernameQuery = (new Query("select"))
+            ->table(self::TABLE_NAME)
+            ->project(0);
+        
+            
+        if(empty($data)) {
+            $usernameQuery->condition(["username" => $this->username]);
+        }
+        else {
+            $usernameQuery->condition(["username" => $data['userUsername']]);
+            $usernameQuery->conditionNot(["id" => $this->id]);
+        }
+        
+        $result = $usernameQuery->fetchAll(User::class);
+        
+        if(!empty($result))
+            return array("field" => "userUsername", "msg" => "Es existiert bereits ein Benutzer mit diesem Benutzernamen.");
     }
     
     private function generateHashForRandPassword($userLevel) {

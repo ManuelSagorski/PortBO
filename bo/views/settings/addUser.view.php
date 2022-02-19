@@ -8,8 +8,12 @@ use bo\components\classes\helper\Security;
 include '../../components/config.php';
 Security::grantAccess(8);
 
+$project = null;
+if(isset($_GET['projectID']))
+    $project = $_GET['projectID'];
+
 if(isset($_GET['id'])) 
-    $userToEdit = User::getSingleObjectByID($_GET['id']);
+    $userToEdit = User::getSingleObjectByID($_GET['id'], $project);
 ?>
 
 <form id="addUser" class="ui form" autocomplete="off">
@@ -80,22 +84,19 @@ if(isset($_GET['id']))
         <div id="input_userLevel" class="field">
         	<label>Benutzerlevel</label>
         	<select id="userLevel" name="userLevel" class="ui fluid dropdown"<?php echo (!empty($userToEdit) && $userToEdit->getLevel() > $user->getLevel())?" disabled":""; ?>>
-        	<?php 
-        	foreach (User::$userLevel as $levelID=>$level) {
-        	    if((!empty($userToEdit) && $userToEdit->getLevel() > $user->getLevel()) || $levelID <= $user->getLevel()) { 
-        	?>
+        	<?php foreach (User::returnAllowedUserLevels($user, $userToEdit, $_GET['projectID']) as $levelID=>$level) {?>
     			<option 
     				value="<?php echo $levelID; ?>"
     				<?php if(!empty($userToEdit)){echo ($userToEdit->getLevel() == $levelID)?' selected':'';} ?>
     			><?php echo $level; ?></option>
-    		<?php }} ?>
+    		<?php } ?>
         	</select>
         </div>
     </div>
     
     <div id="input_userLanguage" class="field">
     	<label>Sprachen</label>
-    	<select id="userLanguage" name="userLanguage" multiple="multiple" class="ui fluid dropdown">
+    	<select id="userLanguage" name="userLanguage" multiple="multiple" class="ui fluid dropdown"<?php echo (!empty($_GET['projectID']))?" disabled":""; ?>>
     	<?php foreach (languages::$languages as $id=>$language) { ?>
 			<option value="<?php echo $id; ?>"><?php echo $language; ?></option>
 		<?php } ?>
@@ -104,7 +105,7 @@ if(isset($_GET['id']))
 
     <div id="input_userPort" class="field">
     	<label>Zugewiesene Häfen</label>
-    	<select id="userPort" name="userPort" multiple="multiple" class="ui fluid dropdown">
+    	<select id="userPort" name="userPort" multiple="multiple" class="ui fluid dropdown"<?php echo (!empty($_GET['projectID']))?" disabled":""; ?>>
     	<?php foreach (Port::getMultipleObjects() as $port) { ?>
 			<option value="<?php echo $port->getID(); ?>"><?php echo $port->getName(); ?></option>
 		<?php } ?>
@@ -121,6 +122,10 @@ if(isset($_GET['id']))
 		>
     </div>
     <?php } ?>
+
+	<?php if(!empty($_GET['projectID'])) { ?>
+	<input type="hidden" name="projectID" value="<?php echo $_GET['projectID']; ?>">
+	<?php } ?>
 
 	<button class="ui button" type="submit">Speichern</button>
 	<?php if(!empty($userToEdit) && $userToEdit->getLevel() > 1) { ?>

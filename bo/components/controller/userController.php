@@ -2,16 +2,21 @@
 namespace bo\components\controller;
 
 use bo\components\classes\User;
+use bo\components\classes\helper\Logger;
 
 include '../config.php';
 
 switch($_POST['type']) {
     case("addUser"):
         if(empty($_POST['id'])) {
-            (new User($_POST['data']))->addUser();
+            echo json_encode((new User($_POST['data']))->addUser());
         }
         else {
-            (User::getSingleObjectByID($_POST['id']))->editUser($_POST['data']);
+            $project = null;
+            if(isset($_POST['data']['projectID']))
+                $project = $_POST['data']['projectID'];
+            
+            echo json_encode((User::getSingleObjectByID($_POST['id'], $project))->editUser($_POST['data']));
         }
         break;
 

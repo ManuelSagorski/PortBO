@@ -41,6 +41,14 @@ class Logger
             ])
             ->execute();
     }
+    
+    /*
+     * Individueller Error-Handler
+     */
+    public function setErrorHandler($fehlercode, $fehlertext, $fehlerdatei, $fehlerzeile) {
+        Logger::writeLogError("php error", $fehlercode . " - " . $fehlertext . " - " . $fehlerzeile . " - " . $fehlerdatei);        
+        return false;
+    }
 }
 
 ?>

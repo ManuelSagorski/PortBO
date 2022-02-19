@@ -54,6 +54,7 @@ class VesselTypes
         "Tug" => "Sonstiges",
         "Hopper Dredger" => "Sonstiges",
         "Service Ship" => "Sonstiges",
+        "Supply Vessel" => "Sonstiges",
         "Offshore Support Vessel" => "Sonstiges",
         "Offshore Supply Ship" => "Sonstiges",
         "Other" => "Sonstiges"

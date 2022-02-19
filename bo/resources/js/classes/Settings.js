@@ -47,12 +47,15 @@ define(function() {
 		/*
 		 *	Öffnet das Formular zum Anlegen eines neuen Benutzers
 		 */			
-		that.newUser = function(userID, edit) {
+		that.newUser = function(userID, edit, projectID) {
+			if(typeof projectID === 'undefined') {
+				projectID = '';
+			}
 			if(edit && !userID) {
 				alert('Bitte zuerst einen Benutzer auswählen.');
 			}
 			else {
-				$.get('../views/settings/addUser.view.php?id=' + userID, function(data) {
+				$.get('../views/settings/addUser.view.php?id=' + userID + '&projectID=' + projectID, function(data) {
 					$('#windowLabel').html("Neuen Benutzer hinzufügen");
 					$('#windowBody').html(data);
 				});
@@ -94,10 +97,21 @@ define(function() {
 			data.userPorts = $("#userPort").dropdown("get value");
 			
 			$.post(my.USER_CONTROLLER, {type: 'addUser', id: userID, data: data}, 
-				function() {
-					that.openDetails('users');
-					closeWindow();
-				});
+				function(data) {
+					if(data.type == "error") {
+						formValidate.setError(Array(data.msg.field));
+						formValidate.setErrorMessage(data.msg.msg);
+					}
+					else {
+						if(newUserValidate.getFormData().projectID) {
+							that.openDetails('projects', $('#settingsProjekte').get(0));
+						}
+						else {
+							that.openDetails('users');
+						}					
+						closeWindow();
+					}
+				}, 'json');
 		}
 
 		/*
@@ -170,7 +184,7 @@ define(function() {
 			
 			$.post(my.CONTROLLER, {type: 'addLink', id: linkID, data: newLinkValidate.getFormData()}, 
 				function() {
-					that.openDetails('settings');
+					that.openDetails('settings', $('#settingsEinstellungen').get(0));
 					closeWindow();
 				});
 		}
@@ -187,7 +201,7 @@ define(function() {
 						}, 
 						function() {
 							closeWindow();
-							that.openDetails('settings');
+							that.openDetails('settings', $('#settingsEinstellungen').get(0));
 						});	
 				}
 			}

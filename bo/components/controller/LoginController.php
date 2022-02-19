@@ -16,7 +16,7 @@ class LoginController
     private const PW_RESET_VIEW = 'views/pwReset.view.php';
     
     public function __construct() {
-        if(isset($_SESSION['user'])) {
+        if(isset($_SESSION['user']) && !isset($_GET['logout'])) {
             header('Location: ' . PUBLIC_PATH . User::$defaultPage[$_SESSION['userLevel']] . '.php');
         }
     }
