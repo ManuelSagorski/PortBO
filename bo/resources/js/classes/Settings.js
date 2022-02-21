@@ -6,8 +6,8 @@ define(function() {
 	var Settings = function() {
 		var constructor, that = {}, my = {};
 	
-		my.CONTROLLER = '../components/contr/settings/';
-		my.USER_CONTROLLER = '../components/contr/user/';
+		my.CONTROLLER = '../components/controller/settings/';
+		my.USER_CONTROLLER = '../components/controller/user/';
 	
 		constructor = function() {
 			return that;

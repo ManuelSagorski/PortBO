@@ -1,5 +1,5 @@
 <?php
-namespace bo\components\contr;
+namespace bo\components\controller;
 
 use bo\components\classes\Port;
 use bo\components\classes\Company;

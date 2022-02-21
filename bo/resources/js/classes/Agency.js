@@ -6,7 +6,8 @@ define(function() {
 	var Agency = function() {
 		var constructor, that = {}, my = {};
 	
-		my.CONTROLLER = '../components/contr/agency/';
+		my.CONTROLLER = '../components/controller/agency/';
+		my.SEARCH_CONTROLLER = '../components/controller/search/';
 	
 		constructor = function() {
 			return that;
@@ -33,7 +34,7 @@ define(function() {
 		 *	Sidebar Suche nach Agenten
 		 */
 		that.searchAgency = function(expression) {
-			$.get('../components/controller/searchController.php?type=agency&expression=' + expression, function(data) {
+			$.get(my.SEARCH_CONTROLLER + 'agency/?expression=' + expression, function(data) {
 				$('#searchResult').html(data);
 			});				
 		}

@@ -6,9 +6,9 @@ define(function() {
 	var Lookup = function() {
 		var constructor, that = {}, my = {};
 
-		my.SEARCH_CONTROLLER = '../components/controller/searchController.php?';
-		my.VESSEL_CONTROLLER = '../components/controller/vesselController.php?';
-		my.USER_CONTROLLER = '../components/controller/userController.php';
+		my.SEARCH_CONTROLLER = '../components/controller/search/';
+		my.VESSEL_CONTROLLER = '../components/controller/vessel/';
+		my.USER_CONTROLLER = '../components/controller/user/';
 		my.SEARCH_VIEW = '../views/lookup/search.view.php?';
 		my.DETAILS_VIEW = '../views/lookup/details.view.php?';	
 	
@@ -37,7 +37,7 @@ define(function() {
 		 *	Sidebar Suche nach Schiffen
 		 */
 		that.searchVessel = function(expression) {
-			$.get(my.SEARCH_CONTROLLER + 'type=vesselLookup&expression=' + expression, function(data) {
+			$.get(my.SEARCH_CONTROLLER + 'vessel?searchTarget=lookup&searchLimit=10&expression=' + expression, function(data) {
 				$('#searchResult').html(data);
 			});				
 		}
@@ -59,10 +59,7 @@ define(function() {
 			if(!confirm("Do you realy want to request more information about this vessel from the North German Harbour Group?")) {
 				return;
 			}
-			$.post(my.VESSEL_CONTROLLER, {
-					type: 'lookupRequestInformation', 
-					id: vesselID
-				}, 
+			$.post(my.VESSEL_CONTROLLER + 'lookupRequestInformation', { id: vesselID }, 
 				function() {
 					$('#requestMsg').html('Your request has been transmitted. We will answer you as soon as possible!');
 				});	
@@ -90,7 +87,7 @@ define(function() {
 				return;
 			}
 			
-			$.post(my.USER_CONTROLLER, { type: 'userChangePassword', data: changePasswordValidate.getFormData() }, 
+			$.post(my.USER_CONTROLLER + 'userChangePassword', { data: changePasswordValidate.getFormData() }, 
 				function() {
 					changePasswordValidate.setSuccessMessage();
 					$('#secretNew1').val('');
@@ -108,7 +105,7 @@ define(function() {
 				return;
 			}
 			
-			$.post(my.USER_CONTROLLER, { type: 'userChangeMail', data: changeMailValidate.getFormData() }, 
+			$.post(my.USER_CONTROLLER + 'userChangeMail', { data: changeMailValidate.getFormData() }, 
 				function() {
 					changeMailValidate.setSuccessMessage();
 					$('#emailNew').val('');

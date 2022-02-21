@@ -21,7 +21,7 @@ require_once(MAIN_DOCUMENT_PATH . 'components/configCredentials.php');
 
 spl_autoload_register(function($class) {
     $class_name = explode('\\', $class);
-    $classFolders = array("classes", "classes/PHPMailer", "classes/forecast", "classes/helper", "types", "controller", "contr");
+    $classFolders = array("classes", "classes/PHPMailer", "classes/forecast", "classes/helper", "types", "controller");
     
     foreach($classFolders as $folder) {
         $file = MAIN_DOCUMENT_PATH . 'components/' . $folder . '/' . str_replace('\\', '/', $class_name[count($class_name)-1]) . '.php';
@@ -33,7 +33,7 @@ spl_autoload_register(function($class) {
 });
 
 DBConnect::initDB();
-Security::sessionDuration(1200);
+Security::sessionDuration(1800);
 Logger::setErrorReporting();
 
 if($_SERVER[ 'SCRIPT_NAME' ] != "/" . FOLDER . "index.php" && !isset($independent)) {

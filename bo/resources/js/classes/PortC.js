@@ -6,7 +6,7 @@ define(function() {
 	var PortC = function() {
 		var constructor, that = {}, my = {};
 	
-		my.CONTROLLER = '../components/contr/port/';
+		my.CONTROLLER = '../components/controller/port/';
 	
 		constructor = function() {
 			return that;

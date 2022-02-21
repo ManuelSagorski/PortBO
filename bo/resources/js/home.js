@@ -32,7 +32,7 @@ $( function() {
 });
 
 function inputSearch(type, expression){
-	$.get('../components/controller/searchController.php?type=' + type + '&expression=' + expression, function(data) {
+	$.get('../components/controller/search/' + type + '/?expression=' + expression, function(data) {
 		switch (type) {
 			case 'userForContact':
 				$('#userSuggest').html(data);

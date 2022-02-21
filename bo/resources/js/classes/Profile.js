@@ -6,7 +6,7 @@ define(function() {
 	var Profile = function() {
 		var constructor, that = {}, my = {};
 
-		my.CONTROLLER = '../components/contr/user/';
+		my.CONTROLLER = '../components/controller/user/';
 
 		constructor = function() {
 			return that;

@@ -1,12 +1,12 @@
 <?php
-namespace bo\components\controller;
+namespace bo\interfaces;
 
 use bo\components\classes\helper\Logger;
 use bo\components\classes\helper\Telegram;
 use bo\components\classes\User;
 
 $independent = true;
-include '../config.php';
+include '../components/config.php';
 
 $telegram = new telegram(null, json_decode(file_get_contents('php://input'), true));
 Logger::writeLogInfo('telegramBot', 'Eingehende Nachricht: ' . $telegram->getMessage());
