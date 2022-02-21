@@ -31,8 +31,6 @@ if(isset($_GET['id']))
     	<textarea rows="10" id="linkUrl" name="linkUrl" onkeyup="formValidate.clearAllError();"><?php echo (!empty($link))?$link->getLink():''; ?></textarea>
     </div>
    
-    <input type="hidden" name="vesselID" value="<?php echo $_GET['vesselID']; ?>">
-    
     <button class="ui button" type="submit">Speichern</button>
 </form>
 <script>

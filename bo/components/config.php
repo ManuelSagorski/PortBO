@@ -5,6 +5,7 @@ use bo\components\classes\helper\DBConnect;
 use bo\components\classes\helper\Logger;
 use bo\components\classes\User;
 use bo\components\classes\Projects;
+use bo\components\classes\helper\Security;
 
 session_start();
 
@@ -20,7 +21,7 @@ require_once(MAIN_DOCUMENT_PATH . 'components/configCredentials.php');
 
 spl_autoload_register(function($class) {
     $class_name = explode('\\', $class);
-    $classFolders = array("classes", "classes/PHPMailer", "classes/forecast", "classes/helper", "types", "controller");
+    $classFolders = array("classes", "classes/PHPMailer", "classes/forecast", "classes/helper", "types", "controller", "contr");
     
     foreach($classFolders as $folder) {
         $file = MAIN_DOCUMENT_PATH . 'components/' . $folder . '/' . str_replace('\\', '/', $class_name[count($class_name)-1]) . '.php';
@@ -32,19 +33,14 @@ spl_autoload_register(function($class) {
 });
 
 DBConnect::initDB();
-$logger = new logger();
-
-register_shutdown_function(function () {
-    $err = error_get_last();
-    if (! is_null($err)) {
-        Logger::writeLogError("php error", $err['message'] . " - " . $err['line'] . " - " . $err['file']);
-    }
-});
+Security::sessionDuration(1200);
+Logger::setErrorReporting();
 
 if($_SERVER[ 'SCRIPT_NAME' ] != "/" . FOLDER . "index.php" && !isset($independent)) {
     if(!isset($_SESSION['user'])) {
         if($_SERVER[ 'SCRIPT_NAME' ] == "/" . FOLDER . "public/index.php") {
             header('Location: ' . MAIN_PATH . 'index.php');
+            exit;
         }
         else {
             echo "<script>location.href='" . MAIN_PATH . "index.php';</script>";

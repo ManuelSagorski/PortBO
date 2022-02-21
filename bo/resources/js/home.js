@@ -3,6 +3,10 @@ var forecastAccordionOpen = null;
 
 let mql = window.matchMedia("(min-width:600px)");
 
+require.config({
+    urlArgs: "bust=" + (new Date()).getTime()
+});
+
 require(['routing']);
 
 require(['classes/FormValidate'], function() {

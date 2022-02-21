@@ -22,6 +22,10 @@
         <link rel="icon" type="image/png" sizes="16x16" href="../resources/img/favicon/favicon-16x16.png">
         <!-- <link rel="manifest" href="resources/img/favicon/manifest.json"> -->
 
+        <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate" />
+        <meta http-equiv="pragma" content="no-cache" />
+        <meta http-equiv="expires" content="0" />
+
 		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 		<link rel="stylesheet" type="text/css" href="../resources/css/libraries/semantic.min.css" />
 		<link rel="stylesheet" type="text/css" href="../resources/css/libraries/icon.min.css" />

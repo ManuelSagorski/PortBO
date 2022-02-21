@@ -4,6 +4,7 @@ use bo\components\classes\User;
 use bo\components\types\Languages;
 use bo\components\classes\Port;
 use bo\components\classes\helper\Security;
+use bo\components\classes\Projects;
 
 include '../../components/config.php';
 Security::grantAccess(8);
@@ -11,6 +12,7 @@ Security::grantAccess(8);
 $project = null;
 if(isset($_GET['projectID']))
     $project = $_GET['projectID'];
+
 
 if(isset($_GET['id'])) 
     $userToEdit = User::getSingleObjectByID($_GET['id'], $project);

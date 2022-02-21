@@ -6,7 +6,7 @@ define(function() {
 	var Profile = function() {
 		var constructor, that = {}, my = {};
 
-		my.CONTROLLER = '../components/controller/userController.php';
+		my.CONTROLLER = '../components/contr/user/';
 
 		constructor = function() {
 			return that;
@@ -39,7 +39,7 @@ define(function() {
 				return;
 			}
 			
-			$.post(my.CONTROLLER, { type: 'userChangePassword', data: changePasswordValidate.getFormData() }, 
+			$.post(my.CONTROLLER + 'userChangePassword', { data: changePasswordValidate.getFormData() }, 
 				function() {
 					changePasswordValidate.setSuccessMessage();
 					$('#secretNew1').val('');
@@ -57,7 +57,7 @@ define(function() {
 				return;
 			}
 			
-			$.post(my.CONTROLLER, { type: 'userChangeMail', data: changeMailValidate.getFormData() }, 
+			$.post(my.CONTROLLER + 'userChangeMail', { data: changeMailValidate.getFormData() }, 
 				function() {
 					changeMailValidate.setSuccessMessage();
 					$('#emailNew').val('');
@@ -75,7 +75,7 @@ define(function() {
 				return;
 			}
 			
-			$.post(my.CONTROLLER, { type: 'userChangePhone', data: changePhoneValidate.getFormData() }, 
+			$.post(my.CONTROLLER + 'userChangePhone', { data: changePhoneValidate.getFormData() }, 
 				function() {
 					changePhoneValidate.setSuccessMessage();
 					$('#phoneNew').val('');
@@ -93,7 +93,7 @@ define(function() {
 				return;
 			}
 			
-			$.post(my.CONTROLLER, { type: 'userSendMessage', data: sendMessageValidate.getFormData() }, 
+			$.post(my.CONTROLLER + 'userSendMessage', { data: sendMessageValidate.getFormData() }, 
 				function() {
 					sendMessageValidate.setSuccessMessage();
 					$('#message').val('');

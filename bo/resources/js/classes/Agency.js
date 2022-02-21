@@ -6,6 +6,8 @@ define(function() {
 	var Agency = function() {
 		var constructor, that = {}, my = {};
 	
+		my.CONTROLLER = '../components/contr/agency/';
+	
 		constructor = function() {
 			return that;
 		}
@@ -74,7 +76,7 @@ define(function() {
 				return;
 			}
 
-			$.post('../components/controller/agencyController.php', {type: 'addAgency', id: id, data: newAgencyValidate.getFormData()}, 
+			$.post(my.CONTROLLER + 'addAgency', {id: id, data: newAgencyValidate.getFormData()}, 
 				function(data) {
 					if(data.type == "error") {
 						formValidate.setError(Array(data.msg.field));
@@ -112,7 +114,7 @@ define(function() {
 			event.preventDefault();
 			newAgencyContactValidate = new FormValidate($('#addAgencyPortInfo').serializeArray());
 			
-			$.post('../components/controller/agencyController.php', {type: 'addAgencyPortInfo', id: contactID, data: newAgencyContactValidate.getFormData()}, 
+			$.post(my.CONTROLLER + 'addAgencyPortInfo', {id: contactID, data: newAgencyContactValidate.getFormData()}, 
 				function() {
 					that.openDetails(newAgencyContactValidate.getFormData().agencyID);
 					closeWindow();
@@ -125,7 +127,7 @@ define(function() {
 		that.deleteAgencyPortInfo = function(agencyID, contactID) {
 			if(contactID) {
 				if(confirm("Möchtest du den gewählten Kontakt wirklich löschen?")) {
-					$.post('../components/controller/agencyController.php', {type: 'deleteAgencyPortInfo', id: contactID}, 
+					$.post(my.CONTROLLER + 'deleteAgencyPortInfo', {id: contactID}, 
 						function() {
 							that.openDetails(agencyID);
 							closeWindow();
@@ -141,7 +143,7 @@ define(function() {
 		 *	Lädt für ein Formular Informationen zu einem bestimmten Agenten nach
 		 */		
 		that.loadAgencyInfoForInput = function(agency) {
-			$.post('../components/controller/agencyController.php', {type: "getAgencyInfo", agency: agency, port: $('#contactPort').val()}, 
+			$.post(my.CONTROLLER + "getAgencyInfo", {agency: agency, port: $('#contactPort').val()}, 
 				function(data) {
 					if(Object.keys(data).length === 0) {
 						var heading = "<div class='agentInfoHead'>Keine Kontaktinformationen für " + agency + " in " + $('#contactPort :selected').html() + " vorhanden</div>";

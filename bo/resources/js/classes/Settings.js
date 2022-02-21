@@ -6,8 +6,8 @@ define(function() {
 	var Settings = function() {
 		var constructor, that = {}, my = {};
 	
-		my.CONTROLLER = '../components/controller/settingsController.php';
-		my.USER_CONTROLLER = '../components/controller/userController.php';
+		my.CONTROLLER = '../components/contr/settings/';
+		my.USER_CONTROLLER = '../components/contr/user/';
 	
 		constructor = function() {
 			return that;
@@ -96,7 +96,7 @@ define(function() {
 			data.userLanguages = $("#userLanguage").dropdown("get value");
 			data.userPorts = $("#userPort").dropdown("get value");
 			
-			$.post(my.USER_CONTROLLER, {type: 'addUser', id: userID, data: data}, 
+			$.post(my.USER_CONTROLLER + 'addUser', {id: userID, data: data}, 
 				function(data) {
 					if(data.type == "error") {
 						formValidate.setError(Array(data.msg.field));
@@ -124,7 +124,7 @@ define(function() {
 				return;
 			}
 			
-			$.post(my.USER_CONTROLLER, {type: 'sendInvitationMail', id: userID}, 
+			$.post(my.USER_CONTROLLER + 'sendInvitationMail', {id: userID}, 
 				function() {
 					that.openDetails('users');
 					closeWindow();
@@ -146,7 +146,7 @@ define(function() {
 			event.preventDefault();
 			newUserKalender = new FormValidate($('#addKalenderForm').serializeArray());
 			
-			$.post(my.USER_CONTROLLER, {type: 'addUserKalender', id: userID, kalender: newUserKalender.getFormData().kalender}, 
+			$.post(my.USER_CONTROLLER + 'addUserKalender', {id: userID, kalender: newUserKalender.getFormData().kalender}, 
 				function() {
 					that.openDetails('users');
 					closeWindow();
@@ -182,7 +182,7 @@ define(function() {
 				return;
 			}
 			
-			$.post(my.CONTROLLER, {type: 'addLink', id: linkID, data: newLinkValidate.getFormData()}, 
+			$.post(my.CONTROLLER + 'addExternLink', {id: linkID, data: newLinkValidate.getFormData()}, 
 				function() {
 					that.openDetails('settings', $('#settingsEinstellungen').get(0));
 					closeWindow();
@@ -195,10 +195,7 @@ define(function() {
 		that.deleteLink = function(linkID) {
 			if(linkID) {
 				if(confirm("Möchtest du den gewählten Link wirklich löschen?")) {
-					$.post(my.CONTROLLER, {
-							type: 'deleteLink', 
-							linkID: linkID
-						}, 
+					$.post(my.CONTROLLER + 'deleteExternLink', {linkID: linkID}, 
 						function() {
 							closeWindow();
 							that.openDetails('settings', $('#settingsEinstellungen').get(0));

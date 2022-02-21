@@ -42,12 +42,13 @@ class Logger
             ->execute();
     }
     
-    /*
-     * Individueller Error-Handler
-     */
-    public function setErrorHandler($fehlercode, $fehlertext, $fehlerdatei, $fehlerzeile) {
-        Logger::writeLogError("php error", $fehlercode . " - " . $fehlertext . " - " . $fehlerzeile . " - " . $fehlerdatei);        
-        return false;
+    public static function setErrorReporting() {
+        register_shutdown_function(function () {
+            $err = error_get_last();
+            if (! is_null($err)) {
+                Logger::writeLogError("php error", $err['message'] . " - " . $err['line'] . " - " . $err['file']);
+            }
+        });
     }
 }
 

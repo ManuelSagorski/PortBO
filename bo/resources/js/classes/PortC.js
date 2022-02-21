@@ -6,6 +6,8 @@ define(function() {
 	var PortC = function() {
 		var constructor, that = {}, my = {};
 	
+		my.CONTROLLER = '../components/contr/port/';
+	
 		constructor = function() {
 			return that;
 		}
@@ -60,7 +62,7 @@ define(function() {
 				return;
 			}
 			
-			$.post('../components/controller/portController.php', {type: 'addPort', id: id, data: newPortValidate.getFormData()}, 
+			$.post(my.CONTROLLER + 'addPort', {id: id, data: newPortValidate.getFormData()}, 
 				function() {
 					$.get('../views/port/search.view.php', function(data) {
 						$('#mainColLeft').html(data);
@@ -96,7 +98,7 @@ define(function() {
 				return;
 			}
 			
-			$.post('../components/controller/portController.php', {type: 'addPortCompany', companyID: companyID, data: newPortCompanyValidate.getFormData()}, 
+			$.post(my.CONTROLLER + 'addPortCompany', {companyID: companyID, data: newPortCompanyValidate.getFormData()}, 
 				function() {
 					that.openDetails(newPortCompanyValidate.getFormData().portID);
 					closeWindow();
@@ -109,7 +111,7 @@ define(function() {
 		that.deleteCompany = function(portID, companyID) {
 			if(companyID) {
 				if(confirm("Möchtest du den gewählten Liegeplatz wirklich löschen?")) {
-					$.post('../components/controller/portController.php', {type: 'deletePortCompany', id: companyID}, 
+					$.post(my.CONTROLLER + 'deletePortCompany', {id: companyID}, 
 						function() {
 							that.openDetails(portID);
 							closeWindow();

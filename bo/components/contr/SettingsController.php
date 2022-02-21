@@ -1,20 +1,24 @@
 <?php
-namespace bo\components\controller;
+namespace bo\components\contr;
 
 use bo\components\classes\SettingsExternLinks;
 
-include '../config.php';
-
-switch($_POST['type']) {
-    case("deleteLink"):
-        (SettingsExternLinks::getSingleObjectByID($_POST['linkID']))->deleteLink();
-        break;
-    case("addLink"):
+class SettingsController
+{
+    public function __construct()
+    {}
+    
+    public function addExternLink() {
         if(empty($_POST['id'])) {
             (new SettingsExternLinks($_POST['data']))->addLink();
         }
         else {
             (SettingsExternLinks::getSingleObjectByID($_POST['id']))->updateLink($_POST['data']);
         }
-        break;
+    }
+    
+    public function deleteExternLink() {
+        (SettingsExternLinks::getSingleObjectByID($_POST['linkID']))->deleteLink();
+    }
 }
+

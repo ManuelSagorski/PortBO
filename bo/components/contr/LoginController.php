@@ -28,7 +28,9 @@ class LoginController
      */
     public function start() {
         if(isset($_GET['logout'])) {
-            $_SESSION = [];
+            session_unset();
+            session_destroy();
+            session_start();
         }
         
         switch($_SERVER['REQUEST_METHOD']) {
