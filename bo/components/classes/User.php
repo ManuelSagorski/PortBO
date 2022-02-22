@@ -176,7 +176,30 @@ class User extends AbstractDBObject
             ->table(UserToLanguage::TABLE_NAME)
             ->condition(["user_id" => $this->id])
             ->execute();
-        $this->deleteDB(["id" => $this->id]);
+        (new Query("delete"))
+            ->table("port_bo_telegram")
+            ->condition(["user_id" => $this->id])
+            ->execute();
+
+        $vesselContactCount = (new Query("select"))
+            ->table(VesselContact::TABLE_NAME)
+            ->condition(["contact_user_id" => $this->id])
+            ->execute()
+            ->rowCount();
+        $vesselInfoCount = (new Query("select"))
+            ->table(VesselInfo::TABLE_NAME)
+            ->condition(["user_id" => $this->id])
+            ->execute()
+            ->rowCount();
+        
+        Logger::writeLogDelete("User", "User " . $this->first_name . " " . $this->surname . " gelöscht.");
+            
+        if ($vesselContactCount > 0 || $vesselInfoCount > 0) {
+            $this->updateDB(["inactive" => 1], ["id" => $this->id]);
+        }
+        else {
+            $this->deleteDB(["id" => $this->id]);
+        }
     }
     
     /**
@@ -269,8 +292,8 @@ class User extends AbstractDBObject
     /**
      * Legt für den User einen Zugang zum ÖZG Kalender an.
      */
-    public function addKalender($kalender) { 
-        global $project;
+    public function addKalender($kalender, $projectID) { 
+        $project = Projects::getSingleObjectByID($projectID);
         
         $kalenderID = ozg::newOzgUser($this->first_name, $this->surname, $this->email, $this->phone, $kalender, $project->getModPlanningProject());
         

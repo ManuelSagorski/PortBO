@@ -2,6 +2,8 @@
 namespace bo\components\controller;
 
 use bo\components\classes\User;
+use bo\components\classes\helper\Security;
+use bo\components\classes\helper\Query;
 
 class UserController
 {
@@ -13,6 +15,8 @@ class UserController
     }
     
     public function addUser() {
+        Security::grantAccess(8);
+        
         if(empty($_POST['id'])) {
             echo json_encode((new User($_POST['data']))->addUser());
         }
@@ -25,14 +29,27 @@ class UserController
         }
     }
     
+    public function deleteUser() {
+        Security::grantAccess(8);
+        
+        User::getSingleObjectByID($_POST['id'])->deleteUser();
+    }
+    
     public function sendInvitationMail() {
         $userToEdit = User::getSingleObjectByID($_POST['id']);
         $userToEdit->sendInvitationMail();
     }
     
     public function addUserKalender() {
-        $userToEdit = User::getSingleObjectByID($_POST['id']);
-        $userToEdit->addKalender($_POST['kalender']);
+        if(isset($_POST['projectID'])) {
+            $projectID = $_POST['projectID'];
+        }
+        else {
+            $projectID = $_SESSION['project']; 
+        }
+        
+        $userToEdit = User::getSingleObjectByID($_POST['id'], $_POST['projectID']);
+        $userToEdit->addKalender($_POST['kalender'], $projectID);
     }
     
     public function userChangePassword() {        

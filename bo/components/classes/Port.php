@@ -90,7 +90,7 @@ class Port extends AbstractDBObject
             ->fields("u.*")
             ->table(User::TABLE_NAME, "u")
             ->join(UserToPort::TABLE_NAME, "up", "id", "user_id")
-            ->condition(["up.port_id" => $id])
+            ->condition(["up.port_id" => $id, "u.inactive" => 0])
             ->fetchAll(User::class);
     }
     

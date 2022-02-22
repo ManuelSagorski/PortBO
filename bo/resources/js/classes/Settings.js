@@ -115,6 +115,23 @@ define(function() {
 		}
 
 		/*
+		 *	Löscht bzw deaktiviert einen bestehenden User
+		 */
+		that.deleteUser = function(userID) {
+			if(userID) {
+				if(confirm("Möchtest du den gewählten Benutzer wirklich löschen?")) {
+					$.post(my.USER_CONTROLLER + 'deleteUser', {id: userID}, 
+						function() {
+							that.openDetails('users');
+						});
+				}
+			}
+			else {
+				alert('Bitte zuerst einen Benutzer auswählen.');
+			}			
+		}
+
+		/*
 		 *	Schickt an einen Benutzer erneut eine Einladungsmail
 		 */			
 		that.sendInvitationMail = function(userID) {
@@ -142,11 +159,11 @@ define(function() {
 		/*
 		 *	Fügt für den Benutzer eine Kalender auf özg hinzu
 		 */			
-		that.addUserKalender = function(userID) {
+		that.addUserKalender = function(userID, projectID) {
 			event.preventDefault();
 			newUserKalender = new FormValidate($('#addKalenderForm').serializeArray());
 			
-			$.post(my.USER_CONTROLLER + 'addUserKalender', {id: userID, kalender: newUserKalender.getFormData().kalender}, 
+			$.post(my.USER_CONTROLLER + 'addUserKalender', {id: userID, projectID: projectID, kalender: newUserKalender.getFormData().kalender}, 
 				function() {
 					that.openDetails('users');
 					closeWindow();
@@ -223,6 +240,12 @@ define(function() {
 			$.post('../views/settings/statisticsContend.view.php', {data: data}, 
 				function(data) {
 					$('#statisticsContend').html(data);
+				});
+		}
+		
+		that.safeModuleSetting = function(element, projectID) {
+			$.post(my.CONTROLLER + 'safeModuleSetting', {module: element.attr('name'), value: element.closest('div').checkbox('is checked'), projectID: projectID}, 
+				function() {
 				});
 		}
 		

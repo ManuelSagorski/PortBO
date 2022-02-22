@@ -4,7 +4,7 @@ use bo\components\classes\User;
 use bo\components\types\Languages;
 use bo\components\classes\Port;
 use bo\components\classes\helper\Security;
-use bo\components\classes\Projects;
+use bo\components\controller\SettingsController;
 
 include '../../components/config.php';
 Security::grantAccess(8);
@@ -12,7 +12,6 @@ Security::grantAccess(8);
 $project = null;
 if(isset($_GET['projectID']))
     $project = $_GET['projectID'];
-
 
 if(isset($_GET['id'])) 
     $userToEdit = User::getSingleObjectByID($_GET['id'], $project);
@@ -133,7 +132,7 @@ if(isset($_GET['id']))
 	<?php if(!empty($userToEdit) && $userToEdit->getLevel() > 1) { ?>
 		<button class="ui button" onClick="settings.sendInvitationMail(<?php echo $userToEdit->getID(); ?>)">Einladungsmail</button>
 	<?php } ?>
-	<?php if(!empty($userToEdit) && empty($userToEdit->getPlanningID()) && $userToEdit->getLevel() > 3) { ?>
+	<?php if(!empty($userToEdit) && SettingsController::canGetCalender($userToEdit, $project)) { ?>
 		<button class="ui icon button" onClick="settings.showAddKalender()"><i class="calendar alternate outline icon"></i></button>
 	<?php } ?>
 </form>
@@ -164,7 +163,7 @@ if(isset($_GET['id']))
 $('#userLanguage').dropdown();
 $('#userPort').dropdown();
 $("#addUser").submit(function(event){ settings.addUser(<?php echo (!empty($userToEdit))?$userToEdit->getID():'null'; ?>); });
-$("#addKalenderForm").submit(function(event){ settings.addUserKalender(<?php echo (!empty($userToEdit))?$userToEdit->getID():''; ?>); });
+$("#addKalenderForm").submit(function(event){ settings.addUserKalender(<?php echo (!empty($userToEdit))?$userToEdit->getID():'null'; ?>, <?php echo (!empty($project))?$project:'null'; ?>); });
 $('.ui.radio.checkbox').checkbox();
 
 <?php if(!empty($userToEdit)) { foreach ($userToEdit->getUserPorts() as $port) {?>

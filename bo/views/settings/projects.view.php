@@ -17,6 +17,61 @@ $projects = Projects::getMultipleObjects();
         <?php echo $project->getName(); ?>
     </div>
     <div class="<?php echo ($key === array_key_first($projects))?"active ":""; ?>content">
+    
+        <div class="ui three column grid">
+        	<div class="column">
+        		<div class="ui segment">
+                    <div class="inline field">
+                   		<div class="ui toggle checkbox">
+                    		<label>Modul Forecast</label>
+                    		<input 
+                    			type="checkbox" 
+                    			tabindex="0" 
+                    			class="hidden" 
+                    			name="mod_forecast"
+                    			onChange="settings.safeModuleSetting($(this), <?php echo $project->getID(); ?>)"
+                    			<?php echo ($project->getModForecast())?" checked='checked'":"";?>
+                    		>
+                    	</div>
+                    </div>
+        		</div>
+        	</div>
+        	<div class="column">
+        		<div class="ui segment">
+                    <div class="inline field">
+                   		<div class="ui toggle checkbox">
+                    		<label>Modul Planning</label>
+                    		<input 
+                    			type="checkbox" 
+                    			tabindex="0" 
+                    			class="hidden"
+                    			name="mod_planning"
+                    			onChange="settings.safeModuleSetting($(this), <?php echo $project->getID(); ?>)"
+                    			<?php echo ($project->getModPlanning())?" checked='checked'":"";?>
+                    		>
+                    	</div>
+                    </div>
+        		</div>
+        	</div>
+        	<div class="column">
+        		<div class="ui segment">
+                    <div class="inline field">
+                   		<div class="ui toggle checkbox">
+                    		<label>Modul Externe Links</label>
+                    		<input 
+                    			type="checkbox" 
+                    			tabindex="0" 
+                    			class="hidden"
+                    			name="mod_externLinks"
+                    			onChange="settings.safeModuleSetting($(this), <?php echo $project->getID(); ?>)"
+                    			<?php echo ($project->getModExternLinks())?" checked='checked'":"";?>
+                    		>
+                    	</div>
+                    </div>
+        		</div>
+        	</div>
+        </div>
+        
         <table class="detailTable ui very compact celled striped table">
             <thead>
                 <tr>
@@ -51,7 +106,6 @@ $projects = Projects::getMultipleObjects();
 <?php } ?>
 
 <script>
-$('.ui.accordion').accordion({
-    exclusive: true
-  });
+$('.ui.accordion').accordion({exclusive: true});
+$('.ui.checkbox').checkbox();
 </script>

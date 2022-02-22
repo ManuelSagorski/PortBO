@@ -7,7 +7,7 @@ use bo\components\classes\helper\Security;
 include '../../components/config.php';
 Security::grantAccess(8);
 
-$users = User::getMultipleObjects();
+$users = User::getMultipleObjects(["inactive" => 0]);
 ?>
 
 <table class="detailTable ui very compact celled striped table">
@@ -44,7 +44,7 @@ $users = User::getMultipleObjects();
 	<a class="item" onclick="settings.newUser($('input[name=selectUser]:checked').val(), true);">
 		<i class="edit icon"></i>
 	</a>
-	<a class="item" onClick="alert('Benutzer können derzeit nur durch einen Datenbankadministrator gelöscht werden.');">
+	<a class="item" onClick="settings.deleteUser($('input[name=selectUser]:checked').val());">
 		<i class="trash alternate icon"></i>
 	</a>
 </div>

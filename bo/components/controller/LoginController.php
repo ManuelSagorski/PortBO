@@ -79,7 +79,7 @@ class LoginController
         $username = $_POST['username'];
         $passwort = $_POST['secret'];
         
-        $user = User::getSingleObjectByCondition(Array("username" => $username));
+        $user = User::getSingleObjectByCondition(Array("username" => $username, "inactive" => 0));
         
         If (empty($user)) {
             Logger::writeLogError('login', 'Loginversuch mit unbekanntem Benutzername: ' . $username);

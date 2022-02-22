@@ -47,6 +47,14 @@ class Projects extends AbstractDBObject
         return $row['short'] ?? '';
     }
     
+    public static function toggleModule($module, $value, $projectID) {
+        $query = (new Query("update"))
+            ->table(self::TABLE_NAME)
+            ->values([$module => intval(filter_var($value, FILTER_VALIDATE_BOOLEAN))])
+            ->condition(["id" => $projectID])
+            ->execute();
+    }
+    
     public function getID() {
         return $this->id;
     }
