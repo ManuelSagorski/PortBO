@@ -13,6 +13,7 @@ class VesselContact extends AbstractDBObject
     private $vess_id;
     private $user_id;
     private $agent_id;
+    private $company_id;
     private $port_id;
     private $contact_type;
     private $contact_name;
@@ -21,20 +22,25 @@ class VesselContact extends AbstractDBObject
     private $info;
     private $date;
     private $planned;
+    private $month_next;
     
     private $inputData;
+    
+    public static $monthNext = [0 => 'keine Angabe', 1 => '1 Monat', 3 => '3 Monate', 6 => '6 Monate'];
     
     public function __construct($data = null) {
         if(!empty($data)) {
             $this->vess_id      = $_SESSION['vessID'];
             $this->user_id      = $_SESSION['user'];
             $this->agent_id     = Agency::getAgentID($data['contactAgent']);
+            $this->company_id   = Company::getCompanyByName($data['contactCompany']);
             $this->port_id      = $data['contactPort'];
             $this->contact_type = $data['contactType'];
             $this->contact_name = $data['contactName'];
             $this->contactUserID= User::getUserByFullName($data['contactName']);
             $this->info         = $data['contactInfo'];
             $this->date         = $data['contactDate'];
+            $this->month_next   = $data['contactNext'];
             if(!isset($data['contactPlanned'])) {
                 $this->planned  = 0; }
             else {
@@ -64,8 +70,10 @@ class VesselContact extends AbstractDBObject
                 "info" => $this->info,
                 "date" => $this->date,
                 "agent_id" => $this->agent_id,
+                "company_id" => $this->company_id,
                 "port_id" => $this->port_id,
-                "planned" => $this->planned
+                "planned" => $this->planned,
+                "month_next" => $this->month_next
             ]);
             
             Logger::writeLogCreate('vesselContact', 'Neuen Kontakt für Schiff ' . Vessel::getVesselName($this->vess_id) . ' hinzugefügt. InfoText: ' . $this->info);
@@ -81,7 +89,8 @@ class VesselContact extends AbstractDBObject
      */
     public function editContact($data) {        
         $this->agent_id     = Agency::getAgentID($data['contactAgent']);
-        $this->contactUserID= User::getUserByFullName($data['contactName']);
+        $this->contactUserID = User::getUserByFullName($data['contactName']);
+        $this->contactCompanyID = Company::getCompanyByName($data['contactCompany']);
         $this->inputData = $data;
         
         if ($msg = $this->validateContactInput())
@@ -102,8 +111,10 @@ class VesselContact extends AbstractDBObject
             "info" => $data['contactInfo'],
             "date" => $data['contactDate'],
             "agent_id" => Agency::getAgentID($data['contactAgent']),
+            "company_id" => Company::getCompanyByName($data['contactCompany']),
             "port_id" => $data['contactPort'],
-            "planned" => $planned
+            "planned" => $planned,
+            "month_next" => $data['contactNext']
         ], ["id" => $this->id]);
        
         Logger::writeLogInfo('vesselContact', 'Kontakt für Schiff ' . Vessel::getVesselName($this->vess_id) . ' bearbeitet. InfoText: ' . $data['contactInfo']);
@@ -133,12 +144,16 @@ class VesselContact extends AbstractDBObject
     }
     
     private function validateContactInput() {
-        if($this->inputData['contactAgent'] != '' && $this->agent_id == 0) {
-            return array("field" => "Agent", "msg" => "Der eingegebene Agent existiert nicht in der Datenbank. Bitte lege zuerst den Agenten an.");
+        if($this->inputData['contactName'] != '' && $this->contactUserID == 0) {
+            return array("field" => "contactName", "msg" => "Der eingegebene Benutzer existiert nicht in der Datenbank. Bitte lege zuerst den Benutzer an.");
         }
 
-        if($this->inputData['contactName'] != '' && $this->contactUserID == 0) {
-            return array("field" => "User", "msg" => "Der eingegebene Benutzer existiert nicht in der Datenbank. Bitte lege zuerst den Benutzer an.");
+        if($this->inputData['contactAgent'] != '' && $this->agent_id == 0) {
+            return array("field" => "contactAgent", "msg" => "Der eingegebene Agent existiert nicht in der Datenbank. Bitte lege zuerst den Agenten an.");
+        }
+        
+        if($this->inputData['contactCompany'] != '' && $this->contactCompanyID == 0) {
+            return array("field" => "contactCompany", "msg" => "Der eingegebene Liegeplatz existiert nicht in der Datenbank. Bitte lege ihn zuerst an.");
         }
     }
     
@@ -160,6 +175,9 @@ class VesselContact extends AbstractDBObject
     public function getAgentID() {
         return $this->agent_id;
     }
+    public function getCompanyID() {
+        return $this->company_id;
+    }
     public function getPortID() {
         return $this->port_id;
     }
@@ -177,7 +195,10 @@ class VesselContact extends AbstractDBObject
     }
     public function getPlanned() {
         return $this->planned;
-    } 
+    }
+    public function getMonthNext() {
+        return $this->month_next;
+    }
 }
 
 ?>

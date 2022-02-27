@@ -6,6 +6,7 @@ use bo\components\classes\Vessel;
 use bo\components\classes\Dry;
 use bo\components\classes\User;
 use bo\components\classes\Agency;
+use bo\components\classes\Company;
 
 class SearchController
 {
@@ -80,6 +81,21 @@ class SearchController
         
         while($row = $result->fetch()) {?>
     	    <div onclick="selectSuggested('agent', this.textContent);"><?php echo $row['name']; ?></div>
+		<?php }
+    }
+    
+    public function companyForContact() {
+        $result = (new Query("select"))
+            ->table(Company::TABLE_NAME)
+            ->conditionLike([
+                "name" => $this->searchExpression1,
+                "port_id" => $_GET['parameter']
+            ])
+            ->limit("5")
+            ->execute();
+        
+        while($row = $result->fetch()) {?>
+    	    <div onclick="selectSuggested('company', this.textContent);"><?php echo $row['name']; ?></div>
 		<?php }
     }
     

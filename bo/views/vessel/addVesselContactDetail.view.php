@@ -17,7 +17,7 @@ if(isset($_GET['contactDetailID']))
             <div class="header">
             	Achtung!
             </div>
-        	<p>Denke bitte daran, dass aus Gründen des Datenschutzes, hier keine private Kontaktdaten von Crewmitgliedern hinterlegt werden dürfen.</p>
+        	<p>Denke bitte daran, dass aus Gründen des Datenschutzes, hier <b><u>keine private Kontaktdaten</u></b> von Crewmitgliedern hinterlegt werden dürfen.</p>
         </div>
     </div>
     
@@ -49,12 +49,21 @@ if(isset($_GET['contactDetailID']))
         	>
         </div>
     </div>
-    
+
+<?php 
+/*  
+
+###
+Kontakt Detail Info nicht mehr gewünscht
+###
+
 	<div id="input_contactDetailInfo" class="field">
     	<label>Zusätzliche Information</label>
     	<textarea rows="2" id="contactDetailInfo" name="contactDetailInfo"><?php echo(!empty($contactDetail))?$contactDetail->getInfo():''; ?></textarea>
     </div>
-    
+*/
+?>
+
     <button class="ui button" type="submit">Speichern</button>
 </form>
 

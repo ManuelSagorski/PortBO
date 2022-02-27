@@ -6,6 +6,7 @@ use bo\components\classes\Agency;
 use bo\components\types\ContactTypes;
 use bo\components\classes\Port;
 use bo\components\classes\User;
+use bo\components\classes\Company;
 
 include '../../components/config.php';
 
@@ -14,16 +15,6 @@ if(isset($_GET['contactID']))
 ?>
 
 <form id="addVesselContact" class="ui form" autocomplete="off">
-    <div class="ui icon orange message">
-        <i class="exclamation icon"></i>
-        <div class="content">
-            <div class="header">
-            	Achtung!
-            </div>
-        	<p>Denke bitte daran, dass aus Gründen des Datenschutzes, hier keine persönlichen Informationen zu Mitgliedern der Crew hinterlegt werden dürfen.</p>
-        </div>
-    </div>
-
     <div class="ui error message">
 		<div id="errorMessage"></div>
     </div>
@@ -108,6 +99,42 @@ if(isset($_GET['contactID']))
             <div id="agentSuggest" class="results transition"></div>
         </div>
         
+	    <div id="input_contactNext" class="field">
+        	<label>Nächster Kontakt</label>
+    		<select id="contactNext" name="contactNext">
+    			<?php foreach (VesselContact::$monthNext as $key => $month) { ?>
+    			<option 
+    				value="<?php echo $key; ?>"
+    				<?php if(!empty($contact)){echo ($contact->getMonthNext() == $key)?' selected':'';} ?>
+    			>
+    				<?php echo $month; ?>
+    			</option>
+    			<?php } ?>
+    		</select>
+        </div>
+	</div>
+
+    <div id="agentInfoContainer" class="ui segment"></div>
+
+	<div class="two fields">
+        <div id="input_contactCompany" class="field ui search category">
+        	<label>Liegeplatz</label>
+        	<div class="ui icon input">
+            	<input 
+            		type="text" 
+            		id="contactCompany" 
+            		name="contactCompany" 
+            		value="<?php echo(!empty($contact))?Company::getCompanyName($contact->getCompanyID()):''; ?>"
+            		onkeyup="(this.value.length > 0)?inputSearch('companyForContact', this.value, $('#contactPort').dropdown('get value')):hideInputSearchResults(); 
+            		         $('#companyInfoContainer').hide('slow'); 
+            		         formValidate.clearAllError();"
+    				onblur="hideInputSearchResults();"
+            	>
+            	<i class="search icon"></i>
+            </div>
+            <div id="companySuggest" class="results transition"></div>
+        </div>
+        
         <div id="input_contactPlanned" class="field">
         	<label>geplant</label>
     		<input 
@@ -118,14 +145,12 @@ if(isset($_GET['contactID']))
     		>
         </div>
 	</div>
-
-    <div id="agentInfoContainer" class="ui segment"></div>
 	
-	<div id="input_contactInfo" class="field">
+	<div id="input_contactInfo" class="field disabled">
     	<label>Kontakt Info</label>
     	<textarea rows="2" id="contactInfo" name="contactInfo"><?php echo(!empty($contact))?$contact->getInfo():''; ?></textarea>
     </div>
-    
+   
     <button class="ui button" type="submit">Speichern</button>
 </form>
 

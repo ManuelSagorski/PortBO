@@ -28,7 +28,7 @@ class VesselContactDetails extends AbstractDBObject
             $this->vessel_id    = $_SESSION['vessID'];
             $this->type         = $data['contactDetailType'];
             $this->detail       = $data['contactDetail'];
-            $this->info         = $data['contactDetailInfo'];
+            // $this->info         = $data['contactDetailInfo'];
         }
     }
     
@@ -53,9 +53,8 @@ class VesselContactDetails extends AbstractDBObject
     public function editContactDetail($data) {
         $this->updateDB([
             "type" => $data['contactDetailType'], 
-            "detail" => $data['contactDetail'], 
-            "info" => $data['contactDetailInfo'
-        ]], ["id" => $this->id]);
+            "detail" => $data['contactDetail'] 
+        ], ["id" => $this->id]);
         Vessel::setTS($_SESSION['vessID']);
     }
     

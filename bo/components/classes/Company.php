@@ -77,13 +77,22 @@ class Company extends AbstractDBObject implements JsonSerializable
      * Static Funktion die den Namen zu einer LiegeplatzID liefert
      */
     public static function getCompanyName($id) {
-        $result = (new Query("select"))
+        $row = (new Query("select"))
             ->table(self::TABLE_NAME)
             ->condition(["id" => $id])
-            ->execute();
+            ->execute()->fetch();
         
-        $row = $result->fetch();
         return $row['name'] ?? '';
+    }
+    
+    public static function getCompanyByName($name) {
+        $row = (new Query("select"))
+            ->table(self::TABLE_NAME)
+            ->condition(["name" => $name])
+            ->execute()
+            ->fetch();
+        
+        return $row['id'] ?? '';
     }
     
     /*

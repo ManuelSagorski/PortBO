@@ -6,6 +6,7 @@ use bo\components\classes\Port;
 use bo\components\classes\Vessel;
 use bo\components\classes\User;
 use bo\components\classes\Projects;
+use bo\components\classes\VesselContact;
 
 include '../../components/config.php';
 
@@ -95,7 +96,7 @@ Funktion VesselInfo nicht mehr gewünscht - wird zurückgebaut.
 <table class="detailTable ui very compact celled striped table">
 	<thead>
 		<tr>
-			<th colspan="6">Kontaktinformationen</th>
+			<th colspan="5">Kontaktinformationen</th>
 		</tr>
 	</thead>
     <tbody>
@@ -104,7 +105,6 @@ Funktion VesselInfo nicht mehr gewünscht - wird zurückgebaut.
 			<td data-label="select"><input type="radio" name="selectContactDetail" value="<?php echo $contactDetail->getID();?>"></td>
 			<td data-label="contactDetailType"><?php echo $contactDetail->getType(); ?></td>			
 			<td data-label="contactDetail"><?php echo $contactDetail->getDetail(); ?></td>
-			<td data-label="info"><?php echo $contactDetail->getInfo(); ?></td>
 			<td data-label="supposed" class="center aligned collapsing contactIcon<?php echo ($contactDetail->getSupposed())?"":" iconDisabled"; ?><?php echo ($contactDetail->getInvalid())?" disabled":""; ?>">
 				<i onClick="vessel.contactDetailSupposed(<?php echo $vessel->getID(); ?>, <?php echo $contactDetail->getID();?>);" class="question icon"></i>
 			</td>
@@ -132,6 +132,15 @@ Funktion VesselInfo nicht mehr gewünscht - wird zurückgebaut.
 		<tr>
 			<th colspan="7">Kontakte</th>
 		</tr>
+		<tr>
+			<th></th>
+			<th>Datum</th>
+			<th>Hafen</th>
+			<th>Verkündiger</th>
+			<th>Typ</th>
+			<th>Agent</th>
+			<th>Nächster Kontakt</th>
+		</tr>
 	</thead>
     <tbody>
     <?php foreach ($vessel->getVesselContact() as $contact) { ?>
@@ -153,7 +162,7 @@ Funktion VesselInfo nicht mehr gewünscht - wird zurückgebaut.
 			</td>
 			<td data-label="contactType"><?php echo $contact->getContactType(); ?></td>
 			<td data-label="agency"><?php echo ($contact->getProjectId() == $user->getProjectId())?Agency::getAgentShort($contact->getAgentID()):''; ?></td>
-			<td data-label="info"><?php echo ($contact->getProjectId() == $user->getProjectId())?$contact->getInfo():''; ?></td>
+			<td data-label="info"><?php echo ($contact->getProjectId() == $user->getProjectId())?VesselContact::$monthNext[$contact->getMonthNext()]:''; ?></td>
 		</tr>
 	<?php } ?>
     </tbody>

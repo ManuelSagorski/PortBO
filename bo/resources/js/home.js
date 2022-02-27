@@ -31,8 +31,8 @@ $( function() {
 	});
 });
 
-function inputSearch(type, expression){
-	$.get('../components/controller/search/' + type + '/?expression=' + expression, function(data) {
+function inputSearch(type, expression, parameter){
+	$.get('../components/controller/search/' + type + '/?expression=' + expression + '&parameter=' + parameter, function(data) {
 		switch (type) {
 			case 'userForContact':
 				$('#userSuggest').html(data);
@@ -41,6 +41,10 @@ function inputSearch(type, expression){
 			case 'agentForContact':
 				$('#agentSuggest').html(data);
 				$('#agentSuggest').addClass('visible');					
+				break;
+			case 'companyForContact':
+				$('#companySuggest').html(data);
+				$('#companySuggest').addClass('visible');					
 				break;
 		}	
 	});			
@@ -58,6 +62,9 @@ function selectSuggested(type, value) {
 		case 'agent':
 			$('#contactAgent').val(value);
 			agency.loadAgencyInfoForInput(value);
+			break;
+		case 'company':
+			$('#contactCompany').val(value);
 			break;
 	}
 }
