@@ -57,6 +57,12 @@ if(!empty($_GET["id"])) {
 	<?php } ?>
 </div>	
 
+<?php /*
+
+###
+Funktion VesselInfo nicht mehr gewünscht - wird zurückgebaut.
+###
+
 <table class="detailTable ui very compact celled striped table">
 	<thead>
 		<tr>
@@ -85,20 +91,26 @@ if(!empty($_GET["id"])) {
 		<i class="trash alternate icon"></i>
 	</a>
 </div>
-
+*/ ?>
 <table class="detailTable ui very compact celled striped table">
 	<thead>
 		<tr>
-			<th colspan="4">Kontaktinformationen</th>
+			<th colspan="6">Kontaktinformationen</th>
 		</tr>
 	</thead>
     <tbody>
     <?php foreach ($vessel->getVesselContactDetails() as $contactDetail) { ?>
-		<tr>
+		<tr<?php echo ($contactDetail->getInvalid())?" class='contactDetailInvalid'":""; ?>>
 			<td data-label="select"><input type="radio" name="selectContactDetail" value="<?php echo $contactDetail->getID();?>"></td>
 			<td data-label="contactDetailType"><?php echo $contactDetail->getType(); ?></td>			
 			<td data-label="contactDetail"><?php echo $contactDetail->getDetail(); ?></td>
 			<td data-label="info"><?php echo $contactDetail->getInfo(); ?></td>
+			<td data-label="supposed" class="center aligned collapsing contactIcon<?php echo ($contactDetail->getSupposed())?"":" iconDisabled"; ?><?php echo ($contactDetail->getInvalid())?" disabled":""; ?>">
+				<i onClick="vessel.contactDetailSupposed(<?php echo $vessel->getID(); ?>, <?php echo $contactDetail->getID();?>);" class="question icon"></i>
+			</td>
+			<td data-label="invalid" class="center aligned collapsing contactIcon<?php echo ($contactDetail->getInvalid())?"":" iconDisabled"; ?>">
+				<i onClick="vessel.contactDetailInvalid(<?php echo $vessel->getID(); ?>, <?php echo $contactDetail->getID();?>);" class="thumbs down outline icon"></i>
+			</td>
 		</tr>
 	<?php } ?>
     </tbody>

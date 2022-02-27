@@ -13,7 +13,7 @@ class Lookup
 {
     public static function lookupRequestInformation($vesselID) {
         $vessel = Vessel::getSingleObjectByID($vesselID);
-        $adminUsers = User::getMultipleObjects(Array("level" => 9));
+        $adminUsers = User::getMultipleObjects(Array("level" => 9), null, 0);
         
         foreach ($adminUsers as $adminUser) {
             $telegram = new Telegram($adminUser->getTelegramID());

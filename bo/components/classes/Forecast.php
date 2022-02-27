@@ -30,12 +30,12 @@ class Forecast extends AbstractDBObject
         $mailQuery = (new Query("select"))
             ->table(Vessel::TABLE_NAME, "v")
             ->rightJoin(VesselContactDetails::TABLE_NAME, "vcd", "id", "vessel_id")
-            ->condition(["vcd.type" => "Email"]);
+            ->condition(["vcd.type" => "Email", "vcd.invalid" => 0]);
         
         $phoneQuery = (new Query("select"))
             ->table(Vessel::TABLE_NAME, "v")
             ->rightJoin(VesselContactDetails::TABLE_NAME, "vcd", "id", "vessel_id")
-            ->condition(["vcd.type" => "Telefon"]);
+            ->condition(["vcd.type" => "Telefon", "vcd.invalid" => 0]);
             
         $dryQuery = (new Query("select"))
             ->table(Dry::TABLE_NAME);

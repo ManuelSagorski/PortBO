@@ -15,6 +15,7 @@ class Projects extends AbstractDBObject
     private $mod_planning;
     private $mod_planning_project;
     private $mod_externLinks;
+    private $mod_foreignPort;
     
     public function __construct()
     {}
@@ -25,6 +26,14 @@ class Projects extends AbstractDBObject
             ->conditionGreater(["level" => 7])
             ->project($this->id)
             ->fetchAll(User::class);
+    }
+    
+    public function getProjectForeignPortUser() {
+        return (new Query("select"))
+        ->table(User::TABLE_NAME)
+        ->condition(["level" => 2])
+        ->project($this->id)
+        ->fetchAll(User::class);
     }
     
     public static function getProjectName($id) {
@@ -76,6 +85,9 @@ class Projects extends AbstractDBObject
     }
     public function getModExternLinks() {
         return $this->mod_externLinks;
+    }
+    public function getModForeignPort() {
+        return $this->mod_foreignPort;
     }
 }
 

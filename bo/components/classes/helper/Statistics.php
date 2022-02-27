@@ -38,11 +38,11 @@ class Statistics
         $row = $result->fetch();
         $this->global['shipCount'] = $row['shipCount'];
         
-        $result = DBConnect::execute("select count(DISTINCT vessel_id) as shipMailCount from port_bo_vesselContactDetails where type = 'Email'", Array());
+        $result = DBConnect::execute("select count(DISTINCT vessel_id) as shipMailCount from port_bo_vesselContactDetails where type = 'Email' and invalid = 0", Array());
         $row = $result->fetch();
         $this->global['shipMailCount'] = $row['shipMailCount'];
         
-        $result = DBConnect::execute("select count(DISTINCT vessel_id) as shipPhoneCount from port_bo_vesselContactDetails where type = 'Telefon'", Array());
+        $result = DBConnect::execute("select count(DISTINCT vessel_id) as shipPhoneCount from port_bo_vesselContactDetails where type = 'Telefon' and invalid = 0", Array());
         $row = $result->fetch();
         $this->global['shipPhoneCount'] = $row['shipPhoneCount'];
     }

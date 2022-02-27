@@ -8,9 +8,13 @@ include '../../components/config.php';
 Security::grantAccess(9);
 
 $projects = Projects::getMultipleObjects();
-?>
 
-<?php foreach ($projects as $key => $project) { ?>
+foreach ($projects as $key => $project) { 
+    if($project->getModForeignPort())
+        $projectUsers = $project->getProjectForeignPortUser();
+    else
+        $projectUsers = $project->getProjectAdmins();
+?>
 <div class="ui styled fluid accordion">
     <div class="<?php echo ($key === array_key_first($projects))?"active ":""; ?>title">
         <i class="dropdown icon"></i>
@@ -18,6 +22,7 @@ $projects = Projects::getMultipleObjects();
     </div>
     <div class="<?php echo ($key === array_key_first($projects))?"active ":""; ?>content">
     
+    	<?php if(!$project->getModForeignPort()) { ?>
         <div class="ui three column grid">
         	<div class="column">
         		<div class="ui segment">
@@ -71,21 +76,23 @@ $projects = Projects::getMultipleObjects();
         		</div>
         	</div>
         </div>
+        <?php } ?>
         
         <table class="detailTable ui very compact celled striped table">
             <thead>
                 <tr>
-                    <th colspan="5">Projekt Administratoren</th>
+                    <th colspan="6"><?php echo (!$project->getModForeignPort())?"Projekt Administratoren":"Mitarbeiter Foreign Port"; ?></th>
                 </tr>
             </thead>
             <tbody>
-            <?php foreach ($project->getProjectAdmins() as $projectAdmin) { ?>
+            <?php foreach ($projectUsers as $projectUser) { ?>
                 <tr>
-                	<td><input type="radio" name="selectUser" value="<?php echo $projectAdmin->getID(); ?>"></td>
-                    <td><?php echo $projectAdmin->getFirstName() . " " . $projectAdmin->getSurname(); ?></td>
-                    <td><?php echo $projectAdmin->getPhone(); ?></td>
-                    <td><?php echo $projectAdmin->getEmail(); ?></td>
-                    <td><?php echo $projectAdmin->getLevelDescription(); ?></td>
+                	<td><input type="radio" name="selectUser" value="<?php echo $projectUser->getID(); ?>"></td>
+                    <td><?php echo $projectUser->getFirstName() . " " . $projectUser->getSurname(); ?></td>
+                    <td><?php echo $projectUser->getPhone(); ?></td>
+                    <td><?php echo $projectUser->getEmail(); ?></td>
+                    <td><?php echo $projectUser->getLevelDescription(); ?></td>
+                    <td><?php echo $projectUser->getForeignPort(); ?></td>
                 </tr>
             <?php } ?>
             </tbody>

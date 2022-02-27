@@ -2,6 +2,7 @@
 namespace bo\components\classes;
 
 use bo\components\classes\helper\Logger;
+use bo\components\classes\helper\Query;
 
 /**
  * Klasse vesselContactDetails
@@ -17,6 +18,8 @@ class VesselContactDetails extends AbstractDBObject
     private $type;
     private $detail;
     private $info;
+    private $invalid;
+    private $supposed;
     
     public static $contactDetailTypes = array("Email", "Telefon", "Sonstiges");
     
@@ -63,6 +66,32 @@ class VesselContactDetails extends AbstractDBObject
         $this->deleteDB(["id" => $this->id]);
         Vessel::setTS($_SESSION['vessID']);
     }
+
+    /**
+     * Kontaktinformation als nicht bestätigt markieren
+     */
+    public function toggleSupposed() {
+        (new Query("update"))
+            ->table(self::TABLE_NAME)
+            ->valuesString("supposed = !supposed")
+            ->condition(["id" => $this->id])
+            ->execute();
+
+        Vessel::setTS($_SESSION['vessID']);
+    }
+
+    /**
+     * Kontaktinformation als ungültig markieren
+     */
+    public function toggleInvalid() {
+        (new Query("update"))
+            ->table(self::TABLE_NAME)
+            ->valuesString("invalid = !invalid")
+            ->condition(["id" => $this->id])
+            ->execute();
+
+        Vessel::setTS($_SESSION['vessID']);
+    }
     
     /*
      Getter und Setter
@@ -81,6 +110,12 @@ class VesselContactDetails extends AbstractDBObject
     }
     public function getInfo() {
         return $this->info;
+    }
+    public function getInvalid() {
+        return $this->invalid;
+    }
+    public function getSupposed() {
+        return $this->supposed;
     }
 }
 

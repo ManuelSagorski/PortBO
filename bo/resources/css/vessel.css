@@ -40,6 +40,10 @@
 #externLinks { margin-top: 40px; }
 .externLink { margin-bottom: 15px; }
 
+.contactIcon i { cursor: pointer; }
+.contactIcon.iconDisabled { color: #BDBDBD; }
+.contactDetailInvalid {color: red; text-decoration: line-through; }
+
 @media only screen and (max-width: 600px) {
 	#searchInputVessel { max-width: 100%; }
 	#mainColLeft .ui.action.input { width: 100%; }

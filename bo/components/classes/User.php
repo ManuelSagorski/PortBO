@@ -20,6 +20,7 @@ class User extends AbstractDBObject
     
     private $id;
     private $project_id;
+    private $foreign_port;
     private $username;
     private $secret;
     private $email;
@@ -59,6 +60,8 @@ class User extends AbstractDBObject
                 $this->sendInfo = $data['userSendInfo'];
             if(isset($data['projectID']))
                 $this->project_id = $data['projectID'];
+            if(isset($data['foreignPort']))
+                $this->foreign_port = $data['foreignPort'];
         }
         else {
             $this->userGetPorts();
@@ -88,7 +91,8 @@ class User extends AbstractDBObject
                 "phone" => $this->phone,
                 "first_name" => $this->first_name,
                 "surname" => $this->surname,
-                "level" => $this->level
+                "level" => $this->level,
+                "foreign_port" => $this->foreign_port
             ]);
         
         if(!empty($this->project_id) && $user->getLevel() == 9)
@@ -142,21 +146,35 @@ class User extends AbstractDBObject
             "surname" => $data['userSurname'],
             "level" => $data['userLevel']
         ], ["id" => $this->id]);
+        
+        if(isset($data['foreignPort'])) {
+            $this->updateDB(["foreign_port" => $data['foreignPort']], ["id" => $this->id]);
+        }
        
         foreach(languages::$languages as $id=>$language) {
-            if(in_array($id, $data['userLanguages']) && !$this->userHasLanguage($id)) {
-                $this->addUserLanguage($id);
+            if(isset($data['userLanguages'])) {
+                if(in_array($id, $data['userLanguages']) && !$this->userHasLanguage($id)) {
+                    $this->addUserLanguage($id);
+                }
+                if(!in_array($id, $data['userLanguages']) && $this->userHasLanguage($id)) {
+                    $this->removeUserLanguage($id);
+                }
             }
-            if(!in_array($id, $data['userLanguages']) && $this->userHasLanguage($id)) {
+            else {
                 $this->removeUserLanguage($id);
             }
         }
         
         foreach(Port::getMultipleObjects() as $port) {
-            if(in_array($port->getID(), $data['userPorts']) && !$this->userHasPort($port->getID())) {
-                $this->addUserToPort($port->getID());
+            if(isset($data['userPorts'])) {
+                if(in_array($port->getID(), $data['userPorts']) && !$this->userHasPort($port->getID())) {
+                    $this->addUserToPort($port->getID());
+                }
+                if(!in_array($port->getID(), $data['userPorts']) && $this->userHasPort($port->getID())) {
+                    $this->removeUserFromPort($port->getID());
+                }
             }
-            if(!in_array($port->getID(), $data['userPorts']) && $this->userHasPort($port->getID())) {
+            else {
                 $this->removeUserFromPort($port->getID());
             }
         }
@@ -465,6 +483,9 @@ class User extends AbstractDBObject
     }
     public function getProjectId() {
         return $this->project_id;
+    }
+    public function getForeignPort() {
+        return $this->foreign_port;
     }
     public function getUsername() {
         return $this->username;

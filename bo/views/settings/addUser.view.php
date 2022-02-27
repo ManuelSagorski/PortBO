@@ -5,16 +5,18 @@ use bo\components\types\Languages;
 use bo\components\classes\Port;
 use bo\components\classes\helper\Security;
 use bo\components\controller\SettingsController;
+use bo\components\classes\Projects;
 
 include '../../components/config.php';
 Security::grantAccess(8);
 
-$project = null;
-if(isset($_GET['projectID']))
-    $project = $_GET['projectID'];
-
+$projectID = null;
+if(isset($_GET['projectID'])) {
+    $projectID = $_GET['projectID'];
+    $projectObj = Projects::getSingleObjectByID($projectID);
+}
 if(isset($_GET['id'])) 
-    $userToEdit = User::getSingleObjectByID($_GET['id'], $project);
+    $userToEdit = User::getSingleObjectByID($_GET['id'], $projectID);
 ?>
 
 <form id="addUser" class="ui form" autocomplete="off">
@@ -94,6 +96,19 @@ if(isset($_GET['id']))
         	</select>
         </div>
     </div>
+
+	<?php if(!empty($projectObj) && $projectObj->getModForeignPort()) { ?>
+    <div id="input_foreignPort" class="field">
+    	<label>Foreign Port</label>
+    	<input 
+    		type="text" 
+    		id="foreignPort" 
+    		name="foreignPort" 
+    		onkeyup="formValidate.clearAllError();" 
+    		value="<?php echo(!empty($userToEdit))?$userToEdit->getForeignPort():''; ?>"
+    	>
+    </div>
+    <?php } ?>
     
     <div id="input_userLanguage" class="field">
     	<label>Sprachen</label>
@@ -132,7 +147,7 @@ if(isset($_GET['id']))
 	<?php if(!empty($userToEdit) && $userToEdit->getLevel() > 1) { ?>
 		<button class="ui button" onClick="settings.sendInvitationMail(<?php echo $userToEdit->getID(); ?>)">Einladungsmail</button>
 	<?php } ?>
-	<?php if(!empty($userToEdit) && SettingsController::canGetCalender($userToEdit, $project)) { ?>
+	<?php if(!empty($userToEdit) && SettingsController::canGetCalender($userToEdit, $projectID)) { ?>
 		<button class="ui icon button" onClick="settings.showAddKalender()"><i class="calendar alternate outline icon"></i></button>
 	<?php } ?>
 </form>
@@ -163,7 +178,7 @@ if(isset($_GET['id']))
 $('#userLanguage').dropdown();
 $('#userPort').dropdown();
 $("#addUser").submit(function(event){ settings.addUser(<?php echo (!empty($userToEdit))?$userToEdit->getID():'null'; ?>); });
-$("#addKalenderForm").submit(function(event){ settings.addUserKalender(<?php echo (!empty($userToEdit))?$userToEdit->getID():'null'; ?>, <?php echo (!empty($project))?$project:'null'; ?>); });
+$("#addKalenderForm").submit(function(event){ settings.addUserKalender(<?php echo (!empty($userToEdit))?$userToEdit->getID():'null'; ?>, <?php echo (!empty($projectID))?$projectID:'null'; ?>); });
 $('.ui.radio.checkbox').checkbox();
 
 <?php if(!empty($userToEdit)) { foreach ($userToEdit->getUserPorts() as $port) {?>

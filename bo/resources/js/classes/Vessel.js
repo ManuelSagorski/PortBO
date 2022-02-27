@@ -428,6 +428,32 @@ define(function() {
 				alert('Bitte zuerst ein Element auswählen.');
 			}			
 		}
+
+		/*
+		 *	Kontaktinformation als nicht bestätigt markieren
+		 */			
+		that.contactDetailSupposed = function(vesselID, contactDetailID) {
+			if(confirm("Möchtest du den Status dieser Kontaktinformation wirklich ändern?")) {
+				$.post(my.CONTROLLER + 'contactDetailSupposed', { contactDetailID: contactDetailID }, 
+					function() {
+						closeWindow();
+						that.openDetails(vesselID);
+					});	
+			}
+		}
+
+		/*
+		 *	Kontaktinformation als ungültig markieren
+		 */	
+		that.contactDetailInvalid = function(vesselID, contactDetailID) {
+			if(confirm("Möchtest du den Gültigkeitsstatus dieser Kontaktinformation wirklich ändern?")) {
+				$.post(my.CONTROLLER + 'contactDetailInvalid', { contactDetailID: contactDetailID }, 
+					function() {
+						closeWindow();
+						that.openDetails(vesselID);
+					});	
+			}
+		}
 		
 		/*************************************************** Forecast ***************************************************/
 		

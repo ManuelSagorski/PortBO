@@ -83,6 +83,14 @@ define(function() {
 					return;
 				}				
 			}
+
+			if(parseInt(newUserValidate.getFormData().userLevel) == 2) {
+				if(falseFields = newUserValidate.fieldsNotEmpty(Array('foreignPort'))) {
+					formValidate.setError(falseFields);
+					formValidate.setErrorMessage('Bei einem "Foreign Port" Mitarbeiter muss der Name des Hafens angegeben werden.');
+					return;
+				}				
+			}
 		
 			if(parseInt(newUserValidate.getFormData().userLevel) > 1) {
 				if(!newUserValidate.fieldsNotAllEmpty(Array('userUsername'))) {

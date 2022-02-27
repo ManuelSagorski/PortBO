@@ -17,6 +17,7 @@ class Query
     private $from;
     private $join = [];
     private $values = [];
+    private $valuesString = [];
     private $conditions = [];
     private $conditionString;
     private $conditionLogic;
@@ -91,6 +92,11 @@ class Query
     
     public function values($values) {
         $this->values = $values;
+        return $this;
+    }
+
+    public function valuesString($valuesString) {
+        $this->valuesString = $valuesString;
         return $this;
     }
     
@@ -261,13 +267,18 @@ class Query
             case "update":
                 $this->sqlstrg .= "set ";
                 
-                foreach($this->values as $name => $value) {
-                    if($name !== array_key_first($this->values)) {
-                        $this->sqlstrg .= ", ";
+                if(!empty($this->valuesString)) {
+                    $this->sqlstrg .= $this->valuesString;
+                }
+                else {
+                    foreach($this->values as $name => $value) {
+                        if($name !== array_key_first($this->values)) {
+                            $this->sqlstrg .= ", ";
+                        }
+                        $this->sqlstrg .= $name . " = ?";
+                        
+                        $this->parameter[] = $value;
                     }
-                    $this->sqlstrg .= $name . " = ?";
-                    
-                    $this->parameter[] = $value;
                 }
                 
                 $this->sqlstrg .= " ";

@@ -36,12 +36,12 @@ class UserController
     }
     
     public function sendInvitationMail() {
-        $userToEdit = User::getSingleObjectByID($_POST['id']);
+        $userToEdit = User::getSingleObjectByID($_POST['id'], 0);
         $userToEdit->sendInvitationMail();
     }
     
     public function addUserKalender() {
-        if(isset($_POST['projectID'])) {
+        if(!empty($_POST['projectID'])) {
             $projectID = $_POST['projectID'];
         }
         else {

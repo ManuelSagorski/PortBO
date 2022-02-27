@@ -3,6 +3,8 @@ namespace bo\views\vessel;
 use bo\components\classes\SettingsExternLinks;
 
 include '../../components/config.php';
+if(!$project->getModExternLinks())
+    exit;
 ?>
 
 <h4 class="ui horizontal divider header">

@@ -73,6 +73,14 @@ class VesselController
         (VesselContactDetails::getSingleObjectByID($_POST['contactDetailID']))->deleteContactDetail();
     }
     
+    public function contactDetailSupposed() {
+        (VesselContactDetails::getSingleObjectByID($_POST['contactDetailID']))->toggleSupposed();
+    }
+
+    public function contactDetailInvalid() {
+        (VesselContactDetails::getSingleObjectByID($_POST['contactDetailID']))->toggleInvalid();
+    }
+    
     public function forecastItemDone() {
         Forecast::forecastItemDone($_POST['id']);
     }

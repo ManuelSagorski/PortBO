@@ -131,10 +131,10 @@ class Vessel extends AbstractDBObject
             ->fetchAll(VesselContactDetails::class);
         
         foreach($this->vesselContactDetails as $contactDetail) {
-            if($contactDetail->getType() == 'Email') {
+            if($contactDetail->getType() == 'Email' && $contactDetail->getInvalid() == 0) {
                 $this->hasMail = true;
             }
-            if($contactDetail->getType() == 'Telefon') {
+            if($contactDetail->getType() == 'Telefon' && $contactDetail->getInvalid() == 0) {
                 $this->hasPhone = true;
             }
         }
