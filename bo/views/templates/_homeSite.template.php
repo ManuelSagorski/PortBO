@@ -68,7 +68,9 @@
     			<div id="mainColMiddle" class="mainCol infoCol">&nbsp;</div>
     			<div id="mainColRight" class="mainCol">&nbsp;</div>
     		</div>
-			<div id="footer"></div>
+			<div id="footer">
+				<a href="https://port-mission.de/bo/impressum.php" target="_blank">Impressum</a> | <a href="https://port-mission.de/bo/datenschutz.php" target="_blank">Datenschutz</a>
+			</div>
 		</div>
 	
 		<div id="window" class="ui-widget-content">

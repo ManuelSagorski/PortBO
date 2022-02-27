@@ -25,6 +25,7 @@ class VesselContact extends AbstractDBObject
     private $month_next;
     
     private $inputData;
+    private $contactUser;
     
     public static $monthNext = [0 => 'keine Angabe', 1 => '1 Monat', 3 => '3 Monate', 6 => '6 Monate'];
     
@@ -48,6 +49,9 @@ class VesselContact extends AbstractDBObject
             }
             
             $this->inputData = $data;
+        }
+        else {
+            $this->contactUser = User::getSingleObjectByID($this->contact_user_id, 0);
         }
     }
     
@@ -186,6 +190,9 @@ class VesselContact extends AbstractDBObject
     }
     public function getContactUserID() {
         return $this->contact_user_id;
+    }
+    public function getContactUser() {
+        return $this->contactUser;
     }
     public function getInfo() {
         return $this->info;

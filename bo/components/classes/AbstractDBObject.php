@@ -19,7 +19,7 @@ abstract class AbstractDBObject
             ->table((get_called_class())::TABLE_NAME)
             ->condition(["id" => $id]);
             
-        if(!empty($project))
+        if($project !== null)
             $query->project($project);
             
         $query->build();
@@ -41,7 +41,7 @@ abstract class AbstractDBObject
             ->condition($conditions)
             ->order($orderSequence);
         
-        if(!empty($project))
+        if($project !== null)
             $query->project($project);
             
         $query->build();
