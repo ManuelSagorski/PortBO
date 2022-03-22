@@ -3,6 +3,7 @@ namespace bo\views\vessel;
 use bo\components\classes\Forecast;
 use bo\components\classes\Port;
 use bo\components\classes\Vessel;
+use bo\components\classes\helper\Query;
 
 include '../../components/config.php';
 if(!$project->getModForecast())
@@ -13,7 +14,7 @@ if(!$project->getModForecast())
 
 <?php 
 foreach($user->getUserPorts() as $key => $userPorts) { 
-    $forecast = Forecast::getMultipleObjects(Array("port_id" => $userPorts->getID()), "arriving");
+    $forecast = Forecast::getForecastForPort($userPorts->getID());
     $arrivingDay = "";
 ?>
 
@@ -71,11 +72,11 @@ foreach($forecast as $expectedVessel) {
             				<?php echo ($expectedVessel->expectMail)?'<i class="question circle outline icon"></i>':''; ?>
             			</td>
             			<td data-label="last_contact" class="collapsing">
-            			<?php 
-                			if (!empty($expectedVessel->vessel)) {
-                			    echo Vessel::getLastContactVessel($expectedVessel->vessel->getID());
-                			}
-            			?>
+            			<?php if (!empty($expectedVessel->vessel)) { ?>
+                			<div<?php echo (strtotime(Vessel::getLastContactVessel($expectedVessel->vessel->getID())) >= strtotime(date("Y-m-d")))?" class='contactFuture'":''; ?>>
+                				<?php echo Vessel::getLastContactVessel($expectedVessel->vessel->getID()); ?>
+                			</div>                			    
+                		<?php } ?>
             			</td>
             			<td data-label="agency_company">
             				<div><?php echo $expectedVessel->getCompany(); ?></div>

@@ -149,8 +149,12 @@ class Scraping
     }
     
     private function cleanDB() {
+        DBConnect::execute("delete from port_bo_scedule where datediff(now(), arriving) > 5 and datediff(now(), leaving) > 5", Array());
+        
+        /*
         DBConnect::execute("delete from port_bo_scedule where leaving < CURDATE() and arriving < CURDATE() and arriving <> '0000-00-00 00:00:00'", Array());
         DBConnect::execute("delete from port_bo_scedule where arriving < CURDATE() and status = 0 and arriving <> '0000-00-00 00:00:00'", Array());
+        */
     }
 }
 

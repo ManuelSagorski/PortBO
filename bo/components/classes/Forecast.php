@@ -18,7 +18,7 @@ class Forecast extends AbstractDBObject
     private $status;
     private $type;
     
-    private $companysExpectMail = Array("essberger", "Stolt", "maersk", "federal", "naree", "schulte", "thun", "cma", "sti", "knutsen", "straum");
+    private $companysExpectMail = Array("essberger", "Stolt", "maersk", "federal", "naree", "schulte", "thun", "cma", "sti", "knutsen", "straum", "cosco");
     
     public $hasMail = false;
     public $hasPhone = false;
@@ -80,14 +80,32 @@ class Forecast extends AbstractDBObject
         }
     }
     
+    public static function getForecastForPort($portID) {
+        return (new Query("select"))
+            ->table(Forecast::TABLE_NAME)
+            ->condition(["port_id" => $portID])
+            ->conditionString(["datediff(now(), leaving) < 1 or datediff(now(), arriving) < 1" => []])
+            ->order("arriving")
+            ->fetchAll(Forecast::class);
+    }
+    
     public static function getCountOpenForecastPort($portID) {
+        /*
         $row = (new Query("select"))
             ->fields("count(*) as openCount")
             ->table(self::TABLE_NAME)
             ->condition(["port_id" => $portID, "status" => 0])
             ->execute()
             ->fetch();
-        
+        */
+        $row = (new Query("select"))
+            ->fields("count(*) as openCount")
+            ->table(Forecast::TABLE_NAME)
+            ->condition(["port_id" => $portID, "status" => 0])
+            ->conditionString(["datediff(now(), leaving) < 1 or datediff(now(), arriving) < 1" => []])
+            ->execute()
+            ->fetch();
+            
         return $row['openCount'];
     }
     

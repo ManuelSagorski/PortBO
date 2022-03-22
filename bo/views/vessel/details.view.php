@@ -7,6 +7,7 @@ use bo\components\classes\Vessel;
 use bo\components\classes\User;
 use bo\components\classes\Projects;
 use bo\components\classes\VesselContact;
+use bo\components\classes\Language;
 
 include '../../components/config.php';
 
@@ -35,8 +36,32 @@ if(!empty($_GET["id"])) {
     	<div class="label">Typ:</div>
     	<div><?php echo $vessel->getTyp(); ?></div>
     	
-    	<div class="label">Sprachen:</div>
+    	<div class="label">Nationalitäten:</div>
     	<div class="elemDetailLanguages"><?php echo $vessel->getLanguage(); ?></div>
+    	
+    	<?php if(!empty($vessel->getVesselLanguagesMaster())) { ?>
+    	<div class="label languagesIndiv">Sprache Master:</div>
+    	<div class="elemDetailLanguagesIndiv">
+    	<?php foreach ($vessel->getVesselLanguagesMaster() as $key => $language) { 
+    	    echo Language::getLanguageByID($language->getLanguageID());
+    	    if($key != array_key_last($vessel->getVesselLanguagesMaster())) {
+    	        echo ", ";
+    	    }
+    	} ?>
+    	</div>
+    	<?php }?>
+
+    	<?php if(!empty($vessel->getVesselLanguagesCrew())) { ?>
+    	<div class="label languagesIndiv">Sprachen Crew:</div>
+    	<div class="elemDetailLanguagesIndiv">
+    	<?php foreach ($vessel->getVesselLanguagesCrew() as $key => $language) { 
+    	    echo Language::getLanguageByID($language->getLanguageID());
+    	    if($key != array_key_last($vessel->getVesselLanguagesCrew())) {
+    	        echo ", ";
+    	    }
+    	} ?>
+    	</div>
+    	<?php }?>    	
     </div>
 </div>
 <div class="detailActions ui icon menu">
@@ -96,7 +121,7 @@ Funktion VesselInfo nicht mehr gewünscht - wird zurückgebaut.
 <table class="detailTable ui very compact celled striped table">
 	<thead>
 		<tr>
-			<th colspan="5">Kontaktinformationen</th>
+			<th colspan="5">Kontaktdaten</th>
 		</tr>
 	</thead>
     <tbody>
@@ -136,7 +161,7 @@ Funktion VesselInfo nicht mehr gewünscht - wird zurückgebaut.
 			<th></th>
 			<th>Datum</th>
 			<th>Hafen</th>
-			<th>Verkündiger</th>
+			<th>Kontakt durch</th>
 			<th>Typ</th>
 			<th>Agent</th>
 			<th>Nächster Kontakt</th>

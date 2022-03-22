@@ -250,7 +250,10 @@ define(function() {
 					$('#statisticsContend').html(data);
 				});
 		}
-		
+
+		/*
+		 *	Aktiviert bzw. Deaktiviert ein Modul für ein bestimmtes Projekt
+		 */
 		that.safeModuleSetting = function(element, projectID) {
 			$.post(my.CONTROLLER + 'safeModuleSetting', {module: element.attr('name'), value: element.closest('div').checkbox('is checked'), projectID: projectID}, 
 				function() {

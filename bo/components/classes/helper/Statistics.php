@@ -20,17 +20,16 @@ class Statistics
         Array("fieldName" => "phoneCount", "contactType" => "Telefon", "condition" => "")
     );
     
-    public function __construct($data){
-        $this->startDate = $data['dateFrom'];
-        $this->endDate = $data['dateTo'];
-        $this->port = $data['port'];
-        
-        $this->getStatistics();
-    }
-    
-    private function getStatistics() {
+    public function __construct($data = null){
         $this->getGlobalStatistics();
-        $this->getPeriodStatistics();
+        
+        if($data !== null) {
+            $this->startDate = $data['dateFrom'];
+            $this->endDate = $data['dateTo'];
+            $this->port = $data['port'];
+            
+            $this->getPeriodStatistics();
+        }
     }
     
     private function getGlobalStatistics() {

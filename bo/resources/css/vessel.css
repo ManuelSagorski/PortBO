@@ -33,6 +33,9 @@
 .addForecast button { padding: 5px !important; margin: 0px !important; }
 
 .forecastDisabled { color: #BDBDBD; }
+.contactFuture { color: #B43104; }
+.forecastDisabled .contactFuture { color: #F6CECE; }
+
 
 #forecastLoader { width: 100%; text-align: center; padding: 20px; display: none; }
 #forecastLoader img { height: 50px; }

@@ -30,10 +30,10 @@
 		<link rel="stylesheet" type="text/css" href="../resources/css/libraries/semantic.min.css" />
 		<link rel="stylesheet" type="text/css" href="../resources/css/libraries/icon.min.css" />
 		<link rel="stylesheet" type="text/css" href="../resources/css/libraries/flag.min.css" />
-		<link rel="stylesheet" type="text/css" href="../resources/css/global.css" />
-		<link rel="stylesheet" type="text/css" href="../resources/css/home.css" />
-		<link rel="stylesheet" type="text/css" href="../resources/css/vessel.css" />
-		<link rel="stylesheet" type="text/css" href="../resources/css/agency.css" />
+		<link rel="stylesheet" type="text/css" href="../resources/css/global.css?v1" />
+		<link rel="stylesheet" type="text/css" href="../resources/css/home.css?v1" />
+		<link rel="stylesheet" type="text/css" href="../resources/css/vessel.css?v1" />
+		<link rel="stylesheet" type="text/css" href="../resources/css/agency.css?v1" />
 
 	    <script>
         	if(typeof window.history.pushState == 'function') {
@@ -77,6 +77,8 @@
 			<div class="windowHead"><div id="windowLabel" class="label">Label</div><div class="close" onClick="closeWindow();">X</div></div>
 			<div id="windowBody" class="windowBody"></div>
 		</div>		
+
+		<?php if(!$user->checkDataprotection()) include '../views/templates/_dataprotection.template.php'; ?>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>

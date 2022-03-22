@@ -16,6 +16,7 @@ class Projects extends AbstractDBObject
     private $mod_planning_project;
     private $mod_externLinks;
     private $mod_foreignPort;
+    private $mod_contactDetails;
     
     public function __construct()
     {}
@@ -88,6 +89,9 @@ class Projects extends AbstractDBObject
     }
     public function getModForeignPort() {
         return $this->mod_foreignPort;
+    }
+    public function getModContactDetails() {
+        return $this->mod_contactDetails;
     }
 }
 

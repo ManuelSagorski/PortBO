@@ -17,7 +17,10 @@ class Vessel extends AbstractDBObject
     private $typ;
     private $language;
     private $ts_erf;
+    private $languages_update;
     
+    private $vesselLanguagesMaster = [];
+    private $vesselLanguagesCrew = [];
     private $vesselInfos = [];
     private $vesselContacts = [];
     private $vesselContactDetails = [];
@@ -36,6 +39,7 @@ class Vessel extends AbstractDBObject
             $this->loadInfo();
             $this->loadContact();
             $this->loadContactDetails();
+            $this->loadLanguages();
         }
         else {
             $this->id       = $id;
@@ -45,6 +49,10 @@ class Vessel extends AbstractDBObject
             $this->ENI      = $data['vesselENI'];
             $this->typ      = $data['vesselTyp'];
             $this->language = $data['vesselLanguage'];
+            if(isset($data['vesselLanguagesMaster']))
+                $this->vesselLanguagesMaster = $data['vesselLanguagesMaster'];
+            if(isset($data['vesselLanguagesCrew']))
+                $this->vesselLanguagesCrew = $data['vesselLanguagesCrew'];
         }
     }
     
@@ -66,6 +74,27 @@ class Vessel extends AbstractDBObject
                 "typ" => $this->typ,
                 "language" => $this->language
             ]);
+
+            $newID = DBConnect::getLastID();
+            
+            foreach ($this->vesselLanguagesMaster as $languageID) {
+                (new Query("insert"))
+                ->table(VesselToLanguage::TABLE_NAME)
+                ->values([
+                    "vessel_id" => $newID,
+                    "language_id" => $languageID,
+                    "master" => 1
+                ])->execute();
+            }
+            
+            foreach ($this->vesselLanguagesCrew as $languageID) {
+                (new Query("insert"))
+                ->table(VesselToLanguage::TABLE_NAME)
+                ->values([
+                    "vessel_id" => $newID,
+                    "language_id" => $languageID
+                ])->execute();
+            }
             
             Logger::writeLogCreate('vessel', 'Neues Schiff anlgelegt: ' . $this->name);
             return array("type" => "added", "name" => $this->name, "imo" => $this->IMO, "id" => $lastID);
@@ -90,6 +119,30 @@ class Vessel extends AbstractDBObject
                 "typ" => $this->typ,
                 "language" => $this->language
             ], ["id" => $this->id]);
+            
+            (new Query("delete"))
+                ->table(VesselToLanguage::TABLE_NAME)
+                ->condition(["vessel_id" => $this->id])
+                ->execute();
+            
+            foreach ($this->vesselLanguagesMaster as $languageID) {
+                (new Query("insert"))
+                    ->table(VesselToLanguage::TABLE_NAME)
+                    ->values([
+                        "vessel_id" => $this->id, 
+                        "language_id" => $languageID, 
+                        "master" => 1
+                    ])->execute();
+            }
+
+            foreach ($this->vesselLanguagesCrew as $languageID) {
+                (new Query("insert"))
+                    ->table(VesselToLanguage::TABLE_NAME)
+                    ->values([
+                        "vessel_id" => $this->id, 
+                        "language_id" => $languageID
+                    ])->execute();
+            }
             
             Vessel::setTS($this->id);
             return array("type" => "changed");
@@ -139,6 +192,25 @@ class Vessel extends AbstractDBObject
             }
         }
         
+    }
+
+    /**
+     * function loadLanguages()
+     *
+     * Lädt die zu dem Schiff vorhandenen Sprachen
+     */
+    private function loadLanguages() {
+        $this->vesselLanguagesMaster = (new Query("select"))
+            ->table(VesselToLanguage::TABLE_NAME)
+            ->condition(["vessel_id" => $this->id, "master" => 1])
+            ->order("master desc")
+            ->fetchAll(VesselToLanguage::class);
+        
+        $this->vesselLanguagesCrew = (new Query("select"))
+            ->table(VesselToLanguage::TABLE_NAME)
+            ->condition(["vessel_id" => $this->id, "master" => 0])
+            ->order("master desc")
+            ->fetchAll(VesselToLanguage::class);
     }
     
     /**
@@ -253,8 +325,17 @@ class Vessel extends AbstractDBObject
     public function getVesselContactDetails() {
         return $this->vesselContactDetails;
     }
+    public function getVesselLanguagesCrew() {
+        return $this->vesselLanguagesCrew;
+    }
+    public function getVesselLanguagesMaster() {
+        return $this->vesselLanguagesMaster;
+    }
     public function getTsErf() {
         return $this->ts_Erf;
+    }
+    public function getLanguagesUpdate() {
+        return $this->languages_update;
     }
 }
 

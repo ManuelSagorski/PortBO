@@ -33,7 +33,7 @@ spl_autoload_register(function($class) {
 });
 
 DBConnect::initDB();
-Security::sessionDuration(1800);
+Security::sessionDuration(3600);
 Logger::setErrorReporting();
 
 if($_SERVER[ 'SCRIPT_NAME' ] != "/" . FOLDER . "index.php" && !isset($independent)) {

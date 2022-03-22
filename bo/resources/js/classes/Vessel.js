@@ -168,9 +168,13 @@ define(function() {
 				return;
 			}
 
+			data = newVesselValidate.getFormData();
+			data.vesselLanguagesMaster = $("#vesselLanguagesMaster").dropdown("get value");
+			data.vesselLanguagesCrew = $("#vesselLanguagesCrew").dropdown("get value");
+
 			$.post(my.CONTROLLER + 'addVessel', {
 					id: id, 
-					data: newVesselValidate.getFormData()
+					data: data
 				}, 
 				function(data) {
 					if(data.type == "error") {
@@ -236,7 +240,6 @@ define(function() {
 				
 				$.post(my.CONTROLLER + 'getVesselLanguages', { parameter: imo }, 
 					function(data) {
-						alert(data);
 						$('#vesselLanguage').append(data);						
 						$('#addVesselLoader').removeClass("active");
 					});				

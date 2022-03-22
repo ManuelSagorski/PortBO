@@ -72,3 +72,10 @@ function selectSuggested(type, value) {
 function safeForecastPosition() {
 	scrollPosition = window.pageYOffset;
 }
+
+function acceptDataprotection() {
+	$.post('../components/controller/user/acceptDataprotection', {}, 
+	function() {
+		$('#dataProtectionLayer').hide();
+	});
+}

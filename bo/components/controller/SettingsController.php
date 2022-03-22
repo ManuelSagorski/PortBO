@@ -3,6 +3,7 @@ namespace bo\components\controller;
 
 use bo\components\classes\SettingsExternLinks;
 use bo\components\classes\Projects;
+use bo\components\classes\helper\Query;
 
 class SettingsController
 {
@@ -34,7 +35,7 @@ class SettingsController
     public function safeModuleSetting() {
         Projects::toggleModule($_POST['module'], $_POST['value'], $_POST['projectID']);
     }
-    
+   
     /**
      * Kann für den übergebenen User ein Kalender angelegt werden?
      * 

@@ -27,7 +27,7 @@ class VesselContact extends AbstractDBObject
     private $inputData;
     private $contactUser;
     
-    public static $monthNext = [0 => 'keine Angabe', 1 => '1 Monat', 3 => '3 Monate', 6 => '6 Monate'];
+    public static $monthNext = [0 => 'keine Angabe', 1 => 'sofort', 3 => '3 Monate', 6 => '6 Monate'];
     
     public function __construct($data = null) {
         if(!empty($data)) {
@@ -94,7 +94,7 @@ class VesselContact extends AbstractDBObject
     public function editContact($data) {        
         $this->agent_id     = Agency::getAgentID($data['contactAgent']);
         $this->contactUserID = User::getUserByFullName($data['contactName']);
-        $this->contactCompanyID = Company::getCompanyByName($data['contactCompany']);
+        $this->company_id = Company::getCompanyByName($data['contactCompany']);
         $this->inputData = $data;
         
         if ($msg = $this->validateContactInput())
@@ -156,7 +156,7 @@ class VesselContact extends AbstractDBObject
             return array("field" => "contactAgent", "msg" => "Der eingegebene Agent existiert nicht in der Datenbank. Bitte lege zuerst den Agenten an.");
         }
         
-        if($this->inputData['contactCompany'] != '' && $this->contactCompanyID == 0) {
+        if($this->inputData['contactCompany'] != '' && $this->company_id == 0) {
             return array("field" => "contactCompany", "msg" => "Der eingegebene Liegeplatz existiert nicht in der Datenbank. Bitte lege ihn zuerst an.");
         }
     }

@@ -75,6 +75,23 @@ foreach ($projects as $key => $project) {
                     </div>
         		</div>
         	</div>
+        	<div class="column">
+        		<div class="ui segment">
+                    <div class="inline field">
+                   		<div class="ui toggle checkbox">
+                    		<label>Modul Kontaktdetails Schiff</label>
+                    		<input 
+                    			type="checkbox" 
+                    			tabindex="0" 
+                    			class="hidden"
+                    			name="mod_contactDetails"
+                    			onChange="settings.safeModuleSetting($(this), <?php echo $project->getID(); ?>)"
+                    			<?php echo ($project->getModContactDetails())?" checked='checked'":"";?>
+                    		>
+                    	</div>
+                    </div>
+        		</div>
+        	</div>
         </div>
         <?php } ?>
         

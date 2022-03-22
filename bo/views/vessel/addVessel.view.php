@@ -3,6 +3,7 @@ namespace bo\views\vessel;
 
 use bo\components\classes\Vessel;
 use bo\components\types\VesselTypes;
+use bo\components\classes\Language;
 
 include '../../components/config.php';
 
@@ -109,13 +110,45 @@ if(!empty($searchValue) && !is_numeric($searchValue))
 	</div>
 	
     <div class="field">
-    	<label>Sprachen - <i class="iconPointer cloud download icon" onClick="vessel.getLanguages($('#vesselIMO').val());"></i></label>
-    	<textarea rows="2" id="vesselLanguage" name="vesselLanguage"><?php echo($editMode)?$vessel->getLanguage():''; ?></textarea>
+    	<label>Nationalitäten - <i class="iconPointer cloud download icon" onClick="vessel.getLanguages($('#vesselIMO').val());"></i></label>
+    	<textarea rows="2" id="vesselLanguage" name="vesselLanguage"<?php echo ($user->getLevel() != 9)?" readonly='readonly'":""; ?>><?php echo($editMode)?$vessel->getLanguage():''; ?></textarea>
+    </div>
+
+	<div class="two fields">
+        <div id="input_vesselLanguagesMaster" class="field">
+        	<label>Sprache Master</label>
+    		<select id="vesselLanguagesMaster" name="vesselLanguagesMaster" multiple="multiple" class="ui fluid dropdown">
+    			<?php foreach(Language::getMultipleObjects() as $language ) {?>
+    			<option value="<?php echo $language->getID(); ?>"><?php echo $language->getName(); ?></option>
+    			<?php } ?>
+    		</select> 
+        </div>
+    
+        <div id="input_vesselLanguagesCrew" class="field">
+        	<label>Sprachen Crew</label>
+    		<select id="vesselLanguagesCrew" name="vesselLanguagesCrew" multiple="multiple" class="ui fluid dropdown">
+    			<?php foreach(Language::getMultipleObjects() as $language ) {?>
+    			<option value="<?php echo $language->getID(); ?>"><?php echo $language->getName(); ?></option>
+    			<?php } ?>
+    		</select> 
+        </div>
     </div>
     
     <button class="ui button" type="submit">Speichern</button>
 </form>
 <script>
 $('#vesselTyp').dropdown();
+$('#vesselLanguagesMaster').dropdown();
+$('#vesselLanguagesCrew').dropdown();
 $("#addVessel").submit(function(event){ vessel.addVessel(<?php echo ($editMode)?$vessel->getID():'null'; ?>);});
+
+<?php 
+if($editMode) { 
+    foreach ($vessel->getVesselLanguagesCrew() as $language) {
+        ?>$('#vesselLanguagesCrew').dropdown('set selected', '<?php echo Language::getLanguageByID($language->getLanguageID()); ?>');<?php 
+    }
+    foreach ($vessel->getVesselLanguagesMaster() as $language) {
+        ?>$('#vesselLanguagesMaster').dropdown('set selected', '<?php echo Language::getLanguageByID($language->getLanguageID()); ?>');<?php
+    }
+} ?>
 </script>

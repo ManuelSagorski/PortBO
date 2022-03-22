@@ -19,6 +19,7 @@ class User extends AbstractDBObject
     public const TABLE_NAME = "port_bo_user";
     
     private $id;
+    private $inactive;
     private $project_id;
     private $foreign_port;
     private $username;
@@ -32,6 +33,7 @@ class User extends AbstractDBObject
     private $password_code_time;
     private $telegram_id;
     private $planning_id;
+    private $dataprotection;
     
     private $userPorts = [];
     private $userLanguages = [];
@@ -334,6 +336,7 @@ class User extends AbstractDBObject
             ->table(Port::TABLE_NAME, "p")
             ->join(UserToPort::TABLE_NAME, "utp", "id", "port_id")
             ->condition(["utp.user_id" => $this->id])
+            ->order("p.name")
             ->fetchAll(Port::class);
     }
   
@@ -387,6 +390,25 @@ class User extends AbstractDBObject
         }
         return $allowedLevel;
     }
+
+    public function checkDataprotection() {
+        if(empty($this->dataprotection)) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    
+    public function acceptDataprotection() {
+        (new Query("update"))
+        ->valuesString("dataprotection = now()")
+        ->table(User::TABLE_NAME)
+        ->condition(["id" => $this->id])
+        ->execute();
+        
+        Logger::writeLogInfo("Dataprotection", "Der Benutzer " . $this->first_name . " " . $this->surname . " hat den Datenschutzbedingungen zugestimmt.");
+    }
     
     private function validateNewUserInput($data = null) {
         $usernameQuery = (new Query("select"))
@@ -407,7 +429,7 @@ class User extends AbstractDBObject
         if(!empty($result))
             return array("field" => "userUsername", "msg" => "Es existiert bereits ein Benutzer mit diesem Benutzernamen.");
     }
-    
+   
     private function generateHashForRandPassword($userLevel) {
         $pwd = "";
         $pwdHash = "";

@@ -67,5 +67,9 @@ class UserController
     public function userSendMessage() {
         $this->actualUser->userSendMessage($_POST['data']);
     }
+    
+    public function acceptDataprotection() {
+        $this->actualUser->acceptDataprotection();
+    }
 }
 
