@@ -79,3 +79,10 @@ function acceptDataprotection() {
 		$('#dataProtectionLayer').hide();
 	});
 }
+
+$('.ui.dropdown.language').dropdown('setting', 'onChange', function(){
+	$.post('../components/controller/login/changeLanguage', { language: $('.ui.dropdown.language').dropdown('get value') }, 
+		function() {
+			location.reload();
+		});
+});

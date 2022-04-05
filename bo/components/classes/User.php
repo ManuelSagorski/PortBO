@@ -35,6 +35,7 @@ class User extends AbstractDBObject
     private $telegram_id;
     private $planning_id;
     private $dataprotection;
+    private $default_language;
     
     private $userPorts = [];
     private $userLanguages = [];
@@ -567,6 +568,9 @@ class User extends AbstractDBObject
     }
     public function getPlanningID() {
         return $this->planning_id;
+    }
+    public function getDefaultLanguage() {
+        return $this->default_language;
     }
 }
 

@@ -47,6 +47,18 @@
 		<div id="homeWrapper">
     		<div id="head">
     			<div id="nav">
+    				<div class="navElement">
+        				<div class="ui dropdown language">
+                            <input type="hidden" name="country">
+                            <i class="dropdown icon"></i>
+                            <div class="default text"></div>
+                            <div class="menu">
+                                <div class="item" data-value="de"><i class="de flag"></i></div>
+                                <div class="item" data-value="en"><i class="gb uk flag"></i></div>
+                                <div class="item" data-value="ru"><i class="ru flag"></i></div>
+                        	</div>
+                        </div>
+    				</div> 
     				<div class="navElement"><a href="vessel">Schiffe</a></div>
     				<div class="navElement"><a href="agency">Agenten</a></div>
     				<div class="navElement"><a href="port">Häfen</a></div>
@@ -85,7 +97,10 @@
 		<script src="../resources/js/libraries/semantic.min.js"></script>
 		<script src="../resources/js/libraries/vanilla-router.min.js"></script>
 		<script data-main="../resources/js/home" src="../resources/js/libraries/require.js"></script>
-
+		<script>
+			$('.ui.dropdown.language').dropdown();
+			$('.ui.dropdown.language').dropdown('set selected', '<?php echo $_SESSION['language']; ?>');
+		</script>
 
 		<!-- <script data-main="res/js/telegramMessaging" src="res/js/require.js"></script> -->
 	</body>

@@ -135,6 +135,7 @@ class LoginController
                     $_SESSION['user'] = $user->getId();
                     $_SESSION['userLevel'] = $user->getLevel();
                     $_SESSION['project'] = $user->getProjectId();
+                    $_SESSION['language'] = $user->getDefaultLanguage();
                     Logger::writeLogInfo('login', 'Login erfolgreich');
                     return true;
                 } else {
@@ -245,6 +246,17 @@ class LoginController
                 return "Die Registrierung war erfolgreich. Sobald dein Konto vom Koordinator freigeschaltet wurde, kannst du dich anmelden.";
             }
         }
+    }
+    
+    public function changeLanguage() 
+    {
+        $_SESSION['language'] = $_POST['language'];
+        
+        (new Query("update"))
+            ->table(User::TABLE_NAME)
+            ->values(["default_language" => $_POST['language']])
+            ->condition(["id" => $_SESSION['user']])
+            ->execute();
     }
 }
 

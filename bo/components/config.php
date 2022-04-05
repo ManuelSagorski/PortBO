@@ -6,6 +6,7 @@ use bo\components\classes\helper\Logger;
 use bo\components\classes\User;
 use bo\components\classes\Projects;
 use bo\components\classes\helper\Security;
+use bo\components\classes\helper\Text;
 
 session_start();
 
@@ -35,6 +36,8 @@ spl_autoload_register(function($class) {
 DBConnect::initDB();
 Security::sessionDuration(3600);
 Logger::setErrorReporting();
+
+$t = new Text();
 
 if($_SERVER[ 'SCRIPT_NAME' ] != "/" . FOLDER . "index.php" && !isset($independent)) {
     if(!isset($_SESSION['user'])) {

@@ -213,7 +213,7 @@ Funktion VesselInfo nicht mehr gewünscht - wird zurückgebaut.
 <?php } else { ?>
 <div id="detailEmpty">
 	<div><img src="../resources/img/iconVessel.png" /></div>
-	<div>Kein Schiff ausgewählt</div>
+	<div><?php $t->_('no-ship-selected'); ?></div>
 </div>
 
 <div id="vesselForecast">
