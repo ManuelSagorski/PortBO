@@ -45,6 +45,23 @@ define(function() {
 		}
 
 		/*
+		 *	Schickt einem neuen Benutzer die Einladung zur Registrierung zu
+		 */	
+		that.inviteUser = function(projectID) {
+			event.preventDefault();
+			inviteUserValidate = new FormValidate($('#inviteUser').serializeArray());
+			$.post(my.CONTROLLER + 'inviteUser', {projectID: projectID, data: inviteUserValidate.getFormData()}, 
+				function(data) {
+					$('#email').val('');
+					$('#message').html('Einladung wurde verschickt.');
+					setTimeout(function(){
+					    $('#message').html('');
+					}, 4000);
+
+				});		
+		}
+
+		/*
 		 *	Öffnet das Formular zum Anlegen eines neuen Benutzers
 		 */			
 		that.newUser = function(userID, edit, projectID) {

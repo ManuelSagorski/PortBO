@@ -1,30 +1,30 @@
-<div id="loginBody">
+<div class="ui raised green segment" id="loginBody">
 	<h1>Backoffice Hafengruppe Nord</h1>
-	<form id="loginForm" action="index.php" method="post">
-		<div class="loginRow">
-			<input 
-				type="text" 
-				name="username" 
-				value="Benutzername" 
-				onblur="if (this.value=='') this.value='Benutzername'" 
-				onfocus="if (this.value=='Benutzername') this.value='';"
-			/>
-			<div id="msgUsername"></div>
-		</div>
-		<div class="loginRow">
-			<input 
-				type="password" 
-				value="Passwort" 
-				name="secret" 
-				onblur="if (this.value=='') this.value='Passwort'" 
-				onfocus="if (this.value=='Passwort') this.value='';" 
-			/>
-			<div id="msgSecret"></div>
-		</div>
-		<?php echo (isset($result['message']['error']))?'<div class="errorMsgForm">' . $result['message']['error'] . '</div>':''; ?>
+	<form class="ui form login" id="loginForm" action="index.php" method="post">
+    	<div class="field">
+    		<div class="ui icon input">
+        		<input type="text" name="username" placeholder="Benutzername...">
+        		<i class="user icon"></i>
+        	</div>
+    	</div>
+    	<div class="field">
+    		<div class="ui icon input">
+	        	<input type="password" name="secret" placeholder="Passwort...">
+	        	<i class="key icon"></i>
+	        </div>
+    	</div>
+
+		<div class="ui error message"></div>
+
 		<?php echo (isset($result['message']['info']))?'<div class="msgForm">' . $result['message']['info'] . '</div>':''; ?>
-		<div class="loginRow">
-			<input class="inputButton" type="submit" onClick="validateLogin()" value="Anmelden" />
-		</div>
+		
+		<button class="ui primary button">Anmelden</button>
 	</form>
 </div>
+
+<?php if(isset($result['message']['error'])) { ?>
+<script>
+	$('#loginForm').addClass("error");
+	$('.ui.error.message').html('<?php echo $result['message']['error']; ?>');
+</script>
+<?php } ?>

@@ -4,6 +4,8 @@ namespace bo\components\controller;
 use bo\components\classes\SettingsExternLinks;
 use bo\components\classes\Projects;
 use bo\components\classes\helper\Query;
+use bo\components\classes\Invitation;
+use bo\components\classes\helper\SendMail;
 
 class SettingsController
 {
@@ -35,7 +37,21 @@ class SettingsController
     public function safeModuleSetting() {
         Projects::toggleModule($_POST['module'], $_POST['value'], $_POST['projectID']);
     }
-   
+    
+    /**
+     * Schickt eine Einladung zur Registrierung per Email
+     */
+    public function inviteUser() {
+        $invitationKey = (new Invitation())->generateInvitationKey($_POST['projectID']);
+        
+        $mail = new SendMail();
+        $mail->mail->addAddress($_POST['data']['email']);
+        $mail->mail->Subject = "Hafendienst-Backoffice - Registrierung";
+        $mail->applyTemplate('_newUserInvitation', array("LinkAdresse" => MAIN_PATH . "index.php?register=true&code=" . $invitationKey));
+        
+        $mail->mail->send();
+    }
+    
     /**
      * Kann für den übergebenen User ein Kalender angelegt werden?
      * 

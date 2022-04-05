@@ -9,6 +9,24 @@ Security::grantAccess(8);
 
 $users = User::getMultipleObjects(["inactive" => 0]);
 ?>
+<div class="ui segment">
+	<h4 class="ui header">Neuen Verkündiger einladen</h4>
+
+	<form id="inviteUser" class="ui form" autocomplete="off">
+		<div class="ui two column grid">
+			<div class="column">
+                <div class="required field">
+                	<input type="text" id="email" name="email" placeholder="Email Adresse...">
+                </div>
+            </div>
+            <div class="column">
+    			<button>Einladungsmail senden</button>
+    		</div>
+		</div>
+		<div class="ui error message"></div>
+		<div id="message"></div>
+	</form>
+</div>
 
 <table class="detailTable ui very compact celled striped table">
 	<thead>
@@ -18,7 +36,7 @@ $users = User::getMultipleObjects(["inactive" => 0]);
 	</thead>
     <tbody>
     <?php foreach ($users as $user) { ?>
-		<tr>
+		<tr<?php echo ($user->getLevel() == 0)?" class='negative'":""; ?>>
 			<td data-label="select"><input type="radio" name="selectUser" value="<?php echo $user->getID(); ?>"></td>
 			<td data-label="userFullName"><?php echo $user->getFirstName() . " " . $user->getSurname(); ?></td>			
 			<td data-label="userEmail"><?php echo $user->getEmail(); ?></td>
@@ -38,9 +56,6 @@ $users = User::getMultipleObjects(["inactive" => 0]);
     </tbody>
 </table>
 <div class="detailActions ui icon menu">
-	<a class="item" onclick="settings.newUser();">
-		<i class="plus icon"></i>
-	</a>
 	<a class="item" onclick="settings.newUser($('input[name=selectUser]:checked').val(), true);">
 		<i class="edit icon"></i>
 	</a>
@@ -48,3 +63,14 @@ $users = User::getMultipleObjects(["inactive" => 0]);
 		<i class="trash alternate icon"></i>
 	</a>
 </div>
+
+<script>
+
+$('.ui.form')
+  .form({ fields: {email: {identifier: 'email', rules: [{type   : 'email',prompt : 'Bitte gebe eine gültige Email Adresse ein.'}]}}, 
+  	onSuccess: function(){
+  		settings.inviteUser(<?php echo $project->getID(); ?>);
+  		return false;
+  	}}
+  	);
+</script>

@@ -33,6 +33,7 @@ if(isset($_GET['id']))
         		name="userFirstName" 
         		onkeyup="formValidate.clearAllError();" 
         		value="<?php echo(!empty($userToEdit))?$userToEdit->getFirstName():''; ?>"
+        		readonly="readonly"
         	>
         </div>
 
@@ -44,6 +45,7 @@ if(isset($_GET['id']))
         		name="userSurname" 
         		onkeyup="formValidate.clearAllError();" 
         		value="<?php echo(!empty($userToEdit))?$userToEdit->getSurname():''; ?>"
+        		readonly="readonly"
         	>
         </div>    
     </div>
@@ -57,6 +59,7 @@ if(isset($_GET['id']))
         		name="userUsername" 
         		onkeyup="formValidate.clearAllError();" 
         		value="<?php echo(!empty($userToEdit))?$userToEdit->getUsername():''; ?>"
+        		readonly="readonly"
         	>
         </div>
 
@@ -68,6 +71,7 @@ if(isset($_GET['id']))
         		name="userPhone" 
         		onkeyup="formValidate.clearAllError();" 
         		value="<?php echo(!empty($userToEdit))?$userToEdit->getPhone():''; ?>"
+        		readonly="readonly"
         	>
         </div>    
     </div>
@@ -81,6 +85,7 @@ if(isset($_GET['id']))
         		name="userEmail" 
         		onkeyup="formValidate.clearAllError();" 
         		value="<?php echo(!empty($userToEdit))?$userToEdit->getEmail():''; ?>"
+        		readonly="readonly"
         	>
         </div>
     

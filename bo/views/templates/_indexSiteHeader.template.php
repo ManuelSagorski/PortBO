@@ -22,11 +22,15 @@
         <link rel="icon" type="image/png" sizes="16x16" href="resources/img/favicon/favicon-16x16.png">
         <link rel="manifest" href="resources/img/favicon/manifest.json">
 
+		<link rel="stylesheet" type="text/css" href="resources/css/libraries/semantic.min.css" />
+		<link rel="stylesheet" type="text/css" href="resources/css/libraries/icon.min.css" />
+		<link rel="stylesheet" type="text/css" href="resources/css/libraries/flag.min.css" />
 		<link rel="stylesheet" type="text/css" href="resources/css/global.css" />
 		<link rel="stylesheet" type="text/css" href="resources/css/index.css" />
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 		<script data-main="resources/js/index" src="resources/js/libraries/require.js"></script>
+		<script src="resources/js/libraries/semantic.min.js"></script>
 			
         <script>
             if(typeof window.history.pushState == 'function') {

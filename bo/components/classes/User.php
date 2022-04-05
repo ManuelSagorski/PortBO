@@ -20,6 +20,7 @@ class User extends AbstractDBObject
     
     private $id;
     private $inactive;
+    private $active;
     private $project_id;
     private $foreign_port;
     private $username;
@@ -40,7 +41,7 @@ class User extends AbstractDBObject
     
     private $sendInfo;
     
-    public static $userLevel = array(1 => "Verkündiger", 2 => "Foreign Port", 4 => "BO Mitarbeiter", 5 => "BO Supervisor", 8 => "Projekt Admin", 9 => "Administrator");
+    public static $userLevel = array(0 => "keine Rechte", 1 => "Verkündiger", 2 => "Foreign Port", 4 => "BO Mitarbeiter", 5 => "BO Supervisor", 8 => "Projekt Admin", 9 => "Administrator");
     public static $defaultPage = array(2 => "lookup", 4 => "index", 5 => "index", 8 => "index", 9 => "index");
     
     /**
@@ -53,7 +54,12 @@ class User extends AbstractDBObject
             $this->phone = $data['userPhone'];
             $this->first_name = $data['userFirstName'];
             $this->surname = $data['userSurname'];
-            $this->level = $data['userLevel'];
+            if(isset($data['userLanguages'])) {
+                $this->level = $data['userLevel'];
+            }
+            else {
+                $this->level = 0;
+            }
             if(isset($data['userLanguages']))
                 $this->userLanguages = $data['userLanguages'];
             if(isset($data['userPorts']))
@@ -64,6 +70,12 @@ class User extends AbstractDBObject
                 $this->project_id = $data['projectID'];
             if(isset($data['foreignPort']))
                 $this->foreign_port = $data['foreignPort'];
+            if(isset($data['password1'])) {
+                $this->secret = $data['password1'];
+            }
+            else {
+                $this->secret = null;
+            }
         }
         else {
             $this->userGetPorts();
@@ -75,14 +87,19 @@ class User extends AbstractDBObject
      * addUser - speichert einen neuen Mitarbeiter in der Datenbank
      * @param Array $data
      */
-    public function addUser() {
+    public function addUser($register = false) {
         global $user;
         
         if($msg = $this->validateNewUserInput()) {
             return ["type" => "error", "msg" => $msg];
         }
         
-        $pwd = $this->generateHashForRandPassword($this->level);
+        if(!empty($this->secret)) {
+            $pwd = Array("pwdHash" => password_hash($this->secret, PASSWORD_DEFAULT));
+        }
+        else {
+            $pwd = $this->generateHashForRandPassword($this->level);
+        }
         
         $insertRequest = (new Query("insert"))
             ->table(self::TABLE_NAME)
@@ -97,7 +114,7 @@ class User extends AbstractDBObject
                 "foreign_port" => $this->foreign_port
             ]);
         
-        if(!empty($this->project_id) && $user->getLevel() == 9)
+            if(!empty($this->project_id) && ($register || $user->getLevel() == 9))
             $insertRequest->project($this->project_id);
         
         $insertRequest->execute();
@@ -283,7 +300,7 @@ class User extends AbstractDBObject
         $sqlstrg = "update port_bo_user set password_code = ?, password_code_time = NOW() where id = ?";
         DBConnect::execute($sqlstrg, array(password_hash($bytes, PASSWORD_DEFAULT), $this->id));
         
-        $mail = new sendMail();
+        $mail = new SendMail();
         $mail->mail->addAddress($this->email);
         $mail->mail->Subject = "Hafendienst-Backoffice - Passwort vergessen";
         $mail->applyTemplate('_passwordResetMail', array("Vorname" => $this->first_name, "LinkAdresse" => MAIN_PATH . "index.php?id=" . $this->id . "&code=" . $bytes));
@@ -502,6 +519,9 @@ class User extends AbstractDBObject
      */
     public function getId() {
         return $this->id;
+    }
+    public function getActive() {
+        return $this->active;
     }
     public function getProjectId() {
         return $this->project_id;

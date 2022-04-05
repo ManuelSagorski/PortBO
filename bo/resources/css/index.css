@@ -11,9 +11,7 @@ h2 { margin: 15px 0px; }
 #imprintWrapper { max-width: 500px; margin: 100px auto 10px auto; }
 #dataprotectionWrapper { max-width: 800px; margin: 100px auto 10px auto; }
 
-#loginBody { padding: 10px; background: rgba(255, 255, 255, .8); box-shadow: 0px 5px 18px #56386b; border-radius: 5px; text-align: center; }
-#loginBody h1 { color: #0B0B3B; }
-.loginRow { margin-bottom: 10px; }
+#loginBody { padding: 15px 25px; background: rgba(255, 255, 255, .9); text-align: center; }
 .inputButton:hover { background-color: #045FB4; cursor: pointer; }
 
 #footer { max-width: 380px; margin: 10px auto; text-align: right; font-size: 10pt; }

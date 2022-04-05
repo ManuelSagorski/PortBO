@@ -1,8 +1,6 @@
 <?php
 namespace bo\components\controller;
 
-include '../config.php';
-
 $url  = (isset($_GET['_url']) ? $_GET['_url'] : '');
 $urlParts = explode('/', $url);
 
@@ -11,6 +9,12 @@ $controllerClassName = "\\bo\\components\\controller\\".ucfirst($controllerName)
 
 $actionName = (isset($urlParts[1]) && $urlParts[1] ? $urlParts[1] : 'index');
 $actionMethodName = ucfirst($actionName);
+
+if(ucfirst($controllerName) == "Login") {
+    $independent = true;
+}
+
+include '../config.php';
 
 $controller = new $controllerClassName();
 $controller->$actionMethodName();
