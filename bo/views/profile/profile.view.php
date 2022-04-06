@@ -3,7 +3,7 @@ namespace bo\views\profile;
 include '../../components/config.php';
 ?>
 
-<div class="ui grid profile">
+<div class="ui stackable grid profile">
 	<div class="four wide column">
     	<div class="ui raised segment">
     		<h4 class="ui header"><?php $t->_('change-password'); ?></h4>

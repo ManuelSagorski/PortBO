@@ -72,6 +72,7 @@ router.add('logout', function () {
 
 router.addUriListener();
 $('a').on('click', (event) => {	
+	$( "#mobileMenu" ).hide("slow");
 	const target = $(event.target);
 	const path = target.attr('href');
 	if(target.attr('target') != '_blank') {

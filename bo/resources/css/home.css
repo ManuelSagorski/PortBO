@@ -26,8 +26,15 @@
 .navElement { float: left; margin: 0px 5px 0px 0px; }
 .navElement.active { padding: 1px; background-color: #193E7A; color: #ffffff; box-shadow: 0px 2px 3px #56386b; }
 .navElement.active:hover { background-color: #3F5B87; color: #ffffff; }
-
 .dropdown.language { padding: 10px; }
+
+#mobileMenuButton { display: none; float: right; padding: 15px 0px; }
+#mobileMenu { display: none; text-align: right; clear: both; margin-bottom: 10px; width: auto; }
+
+@media only screen and (max-width: 600px) {
+	#nav { display: none; }
+	#mobileMenuButton { display: inline; }
+}
 
 /*****************************/
 /*          FlexBox          */

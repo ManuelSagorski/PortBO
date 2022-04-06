@@ -73,7 +73,38 @@
     				<?php if($user->getLevel() >= 8) {?> <div class="navElement"><a href="settings" title="Settings"><i class="cogs icon" href="settings"></i></a></div> <?php } ?>
     				<div class="navElement"><a href="logout" title="Logout" class="item"><i class="power off icon" href="logout"></i></a></div>
     			</div>
+    			
+    			<div id="mobileMenuButton" onClick="toggleMenu()"><i class="th large big icon" href="profile"></i></div>
+    			
     			<div id="title"><h1>Backoffice <?php echo $project->getName(); ?></h1></div>
+    			
+    			<div id="mobileMenu" class="ui vertical menu">
+    				<a class="item" href="vessel">
+                        <?php $t->_('ships'); ?>
+                    </a>
+                    <a class="item" href="agency">
+                        <?php $t->_('agencys'); ?>
+                    </a>
+                    <a class="item" href="port">
+                        <?php $t->_('ports'); ?>
+                    </a>
+                    <a class="item" href="profile">
+                        Profile <i class="user icon" href="profile"></i>
+                    </a>
+                    <?php if($project->getModPlanning() && $user->getPlanningID() > 0) {?>
+                    <a class="item" href="https://<?php echo $project->getModPlanningProject(); ?>.xn--zg-eka.de/index.php?id=<?php echo $user->getPlanningID(); ?>" target="_blank">
+                        Planning <i class="calendar alternate outline icon" href="https://<?php echo $project->getModPlanningProject(); ?>.xn--zg-eka.de/index.php?id=<?php echo $user->getPlanningID(); ?>" target="_blank"></i>
+                    </a>                    
+                    <?php } ?>
+                    <?php if($user->getLevel() >= 8) {?>
+                    <a class="item" href="settings">
+                        Settings <i class="cogs icon" href="settings"></i>
+                    </a>                    
+                    <?php } ?>
+                    <a class="item" href="logout">
+                        Logout <i class="power off icon" href="logout"></i>
+                    </a>
+    			</div>
     		</div>
     		<div id="homeContend" class="flexBox">
     			<div id="mainColLeft" class="mainCol">&nbsp;</div>

@@ -101,3 +101,7 @@ function t(index) {
 		return globalThis.defaultLanguage[index];
 	}
 }
+
+function toggleMenu() {
+	$( "#mobileMenu" ).toggle("slow");
+}
