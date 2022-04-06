@@ -12,5 +12,5 @@ include '../../components/config.php';
 <?php } ?>
 </div>
 <?php if($user->getLevel() >= 8 ) { ?>
-<button onClick="portC.newPort();">Hafen hinzufügen</button>
+<button onClick="portC.newPort();"><?php $t->_('add-new-port'); ?></button>
 <?php } ?>

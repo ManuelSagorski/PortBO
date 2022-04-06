@@ -1,3 +1,6 @@
+<?php 
+include '../../components/config.php';
+?>
 <div>
     <div class="ui action input">
     	<input type="text" id="searchInputVessel" placeholder="Name/IMO/ENI" onkeyup="vessel.searchVessel(this.value);">
@@ -8,5 +11,5 @@
 </div>
 <div id="searchResult"></div>
 <div id="drySearchResult"></div>
-<button onClick="vessel.newVessel(null, $('#searchInputVessel').val());">Schiff hinzufügen</button>
+<button onClick="vessel.newVessel(null, $('#searchInputVessel').val());"><?php $t->_('add-ship'); ?></button>
 <script type="text/javascript">vessel.searchVessel('');</script>

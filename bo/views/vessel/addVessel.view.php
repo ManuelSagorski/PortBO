@@ -35,7 +35,7 @@ if(!empty($searchValue) && !is_numeric($searchValue))
   	
     <div id="infoMessage" class="ui info message">
     	<i class="close icon" onClick="$('#infoMessage').hide();"></i>
-    	Zum Speichern eines neuen Schiffes muss mindestens ein Name und eine IMO oder eine ENI angegeben werden.
+    	<?php $t->_('to-safe-imo-eni'); ?>
     </div>
 
     <div class="ui error message">
@@ -43,7 +43,7 @@ if(!empty($searchValue) && !is_numeric($searchValue))
     </div>
 
     <div id="input_vesselName" class="required field">
-    	<label>Name</label>
+    	<label><?php $t->_('name'); ?></label>
     	<input 
     		type="text" 
     		id="vesselName" 
@@ -100,7 +100,7 @@ if(!empty($searchValue) && !is_numeric($searchValue))
         </div>
         
         <div id="input_vesselTyp" class="field">
-        	<label>Typ</label>
+        	<label><?php $t->_('typ'); ?></label>
     		<select id="vesselTyp" name="vesselTyp">
     			<?php foreach(vesselTypes::$vesselTypes as $type ) {?>
     			<option value="<?php echo $type; ?>"<?php if($editMode){echo ($vessel->getTyp() == $type)?' selected':'';} ?>><?php echo $type; ?></option>
@@ -110,13 +110,13 @@ if(!empty($searchValue) && !is_numeric($searchValue))
 	</div>
 	
     <div class="field">
-    	<label>Nationalitäten - <i class="iconPointer cloud download icon" onClick="vessel.getLanguages($('#vesselIMO').val());"></i></label>
+    	<label><?php $t->_('nationalitis'); ?> - <i class="iconPointer cloud download icon" onClick="vessel.getLanguages($('#vesselIMO').val());"></i></label>
     	<textarea rows="2" id="vesselLanguage" name="vesselLanguage"<?php echo ($user->getLevel() != 9)?" readonly='readonly'":""; ?>><?php echo($editMode)?$vessel->getLanguage():''; ?></textarea>
     </div>
 
 	<div class="two fields">
         <div id="input_vesselLanguagesMaster" class="field">
-        	<label>Sprache Master</label>
+        	<label><?php $t->_('language-master'); ?></label>
     		<select id="vesselLanguagesMaster" name="vesselLanguagesMaster" multiple="multiple" class="ui fluid dropdown">
     			<?php foreach(Language::getMultipleObjects() as $language ) {?>
     			<option value="<?php echo $language->getID(); ?>"><?php echo $language->getName(); ?></option>
@@ -125,7 +125,7 @@ if(!empty($searchValue) && !is_numeric($searchValue))
         </div>
     
         <div id="input_vesselLanguagesCrew" class="field">
-        	<label>Sprachen Crew</label>
+        	<label><?php $t->_('language-crew'); ?></label>
     		<select id="vesselLanguagesCrew" name="vesselLanguagesCrew" multiple="multiple" class="ui fluid dropdown">
     			<?php foreach(Language::getMultipleObjects() as $language ) {?>
     			<option value="<?php echo $language->getID(); ?>"><?php echo $language->getName(); ?></option>
@@ -134,7 +134,7 @@ if(!empty($searchValue) && !is_numeric($searchValue))
         </div>
     </div>
     
-    <button class="ui button" type="submit">Speichern</button>
+    <button class="ui button" type="submit"><?php $t->_('safe'); ?></button>
 </form>
 <script>
 $('#vesselTyp').dropdown();

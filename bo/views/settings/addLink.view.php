@@ -16,7 +16,7 @@ if(isset($_GET['id']))
     </div>
 
     <div id="input_linkName" class="required field">
-    	<label>Name</label>
+    	<label><?php $t->_('name'); ?></label>
     	<input 
     		type="text" 
     		id="linkName" 
@@ -31,7 +31,7 @@ if(isset($_GET['id']))
     	<textarea rows="10" id="linkUrl" name="linkUrl" onkeyup="formValidate.clearAllError();"><?php echo (!empty($link))?$link->getLink():''; ?></textarea>
     </div>
    
-    <button class="ui button" type="submit">Speichern</button>
+    <button class="ui button" type="submit"><?php $t->_('safe'); ?></button>
 </form>
 <script>
 $("#addLink").submit(function(event){ settings.addLink(<?php echo (!empty($link))?$link->getID():'null'; ?>);});

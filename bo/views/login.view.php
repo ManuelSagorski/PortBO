@@ -3,13 +3,13 @@
 	<form class="ui form login" id="loginForm" action="index.php" method="post">
     	<div class="field">
     		<div class="ui icon input">
-        		<input type="text" name="username" placeholder="Benutzername...">
+        		<input type="text" name="username" placeholder="Username...">
         		<i class="user icon"></i>
         	</div>
     	</div>
     	<div class="field">
     		<div class="ui icon input">
-	        	<input type="password" name="secret" placeholder="Passwort...">
+	        	<input type="password" name="secret" placeholder="Password...">
 	        	<i class="key icon"></i>
 	        </div>
     	</div>
@@ -18,7 +18,7 @@
 
 		<?php echo (isset($result['message']['info']))?'<div class="msgForm">' . $result['message']['info'] . '</div>':''; ?>
 		
-		<button class="ui primary button">Anmelden</button>
+		<button class="ui primary button">Login</button>
 	</form>
 </div>
 

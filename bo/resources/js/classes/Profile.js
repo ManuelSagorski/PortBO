@@ -31,7 +31,7 @@ define(function() {
 			
 			if(!changePasswordValidate.fieldsNotAllEmpty(Array('secretNew1', 'secretNew2'))) {
 				changePasswordValidate.setError(Array('secretNew1', 'secretNew2'));
-				changePasswordValidate.setErrorMessage('Kein Passwort eingegeben.');
+				changePasswordValidate.setErrorMessage(t('insert-password'));
 				return;
 			}
 			
@@ -53,7 +53,7 @@ define(function() {
 
 			if(!changeMailValidate.fieldEmail(Array('emailNew'))) {
 				changeMailValidate.setError(Array('emailNew'));
-				changeMailValidate.setErrorMessage('Bitte eine korrekte Email Adresse eingeben.');
+				changeMailValidate.setErrorMessage(t('insert-email'));
 				return;
 			}
 			
@@ -71,7 +71,7 @@ define(function() {
 
 			if(!changePhoneValidate.fieldsNotAllEmpty(Array('phoneNew'))) {
 				changePhoneValidate.setError(Array('phoneNew'));
-				changePhoneValidate.setErrorMessage('Bitte eine Nummer eingeben.');
+				changePhoneValidate.setErrorMessage(t('insert-number'));
 				return;
 			}
 			
@@ -89,7 +89,7 @@ define(function() {
 			
 			if(!sendMessageValidate.fieldsNotAllEmpty(Array('message'))) {
 				sendMessageValidate.setError(Array('message'));
-				sendMessageValidate.setErrorMessage('Bitte eine Nachricht eingeben.');
+				sendMessageValidate.setErrorMessage(t('insert-message'));
 				return;
 			}
 			

@@ -43,7 +43,7 @@ define(function() {
 		 */			
 		that.newPort = function(id) {
 			$.get('../views/port/addPort.view.php?id=' + id, function(data) {
-				$('#windowLabel').html("Neuen Hafen hinzufügen");
+				$('#windowLabel').html(t('add-port'));
 				$('#windowBody').html(data);
 			});
 			showWindow();			
@@ -58,7 +58,7 @@ define(function() {
 	
 			if(falseFields = newPortValidate.fieldsNotEmpty(Array('portName', 'portShort',))) {
 				formValidate.setError(falseFields);
-				formValidate.setErrorMessage('Bitte alle Pflichtfelder ausfüllen.');
+				formValidate.setErrorMessage(t('insert-mendatory'));
 				return;
 			}
 			
@@ -79,7 +79,7 @@ define(function() {
 		 */				
 		that.newCompany = function(portID, companyID) {
 			$.get('../views/port/addPortCompany.view.php?portID=' + portID  + '&id=' + companyID, function(data) {
-				$('#windowLabel').html("Neuen Liegeplatz hinzufügen");
+				$('#windowLabel').html(t('add-company'));
 				$('#windowBody').html(data);
 			});
 			showWindow();
@@ -94,7 +94,7 @@ define(function() {
 			
 			if(!newPortCompanyValidate.fieldsNotAllEmpty(Array('companyName'))) {
 				formValidate.setError(Array('companyName'));
-				formValidate.setErrorMessage('Bitte einen Namen eingeben.');
+				formValidate.setErrorMessage(t('insert-name'));
 				return;
 			}
 			
@@ -110,7 +110,7 @@ define(function() {
 		 */			
 		that.deleteCompany = function(portID, companyID) {
 			if(companyID) {
-				if(confirm("Möchtest du den gewählten Liegeplatz wirklich löschen?")) {
+				if(confirm(t('confirm-delete-company'))) {
 					$.post(my.CONTROLLER + 'deletePortCompany', {id: companyID}, 
 						function() {
 							that.openDetails(portID);
@@ -119,7 +119,7 @@ define(function() {
 				}
 			}
 			else {
-				alert('Bitte zuerst einen Liegeplatz auswählen.');
+				alert(t('choose-element'));
 			}
 		}
 		

@@ -10,7 +10,9 @@ class Text
     
     public function __construct() {
         $this->languageDefaultText = $this->getTextFromJson('de');
-        $this->languageText = $this->getTextFromJson($_SESSION['language']);
+        if(!empty($_SESSION['language'])) {
+            $this->languageText = $this->getTextFromJson($_SESSION['language']);
+        }
     }
     
     public function _($index) {
@@ -30,6 +32,13 @@ class Text
         else {
             return null;
         }
+    }
+    
+    public function getLanguageText() {
+        return $this->languageText;
+    }
+    public function getLanguageDefaultText() {
+        return $this->languageDefaultText;
     }
 }
 

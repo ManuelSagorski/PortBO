@@ -144,7 +144,7 @@ define(function() {
 		 */
 		that.newVessel = function(id, searchValue) {
 			$.get('../views/vessel/addVessel.view.php?id=' + id + '&searchValue=' + searchValue, function(data) {
-				$('#windowLabel').html("Neues Schiff hinzufügen");
+				$('#windowLabel').html(t('add-vessel'));
 				$('#windowBody').html(data);
 			});
 			showWindow();	
@@ -159,12 +159,12 @@ define(function() {
 
 			if(!newVesselValidate.fieldsNotAllEmpty(Array('vesselName'))) {
 				formValidate.setError(Array('vesselName'));
-				formValidate.setErrorMessage('Bitte einen Namen eingeben.');
+				formValidate.setErrorMessage(t('insert-name'));
 				return;
 			}			
 			if(!newVesselValidate.fieldsNotAllEmpty(Array('vesselIMO', 'vesselENI'))) {
 				formValidate.setError(Array('vesselIMO', 'vesselENI'));
-				formValidate.setErrorMessage('Bitte eine IMO oder ENI eingeben.');
+				formValidate.setErrorMessage(t('insert-imo-eni'));
 				return;
 			}
 
@@ -205,7 +205,7 @@ define(function() {
 
 			if(!number) {
 				formValidate.setError(Array('vesselIMO', 'vesselMMSI'));
-				formValidate.setErrorMessage('Bitte eine IMO oder MMSI eingeben.');
+				formValidate.setErrorMessage(t('insert-imo-mmsi'));
 				return;
 			}
 			else {
@@ -232,7 +232,7 @@ define(function() {
 
 			if(!imo) {
 				formValidate.setError(Array('vesselIMO'));
-				formValidate.setErrorMessage('Bitte eine IMO eingeben.');
+				formValidate.setErrorMessage(t('insert-imo'));
 				return;
 			}
 			else {
@@ -253,11 +253,11 @@ define(function() {
 		 */			
 		that.newVesselInfo = function(vesselID, infoID, edit) {
 			if(edit && !infoID) {
-				alert('Bitte zuerst ein Element auswählen.');
+				alert(t('choose-element'));
 			}
 			else {
 				$.get('../views/vessel/addVesselInfo.view.php?vesselID=' + vesselID + '&infoID=' + infoID, function(data) {
-					$('#windowLabel').html("Neues Allgemeine Information hinzufügen");
+					$('#windowLabel').html("Neue Allgemeine Information hinzufügen");
 					$('#windowBody').html(data);
 				});
 				showWindow();	
@@ -312,11 +312,11 @@ define(function() {
 		 */			
 		that.newVesselContact = function(vesselID, contactID, edit) {
 			if(edit && !contactID) {
-				alert('Bitte zuerst ein Element auswählen.');
+				alert(t('choose-element'));
 			}
 			else {
 				$.get('../views/vessel/addVesselContact.view.php?vesselID=' + vesselID + '&contactID=' + contactID, function(data) {
-					$('#windowLabel').html("Neuen Kontakt hinzufügen");
+					$('#windowLabel').html(t('add-contact'));
 					$('#windowBody').html(data);
 				});
 				showWindow();	
@@ -356,7 +356,7 @@ define(function() {
 		 */			
 		that.deleteVesselContact = function(vesselID, contactID) {
 			if(contactID) {
-				if(confirm("Möchtest du das gewählte Element wirklich löschen?")) {
+				if(confirm(t('confirm-delete'))) {
 					$.post(my.CONTROLLER + 'deleteVesselContact', { contactID: contactID }, 
 						function() {
 							closeWindow();
@@ -369,7 +369,7 @@ define(function() {
 				}
 			}
 			else {
-				alert('Bitte zuerst ein Element auswählen.');
+				alert(t('choose-element'));
 			}
 		}
 		
@@ -380,11 +380,11 @@ define(function() {
 		 */			
 		that.newVesselContactDetail = function(vesselID, contactDetailID, edit) {
 			if(edit && !contactDetailID) {
-				alert('Bitte zuerst ein Element auswählen.');
+				alert(t('choose-element'));
 			}
 			else {
 				$.get('../views/vessel/addVesselContactDetail.view.php?vesselID=' + vesselID + '&contactDetailID=' + contactDetailID, function(data) {
-					$('#windowLabel').html("Neue Kontaktinformation hinzufügen");
+					$('#windowLabel').html(t('add-contactinfo'));
 					$('#windowBody').html(data);
 				});
 				showWindow();	
@@ -400,7 +400,7 @@ define(function() {
 
 			if(!vesselContactDetailValidate.fieldsNotAllEmpty(Array('contactDetail'))) {
 				formValidate.setError(Array('contactDetail'));
-				formValidate.setErrorMessage('Bitte eine Kontaktinformation eingeben.');
+				formValidate.setErrorMessage(t('insert-contactinfo'));
 				return;
 			}	
 
@@ -419,7 +419,7 @@ define(function() {
 		 */			
 		that.deleteVesselContactDetail = function(vesselID, contactDetailID) {
 			if(contactDetailID) {
-				if(confirm("Möchtest du das gewählte Element wirklich löschen?")) {
+				if(confirm(t('confirm-delete'))) {
 					$.post(my.CONTROLLER + 'deleteVesselContactDetail', { contactDetailID: contactDetailID }, 
 						function() {
 							closeWindow();
@@ -428,7 +428,7 @@ define(function() {
 				}
 			}
 			else {
-				alert('Bitte zuerst ein Element auswählen.');
+				alert(t('choose-element'));
 			}			
 		}
 
@@ -436,7 +436,7 @@ define(function() {
 		 *	Kontaktinformation als nicht bestätigt markieren
 		 */			
 		that.contactDetailSupposed = function(vesselID, contactDetailID) {
-			if(confirm("Möchtest du den Status dieser Kontaktinformation wirklich ändern?")) {
+			if(confirm(t('confirm-change-status-contactinfo'))) {
 				$.post(my.CONTROLLER + 'contactDetailSupposed', { contactDetailID: contactDetailID }, 
 					function() {
 						closeWindow();
@@ -449,7 +449,7 @@ define(function() {
 		 *	Kontaktinformation als ungültig markieren
 		 */	
 		that.contactDetailInvalid = function(vesselID, contactDetailID) {
-			if(confirm("Möchtest du den Gültigkeitsstatus dieser Kontaktinformation wirklich ändern?")) {
+			if(confirm(t('confirm-change-validity-contactinfo'))) {
 				$.post(my.CONTROLLER + 'contactDetailInvalid', { contactDetailID: contactDetailID }, 
 					function() {
 						closeWindow();
@@ -465,7 +465,7 @@ define(function() {
 			newForecastValidate = new FormValidate($('#' + formID).serializeArray());
 
 			if(falseFields = newForecastValidate.fieldsNotEmpty(Array('name'))) {
-				alert('Bitte einen Namen eingeben.');
+				alert(t('insert-name'));
 				return;
 			}
 			

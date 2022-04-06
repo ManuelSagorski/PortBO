@@ -1,3 +1,6 @@
+<?php 
+include '../../components/config.php';
+?>
 <div>
     <div class="ui action input">
     	<input type="text" id="searchInputAgency" placeholder="Suchen..." onkeyup="agency.searchAgency(this.value);">
@@ -7,5 +10,5 @@
     </div>
 </div>
 <div id="searchResult"></div>
-<button onClick="agency.newAgency(null, $('#searchInputAgency').val());">Agentur hinzufügen</button>
+<button onClick="agency.newAgency(null, $('#searchInputAgency').val());"><?php $t->_('add-new-agency'); ?></button>
 <script type="text/javascript">agency.searchAgency('');</script>

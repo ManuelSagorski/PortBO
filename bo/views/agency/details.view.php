@@ -17,10 +17,10 @@ if(!empty($_GET["id"])) {
     		<img src="../resources/img/iconAgent.png" />
     	</div>
 
-    	<div class="label">Name:</div>
+    	<div class="label"><?php $t->_('name'); ?>:</div>
     	<div class="elemDetailName"><div><?php echo $agency->getName(); ?></div></div>
     
-    	<div class="label">Kürzel:</div>
+    	<div class="label"><?php $t->_('short'); ?>:</div>
     	<div><?php echo $agency->getShort(); ?></div>
     </div>
 </div>
@@ -29,7 +29,7 @@ if(!empty($_GET["id"])) {
 	<a class="item" onclick="agency.newAgency(<?php echo $agency->getID(); ?>)">
 		<i class="edit icon"></i>
 	</a>
-	<a class="item" onClick="alert('Agenten können derzeit nur durch einen Administrator gelöscht werden.');">
+	<a class="item" onClick="alert('<?php $t->_('delete-agency-only-admin'); ?>');">
 		<i class="trash alternate icon"></i>
 	</a>
 </div>	
@@ -38,7 +38,7 @@ if(!empty($_GET["id"])) {
 <table class="detailTable ui very compact celled striped table">
 	<thead>
 		<tr>
-			<th colspan="4">Kontaktinformationen</th>
+			<th colspan="4"><?php $t->_('contactinfo'); ?></th>
 		</tr>
 	</thead>
     <tbody>
@@ -69,7 +69,7 @@ if(!empty($_GET["id"])) {
 <table class="detailTable ui very compact celled striped table">
 	<thead>
 		<tr>
-			<th colspan="7">Kontakte zu diesem Agenten:</th>
+			<th colspan="7"><?php $t->_('contacts-agency'); ?></th>
 		</tr>
 	</thead>
     <tbody>
@@ -87,6 +87,6 @@ if(!empty($_GET["id"])) {
 <?php } else { ?>
 <div id="detailEmpty">
 	<div><img src="../resources/img/iconAgent.png" /></div>
-	<div>Keine Agentur ausgewählt</div>
+	<div><?php $t->_('no-agency-selected'); ?></div>
 </div>
 <?php } ?>

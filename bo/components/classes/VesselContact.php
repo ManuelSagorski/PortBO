@@ -149,15 +149,15 @@ class VesselContact extends AbstractDBObject
     
     private function validateContactInput() {
         if($this->inputData['contactName'] != '' && $this->contactUserID == 0) {
-            return array("field" => "contactName", "msg" => "Der eingegebene Benutzer existiert nicht in der Datenbank. Bitte lege zuerst den Benutzer an.");
+            return array("field" => "contactName", "msg" => $t->_('user-not-existing'));
         }
 
         if($this->inputData['contactAgent'] != '' && $this->agent_id == 0) {
-            return array("field" => "contactAgent", "msg" => "Der eingegebene Agent existiert nicht in der Datenbank. Bitte lege zuerst den Agenten an.");
+            return array("field" => "contactAgent", "msg" => $t->_('agent-not-existing'));
         }
         
         if($this->inputData['contactCompany'] != '' && $this->company_id == 0) {
-            return array("field" => "contactCompany", "msg" => "Der eingegebene Liegeplatz existiert nicht in der Datenbank. Bitte lege ihn zuerst an.");
+            return array("field" => "contactCompany", "msg" => $t->_('company-not-existing'));
         }
     }
     

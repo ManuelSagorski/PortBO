@@ -15,9 +15,9 @@ if(isset($_GET['contactDetailID']))
         <i class="exclamation icon"></i>
         <div class="content">
             <div class="header">
-            	Achtung!
+            	<?php $t->_('attention'); ?>
             </div>
-        	<p>Denke bitte daran, dass aus Gründen des Datenschutzes, hier <b><u>keine private Kontaktdaten</u></b> von Crewmitgliedern hinterlegt werden dürfen.</p>
+        	<p><?php $t->_('no-private-data'); ?></p>
         </div>
     </div>
     
@@ -27,7 +27,7 @@ if(isset($_GET['contactDetailID']))
 
     <div class="two fields">
         <div id="input_contactDetailType" class="field">
-        	<label>Kontakt Typ</label>
+        	<label><?php $t->_('contact-type'); ?></label>
         	<select id="contactDetailType" name="contactDetailType" class="ui fluid dropdown">
         	<?php foreach (VesselContactDetails::$contactDetailTypes as $type) { ?>
     			<option 
@@ -39,7 +39,7 @@ if(isset($_GET['contactDetailID']))
         </div>
     
         <div id="input_contactDetail" class="required field">
-        	<label>Kontaktinformation</label>
+        	<label><?php $t->_('contactinformation'); ?></label>
         	<input 
         		type="text" 
         		id="contactDetail" 
@@ -64,7 +64,7 @@ Kontakt Detail Info nicht mehr gewünscht
 */
 ?>
 
-    <button class="ui button" type="submit">Speichern</button>
+    <button class="ui button" type="submit"><?php $t->_('safe'); ?></button>
 </form>
 
 <script>

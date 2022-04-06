@@ -13,7 +13,7 @@ if(isset($_GET['id']))
     </div>
     
     <div id="input_companyName" class="required field">
-    	<label>Name</label>
+    	<label><?php $t->_('name'); ?></label>
     	<input 
     		type="text" 
     		id="companyName" 
@@ -40,7 +40,7 @@ if(isset($_GET['id']))
     
     <input type="hidden" name="portID" value="<?php echo $_GET['portID']; ?>">
     
-    <button class="ui button" type="submit">Speichern</button>
+    <button class="ui button" type="submit"><?php $t->_('safe'); ?></button>
 </form>
 
 <script>

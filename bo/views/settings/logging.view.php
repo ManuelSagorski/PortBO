@@ -18,7 +18,7 @@ $logTable = DBConnect::execute($sqlstrg, array());
 <table class="detailTable ui very compact celled striped table">
 	<thead>
 		<tr>
-			<th colspan="5">Logeinträge</th>
+			<th colspan="5"><?php $t->_('logging'); ?></th>
 		</tr>
 	</thead>
     <tbody>

@@ -80,9 +80,24 @@ function acceptDataprotection() {
 	});
 }
 
-$('.ui.dropdown.language').dropdown('setting', 'onChange', function(){
-	$.post('../components/controller/login/changeLanguage', { language: $('.ui.dropdown.language').dropdown('get value') }, 
+$('.ui.dropdown.language').dropdown('setting', 'onChange', function(){	
+	$.post('../components/controller/language/changeLanguage', { language: $('.ui.dropdown.language').dropdown('get value') }, 
 		function() {
 			location.reload();
 		});
 });
+
+$.post('../components/controller/language/getLanguages', {}, 
+	function(data) {
+		globalThis.defaultLanguage = data.default;
+		globalThis.selectedLanguage = data.selected;
+	}, 'json');
+
+function t(index) {
+	if(globalThis.selectedLanguage[index]) {
+		return globalThis.selectedLanguage[index];
+	}
+	else {
+		return globalThis.defaultLanguage[index];
+	}
+}

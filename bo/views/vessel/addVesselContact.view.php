@@ -21,7 +21,7 @@ if(isset($_GET['contactID']))
 
 	<div class="two fields">
         <div id="input_contactType" class="field">
-        	<label>Kontaktart</label>
+        	<label><?php $t->_('kind-of-contact'); ?></label>
     		<select id="contactType" name="contactType">
     			<?php foreach (contactTypes::$contactTypes as $contactType) { ?>
     			<option 
@@ -33,7 +33,7 @@ if(isset($_GET['contactID']))
         </div>
 
         <div id="input_contactDate" class="field">
-        	<label>Datum</label>
+        	<label><?php $t->_('date'); ?></label>
         	<input 
         		type="date" 
         		id="contactDate" 
@@ -45,7 +45,7 @@ if(isset($_GET['contactID']))
 	
 	<div class="two fields">
 	    <div id="input_contactPort" class="field">
-        	<label>Hafen</label>
+        	<label><?php $t->_('port'); ?></label>
     		<select id="contactPort" name="contactPort">
     			<?php foreach ($user->getUserPorts() as $port) { ?>
     			<option 
@@ -63,7 +63,7 @@ if(isset($_GET['contactID']))
         </div>
 
     	<div id="input_contactName" class="field ui search category">
-    		<label>Kontakt durch</label>
+    		<label><?php $t->_('contact-by'); ?></label>
     		<div class="ui icon input">
     			<input 
     				type="text" 
@@ -82,7 +82,7 @@ if(isset($_GET['contactID']))
 
 	<div class="two fields">
         <div id="input_contactAgent" class="field ui search category">
-        	<label>Agent</label>
+        	<label><?php $t->_('agent'); ?></label>
         	<div class="ui icon input">
             	<input 
             		type="text" 
@@ -100,7 +100,7 @@ if(isset($_GET['contactID']))
         </div>
         
 	    <div id="input_contactNext" class="field">
-        	<label>Nächster Kontakt</label>
+        	<label><?php $t->_('next-contact'); ?></label>
     		<select id="contactNext" name="contactNext">
     			<?php foreach (VesselContact::$monthNext as $key => $month) { ?>
     			<option 
@@ -118,7 +118,7 @@ if(isset($_GET['contactID']))
 
 	<div class="two fields">
         <div id="input_contactCompany" class="field ui search category">
-        	<label>Liegeplatz</label>
+        	<label><?php $t->_('company'); ?></label>
         	<div class="ui icon input">
             	<input 
             		type="text" 
@@ -136,7 +136,7 @@ if(isset($_GET['contactID']))
         </div>
         
         <div id="input_contactPlanned" class="field">
-        	<label>geplant</label>
+        	<label><?php $t->_('planned'); ?></label>
     		<input 
     			type="checkbox" 
     			id="contactPlanned" 
@@ -147,11 +147,11 @@ if(isset($_GET['contactID']))
 	</div>
 	
 	<div id="input_contactInfo" class="field disabled">
-    	<label>Kontakt Info</label>
+    	<label><?php $t->_('contact-info'); ?></label>
     	<textarea rows="2" id="contactInfo" name="contactInfo"><?php echo(!empty($contact))?$contact->getInfo():''; ?></textarea>
     </div>
    
-    <button class="ui button" type="submit">Speichern</button>
+    <button class="ui button" type="submit"><?php $t->_('safe'); ?></button>
 </form>
 
 <script>

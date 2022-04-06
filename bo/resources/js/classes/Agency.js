@@ -53,7 +53,7 @@ define(function() {
 		 */			
 		that.newAgency = function(id, searchValue) {
 			$.get('../views/agency/addAgency.view.php?id=' + id + '&searchValue=' + searchValue, function(data) {
-				$('#windowLabel').html("Neue Agentur hinzufügen");
+				$('#windowLabel').html(t('add-agency'));
 				$('#windowBody').html(data);
 			});
 			showWindow();
@@ -68,12 +68,12 @@ define(function() {
 
 			if(!newAgencyValidate.fieldsNotAllEmpty(Array('agencyName'))) {
 				formValidate.setError(Array('agencyName'));
-				formValidate.setErrorMessage('Bitte einen Namen eingeben.');
+				formValidate.setErrorMessage(t('insert-name'));
 				return;
 			}			
 			if(!newAgencyValidate.fieldsNotAllEmpty(Array('agencyShort'))) {
 				formValidate.setError(Array('agencyShort'));
-				formValidate.setErrorMessage('Bitte ein Kürzel eingeben.');
+				formValidate.setErrorMessage(t('insert-short'));
 				return;
 			}
 
@@ -102,7 +102,7 @@ define(function() {
 		 */			
 		that.newAgencyPortInfo = function(agencyID, contactID) {
 			$.get('../views/agency/addAgencyContactInformation.view.php?id=' + contactID + '&agencyID=' + agencyID, function(data) {
-				$('#windowLabel').html("Neuen Kontakt für Agentur hinzufügen");
+				$('#windowLabel').html(t('add-agency-contactinfo'));
 				$('#windowBody').html(data);
 			});
 			showWindow();
@@ -127,7 +127,7 @@ define(function() {
 		 */	
 		that.deleteAgencyPortInfo = function(agencyID, contactID) {
 			if(contactID) {
-				if(confirm("Möchtest du den gewählten Kontakt wirklich löschen?")) {
+				if(confirm(t('confirm-delete-contactinfo'))) {
 					$.post(my.CONTROLLER + 'deleteAgencyPortInfo', {id: contactID}, 
 						function() {
 							that.openDetails(agencyID);
@@ -136,7 +136,7 @@ define(function() {
 				}
 			}
 			else {
-				alert('Bitte zuerst einen Kontakt auswählen.');
+				alert(t('choose-element'));
 			}
 		}
 		
@@ -147,15 +147,15 @@ define(function() {
 			$.post(my.CONTROLLER + "getAgencyInfo", {agency: agency, port: $('#contactPort').val()}, 
 				function(data) {
 					if(Object.keys(data).length === 0) {
-						var heading = "<div class='agentInfoHead'>Keine Kontaktinformationen für " + agency + " in " + $('#contactPort :selected').html() + " vorhanden</div>";
+						var heading = "<div class='agentInfoHead'>" + t('no-contactinfo') + " " + agency + " - " + $('#contactPort :selected').html() + "</div>";
 						$('#agentInfoContainer').html(heading);
 					}
 					else {			
 						$.each(data, function(i, val) {
 							if(i==0) {
-								var heading = "<div class='agentInfoHead'>Kontaktinformationen für " + val.agencyName + " in " + val.portName + "</div>";
+								var heading = "<div class='agentInfoHead'>" + t('contactinformation-for') + " " + val.agencyName + " - " + val.portName + "</div>";
 								$('#agentInfoContainer').html(heading);
-								var lastContactInfo = "<div class='agentInfoRow'>Letzter Kontakt: " + val.lastContact + "</div>";
+								var lastContactInfo = "<div class='agentInfoRow'>" + t('last-contact') + " " + val.lastContact + "</div>";
 								$('#agentInfoContainer').append(lastContactInfo);
 							}
 							var agentInfoValue = "<div class='agentInfoRow'><div>" + val.email  + "</div><div>" + val.info + "</div></div>";

@@ -10,7 +10,7 @@ Security::grantAccess(8);
 $users = User::getMultipleObjects(["inactive" => 0]);
 ?>
 <div class="ui segment">
-	<h4 class="ui header">Neuen Verkündiger einladen</h4>
+	<h4 class="ui header"><?php $t->_('invite-publisher'); ?></h4>
 
 	<form id="inviteUser" class="ui form" autocomplete="off">
 		<div class="ui two column grid">
@@ -20,7 +20,7 @@ $users = User::getMultipleObjects(["inactive" => 0]);
                 </div>
             </div>
             <div class="column">
-    			<button>Einladungsmail senden</button>
+    			<button><?php $t->_('send-invitation-mail'); ?></button>
     		</div>
 		</div>
 		<div class="ui error message"></div>
@@ -31,7 +31,7 @@ $users = User::getMultipleObjects(["inactive" => 0]);
 <table class="detailTable ui very compact celled striped table">
 	<thead>
 		<tr>
-			<th colspan="7">Angemeldete Verkündiger</th>
+			<th colspan="7"><?php $t->_('registerd-publisher'); ?></th>
 		</tr>
 	</thead>
     <tbody>
@@ -67,7 +67,7 @@ $users = User::getMultipleObjects(["inactive" => 0]);
 <script>
 
 $('.ui.form')
-  .form({ fields: {email: {identifier: 'email', rules: [{type   : 'email',prompt : 'Bitte gebe eine gültige Email Adresse ein.'}]}}, 
+  .form({ fields: {email: {identifier: 'email', rules: [{type   : 'email',prompt : '<?php $t->_('insert-email'); ?>'}]}}, 
   	onSuccess: function(){
   		settings.inviteUser(<?php echo $project->getID(); ?>);
   		return false;

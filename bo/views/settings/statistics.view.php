@@ -13,20 +13,20 @@ $statistics = new Statistics();
 <table class="detailTable ui very compact celled striped table">
 	<thead>
 		<tr>
-			<th colspan="2">Global</th>
+			<th colspan="2"><?php $t->_('global-statistic'); ?></th>
 		</tr>
 	</thead>
     <tbody>
 		<tr>
-			<td>Schiffe insg. in der Datenbank:</td>
+			<td><?php $t->_('total-ships-database'); ?>:</td>
 			<td><?php echo $statistics->getGlobal()['shipCount']; ?></td>			
 		</tr>
 		<tr>
-			<td>Schiffe mit bekannter Email Adresse:</td>
+			<td><?php $t->_('total-emails-database'); ?>:</td>
 			<td><?php echo $statistics->getGlobal()['shipMailCount']; ?></td>			
 		</tr>
 		<tr>
-			<td>Schiffe mit bekannter Telefonnummer:</td>
+			<td><?php $t->_('total-phone-database'); ?>:</td>
 			<td><?php echo $statistics->getGlobal()['shipPhoneCount']; ?></td>			
 		</tr>
     </tbody>
@@ -36,7 +36,7 @@ $statistics = new Statistics();
 	<form id="statisticsDate" class="ui form" name="statistics">
 		<div class="ui three column grid">
         	<div id="input_dateFrom" class="column">
-            	<label>Von:</label>
+            	<label><?php $t->_('from'); ?>:</label>
             	<input 
             		type="date" 
             		id="dateFrom" 
@@ -47,7 +47,7 @@ $statistics = new Statistics();
             </div>
             
             <div id="input_dateTo" class="column">
-            	<label>Bis:</label>
+            	<label><?php $t->_('to'); ?>:</label>
             	<input 
             		type="date" 
             		id="dateTo" 
@@ -58,9 +58,9 @@ $statistics = new Statistics();
             </div>
             
             <div id="input_port" class="column">
-            	<label>Hafen:</label>
+            	<label><?php $t->_('port'); ?>:</label>
             	<select id="port" name="port" class="ui fluid dropdown" onChange="settings.getStatistics();">
-            		<option value="0" selected>Alle Häfen</option>
+            		<option value="0" selected><?php $t->_('all-ports'); ?></option>
             	<?php foreach (Port::getMultipleObjects() as $port) { ?>
         			<option value="<?php echo $port->getID(); ?>"><?php echo $port->getName(); ?></option>
         		<?php } ?>

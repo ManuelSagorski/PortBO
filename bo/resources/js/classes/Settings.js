@@ -53,7 +53,7 @@ define(function() {
 			$.post(my.CONTROLLER + 'inviteUser', {projectID: projectID, data: inviteUserValidate.getFormData()}, 
 				function(data) {
 					$('#email').val('');
-					$('#message').html('Einladung wurde verschickt.');
+					$('#message').html(t('invitation-send'));
 					setTimeout(function(){
 					    $('#message').html('');
 					}, 4000);
@@ -69,11 +69,11 @@ define(function() {
 				projectID = '';
 			}
 			if(edit && !userID) {
-				alert('Bitte zuerst einen Benutzer auswählen.');
+				alert(t('choose-user'));
 			}
 			else {
 				$.get('../views/settings/addUser.view.php?id=' + userID + '&projectID=' + projectID, function(data) {
-					$('#windowLabel').html("Neuen Benutzer hinzufügen");
+					$('#windowLabel').html(t('edit-user'));
 					$('#windowBody').html(data);
 				});
 				showWindow();
@@ -89,14 +89,14 @@ define(function() {
 			
 			if(falseFields = newUserValidate.fieldsNotEmpty(Array('userFirstName', 'userSurname', 'userEmail'))) {
 				formValidate.setError(falseFields);
-				formValidate.setErrorMessage('Bitte alle Pflichtfelder ausfüllen.');
+				formValidate.setErrorMessage(t('insert-mendatory'));
 				return;
 			}
 	
 			if(parseInt(newUserValidate.getFormData().userLevel) != 2) {
 				if(falseFields = newUserValidate.fieldsNotEmpty(Array('userPhone'))) {
 					formValidate.setError(falseFields);
-					formValidate.setErrorMessage('Bei einem Benutzerlevel ungleich "Foreign Port" muss eine Handynummer angegeben werden.');
+					formValidate.setErrorMessage(t('mobile-number-needed'));
 					return;
 				}				
 			}
@@ -104,7 +104,7 @@ define(function() {
 			if(parseInt(newUserValidate.getFormData().userLevel) == 2) {
 				if(falseFields = newUserValidate.fieldsNotEmpty(Array('foreignPort'))) {
 					formValidate.setError(falseFields);
-					formValidate.setErrorMessage('Bei einem "Foreign Port" Mitarbeiter muss der Name des Hafens angegeben werden.');
+					formValidate.setErrorMessage(t('name-port-needed'));
 					return;
 				}				
 			}
@@ -112,7 +112,7 @@ define(function() {
 			if(parseInt(newUserValidate.getFormData().userLevel) > 1) {
 				if(!newUserValidate.fieldsNotAllEmpty(Array('userUsername'))) {
 					formValidate.setError(Array('userUsername'));
-					formValidate.setErrorMessage('Bei einem Benutzerlevel ungleich "Verkündiger" muss ein Benutzername angegeben werden.');
+					formValidate.setErrorMessage(t('username-needed'));
 					return;
 				}
 			}
@@ -144,7 +144,7 @@ define(function() {
 		 */
 		that.deleteUser = function(userID) {
 			if(userID) {
-				if(confirm("Möchtest du den gewählten Benutzer wirklich löschen?")) {
+				if(confirm(t('confirm-delete-user'))) {
 					$.post(my.USER_CONTROLLER + 'deleteUser', {id: userID}, 
 						function() {
 							that.openDetails('users');
@@ -152,7 +152,7 @@ define(function() {
 				}
 			}
 			else {
-				alert('Bitte zuerst einen Benutzer auswählen.');
+				alert(t('choose-user'));
 			}			
 		}
 
@@ -162,7 +162,7 @@ define(function() {
 		that.sendInvitationMail = function(userID) {
 			event.preventDefault();
 			
-			if(!confirm("Möchtest wirklich eine neue Einladungsmail verschicken? Das Passwort des Benutzers wird dabei zurückgesetzt.")) {
+			if(!confirm(t('confirm-send-invitation-mail'))) {
 				return;
 			}
 			
@@ -200,11 +200,11 @@ define(function() {
 		 */			
 		that.newLink = function(linkID, edit) {
 			if(edit && !linkID) {
-				alert('Bitte zuerst einen bestehenden Link auswählen.');
+				alert(t('choose-element'));
 			}
 			else {
 				$.get('../views/settings/addLink.view.php?id=' + linkID, function(data) {
-					$('#windowLabel').html("Neuen Link hinzufügen");
+					$('#windowLabel').html(t('add-link'));
 					$('#windowBody').html(data);
 				});
 				showWindow();
@@ -220,7 +220,7 @@ define(function() {
 			
 			if(falseFields = newLinkValidate.fieldsNotEmpty(Array('linkName', 'linkUrl'))) {
 				formValidate.setError(falseFields);
-				formValidate.setErrorMessage('Bitte alle Pflichtfelder ausfüllen.');
+				formValidate.setErrorMessage(t('insert-mendatory'));
 				return;
 			}
 			
@@ -236,7 +236,7 @@ define(function() {
 		 */			
 		that.deleteLink = function(linkID) {
 			if(linkID) {
-				if(confirm("Möchtest du den gewählten Link wirklich löschen?")) {
+				if(confirm(t('confirm-delete'))) {
 					$.post(my.CONTROLLER + 'deleteExternLink', {linkID: linkID}, 
 						function() {
 							closeWindow();
@@ -245,7 +245,7 @@ define(function() {
 				}
 			}
 			else {
-				alert('Bitte zuerst einen Link auswählen.');
+				alert(t('choose-element'));
 			}
 		}
 		

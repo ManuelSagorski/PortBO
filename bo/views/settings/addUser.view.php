@@ -26,7 +26,7 @@ if(isset($_GET['id']))
     
     <div class="two fields">
         <div id="input_userFirstName" class="required field">
-        	<label>Vorname</label>
+        	<label><?php $t->_('first-name'); ?></label>
         	<input 
         		type="text" 
         		id="userFirstName" 
@@ -38,7 +38,7 @@ if(isset($_GET['id']))
         </div>
 
         <div id="input_userSurname" class="required field">
-        	<label>Nachname</label>
+        	<label><?php $t->_('surname'); ?></label>
         	<input 
         		type="text" 
         		id="userSurname" 
@@ -52,7 +52,7 @@ if(isset($_GET['id']))
 
     <div class="two fields">
         <div id="input_userUsername" class="field">
-        	<label>Benutzername</label>
+        	<label><?php $t->_('username'); ?></label>
         	<input 
         		type="text" 
         		id="userUsername" 
@@ -64,7 +64,7 @@ if(isset($_GET['id']))
         </div>
 
         <div id="input_userPhone" class="required field">
-        	<label>Handynummer</label>
+        	<label><?php $t->_('mobile'); ?></label>
         	<input 
         		type="text" 
         		id="userPhone" 
@@ -78,7 +78,7 @@ if(isset($_GET['id']))
 
     <div class="two fields">
         <div id="input_userEmail" class="required field">
-        	<label>Email Adresse</label>
+        	<label><?php $t->_('email-address'); ?></label>
         	<input 
         		type="text" 
         		id="userEmail" 
@@ -90,7 +90,7 @@ if(isset($_GET['id']))
         </div>
     
         <div id="input_userLevel" class="field">
-        	<label>Benutzerlevel</label>
+        	<label><?php $t->_('userlevel'); ?></label>
         	<select id="userLevel" name="userLevel" class="ui fluid dropdown"<?php echo (!empty($userToEdit) && $userToEdit->getLevel() > $user->getLevel())?" disabled":""; ?>>
         	<?php foreach (User::returnAllowedUserLevels($user, $userToEdit, $_GET['projectID']) as $levelID=>$level) {?>
     			<option 
@@ -116,7 +116,7 @@ if(isset($_GET['id']))
     <?php } ?>
     
     <div id="input_userLanguage" class="field">
-    	<label>Sprachen</label>
+    	<label><?php $t->_('languages'); ?></label>
     	<select id="userLanguage" name="userLanguage" multiple="multiple" class="ui fluid dropdown"<?php echo (!empty($_GET['projectID']))?" disabled":""; ?>>
     	<?php foreach (languages::$languages as $id=>$language) { ?>
 			<option value="<?php echo $id; ?>"><?php echo $language; ?></option>
@@ -125,7 +125,7 @@ if(isset($_GET['id']))
     </div>
 
     <div id="input_userPort" class="field">
-    	<label>Zugewiesene Häfen</label>
+    	<label><?php $t->_('assigned-ports'); ?></label>
     	<select id="userPort" name="userPort" multiple="multiple" class="ui fluid dropdown"<?php echo (!empty($_GET['projectID']))?" disabled":""; ?>>
     	<?php foreach (Port::getMultipleObjects() as $port) { ?>
 			<option value="<?php echo $port->getID(); ?>"><?php echo $port->getName(); ?></option>
@@ -135,7 +135,7 @@ if(isset($_GET['id']))
 
     <?php if(empty($userToEdit)) { ?>
     <div id="input_userSendInfo" class="field">
-    	<label>Email mit Benutzerdaten an den Verkündiger schicken</label>
+    	<label><?php $t->_('send-login-email'); ?></label>
 		<input 
 			type="checkbox" 
 			id="userSendInfo" 
@@ -148,10 +148,12 @@ if(isset($_GET['id']))
 	<input type="hidden" name="projectID" value="<?php echo $_GET['projectID']; ?>">
 	<?php } ?>
 
-	<button class="ui button" type="submit">Speichern</button>
+	<button class="ui button" type="submit"><?php $t->_('safe'); ?></button>
+	
 	<?php if(!empty($userToEdit) && $userToEdit->getLevel() > 1) { ?>
-		<button class="ui button" onClick="settings.sendInvitationMail(<?php echo $userToEdit->getID(); ?>)">Einladungsmail</button>
+		<button class="ui button" onClick="settings.sendInvitationMail(<?php echo $userToEdit->getID(); ?>)"><?php $t->_('invitation-mail'); ?></button>
 	<?php } ?>
+	
 	<?php if(!empty($userToEdit) && SettingsController::canGetCalender($userToEdit, $projectID)) { ?>
 		<button class="ui icon button" onClick="settings.showAddKalender()"><i class="calendar alternate outline icon"></i></button>
 	<?php } ?>
@@ -160,7 +162,7 @@ if(isset($_GET['id']))
 <div id="addKalender" class="ui raised segment">
 	<form id="addKalenderForm" class="ui form">
         <div id="input_kalender" class="inline fields">
-        	<label for="kalender">Kalender hinzufügen für:</label>
+        	<label for="kalender"><?php $t->_('add-calender-for'); ?>:</label>
             <div class="field">
               <div class="ui radio checkbox">
                 <input type="radio" name="kalender" checked="checked" tabindex="0" class="hidden" value="1">
@@ -175,7 +177,7 @@ if(isset($_GET['id']))
             </div>
         </div>
         
-        <div class="buttonLine"><button class="ui button" type="submit">Kalender anlegen</button></div>
+        <div class="buttonLine"><button class="ui button" type="submit"><?php $t->_('add-calender'); ?></button></div>
 	</form>
 </div>
 

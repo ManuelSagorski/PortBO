@@ -14,7 +14,7 @@ if(isset($_GET['id']))
     </div>    
 
     <div id="input_contactPort" class="field">
-    	<label>Hafen</label>
+    	<label><?php $t->_('port'); ?></label>
 		<select id="contactPort" name="contactPort">
 			<?php foreach (Port::getMultipleObjects() as $port) { ?>
 			<option 
@@ -26,7 +26,7 @@ if(isset($_GET['id']))
     </div>
 	
     <div id="input_agencyContactEmail" class="field">
-    	<label>Email</label>
+    	<label><?php $t->_('email'); ?></label>
     	<input 
     		type="text" 
     		id="agencyContactEmail" 

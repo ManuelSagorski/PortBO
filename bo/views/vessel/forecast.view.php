@@ -20,7 +20,7 @@ foreach($user->getUserPorts() as $key => $userPorts) {
 
 	<div class="title">
     	<i class="dropdown icon"></i>
-    	Forecast für <?php echo Port::getPortName($userPorts->getID()); ?> (<?php echo Forecast::getCountOpenForecastPort($userPorts->getID()); ?>)
+    	Forecast - <?php echo Port::getPortName($userPorts->getID()); ?> (<?php echo Forecast::getCountOpenForecastPort($userPorts->getID()); ?>)
 	</div>
 	<div class="content">
 		<form id="addForecast<?php echo $userPorts->getID(); ?>" class="addForecast">

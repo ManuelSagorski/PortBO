@@ -9,7 +9,7 @@ if(!$project->getModExternLinks())
 
 <h4 class="ui horizontal divider header">
   <i class="linkify icon"></i>
-  Externe Links
+  <?php $t->_('extern-links'); ?>
 </h4>
 
 <?php foreach(SettingsExternLinks::getMultipleObjects() as $externForecastList) {?>

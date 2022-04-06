@@ -445,7 +445,7 @@ class User extends AbstractDBObject
         $result = $usernameQuery->fetchAll(User::class);
         
         if(!empty($result))
-            return array("field" => "userUsername", "msg" => "Es existiert bereits ein Benutzer mit diesem Benutzernamen.");
+            return array("field" => "userUsername", "msg" => $t->_('user-already-existing'));
     }
    
     private function generateHashForRandPassword($userLevel) {

@@ -247,17 +247,6 @@ class LoginController
             }
         }
     }
-    
-    public function changeLanguage() 
-    {
-        $_SESSION['language'] = $_POST['language'];
-        
-        (new Query("update"))
-            ->table(User::TABLE_NAME)
-            ->values(["default_language" => $_POST['language']])
-            ->condition(["id" => $_SESSION['user']])
-            ->execute();
-    }
 }
 
 ?>

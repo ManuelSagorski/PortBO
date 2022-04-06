@@ -1,3 +1,9 @@
 {
-"no-ship-selected": "No Ship selected"
+"no-ship-selected": 			"No ship selected",
+"ships": 						"Ships",
+"agencys": 						"Agencys",
+"ports": 						"Ports",
+"planned-contacts": 			"Planned contacts",
+"add-vessel":					"Add new ship",
+"add-ship":						"Add ship"
 }

@@ -21,7 +21,7 @@ if(!empty($_GET["id"])) {
     		<img src="../resources/img/iconVessel.png" />
     	</div>
 
-    	<div class="label">Name:</div>
+    	<div class="label"><?php $t->_('name'); ?>:</div>
     	<div class="elemDetailName"><div><?php echo $vessel->getName(); ?></div></div>
     
     	<div class="label">IMO:</div>
@@ -33,14 +33,14 @@ if(!empty($_GET["id"])) {
     	<div class="label">ENI:</div>
     	<div><?php echo $vessel->getENI(); ?></div>    		
     
-    	<div class="label">Typ:</div>
+    	<div class="label"><?php $t->_('typ'); ?>:</div>
     	<div><?php echo $vessel->getTyp(); ?></div>
     	
-    	<div class="label">Nationalitäten:</div>
+    	<div class="label"><?php $t->_('nationalitis'); ?>:</div>
     	<div class="elemDetailLanguages"><?php echo $vessel->getLanguage(); ?></div>
     	
     	<?php if(!empty($vessel->getVesselLanguagesMaster())) { ?>
-    	<div class="label languagesIndiv">Sprache Master:</div>
+    	<div class="label languagesIndiv"><?php $t->_('language-master'); ?>:</div>
     	<div class="elemDetailLanguagesIndiv">
     	<?php foreach ($vessel->getVesselLanguagesMaster() as $key => $language) { 
     	    echo Language::getLanguageByID($language->getLanguageID());
@@ -52,7 +52,7 @@ if(!empty($_GET["id"])) {
     	<?php }?>
 
     	<?php if(!empty($vessel->getVesselLanguagesCrew())) { ?>
-    	<div class="label languagesIndiv">Sprachen Crew:</div>
+    	<div class="label languagesIndiv"><?php $t->_('language-crew'); ?>:</div>
     	<div class="elemDetailLanguagesIndiv">
     	<?php foreach ($vessel->getVesselLanguagesCrew() as $key => $language) { 
     	    echo Language::getLanguageByID($language->getLanguageID());
@@ -68,7 +68,7 @@ if(!empty($_GET["id"])) {
 	<a class="item" onclick="vessel.newVessel(<?php echo $vessel->getID(); ?>);">
 		<i class="edit icon"></i>
 	</a>
-	<a class="item" onClick="alert('Schiffe können derzeit nur durch einen Administrator gelöscht werden.');">
+	<a class="item" onClick="alert('<?php $t->_('delete-ships-only-admin'); ?>');">
 		<i class="trash alternate icon"></i>
 	</a>
 	<?php if(!empty($vessel->getIMO())) { ?>
@@ -121,7 +121,7 @@ Funktion VesselInfo nicht mehr gewünscht - wird zurückgebaut.
 <table class="detailTable ui very compact celled striped table">
 	<thead>
 		<tr>
-			<th colspan="5">Kontaktdaten</th>
+			<th colspan="5"><?php $t->_('contact-details'); ?></th>
 		</tr>
 	</thead>
     <tbody>
@@ -155,16 +155,16 @@ Funktion VesselInfo nicht mehr gewünscht - wird zurückgebaut.
 <table class="detailTable ui very compact celled striped table">
 	<thead>
 		<tr>
-			<th colspan="7">Kontakte</th>
+			<th colspan="7"><?php $t->_('contacts'); ?></th>
 		</tr>
 		<tr>
 			<th></th>
-			<th>Datum</th>
-			<th>Hafen</th>
-			<th>Kontakt durch</th>
-			<th>Typ</th>
-			<th>Agent</th>
-			<th>Nächster Kontakt</th>
+			<th><?php $t->_('date'); ?></th>
+			<th><?php $t->_('port'); ?></th>
+			<th><?php $t->_('contact-by'); ?></th>
+			<th><?php $t->_('typ'); ?></th>
+			<th><?php $t->_('agent'); ?></th>
+			<th><?php $t->_('next-contact'); ?></th>
 		</tr>
 	</thead>
     <tbody>

@@ -6,7 +6,7 @@ include '../../components/config.php';
 Security::grantAccess(8);
 ?>
 
-<div class="listingHeadline">Einstellungen:</div>
+<div class="listingHeadline"><?php $t->_('settings'); ?>:</div>
 
 <div id="searchResult">
 	<div class="searchResultRow active"><a onclick="settings.openDetails('users', this);">Benutzerverwaltung</a></div>
@@ -15,10 +15,10 @@ Security::grantAccess(8);
 </div>
 
 <?php if ($user->getLevel() == 9) { ?>
-<div class="listingHeadline">Projekt Administration:</div>
+<div class="listingHeadline"><?php $t->_('project-administration'); ?>:</div>
 
 <div id="searchResult">
-	<div class="searchResultRow"><a onclick="settings.openDetails('logging', this);">Logging</a></div>
-	<div class="searchResultRow"><a id="settingsProjekte" onclick="settings.openDetails('projects', this);">Projekte</a></div>
+	<div class="searchResultRow"><a onclick="settings.openDetails('logging', this);"><?php $t->_('menu-logging'); ?></a></div>
+	<div class="searchResultRow"><a id="settingsProjekte" onclick="settings.openDetails('projects', this);"><?php $t->_('menu-projects'); ?></a></div>
 </div>	
 <?php } ?>

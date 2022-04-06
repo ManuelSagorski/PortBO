@@ -160,7 +160,7 @@ class Agency extends AbstractDBObject
             $query->conditionNot(["id" => $this->id]);
         }
         if(($query->execute())->rowCount() > 0) {
-            return array("field" => "agencyName", "msg" => "Es existiert bereits ein Agent mit diesem Namen.");
+            return array("field" => "agencyName", "msg" => $t->_('agent-already-existing'));
         }
 
         $query = (new Query("select"))
@@ -170,7 +170,7 @@ class Agency extends AbstractDBObject
             $query->conditionNot(["id" => $this->id]);
         }
         if(($query->execute())->rowCount() > 0) {
-            return array("field" => "agencyShort", "msg" => "Es existiert bereits ein Agent mit diesem Kürzel.");
+            return array("field" => "agencyShort", "msg" => $t->_('agent-short-already-existing'));
         }
     }
     

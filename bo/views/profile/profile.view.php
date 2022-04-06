@@ -6,18 +6,18 @@ include '../../components/config.php';
 <div class="ui grid profile">
 	<div class="four wide column">
     	<div class="ui raised segment">
-    		<h4 class="ui header">Passwort ändern</h4>
+    		<h4 class="ui header"><?php $t->_('change-password'); ?></h4>
 			<form id="changePassword" class="ui form" autocomplete="off">
 			    <div class="ui error message">
             		<div id="errorMessage"></div>
                 </div>
                 
                 <div class="ui success message">
-                	<div id="successMessage"> Dein Passwort wurde erfolgreich geändert.</div>
+                	<div id="successMessage"><?php $t->_('password-changed'); ?></div>
                 </div>
                 
                 <div id="input_secretNew1" class="required field">
-                	<label>Neues Passwort</label>
+                	<label><?php $t->_('new-password'); ?></label>
                 	<input 
                 		type="password" 
                 		id="secretNew1" 
@@ -27,7 +27,7 @@ include '../../components/config.php';
                 </div>
                 
                 <div id="input_secretNew2" class="required field">
-                	<label>Wiederholen</label>
+                	<label><?php $t->_('password-confirmation'); ?></label>
                 	<input 
                 		type="password" 
                 		id="secretNew2" 
@@ -36,29 +36,29 @@ include '../../components/config.php';
                 	>
                 </div>
                 
-                <button class="ui button" type="submit">Passwort ändern</button>
+                <button class="ui button" type="submit"><?php $t->_('change-password'); ?></button>
 			</form>
         </div>
 	</div>
 	
 	<div class="four wide column">
     	<div class="ui raised segment">
-    		<h4 class="ui header">Email Adresse ändern</h4>
+    		<h4 class="ui header"><?php $t->_('change-email'); ?></h4>
 			<form id="changeEmail" class="ui form" autocomplete="off">
 			    <div class="ui error message">
             		<div id="errorMessage"></div>
                 </div>
                                 
                 <div class="ui success message">
-                	<p>Deine Email Adresse wurde geändert.</p>
+                	<p><?php $t->_('email-changed'); ?></p>
                 </div>
                 
-    			<div>Aktuelle Email-Adresse:</div>
+    			<div><?php $t->_('current-email'); ?>:</div>
         		<div id="actualEmail"><?php echo $user->getEmail(); ?></div>
         		<div class="ui divider"></div>
                 
                 <div id="input_emailNew" class="required field">
-                	<label>Neue Email Adresse</label>
+                	<label><?php $t->_('new-email'); ?></label>
                 	<input 
                 		type="text" 
                 		id="emailNew" 
@@ -67,50 +67,50 @@ include '../../components/config.php';
                 	>
                 </div>
                
-                <button class="ui button" type="submit">Speichern</button>
+                <button class="ui button" type="submit"><?php $t->_('safe'); ?></button>
 			</form>
         </div>
 	</div>
 
 	<div class="eight wide column">
     	<div class="ui raised segment">
-    		<h4 class="ui header">Kontakt</h4>
+    		<h4 class="ui header"><?php $t->_('contact'); ?></h4>
 			<form id="sendMessage" class="ui form" autocomplete="off">
 				<div class="ui error message">
             		<div id="errorMessage"></div>
                 </div>
                 
                 <div class="ui success message">
-                	<p>Deine Nachricht wurde veschickt. Wir werden dir so bald wie möglich antworten.</p>
+                	<p><?php $t->_('message-sended'); ?></p>
                 </div>
                 
 			    <div id="input_message" class="required field">
-                	<label>Nachricht an das Koordinations-Team</label>
+                	<label><?php $t->_('message-coordination'); ?></label>
                 	<textarea rows="4" id="message" name="message"></textarea>
                 </div>
-				<button class="ui button" type="submit">Senden</button>
+				<button class="ui button" type="submit"><?php $t->_('send'); ?></button>
 			</form>
         </div>
 	</div>
 	
 	<div class="four wide column">
     	<div class="ui raised segment">
-    		<h4 class="ui header">Handynummer ändern</h4>
+    		<h4 class="ui header"><?php $t->_('change-mobile'); ?></h4>
 			<form id="changePhone" class="ui form" autocomplete="off">
 			    <div class="ui error message">
             		<div id="errorMessage"></div>
                 </div>
                                                 
                 <div class="ui success message">
-                	<p>Deine Handynummer wurde geändert.</p>
+                	<p><?php $t->_('mobile-changed'); ?></p>
                 </div>
 
-        		<div>Aktuelle Handynummer:</div>
+        		<div><?php $t->_('current-mobile'); ?>:</div>
         		<div id="actualPhone"><?php echo $user->getPhone(); ?></div>
         		<div class="ui divider"></div>
                 
                 <div id="input_phoneNew" class="required field">
-                	<label>Neue Handynummer</label>
+                	<label><?php $t->_('new-mobile'); ?></label>
                 	<input 
                 		type="tel" 
                 		id="phoneNew" 
@@ -119,7 +119,7 @@ include '../../components/config.php';
                 	>
                 </div>
                
-                <button class="ui button" type="submit">Speichern</button>
+                <button class="ui button" type="submit"><?php $t->_('safe'); ?></button>
 			</form>
         </div>
 	</div>

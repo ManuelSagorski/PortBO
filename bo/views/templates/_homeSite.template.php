@@ -59,9 +59,9 @@
                         	</div>
                         </div>
     				</div> 
-    				<div class="navElement"><a href="vessel">Schiffe</a></div>
-    				<div class="navElement"><a href="agency">Agenten</a></div>
-    				<div class="navElement"><a href="port">Häfen</a></div>
+    				<div class="navElement"><a href="vessel"><?php $t->_('ships'); ?></a></div>
+    				<div class="navElement"><a href="agency"><?php $t->_('agencys'); ?></a></div>
+    				<div class="navElement"><a href="port"><?php $t->_('ports'); ?></a></div>
 					<div class="navElement"><a href="profile" title="Profile"><i class="user icon" href="profile"></i></a></div>
 					<?php if($project->getModPlanning() && $user->getPlanningID() > 0) {?>
 					<div class="navElement">

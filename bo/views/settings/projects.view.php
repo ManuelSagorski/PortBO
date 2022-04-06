@@ -121,7 +121,7 @@ foreach ($projects as $key => $project) {
         	<a class="item" onclick="settings.newUser($('input[name=selectUser]:checked').val(), true, <?php echo $project->getID(); ?>);">
         		<i class="edit icon"></i>
         	</a>
-        	<a class="item" onClick="alert('Benutzer können derzeit nur durch einen Datenbankadministrator gelöscht werden.');">
+        	<a class="item" onClick="alert('<?php $t->_('delete-user-only-admin'); ?>');">
         		<i class="trash alternate icon"></i>
         	</a>
         </div>

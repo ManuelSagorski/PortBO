@@ -19,10 +19,10 @@ $_SESSION['portID'] = $port->getID();
     		<img src="../resources/img/iconPort.png" />
     	</div>
 
-    	<div class="label">Name:</div>
+    	<div class="label"><?php $t->_('name'); ?>:</div>
     	<div class="elemDetailName"><div><?php echo $port->getName(); ?></div></div>
     
-    	<div class="label">Kürzel:</div>
+    	<div class="label"><?php $t->_('short'); ?>:</div>
     	<div><?php echo $port->getShort(); ?></div>
     </div>
 </div>
@@ -31,7 +31,7 @@ $_SESSION['portID'] = $port->getID();
 	<a class="item" onclick="portC.newPort(<?php echo $port->getID(); ?>);">
 		<i class="edit icon"></i>
 	</a>
-	<a class="item" onClick="alert('Häfen können derzeit nur durch einen Administrator gelöscht werden.');">
+	<a class="item" onClick="alert('<?php $t->_('delete-port-only-admin'); ?>');">
 		<i class="trash alternate icon"></i>
 	</a>
 	<a class="item" href="<?php echo $port->getMtLink(); ?>" target="_blank">
@@ -43,7 +43,7 @@ $_SESSION['portID'] = $port->getID();
 <table class="detailTable ui very compact celled striped table">
 	<thead>
 		<tr>
-			<th colspan="5">Liegeplätze</th>
+			<th colspan="5"><?php $t->_('companys'); ?></th>
 		</tr>
 	</thead>
     <tbody>
@@ -83,7 +83,7 @@ $_SESSION['portID'] = $port->getID();
 <table class="detailTable ui very compact celled striped table">
 	<thead>
 		<tr>
-			<th colspan="5">In diesem Hafen tätige Verkündiger:</th>
+			<th colspan="5"><?php $t->_('publisher-port'); ?></th>
 		</tr>
 	</thead>
     <tbody>
@@ -105,6 +105,6 @@ $_SESSION['portID'] = $port->getID();
 <?php } else { ?>
 <div id="detailEmpty">
 	<div><img src="../resources/img/iconPort.png" /></div>
-	<div>Kein Hafen ausgewählt</div>
+	<div><?php $t->_('no-port-selected'); ?></div>
 </div>
 <?php }?>

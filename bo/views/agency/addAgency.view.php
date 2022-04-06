@@ -17,7 +17,7 @@ if(!empty($_GET['searchValue']))
     </div>
 
     <div id="input_agencyName" class="required field">
-    	<label>Name</label>
+    	<label><?php $t->_('name'); ?></label>
     	<input 
     		type="text" 
     		id="agencyName" 
@@ -28,7 +28,7 @@ if(!empty($_GET['searchValue']))
     </div>
 
     <div id="input_agencyShort" class="required field">
-    	<label>Kürzel</label>
+    	<label><?php $t->_('short'); ?></label>
     	<input 
     		type="text" 
     		id="agencyShort" 
@@ -38,7 +38,7 @@ if(!empty($_GET['searchValue']))
     	>
     </div>
     
-    <button class="ui button" type="submit">Speichern</button>
+    <button class="ui button" type="submit"><?php $t->_('safe'); ?></button>
 </form>
 
 <script>

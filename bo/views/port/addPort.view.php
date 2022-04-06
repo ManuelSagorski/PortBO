@@ -13,7 +13,7 @@ if(isset($_GET['id']))
     </div>
 
     <div id="input_portName" class="required field">
-    	<label>Name</label>
+    	<label><?php $t->_('name'); ?></label>
     	<input 
     		type="text" 
     		id="portName" 
@@ -24,7 +24,7 @@ if(isset($_GET['id']))
     </div>
 
     <div id="input_portShort" class="required field">
-    	<label>Kürzel</label>
+    	<label><?php $t->_('short'); ?></label>
     	<input 
     		type="text" 
     		id="portShort" 
@@ -39,7 +39,7 @@ if(isset($_GET['id']))
     	<textarea rows="2" id="portMTLink" name="portMTLink"><?php echo(!empty($port))?$port->getMTLink():''; ?></textarea>
     </div>
     
-    <button class="ui button" type="submit">Speichern</button>
+    <button class="ui button" type="submit"><?php $t->_('safe'); ?></button>
 </form>
 
 <script>

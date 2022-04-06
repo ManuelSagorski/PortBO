@@ -10,7 +10,7 @@ Security::grantAccess(8);
 <table class="detailTable ui very compact celled striped table">
 	<thead>
 		<tr>
-			<th colspan="2">Externe Links</th>
+			<th colspan="2"><?php $t->_('extern-links'); ?></th>
 		</tr>
 	</thead>
     <tbody>
