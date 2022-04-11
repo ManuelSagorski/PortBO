@@ -177,7 +177,7 @@ if(isset($_GET['id']))
             </div>
         </div>
         
-        <div class="buttonLine"><button class="ui button" type="submit"><?php $t->_('add-calender'); ?></button></div>
+        <div class="buttonLine"><button class="ui button" type="submit"><?php $t->_('add-calendar'); ?></button></div>
 	</form>
 </div>
 

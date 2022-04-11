@@ -1,3 +1,6 @@
+<?php
+use bo\components\types\Languages;
+?>
 <!DOCTYPE html>
 <html lang="de">
 	<head>
@@ -50,13 +53,14 @@
     				<div class="navElement">
         				<div class="ui dropdown language">
                             <input type="hidden" name="country">
-                            <i class="dropdown icon"></i>
+                            <i class="language icon"></i>
                             <div class="default text"></div>
                             <div class="menu">
-                                <div class="item" data-value="de"><i class="de flag"></i></div>
-                                <div class="item" data-value="en"><i class="gb uk flag"></i></div>
-                                <div class="item" data-value="ru"><i class="ru flag"></i></div>
+                          		<?php foreach (Languages::$frontendLanguages as $code => $language) { ?>
+                            	<div class="item" data-value="<?php echo $code; ?>"><?php echo $language; ?></div>
+                            	<?php } ?>
                         	</div>
+                        	<i class="dropdown icon"></i>
                         </div>
     				</div> 
     				<div class="navElement"><a href="vessel"><?php $t->_('ships'); ?></a></div>
@@ -79,6 +83,20 @@
     			<div id="title"><h1>Backoffice <?php echo $project->getName(); ?></h1></div>
     			
     			<div id="mobileMenu" class="ui vertical menu">
+    			<!--
+    			    <div class="item">
+        				<div class="ui dropdown language">
+                            <input type="hidden" name="country">
+                            <i class="language icon"></i>
+                            <div class="default text"></div>
+                            <div class="menu">
+                                <div class="item" data-value="de">Deutsch</div>
+                                <div class="item" data-value="en">Englisch</div>
+                        	</div>
+                        	<i class="dropdown icon"></i>
+                        </div>
+    				</div> 
+    			-->
     				<a class="item" href="vessel">
                         <?php $t->_('ships'); ?>
                     </a>

@@ -26,5 +26,16 @@ class Languages
         14 => "spanisch",
         15 => "türkisch"
     );
+    
+    /**
+     * $frontendLanguages
+     *
+     * Sprachen in denen das Frontend zur Verfügung steht
+     * @var array
+     */
+    public static $frontendLanguages = array(
+        "de" => "Deutsch",
+        "en" => "English"
+    );
 }
 

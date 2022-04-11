@@ -45,8 +45,7 @@
 "send-login-email":						"Email mit Benutzerdaten an den Verkündiger schicken",
 "invitation-mail":						"Einladungsmail",
 "send-invitation-mail":					"Einladungsmail senden",
-"add-kalender-for":						"Kalender hinzufügen für",
-"add-kalender":							"Kalender anlegen",
+"add-calender-for":						"Kalender hinzufügen für",
 "total-ships-database":					"Schiffe insg. in der Datenbank",
 "total-emails-database":				"Schiffe mit bekannter Email Adresse",
 "total-phone-database":					"Schiffe mit bekannter Telefonnummer",
@@ -58,6 +57,7 @@
 "emails-ships":							"Emails an Schiffe",
 "emails-ships-agencys":					"Emails an Schiff über Agenten",
 "calls-ships":							"Kontakte per Telefon (Anruf / Messenger)",
+"search":								"Suchen",
 
 "-------------------------- Hinweismeldungen --------------------------":"",
 "to-safe-imo-eni":						"Zum Speichern eines neuen Schiffes muss mindestens ein Name und eine IMO oder eine ENI angegeben werden.",
@@ -98,7 +98,7 @@
 "email-changed":						"Deine Email Adresse wurde geändert.",
 "mobile-changed":						"Deine Handynummer wurde geändert.",
 "message-sended":						"Deine Nachricht wurde veschickt. Wir werden dir so bald wie möglich antworten.",
-"user-not-existing":					"Der eingegebene Benutzer existiert nicht in der Datenbank. Bitte lege zuerst den Benutzer an.",
+"user-not-existing":					"Der eingegebene Benutzer existiert nicht in der Datenbank.",
 "agent-not-existing":					"Der eingegebene Agent existiert nicht in der Datenbank. Bitte lege zuerst den Agenten an.",
 "company-not-existing":					"Der eingegebene Liegeplatz existiert nicht in der Datenbank. Bitte lege ihn zuerst an.",
 "ship-already-existing":				"Es existiert bereits ein Schiff mit dieser IMO / ENI.",
@@ -110,6 +110,7 @@
 "add-ship":								"Schiff hinzufügen",
 "add-new-agency":						"Agentur hinzufügen",
 "add-new-port":							"Hafen hinzufügen",
+"add-calendar":							"Kalender anlegen",
 "safe":									"Speichern",
 "send":									"Senden",
 
@@ -137,8 +138,11 @@
 "settings":								"Einstellungen",
 "project-administration":				"Projekt Administration",
 "global-statistic":						"Globale Statistik",
+"statistic":							"Statistik",
 "invite-publisher":						"Neuen Verkündiger einladen",
 "registerd-publisher":					"Angemeldete Verkündiger",
+"my-ports":								"Meine Häfen",
+"user-administration":					"Benutzerverwaltung",
 
 "-------------------------- Sonstige --------------------------":"",
 "attention":							"Achtung!"

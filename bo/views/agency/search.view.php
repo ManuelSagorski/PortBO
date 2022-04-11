@@ -3,7 +3,7 @@ include '../../components/config.php';
 ?>
 <div>
     <div class="ui action input">
-    	<input type="text" id="searchInputAgency" placeholder="Suchen..." onkeyup="agency.searchAgency(this.value);">
+    	<input type="text" id="searchInputAgency" placeholder="<?php $t->_('search'); ?>..." onkeyup="agency.searchAgency(this.value);">
     	<button class="ui icon button" onclick="agency.searchAgency($('#searchInput').val());">
 			<i class="search icon"></i>
       	</button>

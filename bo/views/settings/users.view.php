@@ -13,13 +13,25 @@ $users = User::getMultipleObjects(["inactive" => 0]);
 	<h4 class="ui header"><?php $t->_('invite-publisher'); ?></h4>
 
 	<form id="inviteUser" class="ui form" autocomplete="off">
-		<div class="ui two column grid">
-			<div class="column">
+		<div class="ui grid">
+			<div class="eight wide column">
                 <div class="required field">
-                	<input type="text" id="email" name="email" placeholder="Email Adresse...">
+                	<input type="text" id="email" name="email" placeholder="<?php $t->_('email-address'); ?>...">
                 </div>
             </div>
-            <div class="column">
+            <div class="four wide column">
+            	<div class="ui selection dropdown mailLanguage">
+                	<input type="hidden" name="mailLanguage">
+                	<i class="dropdown icon"></i>
+                	<div class="default text"></div>
+                  	<div class="menu">
+                  		<?php foreach (Languages::$frontendLanguages as $code => $language) { ?>
+                    	<div class="item" data-value="<?php echo $code; ?>"><?php echo $language; ?></div>
+                    	<?php } ?>
+                	</div>
+                </div>
+            </div>
+            <div class="four wide column right aligned">
     			<button><?php $t->_('send-invitation-mail'); ?></button>
     		</div>
 		</div>
@@ -73,4 +85,7 @@ $('.ui.form')
   		return false;
   	}}
   	);
+
+	$('.ui.dropdown.mailLanguage').dropdown();
+	$('.ui.dropdown.mailLanguage').dropdown('set selected', '<?php echo $_SESSION['language']; ?>');
 </script>

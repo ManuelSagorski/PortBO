@@ -1,5 +1,5 @@
 eclipse.preferences.version=1
-encoding//bo/views/templates/_newUserInvitation.html=UTF-8
+encoding//bo/views/templates/_newUserInvitation_en.html=UTF-8
 encoding//bo/views/templates/_passwordResetMail.html=UTF-8
 encoding//bo/views/templates/_welcomeMail.html=UTF-8
 encoding//bo/views/vessel/forecast.view.php=UTF-8

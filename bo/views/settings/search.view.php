@@ -9,9 +9,9 @@ Security::grantAccess(8);
 <div class="listingHeadline"><?php $t->_('settings'); ?>:</div>
 
 <div id="searchResult">
-	<div class="searchResultRow active"><a onclick="settings.openDetails('users', this);">Benutzerverwaltung</a></div>
-	<div class="searchResultRow"><a id="settingsEinstellungen" onclick="settings.openDetails('settings', this);">Einstellungen</a></div>
-	<div class="searchResultRow"><a onclick="settings.openDetails('statistics', this);">Statistik</a></div>
+	<div class="searchResultRow active"><a onclick="settings.openDetails('users', this);"><?php $t->_('user-administration'); ?></a></div>
+	<div class="searchResultRow"><a id="settingsEinstellungen" onclick="settings.openDetails('settings', this);"><?php $t->_('settings'); ?></a></div>
+	<div class="searchResultRow"><a onclick="settings.openDetails('statistics', this);"><?php $t->_('statistic'); ?></a></div>
 </div>
 
 <?php if ($user->getLevel() == 9) { ?>

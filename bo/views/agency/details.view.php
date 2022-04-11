@@ -38,13 +38,17 @@ if(!empty($_GET["id"])) {
 <table class="detailTable ui very compact celled striped table">
 	<thead>
 		<tr>
-			<th colspan="4"><?php $t->_('contactinfo'); ?></th>
+			<th colspan="4"><?php $t->_('contact-info'); ?></th>
 		</tr>
 	</thead>
     <tbody>
     <?php foreach ($agency->getAgencyPortInfo() as $info) { ?>
 		<tr>
-			<td data-label="select"><input type="radio" name="selectAgencyDetail" value="<?php echo $info->getID();?>"></td>
+			<td data-label="select">
+				<?php if($user->getLevel() >= 8 ) { ?>
+				<input type="radio" name="selectAgencyDetail" value="<?php echo $info->getID();?>">
+				<?php } ?>
+			</td>
 			<td data-label="portName"><?php echo Port::getPortName($info->getPortID()); ?></td>			
 			<td data-label="email"><?php echo $info->getEmail(); ?></td>
 			<td data-label="info"><?php echo $info->getInfo(); ?></td>

@@ -4,7 +4,7 @@ namespace bo\views\port;
 include '../../components/config.php';
 ?>
 
-<div class="listingHeadline">Meine Häfen:</div>
+<div class="listingHeadline"><?php $t->_('my-ports'); ?>:</div>
 
 <div id="searchResult">
 <?php foreach($user->getUserPorts() as $port) { ?>
