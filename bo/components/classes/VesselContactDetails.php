@@ -21,7 +21,7 @@ class VesselContactDetails extends AbstractDBObject
     private $invalid;
     private $supposed;
     
-    public static $contactDetailTypes = array("Email", "Telefon", "Sonstiges");
+    public static $contactDetailTypes = array("Email", "Telefon");
     
     public function __construct($data = null) {
         if(!empty($data)) {

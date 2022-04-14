@@ -144,6 +144,12 @@
 "my-ports":								"My harbours",
 "user-administration":					"User administration",
 
+"-------------------------- VesselContacts --------------------------":"",
+"not-specified":						"Not specified",
+"immediately":							"Immediately",
+"3months":								"3 months",
+"6months":								"6 months",
+
 "-------------------------- Sonstige --------------------------":"",
 "attention":							"Attention!"
 }

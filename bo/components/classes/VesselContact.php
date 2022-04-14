@@ -27,7 +27,7 @@ class VesselContact extends AbstractDBObject
     private $inputData;
     private $contactUser;
     
-    public static $monthNext = [0 => 'keine Angabe', 1 => 'sofort', 3 => '3 Monate', 6 => '6 Monate'];
+    public static $monthNext = [0 => 'not-specified', 1 => 'immediately', 3 => '3months', 6 => '6months'];
     
     public function __construct($data = null) {
         if(!empty($data)) {
@@ -148,6 +148,8 @@ class VesselContact extends AbstractDBObject
     }
     
     private function validateContactInput() {
+        global $t;
+        
         if($this->inputData['contactName'] != '' && $this->contactUserID == 0) {
             return array("field" => "contactName", "msg" => $t->_('user-not-existing'));
         }

@@ -118,6 +118,8 @@ Funktion VesselInfo nicht mehr gewünscht - wird zurückgebaut.
 	</a>
 </div>
 */ ?>
+
+<?php if($project->getModContactDetails()) { ?>
 <table class="detailTable ui very compact celled striped table">
 	<thead>
 		<tr>
@@ -151,6 +153,7 @@ Funktion VesselInfo nicht mehr gewünscht - wird zurückgebaut.
 		<i class="trash alternate icon"></i>
 	</a>
 </div>
+<?php } ?>
 
 <table class="detailTable ui very compact celled striped table">
 	<thead>
@@ -193,7 +196,7 @@ Funktion VesselInfo nicht mehr gewünscht - wird zurückgebaut.
 			</td>
 			<td data-label="contactType"><?php echo $contact->getContactType(); ?></td>
 			<td data-label="agency"><?php echo ($contact->getProjectId() == $user->getProjectId())?Agency::getAgentShort($contact->getAgentID()):''; ?></td>
-			<td data-label="next"><?php echo VesselContact::$monthNext[$contact->getMonthNext()]; ?></td>
+			<td data-label="next"><?php $t->_(VesselContact::$monthNext[$contact->getMonthNext()]); ?></td>
 		</tr>
 	<?php } ?>
     </tbody>

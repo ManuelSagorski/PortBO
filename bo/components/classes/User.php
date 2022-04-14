@@ -429,6 +429,8 @@ class User extends AbstractDBObject
     }
     
     private function validateNewUserInput($data = null) {
+        global $t;
+        
         $usernameQuery = (new Query("select"))
             ->table(self::TABLE_NAME)
             ->project(0);

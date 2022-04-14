@@ -153,6 +153,8 @@ class Agency extends AbstractDBObject
     }
     
     private function validateNewAgencyInput() {
+        global $t;
+        
         $query = (new Query("select"))
             ->table(self::TABLE_NAME)
             ->condition(["name" => $this->name]);

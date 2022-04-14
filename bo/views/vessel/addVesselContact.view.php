@@ -23,7 +23,7 @@ if(isset($_GET['contactID']))
         <div id="input_contactType" class="field">
         	<label><?php $t->_('kind-of-contact'); ?></label>
     		<select id="contactType" name="contactType">
-    			<?php foreach (contactTypes::$contactTypes as $contactType) { ?>
+    			<?php foreach (ContactTypes::$contactTypes as $contactType) { ?>
     			<option 
     				value="<?php echo $contactType; ?>"
     				<?php if(!empty($contact)){echo ($contact->getContactType() == $contactType)?' selected':'';} ?>
@@ -107,7 +107,7 @@ if(isset($_GET['contactID']))
     				value="<?php echo $key; ?>"
     				<?php if(!empty($contact)){echo ($contact->getMonthNext() == $key)?' selected':'';} ?>
     			>
-    				<?php echo $month; ?>
+    				<?php $t->_($month); ?>
     			</option>
     			<?php } ?>
     		</select>

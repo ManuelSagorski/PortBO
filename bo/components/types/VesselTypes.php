@@ -40,6 +40,7 @@ class VesselTypes
         "Gas Tanker" => "Tanker",
         "Lng-Lpg Combination Gas Tanker" => "Tanker",
         "Bulk Carrier" => "Cargo",
+        "Bulk Dry Storage Ship" => "Cargo",
         "Multi Purpose Carrier" => "Cargo",
         "Refrigerated Cargo Ship" => "Cargo",
         "Heavy Load Carrier" => "Cargo",

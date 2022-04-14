@@ -278,6 +278,7 @@ class Vessel extends AbstractDBObject
     }
     
     private function validateVesselInput() {
+        global $t;
         $msg = '';
         
         $sqlstrg = "select * from port_bo_vessel where ";
