@@ -20,7 +20,10 @@ class SendMail
         $this->mail->SMTPAuth   = true;                                   //Enable SMTP authentication
         $this->mail->Username   = SMTP_USER;                     //SMTP username
         $this->mail->Password   = SMTP_SECRET;                               //SMTP password
-        $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+        // Anpassung für smtp4dev (lokaler Fake-SMTP-Server)
+        if (!defined('SMTP_NO_TLS') || !constant('SMTP_NO_TLS')) {
+            $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; //Enable implicit TLS encryption
+        }
         $this->mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
         $this->mail->CharSet   = 'UTF-8';
         $this->mail->isHTML(true);
