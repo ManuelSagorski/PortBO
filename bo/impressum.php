@@ -53,14 +53,10 @@ include 'components/config.php';
                     <?php $t->_('imprint-main'); ?>
             		<br /><br />
                     <?php $t->_('imprint-responsible-for'); ?>
-            		<br /><br />	
-            		Manuel Sagorski<br />
-            		Ueckerstr. 46<br />
-            		22547 Hamburg<br />
-            		manuel@sagorski.net<br />
-            		0176-34920718
             		<br /><br />
-            		<a onclick="window.close();" style="text-decoration: underline;">schließen</a>
+                    <?php $t->_('website-owner-contact'); ?>
+            		<br /><br />
+            		<a onclick="window.close();" style="text-decoration: underline;"><?php $t->_('close'); ?></a>
             	</p>
             </div>
 		</div>
