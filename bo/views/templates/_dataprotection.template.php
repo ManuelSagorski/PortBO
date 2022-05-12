@@ -17,7 +17,7 @@
 			</li>
 			<li>
 				Ich bin mit den allgemeinen Datenschutzbedingungen (besonders im Sinne der EU-DSGVO) von https://port-mission.de einverstanden. Diese können hier eingesehen werden: 
-				<a class="markedLink" href="https://port-mission.de/bo/datenschutz.php" target="_blank">Datenschutzbeingungen</a>
+				<a class="markedLink" href="/bo/datenschutz.php" target="_blank">Datenschutzbedingungen</a>
 			</li>
 		</ul>
 		
