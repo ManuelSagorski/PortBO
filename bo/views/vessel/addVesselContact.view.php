@@ -27,7 +27,7 @@ if(isset($_GET['contactID']))
     			<option 
     				value="<?php echo $contactType; ?>"
     				<?php if(!empty($contact)){echo ($contact->getContactType() == $contactType)?' selected':'';} ?>
-    			><?php echo $contactType; ?></option>
+    			><?php $t->_(ContactTypes::TRANSLATION_KEYS[$contactType]); ?></option>
     			<?php } ?>
     		</select>
         </div>

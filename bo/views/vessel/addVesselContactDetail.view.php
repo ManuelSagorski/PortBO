@@ -33,7 +33,7 @@ if(isset($_GET['contactDetailID']))
     			<option 
     				value="<?php echo $type; ?>"
     				<?php if(!empty($contactDetail)){echo ($contactDetail->getType() == $type)?' selected':'';} ?>
-    			><?php echo $type; ?></option>
+    			><?php $t->_(VesselContactDetails::TYPE_TRANSLATION_KEYS[$type]); ?></option>
     		<?php } ?>
         	</select>
         </div>

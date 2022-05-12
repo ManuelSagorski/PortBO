@@ -58,6 +58,10 @@
 "emails-ships-agencys":					"Emails an Schiff über Agenten",
 "calls-ships":							"Kontakte per Telefon (Anruf / Messenger)",
 "search":								"Suchen",
+"phone-number":							"Telefonnummer",
+"letter":								"Brief",
+"visit":								"Besuch",
+"phone-call":							"Telefonat",
 
 "-------------------------- Hinweismeldungen --------------------------":"",
 "to-safe-imo-eni":						"Zum Speichern eines neuen Schiffes muss mindestens ein Name und eine IMO oder eine ENI angegeben werden.",

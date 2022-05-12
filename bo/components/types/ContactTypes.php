@@ -3,6 +3,13 @@ namespace bo\components\types;
 
 class ContactTypes
 {
+    public const TRANSLATION_KEYS = [
+        'Email' => 'email',
+        'Brief' => 'letter',
+        'Besuch' => 'visit',
+        'Telefon' => 'phone-call',
+    ];
+
     /**
      * $contactTypes
      *
