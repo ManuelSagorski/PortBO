@@ -15,6 +15,7 @@ class Vessel extends AbstractDBObject
     private $MMSI;
     private $ENI;
     private $typ;
+    private $itf;
     private $language;
     private $ts_erf;
     private $languages_update;
@@ -49,6 +50,7 @@ class Vessel extends AbstractDBObject
             $this->ENI      = $data['vesselENI'];
             $this->typ      = $data['vesselTyp'];
             $this->language = $data['vesselLanguage'];
+            $this->itf      = $data['vesselITF'];
             if(isset($data['vesselLanguagesMaster']))
                 $this->vesselLanguagesMaster = $data['vesselLanguagesMaster'];
             if(isset($data['vesselLanguagesCrew']))
@@ -72,7 +74,8 @@ class Vessel extends AbstractDBObject
                 "MMSI" => $this->MMSI,
                 "ENI" => $this->ENI,
                 "typ" => $this->typ,
-                "language" => $this->language
+                "language" => $this->language,
+                "itf" => $this->itf
             ]);
 
             $newID = DBConnect::getLastID();
@@ -117,7 +120,8 @@ class Vessel extends AbstractDBObject
                 "MMSI" => $this->MMSI,
                 "ENI" => $this->ENI,
                 "typ" => $this->typ,
-                "language" => $this->language
+                "language" => $this->language,
+                "itf" => $this->itf
             ], ["id" => $this->id]);
             
             (new Query("delete"))
@@ -313,6 +317,9 @@ class Vessel extends AbstractDBObject
     }
     public function getTyp() {
         return $this->typ;
+    }
+    public function getItf() {
+        return $this->itf;
     }
     public function getLanguage() {
         return $this->language;

@@ -111,6 +111,10 @@ if(!empty($searchValue) && !is_numeric($searchValue))
 	
     <div class="field">
     	<label><?php $t->_('nationalitis'); ?> - <i class="iconPointer cloud download icon" onClick="vessel.getLanguages($('#vesselIMO').val());"></i></label>
+    	<textarea rows="2" id="vesselITF" name="vesselITF"<?php echo ($user->getLevel() != 9)?" readonly='readonly'":""; ?>><?php echo($editMode)?$vessel->getItf():''; ?></textarea>
+    </div>
+
+    <div class="field">
     	<textarea rows="2" id="vesselLanguage" name="vesselLanguage"<?php echo ($user->getLevel() != 9)?" readonly='readonly'":""; ?>><?php echo($editMode)?$vessel->getLanguage():''; ?></textarea>
     </div>
 

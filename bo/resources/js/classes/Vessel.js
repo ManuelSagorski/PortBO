@@ -216,7 +216,7 @@ define(function() {
 						$('#vesselName').val(data.name);
 						$('#vesselIMO').val(data.imo);
 						$('#vesselMMSI').val(data.mmsi);
-						$('#vesselLanguage').append(data.language);
+						$('#vesselITF').val(data.language);
 						$('#vesselTyp').dropdown('set selected', data.shipType)						
 						$('#addVesselLoader').removeClass("active");
 					}, "json");				
@@ -240,7 +240,7 @@ define(function() {
 				
 				$.post(my.CONTROLLER + 'getVesselLanguages', { parameter: imo }, 
 					function(data) {
-						$('#vesselLanguage').append(data);						
+						$('#vesselITF').val(data);						
 						$('#addVesselLoader').removeClass("active");
 					});				
 			}			

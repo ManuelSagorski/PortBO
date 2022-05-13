@@ -37,7 +37,10 @@ if(!empty($_GET["id"])) {
     	<div><?php echo $vessel->getTyp(); ?></div>
     	
     	<div class="label"><?php $t->_('nationalitis'); ?>:</div>
-    	<div class="elemDetailLanguages"><?php echo $vessel->getLanguage(); ?></div>
+    	<div class="elemDetailLanguages">
+    		<div><?php echo $vessel->getItf(); ?></div>
+    		<div><?php echo $vessel->getLanguage(); ?></div>
+    	</div>
     	
     	<?php if(!empty($vessel->getVesselLanguagesMaster())) { ?>
     	<div class="label languagesIndiv"><?php $t->_('language-master'); ?>:</div>
