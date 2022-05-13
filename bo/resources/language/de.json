@@ -114,6 +114,8 @@
 "safe":									"Speichern",
 "send":									"Senden",
 "close": 								"Schließen",
+"accept":								"Zustimmen",
+"decline":								"Ablehnen",
 
 "-------------------------- Überschriften --------------------------":"",
 "extern-links":							"Externe Links",
@@ -153,6 +155,7 @@
 
 "-------------------------- Sonstige --------------------------":"",
 "attention":							"Achtung!",
+"dear-user":							"Lieber",
 "website-owner-contact":				"Manuel Sagorski<br />Ueckerstr. 46<br />22547 Hamburg, DE<br />manuel@sagorski.net<br />+49 176-34920718",
 "imprint-title":						"Impressum",
 "imprint-main":							"Bei der Seite port-mission.de handelt es sich um eine private Webseite.",
@@ -177,5 +180,12 @@
 "privacy-libs-title": 					"Verwendung von Scriptbibliotheken:",
 "privacy-libs": 						"Um unsere Inhalte browserübergreifend korrekt und grafisch ansprechend darzustellen, verwenden wir auf dieser Website Scriptbibliotheken und Schriftbibliotheken. Der Aufruf von Scriptbibliotheken oder Schriftbibliotheken löst automatisch eine Verbindung zum Betreiber der Bibliothek aus. Dabei ist es theoretisch möglich – aktuell allerdings auch unklar ob und ggf. zu welchen Zwecken – dass Betreiber entsprechender Bibliotheken Daten erheben.",
 "privacy-changes-title": 				"Änderung unserer Datenschutzbestimmungen:",
-"privacy-changes": 						"Wir behalten uns vor, diese Datenschutzerklärung anzupassen, damit sie stets den aktuellen rechtlichen Anforderungen entspricht oder um Änderungen der Funktion dieser Webseite zu berücksichtigen - z.B. bei der Einführung neuer Funktionen. Für Ihren erneuten Besuch gilt dann die neue Datenschutzerklärung."
+"privacy-changes": 						"Wir behalten uns vor, diese Datenschutzerklärung anzupassen, damit sie stets den aktuellen rechtlichen Anforderungen entspricht oder um Änderungen der Funktion dieser Webseite zu berücksichtigen - z.B. bei der Einführung neuer Funktionen. Für Ihren erneuten Besuch gilt dann die neue Datenschutzerklärung.",
+"privacy-consent-title":				"Zustimmung zum Datenschutz",
+"privacy-consent-intro":				"aus Datenschutzgründen ist es erforderlich, dass du vor der Nutzung von 'Backoffice' folgenden Bedingungen zustimmst:",
+"privacy-consent-data-collection":		"Ich bin einverstanden damit, dass meine persönlichen Daten (Name, Email Adresse, Handynummer) auf der Seite Backoffice gespeichert werden. Die Daten werden ausschließlich für die Organisation des Hafendienstes verwendet und an niemanden weitergeleitet.",
+"privacy-consent-data-sharing":			"Ich bin einverstanden damit, dass andere Mitarbeiter aus meiner Hafengruppe und auch aus anderen Hafengruppen meine im ersten Punkt genannten Kontaktdaten einsehen und mich kontaktieren können.",
+"privacy-consent-no-personal-info":		"Ich habe verstanden, dass ich im Backoffice keine Informationen zu Privatpersonen hinterlegen darf. Dazu gehören z.B. Kontaktdaten von Seeleuten sowie Mitarbeiter von Agenturen, Hafenbehörden oder anderer Firmen.",
+"privacy-consent-accept":				"Ich bin mit den allgemeinen Datenschutzbedingungen (besonders im Sinne der EU-DSGVO) von https://port-mission.de einverstanden. Diese können hier eingesehen werden:",
+"privacy-consent-policy-title":			"Datenschutzbedingungen"
 }

@@ -114,6 +114,8 @@
 "safe":									"Save",
 "send":									"Send",
 "close": 								"Close",
+"accept":								"Agree",
+"decline":								"Decline",
 
 "-------------------------- Überschriften --------------------------":"",
 "extern-links":							"External links",
@@ -153,6 +155,7 @@
 
 "-------------------------- Sonstige --------------------------":"",
 "attention":							"Attention!",
+"dear-user":							"Dear",
 "imprint-title":						"Legal notice",
 "imprint-main":							"The port-mission.de website is a private website.",
 "imprint-responsible-for":				"Responsible for the content is:",
@@ -176,5 +179,12 @@
 "privacy-libs-title": 					"Use of script libraries:",
 "privacy-libs": 						"In order to display our content correctly and graphically appealing across browsers, we use script libraries and font libraries on this website. Calling up script libraries or font libraries automatically triggers a connection to the operator of the library. It is theoretically possible - although it is currently unclear whether and for what purposes - that the operators of such libraries collect data.",
 "privacy-changes-title": 				"Change to our privacy policy:",
-"privacy-changes": 						"We reserve the right to adapt this privacy policy so that it always complies with the current legal requirements or to take into account changes in the function of this website - e.g. when new functions are introduced. The new privacy policy will then apply to your next visit."
+"privacy-changes": 						"We reserve the right to adapt this privacy policy so that it always complies with the current legal requirements or to take into account changes in the function of this website - e.g. when new functions are introduced. The new privacy policy will then apply to your next visit.",
+"privacy-consent-title":				"Consent for General Data Protection Regulation",
+"privacy-consent-intro":				"Prior to using 'Backoffice' your consent for the following data protection declaration is legally required:",
+"privacy-consent-data-collection":		"I agree that my personal data (name, e-mail address, mobile phone number) will be stored in Backoffice. This data will be used exclusively for the organisation of harbour preaching and will not be passed on to anyone.",
+"privacy-consent-data-sharing":			"I agree that other members of the harbour team of my harbour group as well as team members of other harbour groups can view my contact details mentioned above and contact me.",
+"privacy-consent-no-personal-info":		"I understand that I am not allowed to enter information on private individuals in Backoffice. This includes, for example, contact details of seafarers as well as employees of ship agencies, port authorities or other companies.",
+"privacy-consent-accept":				"I agree to the privacy policy (especially in view of the General Data Protection Regulation of the European Union) of https://port-mission.de, which may be viewed here:",
+"privacy-consent-policy-title":			"Privacy policy"
 }
