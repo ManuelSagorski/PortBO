@@ -14,8 +14,8 @@ error_reporting(-1);
 ini_set('display_errors', 'On');
 
 define("FOLDER", 'bo/');
-define("MAIN_PATH", 'https://' . $_SERVER['HTTP_HOST'] . "/" . FOLDER);
-define("PUBLIC_PATH", 'https://' . $_SERVER['HTTP_HOST'] . "/" . FOLDER . "public/");
+define("MAIN_PATH", "/" . FOLDER);
+define("PUBLIC_PATH", "/" . FOLDER . "public/");
 define("MAIN_DOCUMENT_PATH", $_SERVER["DOCUMENT_ROOT"] . FOLDER);
 
 require_once(MAIN_DOCUMENT_PATH . 'components/configCredentials.php');
