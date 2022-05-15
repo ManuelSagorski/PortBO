@@ -1,3 +1,12 @@
+<?php
+
+use bo\components\classes\helper\Text;
+
+$independent = true;
+include 'components/config.php';
+/** @var Text $t */
+
+?>
 <!DOCTYPE html>
 <html lang="de">
 	<head>
@@ -39,19 +48,15 @@
 	<body>
 		<div id="imprintWrapper">
             <div id="loginBody" style="text-align: left;">
-            	<h1>Impressum</h1>
+            	<h1><?php $t->_('imprint-title'); ?></h1>
             	<p>
-            		Bei der Seite port-mission.de handelt es sich um eine private Webseite.
+                    <?php $t->_('imprint-main'); ?>
             		<br /><br />
-            		Verantworlich für den Inhalt ist:
-            		<br /><br />	
-            		Manuel Sagorski<br />
-            		Ueckerstr. 46<br />
-            		22547 Hamburg<br />
-            		manuel@sagorski.net<br />
-            		0176-34920718
+                    <?php $t->_('imprint-responsible-for'); ?>
             		<br /><br />
-            		<a onclick="window.close();" style="text-decoration: underline;">schließen</a>
+                    <?php $t->_('website-owner-contact'); ?>
+            		<br /><br />
+            		<a onclick="window.close();" style="text-decoration: underline;"><?php $t->_('close'); ?></a>
             	</p>
             </div>
 		</div>

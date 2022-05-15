@@ -37,7 +37,7 @@
         <div class="field">
             <div class="ui checkbox">
                 <input type="checkbox" name="dataprotection">
-                <label>Ich stimme den <a class="markedLink" href="https://port-mission.de/bo/datenschutz.php" target="_blank">Datenschutzbedingungen</a> zu.</label>
+                <label>Ich stimme den <a class="markedLink" href="/bo/datenschutz.php" target="_blank">Datenschutzbedingungen</a> zu.</label>
             </div>
         </div>
 

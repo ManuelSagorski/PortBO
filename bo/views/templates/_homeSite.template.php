@@ -130,7 +130,7 @@ use bo\components\types\Languages;
     			<div id="mainColRight" class="mainCol">&nbsp;</div>
     		</div>
 			<div id="footer">
-				<a href="https://port-mission.de/bo/impressum.php" target="_blank">Impressum</a> | <a href="https://port-mission.de/bo/datenschutz.php" target="_blank">Datenschutz</a>
+				<a href="/bo/impressum.php" target="_blank">Impressum</a> | <a href="/bo/datenschutz.php" target="_blank">Datenschutz</a>
 			</div>
 		</div>
 	
