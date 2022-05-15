@@ -8,6 +8,8 @@ use bo\components\classes\User;
 use bo\components\classes\Projects;
 use bo\components\classes\VesselContact;
 use bo\components\classes\Language;
+use bo\components\classes\VesselContactDetails;
+use bo\components\types\ContactTypes;
 
 include '../../components/config.php';
 
@@ -133,7 +135,7 @@ Funktion VesselInfo nicht mehr gewünscht - wird zurückgebaut.
     <?php foreach ($vessel->getVesselContactDetails() as $contactDetail) { ?>
 		<tr<?php echo ($contactDetail->getInvalid())?" class='contactDetailInvalid'":""; ?>>
 			<td data-label="select"><input type="radio" name="selectContactDetail" value="<?php echo $contactDetail->getID();?>"></td>
-			<td data-label="contactDetailType"><?php echo $contactDetail->getType(); ?></td>			
+			<td data-label="contactDetailType"><?php $t->_(VesselContactDetails::TYPE_TRANSLATION_KEYS[$contactDetail->getType()]); ?></td>			
 			<td data-label="contactDetail"><?php echo $contactDetail->getDetail(); ?></td>
 			<td data-label="supposed" class="center aligned collapsing contactIcon<?php echo ($contactDetail->getSupposed())?"":" iconDisabled"; ?><?php echo ($contactDetail->getInvalid())?" disabled":""; ?>">
 				<i onClick="vessel.contactDetailSupposed(<?php echo $vessel->getID(); ?>, <?php echo $contactDetail->getID();?>);" class="question icon"></i>
@@ -197,7 +199,7 @@ Funktion VesselInfo nicht mehr gewünscht - wird zurückgebaut.
 					<?php if(!empty($contact->getContactUser())) { echo $contact->getContactUser()->getFirstName() . " " . $contact->getContactUser()->getSurname(); }?>
 				<?php if(!empty($contact->getContactUser())) { echo "</a>"; }?>
 			</td>
-			<td data-label="contactType"><?php echo $contact->getContactType(); ?></td>
+			<td data-label="contactType"><?php $t->_(ContactTypes::TRANSLATION_KEYS[$contact->getContactType()]); ?></td>
 			<td data-label="agency"><?php echo ($contact->getProjectId() == $user->getProjectId())?Agency::getAgentShort($contact->getAgentID()):''; ?></td>
 			<td data-label="next"><?php $t->_(VesselContact::$monthNext[$contact->getMonthNext()]); ?></td>
 		</tr>

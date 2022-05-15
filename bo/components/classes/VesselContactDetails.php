@@ -12,6 +12,11 @@ use bo\components\classes\helper\Query;
 class VesselContactDetails extends AbstractDBObject
 {
     public const TABLE_NAME = "port_bo_vesselContactDetails";
+
+    public const TYPE_TRANSLATION_KEYS = [
+        'Email' => 'email-address',
+        'Telefon' => 'phone-number',
+    ];
     
     private $id;
     private $vessel_id;
