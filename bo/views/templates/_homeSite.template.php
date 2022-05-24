@@ -130,7 +130,7 @@ use bo\components\types\Languages;
     			<div id="mainColRight" class="mainCol">&nbsp;</div>
     		</div>
 			<div id="footer">
-				<a href="/bo/impressum.php" target="_blank">Impressum</a> | <a href="/bo/datenschutz.php" target="_blank">Datenschutz</a>
+				<a href="/bo/impressum.php" target="_blank"><?php $t->_('imprint-title'); ?></a> | <a href="/bo/datenschutz.php" target="_blank"><?php $t->_('privacy-title'); ?></a>
 			</div>
 		</div>
 	
