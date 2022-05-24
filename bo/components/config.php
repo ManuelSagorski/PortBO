@@ -15,6 +15,7 @@ ini_set('display_errors', 'On');
 
 define("FOLDER", 'bo/');
 define("MAIN_PATH", "/" . FOLDER);
+define('MAIN_PATH_WITH_HOST', 'https://' . $_SERVER['HTTP_HOST'] . '/' . FOLDER);
 define("PUBLIC_PATH", "/" . FOLDER . "public/");
 define("MAIN_DOCUMENT_PATH", $_SERVER["DOCUMENT_ROOT"] . FOLDER);
 
