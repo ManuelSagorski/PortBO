@@ -19,7 +19,6 @@ class VesselContact extends AbstractDBObject
     private $contact_name;
     private $contact_user_id;
     private $contactUserID;
-    private $info;
     private $date;
     private $planned;
     private $month_next;
@@ -39,7 +38,6 @@ class VesselContact extends AbstractDBObject
             $this->contact_type = $data['contactType'];
             $this->contact_name = $data['contactName'];
             $this->contactUserID= User::getUserByFullName($data['contactName']);
-            $this->info         = $data['contactInfo'];
             $this->date         = $data['contactDate'];
             $this->month_next   = $data['contactNext'];
             if(!isset($data['contactPlanned'])) {
@@ -71,7 +69,6 @@ class VesselContact extends AbstractDBObject
                 "contact_type" => $this->contact_type,
                 "contact_name" => $this->contact_name,
                 "contact_user_id" => User::getUserByFullName($this->contact_name),
-                "info" => $this->info,
                 "date" => $this->date,
                 "agent_id" => $this->agent_id,
                 "company_id" => $this->company_id,
@@ -80,7 +77,7 @@ class VesselContact extends AbstractDBObject
                 "month_next" => $this->month_next
             ]);
             
-            Logger::writeLogCreate('vesselContact', 'Neuen Kontakt für Schiff ' . Vessel::getVesselName($this->vess_id) . ' hinzugefügt. InfoText: ' . $this->info);
+            Logger::writeLogCreate('vesselContact', 'Neuen Kontakt für Schiff ' . Vessel::getVesselName($this->vess_id) . ' hinzugefügt.');
             Vessel::setTS($_SESSION['vessID']);
             if(!empty($this->agent_id)) {
                 Agency::setTS($this->agent_id);
@@ -112,7 +109,6 @@ class VesselContact extends AbstractDBObject
             "contact_type" => $data['contactType'],
             "contact_name" => $data['contactName'],
             "contact_user_id" => User::getUserByFullName($data['contactName']),
-            "info" => $data['contactInfo'],
             "date" => $data['contactDate'],
             "agent_id" => Agency::getAgentID($data['contactAgent']),
             "company_id" => Company::getCompanyByName($data['contactCompany']),
@@ -121,7 +117,7 @@ class VesselContact extends AbstractDBObject
             "month_next" => $data['contactNext']
         ], ["id" => $this->id]);
        
-        Logger::writeLogInfo('vesselContact', 'Kontakt für Schiff ' . Vessel::getVesselName($this->vess_id) . ' bearbeitet. InfoText: ' . $data['contactInfo']);
+        Logger::writeLogInfo('vesselContact', 'Kontakt für Schiff ' . Vessel::getVesselName($this->vess_id) . ' bearbeitet.');
         Vessel::setTS($_SESSION['vessID']);
         
         return array("status" => "success");

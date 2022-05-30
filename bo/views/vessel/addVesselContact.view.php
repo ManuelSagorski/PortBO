@@ -146,10 +146,12 @@ if(isset($_GET['contactID']))
         </div>
 	</div>
 	
+	<?php /*
 	<div id="input_contactInfo" class="field disabled">
     	<label><?php $t->_('contact-info'); ?></label>
     	<textarea rows="2" id="contactInfo" name="contactInfo"><?php echo(!empty($contact))?$contact->getInfo():''; ?></textarea>
     </div>
+    */ ?>
    
     <button class="ui button" type="submit"><?php $t->_('safe'); ?></button>
 </form>
