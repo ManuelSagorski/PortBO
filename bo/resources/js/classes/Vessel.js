@@ -213,11 +213,13 @@ define(function() {
 				
 				$.post(my.CONTROLLER + 'getVesselData', { parameter: number }, 
 					function(data) {
-						$('#vesselName').val(data.name);
-						$('#vesselIMO').val(data.imo);
-						$('#vesselMMSI').val(data.mmsi);
-						$('#vesselITF').val(data.language);
-						$('#vesselTyp').dropdown('set selected', data.shipType)						
+						if(!$.isEmptyObject(data)) {
+							$('#vesselName').val(data.name);
+							$('#vesselIMO').val(data.imo);
+							$('#vesselMMSI').val(data.mmsi);
+							$('#vesselITF').val(data.language);
+							$('#vesselTyp').dropdown('set selected', data.shipType)
+						}
 						$('#addVesselLoader').removeClass("active");
 					}, "json");				
 			}

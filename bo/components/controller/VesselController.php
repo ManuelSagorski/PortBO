@@ -130,8 +130,11 @@ class VesselController
                     }
                     $json = json_encode($arr);
                     
-                    return $json;
-                }
+                    return (!empty($json))?$json:"{}";
+             }
+             else {
+                 return "{}";
+             }
         }
     }
     

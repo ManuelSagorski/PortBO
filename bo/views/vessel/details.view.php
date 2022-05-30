@@ -76,7 +76,7 @@ if(!empty($_GET["id"])) {
 	<a class="item" onClick="alert('<?php $t->_('delete-ships-only-admin'); ?>');">
 		<i class="trash alternate icon"></i>
 	</a>
-	<?php if(!empty($vessel->getIMO())) { ?>
+	<?php if(!empty($vessel->getIMO()) && strlen($vessel->getIMO()) == 7) { ?>
 	<a class="item" href="https://www.vesselfinder.com/de/?imo=<?php echo $vessel->getIMO(); ?>" target="_blank">
 		<img class="iconRowElement" src="../resources/img/vesselFinderLogo.png" />
 	</a>
