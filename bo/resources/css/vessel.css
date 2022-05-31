@@ -1,7 +1,7 @@
 /*
  *	vessel.css
  *
- *	Style-Sheets für Seite Vessel
+ *	Style-Sheets fï¿½r Seite Vessel
  *
  */
 
@@ -52,6 +52,15 @@
 	#mainColLeft .ui.action.input { width: 100%; }
 	
 	.mainCol { min-height: auto !important; }
+}
+
+.contactUser .title {
+	padding: 0px !important;
+}
+.contactUser .contactDetail {
+	font-size: 8pt;
+	padding: 2px 0px;
+	text-align: right;
 }
 
 /*********************************/

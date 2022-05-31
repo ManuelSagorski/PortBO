@@ -190,14 +190,23 @@ Funktion VesselInfo nicht mehr gewünscht - wird zurückgebaut.
                 echo ($contact->getProjectId() != $user->getProjectId())?" (" . Projects::getProjectShort($contact->getProjectId()) . ")":'';
             ?>
             </td>			
-			<td 
-				data-label="userName" 
-				title="<?php if(!empty($contact->getContactUser())) { echo $contact->getContactUser()->getPhone(); }?>"
-				<?php echo (!empty($contact->getContactUserID()))?' class="three wide"':''; ?>
-			>
-				<?php if(!empty($contact->getContactUser())) { echo "<a href='tel:" . $contact->getContactUser()->getPhone() . "'>"; }?>
-					<?php if(!empty($contact->getContactUser())) { echo $contact->getContactUser()->getFirstName() . " " . $contact->getContactUser()->getSurname(); }?>
-				<?php if(!empty($contact->getContactUser())) { echo "</a>"; }?>
+			<td>				
+				<?php if(!empty($contact->getContactUser())) { ?>
+					<div class="ui accordion contactUser">
+						<div class="title">
+							<i class="dropdown icon"></i>
+							<?php echo $contact->getContactUser()->getFirstName() . " " . $contact->getContactUser()->getSurname(); ?>
+						</div>
+						<div class="content">
+							<div class="contactDetail">
+								<a href='tel:<?php echo $contact->getContactUser()->getPhone() ?>'>
+									<?php echo $contact->getContactUser()->getPhone(); ?>
+								</a>
+							</div>
+							<div class="contactDetail"><?php echo $contact->getContactUser()->getEmail(); ?></div>
+						</div>
+					</div>
+				<?php } ?>
 			</td>
 			<td data-label="contactType"><?php $t->_(ContactTypes::TRANSLATION_KEYS[$contact->getContactType()]); ?></td>
 			<td data-label="agency"><?php echo ($contact->getProjectId() == $user->getProjectId())?Agency::getAgentShort($contact->getAgentID()):''; ?></td>
@@ -217,6 +226,8 @@ Funktion VesselInfo nicht mehr gewünscht - wird zurückgebaut.
 		<i class="trash alternate icon"></i>
 	</a>
 </div>
+
+<script>$('.ui.accordion').accordion();</script>
 
 <?php } else { ?>
 <div id="detailEmpty">
