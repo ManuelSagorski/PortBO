@@ -120,6 +120,7 @@
 "close": 								"Close",
 "accept":								"Agree",
 "decline":								"Decline",
+"create-tegegram-code":					"Create code",
 
 "-------------------------- Überschriften --------------------------":"",
 "extern-links":							"External links",
@@ -150,6 +151,7 @@
 "registerd-publisher":					"Registered publishers",
 "my-ports":								"My harbours",
 "user-administration":					"User administration",
+"setup-telegram":						"Setup Telegram connection",
 
 "-------------------------- VesselContacts --------------------------":"",
 "not-specified":						"Not specified",
@@ -190,5 +192,7 @@
 "privacy-consent-data-sharing":			"I agree that other members of the harbour team of my harbour group as well as team members of other harbour groups can view my contact details mentioned above and contact me.",
 "privacy-consent-no-personal-info":		"I understand that I am not allowed to enter information on private individuals in Backoffice. This includes, for example, contact details of seafarers as well as employees of ship agencies, port authorities or other companies.",
 "privacy-consent-accept":				"I agree to the privacy policy (especially in view of the General Data Protection Regulation of the European Union) of https://port-mission.de, which may be viewed here:",
-"privacy-consent-policy-title":			"Privacy policy"
+"privacy-consent-policy-title":			"Privacy policy",
+"your-telegram-code":					"Your Telegram registering code is:",
+"telegram-how-to-register":				"To complete the registration process, please write a message to 'PortMissionBo'. When asked to do so, please send the code mentioned here in the chat."
 }

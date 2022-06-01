@@ -5,7 +5,7 @@ include '../../components/config.php';
 
 <div class="ui stackable grid profile">
 	<div class="four wide column">
-    	<div class="ui raised segment">
+    	<div class="ui raised segment content">
     		<h4 class="ui header"><?php $t->_('change-password'); ?></h4>
 			<form id="changePassword" class="ui form" autocomplete="off">
 			    <div class="ui error message">
@@ -42,7 +42,7 @@ include '../../components/config.php';
 	</div>
 	
 	<div class="four wide column">
-    	<div class="ui raised segment">
+    	<div class="ui raised segment content">
     		<h4 class="ui header"><?php $t->_('change-email'); ?></h4>
 			<form id="changeEmail" class="ui form" autocomplete="off">
 			    <div class="ui error message">
@@ -73,7 +73,7 @@ include '../../components/config.php';
 	</div>
 
 	<div class="eight wide column">
-    	<div class="ui raised segment">
+    	<div class="ui raised segment content">
     		<h4 class="ui header"><?php $t->_('contact'); ?></h4>
 			<form id="sendMessage" class="ui form" autocomplete="off">
 				<div class="ui error message">
@@ -94,7 +94,7 @@ include '../../components/config.php';
 	</div>
 	
 	<div class="four wide column">
-    	<div class="ui raised segment">
+    	<div class="ui raised segment content">
     		<h4 class="ui header"><?php $t->_('change-mobile'); ?></h4>
 			<form id="changePhone" class="ui form" autocomplete="off">
 			    <div class="ui error message">
@@ -123,6 +123,21 @@ include '../../components/config.php';
 			</form>
         </div>
 	</div>
+	
+	<?php if(empty($user->getTelegramID())) { ?>
+	<div class="four wide column">
+    	<div class="ui raised segment content">
+    		<h4 class="ui header"><?php $t->_('setup-telegram'); ?></h4>
+			<?php if(empty($user->getTelegramCode())) { ?>
+			<button class="ui button" onClick="profile.createTelegramCode();"><?php $t->_('create-tegegram-code'); ?></button>
+			<?php } else { ?>
+			<p><?php $t->_('your-telegram-code'); ?></p>
+			<p style="font-weight: bold; padding-left: 20px;"><?php echo $user->getTelegramCode(); ?></p>
+			<p><?php $t->_('telegram-how-to-register'); ?></p>
+			<?php } ?>
+        </div>
+	</div>
+	<?php } ?>
 </div>
 
 <script>

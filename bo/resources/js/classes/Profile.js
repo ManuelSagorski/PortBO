@@ -100,6 +100,13 @@ define(function() {
 				});
 		}
 	
+		that.createTelegramCode = function() {
+			$.post(my.CONTROLLER + 'createTelegramCode', { }, 
+				function() {
+					that.open();
+				});			
+		}
+	
 		return constructor.call(null);
 	}
 

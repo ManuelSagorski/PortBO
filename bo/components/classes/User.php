@@ -33,6 +33,7 @@ class User extends AbstractDBObject
     private $password_code;
     private $password_code_time;
     private $telegram_id;
+    private $telegram_code;
     private $planning_id;
     private $dataprotection;
     private $default_language;
@@ -567,6 +568,9 @@ class User extends AbstractDBObject
     }
     public function getTelegramID() {
         return $this->telegram_id;
+    }
+    public function getTelegramCode() {
+        return $this->telegram_code;
     }
     public function getPlanningID() {
         return $this->planning_id;

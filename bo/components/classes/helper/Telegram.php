@@ -14,7 +14,7 @@ class Telegram
     private $tmpl;
     
     const TEMPLATE_PATH = MAIN_DOCUMENT_PATH . "views/templates/";
-    const TELEGRAM_CODE_REGEX = "/[a-zA-Z0-9]{3}-[a-zA-Z0-9]{3}/";
+    const TELEGRAM_CODE_REGEX = "/[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}/";
     
     public function __construct($chatID, $json = null) {
         if(!empty($json)) {
@@ -80,7 +80,8 @@ class Telegram
         else {
             $userRecipient = User::getSingleObjectByCondition(Array("telegram_id" => $this->chatID));
             if(!empty($userRecipient)) {
-                self::logMessage('send', $userRecipient->getId(), $this->chatID, $_SESSION['user'], $this->tmpl);
+                $sender = (isset($_SESSION['user']))?$_SESSION['user']:null;
+                self::logMessage('send', $userRecipient->getId(), $this->chatID, $sender, $this->tmpl);
             }
             Logger::writeLogInfo('telegramBot', 'Nachricht verschickt. Empfänger: ' . $this->chatID . ' Nachricht: ' . $this->tmpl);
         }
@@ -99,6 +100,20 @@ class Telegram
     public static function logMessage($direction, $userID, $telegramID, $userBoID, $text) {
         DBConnect::execute("insert into port_bo_telegram (direction, user_id, telegram_id, user_id_bo, text) values (?, ?, ?, ?, ?)",
             array($direction, $userID, $telegramID, $userBoID, $text));
+    }
+    
+    public static function createCode() {
+        $code = substr(md5(bin2hex(random_bytes(10))), 0, 4) . '-' . substr(md5(bin2hex(random_bytes(10))), 0, 4);
+        
+        while (!empty(User::getSingleObjectByCondition(['telegram_code' => $code]))) {
+            $code = substr(md5(bin2hex(random_bytes(10))), 0, 4) . '-' . substr(md5(bin2hex(random_bytes(10))), 0, 4);
+        }
+        
+        (new Query('update'))
+            ->table(User::TABLE_NAME)
+            ->values(['telegram_code' => $code])
+            ->condition(['id' => $_SESSION['user']])
+            ->execute();
     }
     
     public function getMessage() {

@@ -120,6 +120,7 @@
 "close": 								"Schließen",
 "accept":								"Zustimmen",
 "decline":								"Ablehnen",
+"create-tegegram-code":					"Code erstellen",
 
 "-------------------------- Überschriften --------------------------":"",
 "extern-links":							"Externe Links",
@@ -150,6 +151,7 @@
 "registerd-publisher":					"Angemeldete Verkündiger",
 "my-ports":								"Meine Häfen",
 "user-administration":					"Benutzerverwaltung",
+"setup-telegram":						"Telegram Verbindung einrichten",
 
 "-------------------------- VesselContacts --------------------------":"",
 "not-specified":						"keine Angabe",
@@ -191,5 +193,7 @@
 "privacy-consent-data-sharing":			"Ich bin einverstanden damit, dass andere Mitarbeiter aus meiner Hafengruppe und auch aus anderen Hafengruppen meine im ersten Punkt genannten Kontaktdaten einsehen und mich kontaktieren können.",
 "privacy-consent-no-personal-info":		"Ich habe verstanden, dass ich im Backoffice keine Informationen zu Privatpersonen hinterlegen darf. Dazu gehören z.B. Kontaktdaten von Seeleuten sowie Mitarbeiter von Agenturen, Hafenbehörden oder anderer Firmen.",
 "privacy-consent-accept":				"Ich bin mit den allgemeinen Datenschutzbedingungen (besonders im Sinne der EU-DSGVO) von https://port-mission.de einverstanden. Diese können hier eingesehen werden:",
-"privacy-consent-policy-title":			"Datenschutzbedingungen"
+"privacy-consent-policy-title":			"Datenschutzbedingungen",
+"your-telegram-code":					"Dein Code zur Telegram-Registrierung lautet:",
+"telegram-how-to-register":				"Um den Registrierungsprozess abzuschließen, schreibe bitte mit deinem Telegram Messenger den Nutzer 'PortMissionBo' an. Sobald du dazu aufgefordert wirst, schicke in den Chat bitte den hier genannten Code."
 }

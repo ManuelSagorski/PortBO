@@ -4,6 +4,7 @@ namespace bo\components\controller;
 use bo\components\classes\User;
 use bo\components\classes\helper\Security;
 use bo\components\classes\helper\Query;
+use bo\components\classes\helper\Telegram;
 
 class UserController
 {
@@ -50,6 +51,10 @@ class UserController
         
         $userToEdit = User::getSingleObjectByID($_POST['id'], $_POST['projectID']);
         $userToEdit->addKalender($_POST['kalender'], $projectID);
+    }
+    
+    public function createTelegramCode() {
+        Telegram::createCode();
     }
     
     public function userChangePassword() {        

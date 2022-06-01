@@ -1,7 +1,7 @@
 /*
  *	home.css
  *
- *	Style-Sheets für Seite Index
+ *	Style-Sheets fÃ¼r Seite Index
  *
  */
 
@@ -107,7 +107,7 @@
 /**********************************************************/
 /*                      Seite Profile                     */
 /**********************************************************/
-.profile .segment { height: 100%; }
+.profile .segment.content { height: 100%; }
 
 
 /**********************************************************/
