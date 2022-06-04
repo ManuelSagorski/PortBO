@@ -26,7 +26,7 @@ foreach ($openContacts as $openContact) {
 <div class="openContactRow<?php echo ($openContact->getContactUserID() == $user->getID())?' ownContact':''; ?>">
 	<a onClick="vessel.openDetails(<?php echo $openContact->getVesselID(); ?>)">
 		<div>
-			<?php echo (Vessel::getVesselType($openContact->getVesselID()) == 'Cruise')?'<i class="ship icon"></i>':''; ?>
+			<?php echo (Vessel::getVesselType($openContact->getVesselID()) == 'Cruise' or Vessel::getVesselType($openContact->getVesselID()) == 'River-Cruise')?'<i class="ship icon"></i>':''; ?>
 			<?php echo $openContact->getDate(); ?> | <?php echo Vessel::getVesselName($openContact->getVesselID())?>
 		</div>
 		<div><?php echo User::getUserFullName($openContact->getContactUserID()); ?></div>

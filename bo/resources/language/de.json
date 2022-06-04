@@ -27,7 +27,8 @@
 "last-contact":							"Letzter Kontakt:",
 "contacts-agency":						"Kontakte zu diesem Agenten",
 "new-password":							"Neues Passwort",
-"password-confirmation":				"Wiederholung",
+"password":								"Passwort",
+"password-confirmation":				"Passwort Wiederholung",
 "current-email":						"Aktuelle Email-Adresse",
 "new-email":							"Neue Email-Adresse",
 "current-mobile":						"Aktuelle Handynummer",
@@ -64,6 +65,8 @@
 "phone-call":							"Telefonat",
 "request-contact-details":				"Kontaktdaten anfragen",
 "contact-details-requested":			"Die Kontaktdaten wurden angefragt",
+"register":								"Registrierung",
+"access-data":							"Zugangsdaten",
 
 "-------------------------- Hinweismeldungen --------------------------":"",
 "to-safe-imo-eni":						"Zum Speichern eines neuen Schiffes muss mindestens ein Name und eine IMO oder eine ENI angegeben werden.",
@@ -155,6 +158,7 @@
 "my-ports":								"Meine Häfen",
 "user-administration":					"Benutzerverwaltung",
 "setup-telegram":						"Telegram Verbindung einrichten",
+"title-register":						"Backoffice Hafengruppe",
 
 "-------------------------- VesselContacts --------------------------":"",
 "not-specified":						"keine Angabe",
@@ -197,6 +201,9 @@
 "privacy-consent-no-personal-info":		"Ich habe verstanden, dass ich im Backoffice keine Informationen zu Privatpersonen hinterlegen darf. Dazu gehören z.B. Kontaktdaten von Seeleuten sowie Mitarbeiter von Agenturen, Hafenbehörden oder anderer Firmen.",
 "privacy-consent-accept":				"Ich bin mit den allgemeinen Datenschutzbedingungen (besonders im Sinne der EU-DSGVO) von https://port-mission.de einverstanden. Diese können hier eingesehen werden:",
 "privacy-consent-policy-title":			"Datenschutzbedingungen",
+"register-accept-privacy-1":			"Ich stimme den ",
+"register-accept-privacy-2":			"Datenschutzbedingungen",
+"register-accept-privacy-3":			" zu.",
 "your-telegram-code":					"Dein Code zur Telegram-Registrierung lautet:",
 "telegram-how-to-register":				"Um den Registrierungsprozess abzuschließen, schreibe bitte mit deinem Telegram Messenger den Nutzer 'PortMissionBo' an. Sobald du dazu aufgefordert wirst, schicke in den Chat bitte den hier genannten Code."
 }

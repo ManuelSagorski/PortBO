@@ -1,7 +1,12 @@
 <?php
 namespace bo;
 use bo\components\controller\LoginController;
+use bo\components\classes\helper\Text;
 include 'components/config.php';
+
+if(isset($_GET['language'])) {
+    $text = new Text($_GET['language']);
+}
 
 $result = (new loginController())->start();
 

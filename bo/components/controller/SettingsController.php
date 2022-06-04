@@ -47,7 +47,7 @@ class SettingsController
         $mail = new SendMail();
         $mail->mail->addAddress($_POST['data']['email']);
         $mail->mail->Subject = "Hafendienst-Backoffice - Registrierung";
-        $mail->applyTemplate('_newUserInvitation_' . $_POST['data']['mailLanguage'], array("LinkAdresse" => MAIN_PATH_WITH_HOST . "index.php?register=true&code=" . $invitationKey));
+        $mail->applyTemplate('_newUserInvitation_' . $_POST['data']['mailLanguage'], array("LinkAdresse" => MAIN_PATH_WITH_HOST . "index.php?register=true&language=" . $_POST['data']['mailLanguage'] . "&code=" . $invitationKey));
         
         $mail->mail->send();
     }

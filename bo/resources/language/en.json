@@ -27,6 +27,7 @@
 "last-contact":							"Last Contact:",
 "contacts-agency":						"Contacts for this Agent",
 "new-password":							"New password",
+"password":								"Password",
 "password-confirmation":				"Repeat new password",
 "current-email":						"Current e-mail address",
 "new-email":							"New e-mail address",
@@ -65,6 +66,8 @@
 "request-contact-details":				"Request contact details",
 "contact-details-requested":			"The contact details were requested",
 "share":								"Share",
+"register":								"Registration",
+"access-data":							"Access data",
 
 "-------------------------- Hinweismeldungen --------------------------":"",
 "to-safe-imo-eni":						"To add a new ship name and IMO or ENI are required",
@@ -155,6 +158,7 @@
 "my-ports":								"My harbours",
 "user-administration":					"User administration",
 "setup-telegram":						"Setup Telegram connection",
+"title-register":						"Backoffice Harbour-Group",
 
 "-------------------------- VesselContacts --------------------------":"",
 "not-specified":						"Not specified",
@@ -196,6 +200,9 @@
 "privacy-consent-no-personal-info":		"I understand that I am not allowed to enter information on private individuals in Backoffice. This includes, for example, contact details of seafarers as well as employees of ship agencies, port authorities or other companies.",
 "privacy-consent-accept":				"I agree to the privacy policy (especially in view of the General Data Protection Regulation of the European Union) of https://port-mission.de, which may be viewed here:",
 "privacy-consent-policy-title":			"Privacy policy",
+"register-accept-privacy-1":			"I agree to the ",
+"register-accept-privacy-2":			"Privacy policy",
+"register-accept-privacy-3":			".",
 "your-telegram-code":					"Your Telegram registering code is:",
 "telegram-how-to-register":				"To complete the registration process, please write a message to 'PortMissionBo'. When asked to do so, please send the code mentioned here in the chat."
 }

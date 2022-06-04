@@ -8,10 +8,15 @@ class Text
     
     private const LANGUAGE_FOLDER = MAIN_DOCUMENT_PATH . "resources/language/";
     
-    public function __construct() {
+    public function __construct(string $language = null) {
         $this->languageDefaultText = $this->getTextFromJson('de');
-        if(!empty($_SESSION['language'])) {
-            $this->languageText = $this->getTextFromJson($_SESSION['language']);
+        if(!empty($language)) {
+            $this->languageText = $this->getTextFromJson($language);
+        }
+        else {
+            if(!empty($_SESSION['language'])) {
+                $this->languageText = $this->getTextFromJson($_SESSION['language']);
+            }
         }
     }
     

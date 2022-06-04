@@ -14,6 +14,7 @@ use bo\components\classes\User;
 use bo\components\classes\helper\Telegram;
 use bo\components\classes\Projects;
 use bo\components\classes\VesselContactRequest;
+use bo\components\classes\helper\Text;
 
 class VesselController
 {
@@ -108,9 +109,11 @@ class VesselController
                                 
             foreach($projectAdmins as $projectAdmin) {
                 if(!empty($projectAdmin->getTelegramID())) {
+                    $text = new Text($projectAdmin->getDefaultLanguage());
+                    
                     $telegram = new Telegram($projectAdmin->getTelegramID());
                                     
-                    $telegram->applyTemplate("_requestContactDetails_de", Array(
+                    $telegram->applyTemplate("_requestContactDetails_" . $projectAdmin->getDefaultLanguage(), Array(
                         "name" => User::getUserFullName($_SESSION['user']),
                         "hafengruppe" => Projects::getProjectName($user->getProjectID()),
                         "vesselName" => $requestedVessel->getName(),
@@ -118,11 +121,11 @@ class VesselController
                     ));
 
                     $keyboard = array(
-                        "inline_keyboard" => array(array(array('text' => 'Freigeben', 'callback_data' => 'Vessel||AccReqContDet||' . $requestKey)))
+                        "inline_keyboard" => array(array(array('text' => $text->_('share'), 'callback_data' => 'Vessel||AccReqContDet||' . $requestKey)))
                     );
                     $keyboard = json_encode($keyboard, true);
                     
-                    if($projectAdmin->getID() == 140) {
+                    if($projectAdmin->getID() == 1 or $projectAdmin->getID() == 140) {
                         $telegram->sendMessage(false, null, $keyboard);
                     }
                 }
