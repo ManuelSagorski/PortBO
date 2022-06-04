@@ -9,6 +9,11 @@ use bo\components\classes\Forecast;
 use bo\components\classes\helper\Lookup;
 use bo\components\types\VesselTypes;
 use bo\components\classes\helper\Logger;
+use bo\components\classes\helper\Query;
+use bo\components\classes\User;
+use bo\components\classes\helper\Telegram;
+use bo\components\classes\Projects;
+use bo\components\classes\VesselContactRequest;
 
 class VesselController
 {
@@ -66,6 +71,117 @@ class VesselController
         }
         else {
             (VesselContactDetails::getSingleObjectByID($_POST['contactDetailID']))->editContactDetail($_POST['data']);
+        }
+    }
+    
+    public function requestContactDetails() {
+        global $user;
+        
+        $projects = [];
+        
+        $requestedVessel = Vessel::getSingleObjectByID($_POST['vesselID']);
+        
+        foreach($requestedVessel->getOtherContactDetails() as $contactDetail) {
+            if(array_search($contactDetail->getProjectID(), $projects) === false) {
+                $projects[] = $contactDetail->getProjectID();
+            }
+        }
+        
+        foreach ($projects as $project) {
+            $projectAdmins = (new Query('select'))
+                                ->table(User::TABLE_NAME)
+                                ->project(($project == 0)?1:$project)
+                                ->conditionGreater(['level' => 7])
+                                ->fetchAll(User::class);
+            
+            $requestKey = md5(time());
+                                
+            (new Query('insert'))
+                ->table(VesselContactRequest::TABLE_NAME)
+                ->values([
+                    "vessel_id" => $_POST['vesselID'], 
+                    "requesting_group_id" => $user->getProjectID(), 
+                    "requested_group_id" => $project,
+                    "request_key" => $requestKey
+                ])
+                ->execute();
+                                
+            foreach($projectAdmins as $projectAdmin) {
+                if(!empty($projectAdmin->getTelegramID())) {
+                    $telegram = new Telegram($projectAdmin->getTelegramID());
+                                    
+                    $telegram->applyTemplate("_requestContactDetails_de", Array(
+                        "name" => User::getUserFullName($_SESSION['user']),
+                        "hafengruppe" => Projects::getProjectName($user->getProjectID()),
+                        "vesselName" => $requestedVessel->getName(),
+                        "imo" => $requestedVessel->getIMO()
+                    ));
+
+                    $keyboard = array(
+                        "inline_keyboard" => array(array(array('text' => 'Freigeben', 'callback_data' => 'Vessel||AccReqContDet||' . $requestKey)))
+                    );
+                    $keyboard = json_encode($keyboard, true);
+                    
+                    if($projectAdmin->getID() == 140) {
+                        $telegram->sendMessage(false, null, $keyboard);
+                    }
+                }
+            }
+        }
+    }
+    
+    public function AccReqContDet(array $callback) {
+        $request = (new Query('select'))
+            ->table(VesselContactRequest::TABLE_NAME)
+            ->condition(['request_key' => $callback[2]])
+            ->fetchSingle(VesselContactRequest::class);
+        
+        if(!empty($request)) {
+            $targetProjectID = ((Projects::getSingleObjectByID($request->getRequestingGroupID()))->getContactDetailsSeparated() == 0)?0:$request->getRequestingGroupID();
+            
+            $contactDetails = (new Query('select'))
+                ->table(VesselContactDetails::TABLE_NAME)
+                ->condition([
+                    'vessel_id' => $request->getVesselID(), 
+                    'project_id' => $request->getRequestedGroupID(),
+                    'invalid' => 0
+                ])
+                ->fetchAll(VesselContactDetails::class);
+            
+            foreach($contactDetails as $contactDetail) {
+                Logger::writeLogInfo('ContactDetailTransfer', 'Requesting Project: ' . $request->getRequestingGroupID() . ' - Requested Project: ' . $request->getRequestedGroupID() . ' - VesselID: ' . $request->getVesselID());
+                
+                $existingDetail = (new Query('select'))
+                    ->table(VesselContactDetails::TABLE_NAME)
+                    ->condition([
+                        'vessel_id' => $request->getVesselID(), 
+                        'project_id' => $targetProjectID, 
+                        'detail' => $contactDetail->getDetail()
+                    ])
+                    ->fetchAll(VesselContactDetails::class);
+                    
+                if(empty($existingDetail)) {
+                    (new Query('insert'))
+                    ->table(VesselContactDetails::TABLE_NAME)
+                    ->values([
+                        'vessel_id' => $request->getVesselID(), 
+                        'project_id' => $targetProjectID, 
+                        'type' => $contactDetail->getType(),
+                        'detail' => $contactDetail->getDetail()
+                    ])
+                    ->execute();
+                }
+            }
+            
+            (new Query('delete'))
+                ->table(VesselContactRequest::TABLE_NAME)
+                ->condition(['request_key' => $callback[2]])
+                ->execute();
+            
+            return "Danke das du die Kontaktdaten freigegeben hast";
+        }
+        else {
+            return "Vielen Dank für deine Antwort. Die Kontaktdaten wurden bereits von einem anderen Koordinator deiner Hafengruppe freigegeben.";
         }
     }
     

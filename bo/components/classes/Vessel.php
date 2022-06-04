@@ -26,8 +26,11 @@ class Vessel extends AbstractDBObject
     private $vesselContacts = [];
     private $vesselContactDetails = [];
     
+    private $otherContactDetails;
+    
     public $hasMail;
     public $hasPhone;
+    public $otherContactAvailable;
     
     /**
      * Konstruktor
@@ -181,21 +184,46 @@ class Vessel extends AbstractDBObject
      * Lädt die zu dem Schiff vorhandenen Kontaktinformationen
      */
     private function loadContactDetails() {
+        global $project;
+        
         $this->vesselContactDetails = (new Query("select"))
             ->table(VesselContactDetails::TABLE_NAME)
             ->condition(["vessel_id" => $this->id])
+            ->condition(["project_id" => ($project->getContactDetailsSeparated() == 0)?0:$project->getID()])
             ->order("type")
             ->fetchAll(VesselContactDetails::class);
+            
+        $queryString = null;
         
-        foreach($this->vesselContactDetails as $contactDetail) {
+        foreach($this->vesselContactDetails as $key => $contactDetail) {
             if($contactDetail->getType() == 'Email' && $contactDetail->getInvalid() == 0) {
                 $this->hasMail = true;
             }
             if($contactDetail->getType() == 'Telefon' && $contactDetail->getInvalid() == 0) {
                 $this->hasPhone = true;
             }
+            
+            if($key != array_key_first($this->vesselContactDetails)) {
+                $queryString .= ' and';
+            }
+            
+            $queryString .= ' detail <> "' . $contactDetail->getDetail() . '"';
         }
         
+        $query = (new Query('select'))
+            ->table(VesselContactDetails::TABLE_NAME)
+            ->condition(['vessel_id' => $this->id, 'invalid' => 0])
+            ->conditionNot(["project_id" => ($project->getContactDetailsSeparated() == 0)?0:$project->getID()]);
+
+        if(!empty($queryString)) {
+            $query->conditionString([$queryString => []]);
+        }
+        
+        $this->otherContactDetails = $query->fetchAll(VesselContactDetails::class);
+        
+        if(!empty($this->otherContactDetails)) {
+            $this->otherContactAvailable = true;
+        }
     }
 
     /**
@@ -344,6 +372,9 @@ class Vessel extends AbstractDBObject
     }
     public function getLanguagesUpdate() {
         return $this->languages_update;
+    }
+    public function getOtherContactDetails() {
+        return $this->otherContactDetails;
     }
 }
 

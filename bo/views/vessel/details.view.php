@@ -157,8 +157,15 @@ Funktion VesselInfo nicht mehr gewünscht - wird zurückgebaut.
 	<a class="item" onClick="vessel.deleteVesselContactDetail(<?php echo $vessel->getID(); ?>, $('input[name=selectContactDetail]:checked').val());">
 		<i class="trash alternate icon"></i>
 	</a>
+	<?php if($vessel->otherContactAvailable) { ?>
+	<a class="item" id="requestContactDetails" onClick="vessel.requestContactDetails(<?php echo $vessel->getID(); ?>);">
+		<i class="hand point up green icon"></i> - <?php $t->_('request-contact-details'); ?>
+	</a>
+	<?php }?>
 </div>
 <?php } ?>
+
+<div class="ui positive message" id="resultRequestContactDetails" style="display: none;"></div>
 
 <table class="detailTable ui very compact celled striped table">
 	<thead>

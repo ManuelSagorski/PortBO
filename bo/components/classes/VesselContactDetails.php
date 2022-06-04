@@ -19,6 +19,7 @@ class VesselContactDetails extends AbstractDBObject
     ];
     
     private $id;
+    private $project_id;
     private $vessel_id;
     private $type;
     private $detail;
@@ -41,7 +42,10 @@ class VesselContactDetails extends AbstractDBObject
      * Speichert eine Kontaktinformation in der Datenbank
      */
     public function addContactDetail() {
+        global $project;
+        
         $this->insertDB([
+            "project_id" => ($project->getContactDetailsSeparated() == 0)?0:$project->getID(),
             "vessel_id" => $this->vessel_id, 
             "type" => $this->type, 
             "detail" => $this->detail, 
@@ -96,12 +100,15 @@ class VesselContactDetails extends AbstractDBObject
 
         Vessel::setTS($_SESSION['vessID']);
     }
-    
+   
     /*
      Getter und Setter
      */
     public function getID() {
         return $this->id;
+    }
+    public function getProjectID() {
+        return $this->project_id;
     }
     public function getVesselID() {
         return $this->vessel_id;

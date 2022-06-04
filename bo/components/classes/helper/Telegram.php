@@ -51,7 +51,7 @@ class Telegram
         }
     }
     
-    public function sendMessage($disable_notification, $text=null) {
+    public function sendMessage($disable_notification, $text=null, $button=null) {
         $ch = curl_init('https://api.telegram.org/bot' . TELEGRAM_TOKEN . '/sendMessage');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
@@ -67,6 +67,10 @@ class Telegram
             'disable_notification' => $disable_notification,
             'text' => $this->tmpl
         );
+       
+        if(!empty($button)) {
+            $param['reply_markup'] = $button;
+        }
         
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($param));
@@ -114,6 +118,21 @@ class Telegram
             ->values(['telegram_code' => $code])
             ->condition(['id' => $_SESSION['user']])
             ->execute();
+    }
+    
+    public static function manageCallback(array $callbackData) {
+        $callback = explode("||" , $callbackData['data']);
+        
+        $controllerClassName = "\\bo\\components\\controller\\".ucfirst($callback[0]).'Controller';
+        $actionMethodName = $callback[1];
+        
+        $controller = new $controllerClassName();
+        $message = $controller->$actionMethodName($callback);
+        
+        if(!empty($message)) {
+            $telegram = new Telegram($callbackData['from']['id']);
+            $telegram->sendMessage(false, $message);
+        }
     }
     
     public function getMessage() {

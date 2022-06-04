@@ -62,6 +62,9 @@
 "letter":								"Letter",
 "visit":								"Visit",
 "phone-call":							"Phone",
+"request-contact-details":				"Request contact details",
+"contact-details-requested":			"The contact details were requested",
+"share":								"Share",
 
 "-------------------------- Hinweismeldungen --------------------------":"",
 "to-safe-imo-eni":						"To add a new ship name and IMO or ENI are required",

@@ -62,6 +62,8 @@
 "letter":								"Brief",
 "visit":								"Besuch",
 "phone-call":							"Telefonat",
+"request-contact-details":				"Kontaktdaten anfragen",
+"contact-details-requested":			"Die Kontaktdaten wurden angefragt",
 
 "-------------------------- Hinweismeldungen --------------------------":"",
 "to-safe-imo-eni":						"Zum Speichern eines neuen Schiffes muss mindestens ein Name und eine IMO oder eine ENI angegeben werden.",
@@ -121,6 +123,7 @@
 "accept":								"Zustimmen",
 "decline":								"Ablehnen",
 "create-tegegram-code":					"Code erstellen",
+"share":								"Freigeben",
 
 "-------------------------- Überschriften --------------------------":"",
 "extern-links":							"Externe Links",

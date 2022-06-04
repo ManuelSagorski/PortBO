@@ -41,6 +41,7 @@ foreach ($projects as $key => $project) {
                     </div>
         		</div>
         	</div>
+        	
         	<div class="column">
         		<div class="ui segment">
                     <div class="inline field">
@@ -58,6 +59,7 @@ foreach ($projects as $key => $project) {
                     </div>
         		</div>
         	</div>
+        	
         	<div class="column">
         		<div class="ui segment">
                     <div class="inline field">
@@ -75,6 +77,7 @@ foreach ($projects as $key => $project) {
                     </div>
         		</div>
         	</div>
+        	
         	<div class="column">
         		<div class="ui segment">
                     <div class="inline field">
@@ -87,6 +90,24 @@ foreach ($projects as $key => $project) {
                     			name="mod_contactDetails"
                     			onChange="settings.safeModuleSetting($(this), <?php echo $project->getID(); ?>)"
                     			<?php echo ($project->getModContactDetails())?" checked='checked'":"";?>
+                    		>
+                    	</div>
+                    </div>
+        		</div>
+        	</div>
+        	
+        	<div class="column">
+        		<div class="ui red segment">
+                    <div class="inline field">
+                   		<div class="ui toggle checkbox">
+                    		<label>Separate Kontaktdetails</label>
+                    		<input 
+                    			type="checkbox" 
+                    			tabindex="0" 
+                    			class="hidden"
+                    			name="contact_details_separated"
+                    			onChange="settings.safeModuleSetting($(this), <?php echo $project->getID(); ?>)"
+                    			<?php echo ($project->getContactDetailsSeparated())?" checked='checked'":"";?>
                     		>
                     	</div>
                     </div>

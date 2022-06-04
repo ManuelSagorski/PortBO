@@ -11,6 +11,7 @@ class Projects extends AbstractDBObject
     private $name;
     private $short;
     
+    private $contact_details_separated;
     private $mod_forecast;
     private $mod_planning;
     private $mod_planning_project;
@@ -75,6 +76,9 @@ class Projects extends AbstractDBObject
         return $this->short;
     }
     
+    public function getContactDetailsSeparated() {
+        return $this->contact_details_separated;
+    }
     public function getModForecast() {
         return $this->mod_forecast;
     }

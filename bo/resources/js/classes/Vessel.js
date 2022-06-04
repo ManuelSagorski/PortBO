@@ -248,6 +248,22 @@ define(function() {
 			}			
 		}
 		
+		that.requestContactDetails = function(vesselID) {
+			$.post(my.CONTROLLER + 'requestContactDetails', { vesselID: vesselID }, 
+				function(data) {
+					$('#requestContactDetails').addClass("disabled");
+					$('#requestContactDetails').prop("onclick", null).off("click");
+					
+					$('#resultRequestContactDetails').html(t('contact-details-requested'));
+					$('#resultRequestContactDetails').show();
+					
+					setTimeout(function(){
+						$('#resultRequestContactDetails').html('');
+						$('#resultRequestContactDetails').hide();
+					}, 4000);					
+				});
+		}
+		
 		/*************************************************** Vessel Info ***************************************************/
 
 		/*

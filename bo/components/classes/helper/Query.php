@@ -115,6 +115,16 @@ class Query
         return $this;
     }
 
+    public function conditionIsNull($condition) {
+        $this->conditions['isNull'][] = $condition;
+        return $this;
+    }
+    
+    public function conditionIsNotNull($condition) {
+        $this->conditions['isNotNull'][] = $condition;
+        return $this;
+    }
+    
     public function conditionGreater($condition) {
         $this->conditions['greater'][] = $condition;
         return $this;
@@ -319,9 +329,17 @@ class Query
                             case "lower":
                                 $this->sqlstrg .= " < ? ";
                                 break;
+                            case "isNull":
+                                $this->sqlstrg .= " is null ";
+                                break;
+                            case "isNotNull":
+                                $this->sqlstrg .= " is not null ";
+                                break;
                         }
                         
-                        $this->parameter[] = $value;
+                        if($type != "isNull" and $type != "isNotNull") {
+                            $this->parameter[] = $value;
+                        }
                     }
                 }
             }
