@@ -109,23 +109,26 @@ class VesselController
                                 
             foreach($projectAdmins as $projectAdmin) {
                 if(!empty($projectAdmin->getTelegramID())) {
-                    $text = new Text($projectAdmin->getDefaultLanguage());
-                    
-                    $telegram = new Telegram($projectAdmin->getTelegramID());
-                                    
-                    $telegram->applyTemplate("_requestContactDetails_" . $projectAdmin->getDefaultLanguage(), Array(
-                        "name" => User::getUserFullName($_SESSION['user']),
-                        "hafengruppe" => Projects::getProjectName($user->getProjectID()),
-                        "vesselName" => $requestedVessel->getName(),
-                        "imo" => $requestedVessel->getIMO()
-                    ));
-
-                    $keyboard = array(
-                        "inline_keyboard" => array(array(array('text' => $text->_('share'), 'callback_data' => 'Vessel||AccReqContDet||' . $requestKey)))
-                    );
-                    $keyboard = json_encode($keyboard, true);
-                    
+                    /*
+                     * Während der Entwicklung - Eingrenzung auf mich selber
+                     */
                     if($projectAdmin->getID() == 1 or $projectAdmin->getID() == 140) {
+                        $text = new Text($projectAdmin->getDefaultLanguage());
+                        
+                        $telegram = new Telegram($projectAdmin->getTelegramID());
+                                        
+                        $telegram->applyTemplate("_requestContactDetails_" . $projectAdmin->getDefaultLanguage(), Array(
+                            "name" => User::getUserFullName($_SESSION['user']),
+                            "hafengruppe" => Projects::getProjectName($user->getProjectID()),
+                            "vesselName" => $requestedVessel->getName(),
+                            "imo" => $requestedVessel->getIMO()
+                        ));
+    
+                        $keyboard = array(
+                            "inline_keyboard" => array(array(array('text' => $text->_('share'), 'callback_data' => 'Vessel||AccReqContDet||' . $requestKey)))
+                        );
+                        $keyboard = json_encode($keyboard, true);
+
                         $telegram->sendMessage(false, null, $keyboard);
                     }
                 }
@@ -133,7 +136,14 @@ class VesselController
         }
     }
     
-    public function AccReqContDet(array $callback) {
+    public function AccReqContDet(array $callback, int $telegramID) {
+        $replyingUser = (new Query('select'))
+            ->table(User::TABLE_NAME)
+            ->condition(['telegram_id' => $telegramID])
+            ->fetchSingle(User::class);
+        
+        $text = new Text($replyingUser->getDefaultLanguage());
+            
         $request = (new Query('select'))
             ->table(VesselContactRequest::TABLE_NAME)
             ->condition(['request_key' => $callback[2]])
@@ -181,10 +191,10 @@ class VesselController
                 ->condition(['request_key' => $callback[2]])
                 ->execute();
             
-            return "Danke das du die Kontaktdaten freigegeben hast";
+            return $text->_('thanks-for-sharing');
         }
         else {
-            return "Vielen Dank für deine Antwort. Die Kontaktdaten wurden bereits von einem anderen Koordinator deiner Hafengruppe freigegeben.";
+            return $text->_('thanks-already-shared');
         }
     }
     

@@ -23,9 +23,11 @@ class Text
     public function _($index) {
         if(!empty($this->languageText[$index])) {
             echo $this->languageText[$index];
+            return $this->languageText[$index];
         }
         else {
             echo $this->languageDefaultText[$index];
+            return $this->languageDefaultText[$index];
         }
     }
     

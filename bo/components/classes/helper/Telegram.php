@@ -127,7 +127,7 @@ class Telegram
         $actionMethodName = $callback[1];
         
         $controller = new $controllerClassName();
-        $message = $controller->$actionMethodName($callback);
+        $message = $controller->$actionMethodName($callback, $callbackData['from']['id']);
         
         if(!empty($message)) {
             $telegram = new Telegram($callbackData['from']['id']);
