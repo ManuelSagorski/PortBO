@@ -9,7 +9,7 @@ class VesselTypes
      * Unterschiedliche Schiffs Typen
      * @var array
      */
-    public static $vesselTypes = array("Cargo", "Ro-Ro", "Tanker", "Cruise", "River-Cargo", "River-Cruise", "River-Tanker", "Sonstiges");
+    public static $vesselTypes = array("Cargo", "Ro-Ro", "Tanker", "Cruise", "River-Cargo", "River-Cruise", "River-Tanker", "Other");
     
     /**
      * $vesselTypeMapper
@@ -53,12 +53,12 @@ class VesselTypes
         "Deck Cargo Ship" => "Cargo",
         "Self Discharging Bulk Carrier" => "Cargo",
         "Tug" => "Sonstiges",
-        "Hopper Dredger" => "Sonstiges",
-        "Service Ship" => "Sonstiges",
-        "Supply Vessel" => "Sonstiges",
-        "Offshore Support Vessel" => "Sonstiges",
-        "Offshore Supply Ship" => "Sonstiges",
-        "Other" => "Sonstiges"
+        "Hopper Dredger" => "Other",
+        "Service Ship" => "Other",
+        "Supply Vessel" => "Other",
+        "Offshore Support Vessel" => "Other",
+        "Offshore Supply Ship" => "Other",
+        "Other" => "Other"
     );
 }
 
