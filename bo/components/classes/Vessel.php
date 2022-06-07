@@ -186,6 +186,10 @@ class Vessel extends AbstractDBObject
     private function loadContactDetails() {
         global $project;
         
+        if(empty($project)) {
+            $project = Projects::getSingleObjectByID(1);
+        }
+        
         $this->vesselContactDetails = (new Query("select"))
             ->table(VesselContactDetails::TABLE_NAME)
             ->condition(["vessel_id" => $this->id])

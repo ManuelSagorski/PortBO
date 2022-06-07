@@ -328,12 +328,12 @@ define(function() {
 		/*
 		 *	Neuen Kontakt zu einem Schiff hinzufügen
 		 */			
-		that.newVesselContact = function(vesselID, contactID, edit) {
+		that.newVesselContact = function(vesselID, contactID, edit, portID, expectedDate) {
 			if(edit && !contactID) {
 				alert(t('choose-element'));
 			}
 			else {
-				$.get('../views/vessel/addVesselContact.view.php?vesselID=' + vesselID + '&contactID=' + contactID, function(data) {
+				$.get('../views/vessel/addVesselContact.view.php?vesselID=' + vesselID + '&contactID=' + contactID + '&portID=' + portID + '&expectedDate=' + expectedDate, function(data) {
 					$('#windowLabel').html(t('add-contact'));
 					$('#windowBody').html(data);
 				});
@@ -491,6 +491,11 @@ define(function() {
 				function(data) {
 					that.getForecast(newForecastValidate.getFormData().accordionID);				
 				});
+		}
+		
+		that.createScheduledContact = function(vesselID, portID, expectedDate) {
+			that.openDetails(vesselID);
+			that.newVesselContact(vesselID, null, null, portID, expectedDate);
 		}
 		
 		return constructor.call(null);

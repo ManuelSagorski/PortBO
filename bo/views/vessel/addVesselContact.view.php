@@ -38,7 +38,19 @@ if(isset($_GET['contactID']))
         		type="date" 
         		id="contactDate" 
         		name="contactDate" 
-        		value="<?php echo(!empty($contact))?$contact->getDate():date("Y-m-d"); ?>"
+        		value="<?php 
+        		if(!empty($contact)) {
+        		    echo $contact->getDate();
+        		}
+        		else {
+        		    if(empty($contact) && !empty($_GET['expectedDate']) && $_GET['expectedDate'] != 'undefined') {
+        		        echo $_GET['expectedDate'];
+        		    }
+        		    else {
+        		        echo date("Y-m-d");
+        		    }
+        		}
+        		?>"
         	>
         </div>
 	</div>
@@ -51,6 +63,7 @@ if(isset($_GET['contactID']))
     			<option 
     				value="<?php echo $port->getID(); ?>"
     				<?php if(!empty($contact)){echo ($contact->getPortID() == $port->getID())?' selected':'';} ?>
+    				<?php if(empty($contact) && !empty($_GET['portID'])){echo ($_GET['portID'] == $port->getID())?' selected':'';} ?>
     			><?php echo $port->getName(); ?></option> 
     			<?php } ?>
     			<?php if(!empty($contact) && !$user->userHasPort($contact->getPortID())) {?>

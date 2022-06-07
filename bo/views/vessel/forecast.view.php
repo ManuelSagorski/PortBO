@@ -35,6 +35,7 @@ foreach($user->getUserPorts() as $key => $userPorts) {
             			<th>Terminal / Agent</th>
             			<th></th>
             			<th></th>
+            			<th></th>
             		</tr>
             	</thead>
                 <tbody>
@@ -45,7 +46,7 @@ foreach($forecast as $expectedVessel) {
         $arrivingDay = $tmpDay->format('Y-m-d');
 ?>
     				<tr class="positive">
-    					<td colspan="8"><?php echo $tmpDay->format('Y-m-d'); ?></td>
+    					<td colspan="9"><?php echo $tmpDay->format('Y-m-d'); ?></td>
     				</tr>
 <?php    
     }
@@ -82,6 +83,11 @@ foreach($forecast as $expectedVessel) {
             				<div><?php echo $expectedVessel->getCompany(); ?></div>
             				<div><?php echo $expectedVessel->getAgency(); ?></div>
             			</td>
+            			<td data-label="createSchedule" class="center aligned collapsing">
+            				<?php if (!empty($expectedVessel->vessel)) { ?>
+            				<a onClick="vessel.createScheduledContact(<?php echo $expectedVessel->vessel->getID(); ?>, <?php echo $userPorts->getID(); ?>, '<?php echo $tmpDay->format('Y-m-d'); ?>'); safeForecastPosition();"><i class="calendar plus outline icon"></i></a>
+            				<?php } ?>
+            			</td>
             			<td data-label="done" class="center aligned collapsing">
             			<?php if($expectedVessel->getStatus() == 0) { ?>
             				<a onClick="vessel.forecastItemDone(<?php echo $expectedVessel->getID(); ?>, this);"><i class="check icon"></i></a>
@@ -106,7 +112,7 @@ foreach($forecast as $expectedVessel) {
 						</td>
 						<td><input type="text" name="terminal" id="terminal"></td>
 						<td><input type="text" name="agency" id="agency"></td>
-						<td class="right aligned" colspan="2"><button class="ui icon button" type="submit"><i class="save outline icon"></i></button></td>
+						<td class="right aligned" colspan="3"><button class="ui icon button" type="submit"><i class="save outline icon"></i></button></td>
     				</tr>
                 </tbody>
             </table>
