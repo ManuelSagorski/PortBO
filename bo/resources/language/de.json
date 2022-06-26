@@ -114,8 +114,9 @@
 "user-already-existing":				"Es existiert bereits ein Benutzer mit diesem Benutzernamen.",
 "agent-already-existing":				"Es existiert bereits ein Agent mit diesem Namen.",
 "agent-short-already-existing":			"Es existiert bereits ein Agent mit diesem Kürzel.",
-"thanks-for-sharing":					"Danke das du die Kontaktdaten freigegeben hast.",
+"thanks-for-sharing":					"Danke, dass du die Kontaktdaten freigegeben hast.",
 "thanks-already-shared":				"Vielen Dank für deine Antwort. Die Kontaktdaten wurden bereits von einem anderen Koordinator deiner Hafengruppe freigegeben.",
+"fone-number-international":			"Bitte gebe deine Telefonnummer in einem internationalen Format ein (z.B. +49 176 ...)",
 
 "-------------------------- Button --------------------------":"",
 "add-ship":								"Schiff hinzufügen",

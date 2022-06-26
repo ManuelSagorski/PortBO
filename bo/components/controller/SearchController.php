@@ -45,16 +45,20 @@ class SearchController
     }
     
     public function vesselDrySearch() {
-        $result = (new Query("select"))
-            ->table(Dry::TABLE_NAME)
-            ->or()
-            ->conditionLike(["name" => $this->searchExpression1, "imo" => $this->searchExpression2])
-            ->limit("5")
-            ->execute();
+        global $user;
         
-        while($row = $result->fetch()) {?>
-    	    <div class="searchResultRow"><i class="gb uk flag"></i> <?php echo $row['name']; ?></div>
-   		<?php }
+        if($user->getProjectId() == 1) {
+            $result = (new Query("select"))
+                ->table(Dry::TABLE_NAME)
+                ->or()
+                ->conditionLike(["name" => $this->searchExpression1, "imo" => $this->searchExpression2])
+                ->limit("5")
+                ->execute();
+            
+            while($row = $result->fetch()) {?>
+        	    <div class="searchResultRow"><i class="gb uk flag"></i> <?php echo $row['name']; ?></div>
+       		<?php }
+        }
     }
     
     public function userForContact() {

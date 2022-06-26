@@ -109,28 +109,23 @@ class VesselController
                                 
             foreach($projectAdmins as $projectAdmin) {
                 if(!empty($projectAdmin->getTelegramID())) {
-                    /*
-                     * Während der Entwicklung - Eingrenzung auf mich selber
-                     */
-                    if($projectAdmin->getID() == 1 or $projectAdmin->getID() == 140) {
-                        $text = new Text($projectAdmin->getDefaultLanguage());
-                        
-                        $telegram = new Telegram($projectAdmin->getTelegramID());
-                                        
-                        $telegram->applyTemplate("_requestContactDetails_" . $projectAdmin->getDefaultLanguage(), Array(
-                            "name" => User::getUserFullName($_SESSION['user']),
-                            "hafengruppe" => Projects::getProjectName($user->getProjectID()),
-                            "vesselName" => $requestedVessel->getName(),
-                            "imo" => $requestedVessel->getIMO()
-                        ));
-    
-                        $keyboard = array(
-                            "inline_keyboard" => array(array(array('text' => $text->_('share'), 'callback_data' => 'Vessel||AccReqContDet||' . $requestKey)))
-                        );
-                        $keyboard = json_encode($keyboard, true);
+                    $text = new Text($projectAdmin->getDefaultLanguage());
+                    
+                    $telegram = new Telegram($projectAdmin->getTelegramID());
+                                    
+                    $telegram->applyTemplate("_requestContactDetails_" . $projectAdmin->getDefaultLanguage(), Array(
+                        "name" => User::getUserFullName($_SESSION['user']),
+                        "hafengruppe" => Projects::getProjectName($user->getProjectID()),
+                        "vesselName" => $requestedVessel->getName(),
+                        "imo" => $requestedVessel->getIMO()
+                    ));
 
-                        $telegram->sendMessage(false, null, $keyboard);
-                    }
+                    $keyboard = array(
+                        "inline_keyboard" => array(array(array('text' => $text->_('share'), 'callback_data' => 'Vessel||AccReqContDet||' . $requestKey)))
+                    );
+                    $keyboard = json_encode($keyboard, true);
+
+                    $telegram->sendMessage(false, null, $keyboard);
                 }
             }
         }

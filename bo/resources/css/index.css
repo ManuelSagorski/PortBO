@@ -1,7 +1,7 @@
 /*
  *	index.css
  *
- *	Style-Sheets für Seite Index
+ *	Style-Sheets fï¿½r Seite Index
  *
  */
 
@@ -17,3 +17,5 @@ h2 { margin: 15px 0px; }
 #footer { max-width: 380px; margin: 10px auto; text-align: right; font-size: 10pt; }
 
 #pwResetBody>div { margin-bottom: 10px; }
+
+.formInfoText { text-align: left; font-size: 8pt; color: green; padding: 0px 5px; }

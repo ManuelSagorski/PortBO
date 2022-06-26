@@ -43,7 +43,7 @@ class User extends AbstractDBObject
     
     private $sendInfo;
     
-    public static $userLevel = array(0 => "keine Rechte", 1 => "Verkündiger", 2 => "Foreign Port", 4 => "BO Mitarbeiter", 5 => "BO Supervisor", 8 => "Projekt Admin", 9 => "Administrator");
+    public static $userLevel = array(0 => "no permission", 1 => "Publisher", 2 => "Foreign Port", 4 => "BO Mitarbeiter", 5 => "BO Supervisor", 8 => "Projekt Admin", 9 => "Administrator");
     public static $defaultPage = array(2 => "lookup", 4 => "index", 5 => "index", 8 => "index", 9 => "index");
     
     /**
@@ -78,6 +78,8 @@ class User extends AbstractDBObject
             else {
                 $this->secret = null;
             }
+            if(isset($data['language']))
+                $this->default_language = $data['language'];
         }
         else {
             $this->userGetPorts();
@@ -113,7 +115,8 @@ class User extends AbstractDBObject
                 "first_name" => $this->first_name,
                 "surname" => $this->surname,
                 "level" => $this->level,
-                "foreign_port" => $this->foreign_port
+                "foreign_port" => $this->foreign_port,
+                "default_language" => $this->default_language
             ]);
         
             if(!empty($this->project_id) && ($register || $user->getLevel() == 9))

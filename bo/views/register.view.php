@@ -16,6 +16,7 @@
     	</div>
     	<div class="field">
         	<input type="text" name="userPhone" placeholder="<?php $text->_('mobile'); ?>">
+        	<div class="formInfoText"><?php $text->_('fone-number-international'); ?></div>
     	</div>
 
         <div class="ui horizontal divider">
@@ -42,6 +43,7 @@
         </div>
 
 		<input type="hidden" name="registerKey" value="<?php echo $_GET['code']; ?>" />
+		<input type="hidden" name="language" value="<?php echo $_GET['language']; ?>" />
 
 		<button class="ui primary button" id="registerButton"><?php $text->_('register'); ?></button>
 	</form>

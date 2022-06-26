@@ -86,8 +86,6 @@ class LoginController
                 if (isset($_GET['register']) && isset($_GET['code'])) {
                     $id = $this->checkRegisterCode();
 
-                    echo $id;
-
                     if ($id) {
                         return [
                             "view" => self::REGISTER_VIEW

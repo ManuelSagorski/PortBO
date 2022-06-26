@@ -116,7 +116,8 @@
 "agent-already-existing":				"There is already a ship agent with this name in the database",
 "agent-short-already-existing":			"There is already a ship agent with this abbreviation in the database",
 "thanks-for-sharing":					"Thank you for sharing the contact details.",
-"thanks-already-shared":				"Thank you for your response. The contact details already have been shared by another administrator of your harbour group.",
+"thanks-already-shared":				"Thank you for the reply. The contact details have already been released by another coordinator of your harbour group.",
+"fone-number-international":			"Please enter your phone number in an international format (for example: +49 176 ...)",
 
 "-------------------------- Button --------------------------":"",
 "add-ship":								"Add ship",

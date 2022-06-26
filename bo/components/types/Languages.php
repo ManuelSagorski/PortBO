@@ -10,21 +10,20 @@ class Languages
      * @var array
      */
     public static $languages = array(
-        1 => "deutsch",
-        2 => "englisch",
+        1 => "german",
+        2 => "english",
         3 => "tagalog",
-        4 => "russisch",
-        5 => "indonesisch",
-        6 => "polnisch",
-        7 => "chinesisch",
-        8 => "türkisch",
-        9 => "arabisch",
+        4 => "russian",
+        5 => "indonesian",
+        6 => "polish",
+        7 => "chinese",
+        8 => "turkish",
+        9 => "arabic",
         10 => "hindi",
-        11 => "rumänisch",
-        12 => "bulgarisch",
-        13 => "französisch",
-        14 => "spanisch",
-        15 => "türkisch"
+        11 => "rumanian",
+        12 => "bulgarian",
+        13 => "french",
+        14 => "spanish"
     );
     
     /**
