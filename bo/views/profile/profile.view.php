@@ -60,7 +60,7 @@ include '../../components/config.php';
                 <div id="input_emailNew" class="required field">
                 	<label><?php $t->_('new-email'); ?></label>
                 	<input 
-                		type="text" 
+                		type="email" 
                 		id="emailNew" 
                 		name="emailNew" 
                 		onkeyup="formValidate.clearAllError();"
@@ -108,6 +108,12 @@ include '../../components/config.php';
         		<div><?php $t->_('current-mobile'); ?>:</div>
         		<div id="actualPhone"><?php echo $user->getPhone(); ?></div>
         		<div class="ui divider"></div>
+
+                <div class="ui blue message">
+                    <div class="content">
+                        <p><?php $t->_('fone-number-international'); ?></p>
+                    </div>
+                </div>
                 
                 <div id="input_phoneNew" class="required field">
                 	<label><?php $t->_('new-mobile'); ?></label>
@@ -141,8 +147,18 @@ include '../../components/config.php';
 </div>
 
 <script>
-$("#changePassword").submit(function(event){ profile.changePassword(this.id); });
-$("#changeEmail").submit(function(event){ profile.changeMail(this.id); });
-$("#changePhone").submit(function(event){ profile.changePhone(this.id); });
-$("#sendMessage").submit(function(event){ profile.sendMessage(this.id); });
+    formValidate.setInputValidation('#phoneNew', 'tel');
+
+    $("#changePassword").submit(function (event) {
+        profile.changePassword(this.id);
+    });
+    $("#changeEmail").submit(function (event) {
+        profile.changeMail(this.id);
+    });
+    $("#changePhone").submit(function (event) {
+        profile.changePhone(this.id);
+    });
+    $("#sendMessage").submit(function (event) {
+        profile.sendMessage(this.id);
+    });
 </script>

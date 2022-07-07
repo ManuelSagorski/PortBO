@@ -20,6 +20,16 @@ if(isset($_GET['contactDetailID']))
         	<p><?php $t->_('no-private-data'); ?></p>
         </div>
     </div>
+
+    <div class="ui icon blue message">
+        <i class="info circle icon"></i>
+        <div class="content">
+            <div class="header">
+                <?php $t->_('phone-number'); ?>
+            </div>
+            <p><?php $t->_('fone-number-international'); ?></p>
+        </div>
+    </div>
     
     <div class="ui error message">
 		<div id="errorMessage"></div>
@@ -68,7 +78,13 @@ Kontakt Detail Info nicht mehr gewünscht
 </form>
 
 <script>
-$("#addVesselContactDetail").submit(function(event){ 
-	vessel.addVesselContactDetail(<?php echo $_GET['vesselID']; ?>, <?php echo (!empty($contactDetail))?$contactDetail->getId():'null'; ?>);
-});
+    $("#addVesselContactDetail").submit(function (event) {
+        vessel.addVesselContactDetail(<?php echo $_GET['vesselID']; ?>, <?php echo (!empty($contactDetail)) ? $contactDetail->getId() : 'null'; ?>);
+    });
+
+    var contactDetailHandler = function () {
+        formValidate.setInputValidation('#contactDetail', $('#contactDetailType').val());
+    };
+    $().ready(contactDetailHandler);
+    $('#contactDetailType').on('change', contactDetailHandler);
 </script>

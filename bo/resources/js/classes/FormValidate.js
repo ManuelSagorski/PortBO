@@ -194,6 +194,39 @@ define(function() {
 				.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/);
 		}
 
+		/**
+		 * Setzt bei den über _selector_ ausgewählten Inputs das type- und das pattern-Attribut
+		 * in Abhängigkeit von _type_.
+		 * @param {string} selector
+		 * @param {string} type
+		 */
+		that.setInputValidation = function (selector, type) {
+			if (!selector) return;
+			if (!type) type = '';
+			var element = $(selector).filter('input');
+
+			switch (type.toLowerCase()) {
+				case 'email':
+					element
+						.attr('type', 'email')
+						.removeAttr('pattern');
+					break;
+
+				case 'tel':
+				case 'telefon':
+					element
+						.attr('type', 'tel')
+						.attr('pattern', '\\+[0-9/ -]+');
+					break;
+
+				default:
+					element
+						.attr('type', 'text')
+						.removeAttr('pattern');
+					break;
+			}
+		}
+
 		return constructor.call(null, formData, formID);
 	}
 

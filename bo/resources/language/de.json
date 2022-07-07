@@ -116,7 +116,7 @@
 "agent-short-already-existing":			"Es existiert bereits ein Agent mit diesem Kürzel.",
 "thanks-for-sharing":					"Danke, dass du die Kontaktdaten freigegeben hast.",
 "thanks-already-shared":				"Vielen Dank für deine Antwort. Die Kontaktdaten wurden bereits von einem anderen Koordinator deiner Hafengruppe freigegeben.",
-"fone-number-international":			"Bitte gebe deine Telefonnummer in einem internationalen Format ein (z.B. +49 176 ...)",
+"fone-number-international":			"Bitte gib die Telefonnummer im internationalen Format ein (z.B. +49 123 456789). Erlaubte Sonderzeichen: Plus, Schrägstrich, Bindestrich und Leerzeichen.",
 
 "-------------------------- Button --------------------------":"",
 "add-ship":								"Schiff hinzufügen",
