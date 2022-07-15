@@ -12,10 +12,10 @@
         	<input type="text" name="userSurname" placeholder="<?php $text->_('surname'); ?>">
     	</div>
     	<div class="field">
-        	<input type="text" name="userEmail" placeholder="<?php $text->_('email-address'); ?>">
+        	<input type="email" name="userEmail" placeholder="<?php $text->_('email-address'); ?>">
     	</div>
     	<div class="field">
-        	<input type="text" name="userPhone" placeholder="<?php $text->_('mobile'); ?>">
+        	<input type="tel" name="userPhone" placeholder="<?php $text->_('mobile'); ?>" pattern="\+[0-9/ -]+">
         	<div class="formInfoText"><?php $text->_('fone-number-international'); ?></div>
     	</div>
 

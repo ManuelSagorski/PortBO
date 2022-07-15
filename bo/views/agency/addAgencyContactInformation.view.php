@@ -28,7 +28,7 @@ if(isset($_GET['id']))
     <div id="input_agencyContactEmail" class="field">
     	<label><?php $t->_('email'); ?></label>
     	<input 
-    		type="text" 
+    		type="email" 
     		id="agencyContactEmail" 
     		name="agencyContactEmail" 
     		onkeyup="formValidate.clearAllError();" 

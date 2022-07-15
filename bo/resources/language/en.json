@@ -119,7 +119,7 @@
 "agent-short-already-existing":			"There is already a ship agent with this abbreviation in the database",
 "thanks-for-sharing":					"Thank you for sharing the contact details.",
 "thanks-already-shared":				"Thank you for the reply. The contact details have already been released by another coordinator of your harbour group.",
-"fone-number-international":			"Please enter your phone number in an international format (for example: +49 176 ...)",
+"fone-number-international":			"Please enter the phone number in the international format (i.e. +49 123 456789). Allowed special characters: plus, slash, dash and space.",
 "insert-project-name":					"Please enter a project name.",
 "insert-project-short":					"Please enter a project short.",
 
