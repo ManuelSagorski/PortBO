@@ -68,6 +68,8 @@
 "share":								"Share",
 "register":								"Registration",
 "access-data":							"Access data",
+"project-name":							"Projekt name",
+"project-short":						"Projekt short",
 
 "-------------------------- Hinweismeldungen --------------------------":"",
 "to-safe-imo-eni":						"To add a new ship name and IMO or ENI are required",
@@ -118,6 +120,8 @@
 "thanks-for-sharing":					"Thank you for sharing the contact details.",
 "thanks-already-shared":				"Thank you for the reply. The contact details have already been released by another coordinator of your harbour group.",
 "fone-number-international":			"Please enter your phone number in an international format (for example: +49 176 ...)",
+"insert-project-name":					"Please enter a project name.",
+"insert-project-short":					"Please enter a project short.",
 
 "-------------------------- Button --------------------------":"",
 "add-ship":								"Add ship",
@@ -162,6 +166,7 @@
 "user-administration":					"User administration",
 "setup-telegram":						"Setup Telegram connection",
 "title-register":						"Backoffice Harbour-Group",
+"add-project":							"Add project",
 
 "-------------------------- VesselContacts --------------------------":"",
 "not-specified":						"Not specified",

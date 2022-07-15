@@ -8,7 +8,13 @@ include '../../components/config.php';
 Security::grantAccess(9);
 
 $projects = Projects::getMultipleObjects();
+?>
 
+<div class="ui basic segment ">
+	<button class="ui button" onClick="settings.newProject();">Projekt anlegen</button>
+</div>
+
+<?php
 foreach ($projects as $key => $project) { 
     if($project->getModForeignPort())
         $projectUsers = $project->getProjectForeignPortUser();

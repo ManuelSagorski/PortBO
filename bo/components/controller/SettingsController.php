@@ -51,6 +51,13 @@ class SettingsController
         
         $mail->mail->send();
     }
+
+    /**
+     * Speichert ein neues Projekt in der Datenbank
+     */
+    public function safeProject() {
+        echo "blub";
+    }
     
     /**
      * Kann für den übergebenen User ein Kalender angelegt werden?

@@ -67,6 +67,8 @@
 "contact-details-requested":			"Die Kontaktdaten wurden angefragt",
 "register":								"Registrierung",
 "access-data":							"Zugangsdaten",
+"project-name":							"Projekt Name",
+"project-short":						"Projekt Kurzname",
 
 "-------------------------- Hinweismeldungen --------------------------":"",
 "to-safe-imo-eni":						"Zum Speichern eines neuen Schiffes muss mindestens ein Name und eine IMO oder eine ENI angegeben werden.",
@@ -117,6 +119,8 @@
 "thanks-for-sharing":					"Danke, dass du die Kontaktdaten freigegeben hast.",
 "thanks-already-shared":				"Vielen Dank für deine Antwort. Die Kontaktdaten wurden bereits von einem anderen Koordinator deiner Hafengruppe freigegeben.",
 "fone-number-international":			"Bitte gebe deine Telefonnummer in einem internationalen Format ein (z.B. +49 176 ...)",
+"insert-project-name":					"Bitte einen Projekt-Namen eingeben.",
+"insert-project-short":					"Bitte eine Projekt-Abkürzung eingeben.",
 
 "-------------------------- Button --------------------------":"",
 "add-ship":								"Schiff hinzufügen",
@@ -162,6 +166,7 @@
 "user-administration":					"Benutzerverwaltung",
 "setup-telegram":						"Telegram Verbindung einrichten",
 "title-register":						"Backoffice Hafengruppe",
+"add-project":							"Projekt hinzufügen",
 
 "-------------------------- VesselContacts --------------------------":"",
 "not-specified":						"keine Angabe",

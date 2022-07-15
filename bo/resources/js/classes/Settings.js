@@ -276,6 +276,33 @@ define(function() {
 				function() {
 				});
 		}
+
+		/*
+		 *	Öffnet das Fenster zum Anlegen eines neuen Projektes
+		 */		
+		that.newProject = function() {
+			$.get('../views/settings/addProject.view.php', function(data) {
+				$('#windowLabel').html(t('add-project'));
+				$('#windowBody').html(data);
+			});
+		
+			showWindow();
+		}
+
+		/*
+		 *	Speichert ein neues Projekt in der Datenbank
+		 */			
+		that.safeProject = function() {
+			event.preventDefault();
+			dateForm = new FormValidate($('#addProject').serializeArray());
+			data = dateForm.getFormData();		
+			
+			$.post(my.CONTROLLER + 'safeProject', {data: data}, 
+				function(data) {
+					closeWindow();
+					that.openDetails('projects', $('#settingsProjekte').get(0));
+				});	
+		}
 		
 		return constructor.call(null);
 	}
