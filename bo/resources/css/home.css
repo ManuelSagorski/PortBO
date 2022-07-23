@@ -68,7 +68,8 @@
 .windowBody { clear: both; background-color: white; padding: 5px; }
 
 @media only screen and (max-width: 600px) {
-	#window { top: 100px; left: auto; left: 5%; width: 90%; }
+	/* #window { top: 100px; left: auto; left: 5%; width: 90%; } */
+	#window { position: absolute; width: 95% !important; margin: auto 10px; left: auto; top: 40px; transform: none; }
 }
 
 /*****************************/
@@ -77,6 +78,10 @@
 
 #dataProtectionLayer { position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background: rgba(230, 235, 244, .9); }
 #dataProtectionContend { width: 800px; margin: 100px auto; background-color: #ffffff; padding: 20px; /* box-shadow: 3px 3px 5px #585858; */ }
+
+@media only screen and (max-width: 800px) {
+	#dataProtectionContend { width: auto; margin: 20px; }
+}
 
 /*****************************/
 /*           Suche           */

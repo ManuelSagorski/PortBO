@@ -94,6 +94,14 @@ class Port extends AbstractDBObject
             ->fetchAll(User::class);
     }
     
+    public static function getPortsForProject() {
+        return (new Query('select'))
+            ->table(self::TABLE_NAME)
+            ->condition(['project_id' => $_SESSION['project']])
+            ->order('name')
+            ->fetchAll(self::class);
+    }    
+    
     /*
      Getter und Setter
      */

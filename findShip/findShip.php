@@ -8,6 +8,7 @@ use bo\components\classes\forecast\Unikai;
 use bo\components\classes\forecast\Fleetmon;
 use bo\components\classes\forecast\Shipnext;
 use bo\components\classes\Port;
+use bo\components\classes\forecast\POA;
 
 $independent = true;
 include '../bo/components/config.php';
@@ -65,6 +66,15 @@ $shipnext->getForecast();
 
 echo "<table>";
 foreach ($shipnext->expectedVessels as $vessel) {
+    echo "<tr><td>" . $vessel['quelle'] . "</td><td>" . Port::getPortName($vessel['port']) . "</td><td>" . $vessel['arrivalDate'] . "</td><td>" . $vessel['name'] . "</td><td>" . $vessel['imo'] . "</td></tr>";
+}
+echo "</table>";
+
+$poa = new POA();
+$poa->getForecast();
+
+echo "<table>";
+foreach ($poa->expectedVessels as $vessel) {
     echo "<tr><td>" . $vessel['quelle'] . "</td><td>" . Port::getPortName($vessel['port']) . "</td><td>" . $vessel['arrivalDate'] . "</td><td>" . $vessel['name'] . "</td><td>" . $vessel['imo'] . "</td></tr>";
 }
 echo "</table>";

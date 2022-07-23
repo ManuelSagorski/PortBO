@@ -19,9 +19,20 @@ class Projects extends AbstractDBObject
     private $mod_foreignPort;
     private $mod_contactDetails;
     
-    public function __construct()
-    {}
+    public function __construct($data = null){
+        if(!empty($data)) {
+            $this->name = $data['projectName'];
+            $this->short = $data['projectShort'];
+        }
+    }
 
+    public function safeProject() {
+        $this->insertDB([
+            'name' => $this->name, 
+            'short' => $this->short           
+        ]);
+    }
+    
     public function getProjectAdmins() {
         return (new Query("select"))
             ->table(User::TABLE_NAME)

@@ -24,7 +24,9 @@ class Languages
         12 => "Bulgarian",
         13 => "French",
         14 => "Spanish",
-        15 => "Portuguese"
+        15 => "Portuguese",
+        16 => "Hiligaynon",
+        17 => "Dutch"
     );
     
     /**

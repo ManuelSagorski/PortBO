@@ -19,7 +19,9 @@ class Shipnext extends Scraping
         11 => 'stade-desta-deu', 
         111 => 'butzfleth-debuz-deu',
         118 => 'plymouth-gbply-gbr',
-        133 => 'falmouth-gbfal-gbr'
+        134 => 'falmouth-gbfal-gbr',
+        144 => 'amsterdam-nlams-nld',
+        150 => 'ijmuiden-nlijm-nld'
     ];
     private $portIDs = [
         1 => ['5824541fe82d5211502c5809'],
@@ -31,7 +33,9 @@ class Shipnext extends Scraping
         10 => ['5821a03a0dd99d0cf03f0730', '5827a8cfb20beb0a70c07e1f'],
         11 => ['5821ad650dd99d0cf03f076d', '5829b8895baa9509b886ed12'],
         118 => ['5828417a1c912f0ebcb63d00'],
-        133 => ['58235e92821bd20e385989bb']
+        134 => ['58235e92821bd20e385989bb'],
+        144 => ['581fdc7054e6080aa866a868'],
+        150 => ['581fdc7054e6080aa866a868']
     ];
     
     public function getForecast() {

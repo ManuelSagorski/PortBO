@@ -56,7 +56,8 @@ class SettingsController
      * Speichert ein neues Projekt in der Datenbank
      */
     public function safeProject() {
-        echo "blub";
+        (new Projects($_POST['data']))
+            ->safeProject();
     }
     
     /**
