@@ -18,6 +18,7 @@ class POA extends Scraping
         }
         
         $vessel['port'] = 144;
+        $vessel['imo'] = '';
         
         
         foreach($this->json['data'] as $oneVessel) {
@@ -25,7 +26,10 @@ class POA extends Scraping
             
             if(!empty($id)) {
                 $vessel['name'] = $oneVessel['attributes']['name'];
-                $vessel['agency'] = $oneVessel['attributes']['agent'];
+                if(!empty($oneVessel['attributes']['agent']))
+                    $vessel['agency'] = $oneVessel['attributes']['agent'];
+                else
+                    $vessel['agency'] = '';
                 
                 $relationship = array_filter($this->json['included'], function($item) use($id){
                     return $item['id'] === $id;
@@ -52,16 +56,6 @@ class POA extends Scraping
                         }                        
                     }
                 }
-
-                
-                
-                echo $vessel['name'] . "<br>";
-                echo $vessel['arrivalDate'] . "<br>";
-                echo $vessel['leavingDateTime'] . "<br>";
-                echo $vessel['company'] . "<br>";
-                echo $vessel['agency'] . "<br>";                 
-                echo "<br><br><br>";
-                
                 if(new \DateTime() < $arrival || $arrival->diff(new \DateTime(), true)->days < 4) {
                     $this->expectedVessels[] = $vessel;
                 }
