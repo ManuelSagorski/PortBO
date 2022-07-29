@@ -26,7 +26,7 @@ $_SESSION['portID'] = $port->getID();
     	<div><?php echo $port->getShort(); ?></div>
     </div>
 </div>
-<?php if($user->getLevel() >= 8 ) { ?>
+<?php if($user->getLevel() >= 5 ) { ?>
 <div class="detailActions ui icon menu">
 	<a class="item" onclick="portC.newPort(<?php echo $port->getID(); ?>);">
 		<i class="edit icon"></i>
@@ -49,7 +49,11 @@ $_SESSION['portID'] = $port->getID();
     <tbody>
     <?php foreach (Company::getMultipleObjects(["port_id" => $_GET["id"]], "name") as $company) { ?>
 		<tr>
-			<td data-label="select"><input type="radio" name="selectCompany" value="<?php echo $company->getID(); ?>"></td>
+			<td data-label="select">
+				<?php if($user->getLevel() >= 4) { ?>
+				<input type="radio" name="selectCompany" value="<?php echo $company->getID(); ?>">
+				<?php } ?>
+			</td>
 			<td data-label="companyName"><?php echo $company->getName(); ?></td>			
 			<td data-label="companyMTLink">
 			<?php if(!empty($company->getMTLink())) {?>

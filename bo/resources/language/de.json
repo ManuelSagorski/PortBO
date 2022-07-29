@@ -121,6 +121,7 @@
 "fone-number-international":			"Bitte gib die Telefonnummer im internationalen Format ein (z.B. +49 123 456789). Erlaubte Sonderzeichen: Plus, Schrägstrich, Bindestrich und Leerzeichen.",
 "insert-project-name":					"Bitte einen Projekt-Namen eingeben.",
 "insert-project-short":					"Bitte eine Projekt-Abkürzung eingeben.",
+"user-for-contact-not-allowed":			"Leider ist es dir nicht möglich hier einen anderen Verkündiger einzutragen. Du kannst Schiffskontakte nur dir selbst zuweisen.",
 
 "-------------------------- Button --------------------------":"",
 "add-ship":								"Schiff hinzufügen",

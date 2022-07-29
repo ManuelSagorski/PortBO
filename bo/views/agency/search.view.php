@@ -10,5 +10,7 @@ include '../../components/config.php';
     </div>
 </div>
 <div id="searchResult"></div>
+<?php if($user->getLevel() >= 5 ) { ?>
 <button onClick="agency.newAgency(null, $('#searchInputAgency').val());"><?php $t->_('add-new-agency'); ?></button>
+<?php } ?>
 <script type="text/javascript">agency.searchAgency('');</script>

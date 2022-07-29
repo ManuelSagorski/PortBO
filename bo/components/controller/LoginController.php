@@ -50,6 +50,7 @@ class LoginController
                 if (isset($_POST['username'])) {
                     $msg = $this->login();
                     if ($msg === true) {
+                        // echo User::$defaultPage[$_SESSION['userLevel']];
                         header('Location: ' . PUBLIC_PATH . User::$defaultPage[$_SESSION['userLevel']] . '.php');
                     }
                 }

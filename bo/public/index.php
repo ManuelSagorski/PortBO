@@ -1,7 +1,7 @@
 <?php
 include '../components/config.php';
 
-if($_SESSION['userLevel'] < 4) {
+if($_SESSION['userLevel'] < 3) {
     header('Location: ' . PUBLIC_PATH . 'lookup.php');
 }
 

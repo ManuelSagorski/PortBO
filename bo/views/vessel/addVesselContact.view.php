@@ -86,6 +86,7 @@ if(isset($_GET['contactID']))
     				onkeyup="(this.value.length > 0)?inputSearch('userForContact', this.value):hideInputSearchResults(); 
     				         formValidate.clearAllError();"
     				onblur="hideInputSearchResults();"
+    				<?php echo($user->getLevel() < 3)?'disabled="disabled"':''; ?>
     			>
     			<i class="search icon"></i>
     		</div>

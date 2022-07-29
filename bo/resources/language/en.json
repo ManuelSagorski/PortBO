@@ -122,6 +122,7 @@
 "fone-number-international":			"Please enter the phone number in the international format (i.e. +49 123 456789). Allowed special characters: plus, slash, dash and space.",
 "insert-project-name":					"Please enter a project name.",
 "insert-project-short":					"Please enter a project short.",
+"user-for-contact-not-allowed":			"Unfortunately, it is not possible for you to enter the name of another publisher here. You may assign ship contacts to yourself only.",
 
 "-------------------------- Button --------------------------":"",
 "add-ship":								"Add ship",

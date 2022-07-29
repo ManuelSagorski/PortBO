@@ -135,7 +135,7 @@ class VesselContact extends AbstractDBObject
             ->fetchAll(self::class);
     }
     
-    /*
+    /**
      * Funktion zum Löschen eines vesselContacts
      */
     public function deleteContact() {
@@ -143,19 +143,35 @@ class VesselContact extends AbstractDBObject
         Vessel::setTS($_SESSION['vessID']);
     }
     
+    /**
+     * Kann der angemeldete Verkündiger diesen Kontakt editieren?
+     */
+    public function canEdit() {
+        global $user;
+        
+        $project = $this->getProjectId() == $user->getProjectId();
+        $publisher = ($user->getLevel() > 3 || $this->getContactUserID() == $user->getID() || $this->getContactUserID() == null);
+        
+        return $project && $publisher;
+    }
+    
     private function validateContactInput() {
-        global $t;
+        global $t, $user;
+        
+        if($this->contactUserID != 0 && $user->getLevel() < 4 && $this->contactUserID != $user->getID()) {
+            return array("field" => "contactName", "msg" => $t->_get('user-for-contact-not-allowed'));
+        }
         
         if($this->inputData['contactName'] != '' && $this->contactUserID == 0) {
-            return array("field" => "contactName", "msg" => $t->_('user-not-existing'));
+            return array("field" => "contactName", "msg" => $t->_get('user-not-existing'));
         }
 
         if($this->inputData['contactAgent'] != '' && $this->agent_id == 0) {
-            return array("field" => "contactAgent", "msg" => $t->_('agent-not-existing'));
+            return array("field" => "contactAgent", "msg" => $t->_get('agent-not-existing'));
         }
         
         if($this->inputData['contactCompany'] != '' && $this->company_id == 0) {
-            return array("field" => "contactCompany", "msg" => $t->_('company-not-existing'));
+            return array("field" => "contactCompany", "msg" => $t->_get('company-not-existing'));
         }
     }
     

@@ -62,16 +62,23 @@ class SearchController
     }
     
     public function userForContact() {
-        $result = (new Query("select"))
-            ->table(User::TABLE_NAME)
-            ->or()
-            ->conditionLike(["first_name" => $this->searchExpression1, "surname" => $this->searchExpression1])
-            ->limit("10")
-            ->execute();
+        global $user;
         
-        while($row = $result->fetch()) {?>
-        	<div onclick="selectSuggested('user', this.textContent);"><?php echo $row['first_name'] . " " . $row['surname']; ?></div>
-        <?php } 
+        if($user->getLevel() < 4) {
+            ?><div onclick="selectSuggested('user', this.textContent);"><?php echo $user->getFirstName() . " " . $user->getSurname(); ?></div><?php
+        }
+        else {
+            $result = (new Query("select"))
+                ->table(User::TABLE_NAME)
+                ->or()
+                ->conditionLike(["first_name" => $this->searchExpression1, "surname" => $this->searchExpression1])
+                ->limit("10")
+                ->execute();
+            
+            while($row = $result->fetch()) {?>
+            	<div onclick="selectSuggested('user', this.textContent);"><?php echo $row['first_name'] . " " . $row['surname']; ?></div>
+            <?php }
+        }
     }
     
     public function agentForContact() {

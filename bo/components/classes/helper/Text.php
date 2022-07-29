@@ -31,6 +31,15 @@ class Text
         }
     }
     
+    public function _get($index) {
+        if(!empty($this->languageText[$index])) {
+            return $this->languageText[$index];
+        }
+        else {
+            return $this->languageDefaultText[$index];
+        }
+    }
+    
     public static function getTextFromJson($languageCode) {
         if(file_exists(self::LANGUAGE_FOLDER . $languageCode . ".json")) {
             $langJson = file_get_contents(self::LANGUAGE_FOLDER . $languageCode . ".json");

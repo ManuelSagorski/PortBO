@@ -24,7 +24,7 @@ if(!empty($_GET["id"])) {
     	<div><?php echo $agency->getShort(); ?></div>
     </div>
 </div>
-<?php if($user->getLevel() >= 8 ) { ?>
+<?php if($user->getLevel() >= 5 ) { ?>
 <div class="detailActions ui icon menu">
 	<a class="item" onclick="agency.newAgency(<?php echo $agency->getID(); ?>)">
 		<i class="edit icon"></i>

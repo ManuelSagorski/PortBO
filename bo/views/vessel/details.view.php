@@ -134,7 +134,11 @@ Funktion VesselInfo nicht mehr gewünscht - wird zurückgebaut.
     <tbody>
     <?php foreach ($vessel->getVesselContactDetails() as $contactDetail) { ?>
 		<tr<?php echo ($contactDetail->getInvalid())?" class='contactDetailInvalid'":""; ?>>
-			<td data-label="select"><input type="radio" name="selectContactDetail" value="<?php echo $contactDetail->getID();?>"></td>
+			<td data-label="select">
+				<?php if($user->getLevel() >= 4) { ?>
+				<input type="radio" name="selectContactDetail" value="<?php echo $contactDetail->getID();?>">
+				<?php } ?>
+			</td>
 			<td data-label="contactDetailType"><?php $t->_(VesselContactDetails::TYPE_TRANSLATION_KEYS[$contactDetail->getType()]); ?></td>			
 			<td data-label="contactDetail"><?php echo $contactDetail->getDetail(); ?></td>
 			<td data-label="supposed" class="center aligned collapsing contactIcon<?php echo ($contactDetail->getSupposed())?"":" iconDisabled"; ?><?php echo ($contactDetail->getInvalid())?" disabled":""; ?>">
@@ -148,6 +152,7 @@ Funktion VesselInfo nicht mehr gewünscht - wird zurückgebaut.
     </tbody>
 </table>
 <div class="detailActions ui icon menu">
+	<?php if($user->getLevel() >= 4) { ?>
 	<a class="item" onclick="vessel.newVesselContactDetail(<?php echo $vessel->getID(); ?>);">
 		<i class="plus icon"></i>
 	</a>
@@ -157,6 +162,7 @@ Funktion VesselInfo nicht mehr gewünscht - wird zurückgebaut.
 	<a class="item" onClick="vessel.deleteVesselContactDetail(<?php echo $vessel->getID(); ?>, $('input[name=selectContactDetail]:checked').val());">
 		<i class="trash alternate icon"></i>
 	</a>
+	<?php } ?>
 	<?php if($vessel->otherContactAvailable) { ?>
 	<a class="item" id="requestContactDetails" onClick="vessel.requestContactDetails(<?php echo $vessel->getID(); ?>);">
 		<i class="hand point up green icon"></i> - <?php $t->_('request-contact-details'); ?>
@@ -186,7 +192,7 @@ Funktion VesselInfo nicht mehr gewünscht - wird zurückgebaut.
     <?php foreach ($vessel->getVesselContact() as $contact) { ?>
 		<tr<?php echo ($contact->getPlanned() == 1)?' class="planned"':''; ?>>
 			<td data-label="select">
-			<?php if ($contact->getProjectId() == $user->getProjectId()) { ?>
+			<?php if ($contact->canEdit()) { ?>
 				<input type="radio" name="selectContact" value="<?php echo $contact->getID(); ?>">
 			<?php } ?>	
 			</td>

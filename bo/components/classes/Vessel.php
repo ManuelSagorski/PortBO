@@ -323,7 +323,7 @@ class Vessel extends AbstractDBObject
         }
         $sqlstrg .= "((IMO = ? and IMO <> '') or (ENI = ? and ENI <> ''))";
         if(DBConnect::execute($sqlstrg, array($this->IMO, $this->ENI))->rowCount() > 0) {
-            $msg = array("field" => "vesselIMO", "msg" => $t->_('ship-already-existing'));
+            $msg = array("field" => "vesselIMO", "msg" => $t->_get('ship-already-existing'));
         }
         
         return $msg;
