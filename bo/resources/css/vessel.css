@@ -51,7 +51,7 @@
 	#searchInputVessel { max-width: 100%; }
 	#mainColLeft .ui.action.input { width: 100%; }
 	
-	.mainCol { min-height: auto !important; }
+	.mainCol { min-height: auto !important; width: 100%; }
 }
 
 .contactUser .title {

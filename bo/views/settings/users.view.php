@@ -13,7 +13,7 @@ $users = User::getMultipleObjects(["inactive" => 0]);
 	<h4 class="ui header"><?php $t->_('invite-publisher'); ?></h4>
 
 	<form id="inviteUser" class="ui form" autocomplete="off">
-		<div class="ui grid">
+		<div class="ui stackable grid">
 			<div class="eight wide column">
                 <div class="required field">
                 	<input type="text" id="email" name="email" placeholder="<?php $t->_('email-address'); ?>...">
@@ -40,33 +40,36 @@ $users = User::getMultipleObjects(["inactive" => 0]);
 	</form>
 </div>
 
-<table class="detailTable ui very compact celled striped table">
-	<thead>
-		<tr>
-			<th colspan="7"><?php $t->_('registerd-publisher'); ?></th>
-		</tr>
-	</thead>
-    <tbody>
-    <?php foreach ($users as $user) { ?>
-		<tr<?php echo ($user->getLevel() == 0)?" class='negative'":""; ?>>
-			<td data-label="select"><input type="radio" name="selectUser" value="<?php echo $user->getID(); ?>"></td>
-			<td data-label="userFullName"><?php echo $user->getFirstName() . " " . $user->getSurname(); ?></td>			
-			<td data-label="userEmail"><?php echo $user->getEmail(); ?></td>
-			<td data-label="userPhone"><?php echo $user->getPhone(); ?></td>
-			<td data-label="userParameter">
-				<?php echo (!empty($user->getTelegramID()))?'<i class="telegram plane icon"></i>':''; ?>
-				<?php echo (!empty($user->getPlanningID()))?'<i class="calendar alternate outline icon"></i>':''; ?>		
-			</td>
-			<td data-label="userLevel"><?php echo $user->getLevelDescription(); ?></td>
-			<td data-label="userLanguage">
-    		<?php foreach ($user->getUserLanguages() as $language ) {?>
-    			<div class="userLanguage"><?php echo languages::$languages[$language->getLanguageID()]; ?></div>
-    		<?php } ?>
-			</td>
-		</tr>
-	<?php } ?>
-    </tbody>
-</table>
+<div style="width: 100%; overflow: auto;">
+    <table class="detailTable ui very compact unstackable celled striped table">
+    	<thead>
+    		<tr>
+    			<th colspan="7"><?php $t->_('registerd-publisher'); ?></th>
+    		</tr>
+    	</thead>
+        <tbody>
+        <?php foreach ($users as $user) { ?>
+    		<tr<?php echo ($user->getLevel() == 0)?" class='negative'":""; ?>>
+    			<td data-label="select"><input type="radio" name="selectUser" value="<?php echo $user->getID(); ?>"></td>
+    			<td data-label="userFullName"><?php echo $user->getFirstName() . " " . $user->getSurname(); ?></td>			
+    			<td data-label="userEmail"><?php echo $user->getEmail(); ?></td>
+    			<td data-label="userPhone"><?php echo $user->getPhone(); ?></td>
+    			<td data-label="userParameter">
+    				<?php echo (!empty($user->getTelegramID()))?'<i class="telegram plane icon"></i>':''; ?>
+    				<?php echo (!empty($user->getPlanningID()))?'<i class="calendar alternate outline icon"></i>':''; ?>		
+    			</td>
+    			<td data-label="userLevel"><?php echo $user->getLevelDescription(); ?></td>
+    			<td data-label="userLanguage">
+        		<?php foreach ($user->getUserLanguages() as $language ) {?>
+        			<div class="userLanguage"><?php echo languages::$languages[$language->getLanguageID()]; ?></div>
+        		<?php } ?>
+    			</td>
+    		</tr>
+    	<?php } ?>
+        </tbody>
+    </table>
+</div>
+
 <div class="detailActions ui icon menu">
 	<a class="item" onclick="settings.newUser($('input[name=selectUser]:checked').val(), true);">
 		<i class="edit icon"></i>

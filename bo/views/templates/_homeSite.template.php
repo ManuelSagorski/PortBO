@@ -33,10 +33,10 @@ use bo\components\types\Languages;
 		<link rel="stylesheet" type="text/css" href="../resources/css/libraries/semantic.min.css" />
 		<link rel="stylesheet" type="text/css" href="../resources/css/libraries/icon.min.css" />
 		<link rel="stylesheet" type="text/css" href="../resources/css/libraries/flag.min.css" />
-		<link rel="stylesheet" type="text/css" href="../resources/css/global.css?v2" />
-		<link rel="stylesheet" type="text/css" href="../resources/css/home.css?v2" />
-		<link rel="stylesheet" type="text/css" href="../resources/css/vessel.css?v2" />
-		<link rel="stylesheet" type="text/css" href="../resources/css/agency.css?v2" />
+		<link rel="stylesheet" type="text/css" href="../resources/css/global.css?v3" />
+		<link rel="stylesheet" type="text/css" href="../resources/css/home.css?v3" />
+		<link rel="stylesheet" type="text/css" href="../resources/css/vessel.css?v3" />
+		<link rel="stylesheet" type="text/css" href="../resources/css/agency.css?v3" />
 
 	    <script>
         	if(typeof window.history.pushState == 'function') {
