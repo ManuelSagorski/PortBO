@@ -1,5 +1,5 @@
 <div class="ui raised green segment" id="loginBody">
-	<h1>Backoffice Hafengruppe Nord</h1>
+	<h1>Backoffice</h1>
 	<form class="ui form login" id="loginForm" action="index.php" method="post">
     	<div class="field">
     		<div class="ui icon input">

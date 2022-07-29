@@ -12,6 +12,7 @@ class LanguageController
     public function changeLanguage()
     {
         $_SESSION['language'] = $_POST['language'];
+        setcookie('boLanguage', $_SESSION['language'], time()+(3600*24*30), '/');
         
         (new Query("update"))
         ->table(User::TABLE_NAME)

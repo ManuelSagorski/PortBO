@@ -42,7 +42,7 @@ class Telegram
                 $sqlstrg = "update port_bo_user set telegram_id = ? where id = ?";
                 DBConnect::execute($sqlstrg, array($this->chatID, $user->getId()));
                 $this->sendMessage(false, 'Herzlich Willkommen ' . $user->getFirstName() .
-                    '. Dein Zugang zum Telegram-Kanal der Hafengruppe Nord wurde erfolgreich eingetichtet.');
+                    '. Dein Zugang zum Telegram-Kanal der Hafengruppe wurde erfolgreich eingetichtet.');
             }
         }
         else {

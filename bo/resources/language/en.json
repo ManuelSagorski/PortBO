@@ -29,6 +29,8 @@
 "new-password":							"New password",
 "password":								"Password",
 "password-confirmation":				"Repeat new password",
+"password-forgotten":					"Forgot your password",
+"imprint":								"Imprint",
 "current-email":						"Current e-mail address",
 "new-email":							"New e-mail address",
 "current-mobile":						"Current mobile number",
@@ -72,6 +74,7 @@
 "project-short":						"Projekt short",
 
 "-------------------------- Hinweismeldungen --------------------------":"",
+"forgott-your-password":				"You have forgotten your password? Please enter your user name and click send.",
 "to-safe-imo-eni":						"To add a new ship name and IMO or ENI are required",
 "delete-ships-only-admin":				"Only administrators are currently permitted to delete ships",
 "delete-agency-only-admin":				"Only administrators are currently permitted to delete ship agents",
@@ -123,6 +126,8 @@
 "insert-project-name":					"Please enter a project name.",
 "insert-project-short":					"Please enter a project short.",
 "user-for-contact-not-allowed":			"Unfortunately, it is not possible for you to enter the name of another publisher here. You may assign ship contacts to yourself only.",
+"register-link-invalid":				"The link used to register a new user is invalid.",
+"pw-reset-link-invalid":				"The link used to reset your password is invalid.",
 
 "-------------------------- Button --------------------------":"",
 "add-ship":								"Add ship",
@@ -135,6 +140,7 @@
 "accept":								"Agree",
 "decline":								"Decline",
 "create-tegegram-code":					"Create code",
+"back":									"back",
 
 "-------------------------- Überschriften --------------------------":"",
 "extern-links":							"External links",

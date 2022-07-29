@@ -1,23 +1,29 @@
+<?php
+use bo\components\classes\helper\Text;
+
+$independent = true;
+include 'components/config.php';
+
+if(isset($_COOKIE["boLanguage"])) {
+    $text = new Text($_COOKIE["boLanguage"]);
+}
+?>
 <div id="loginBody">
-	<h1>Backoffice Hafengruppe Nord</h1>
+	<h1>Backoffice</h1>
 	<div id="pwResetBody">
-    	<div>
-    		Du hast dein Passwort vergessen? Bitte gebe deinen Benutzernamen ein und klicke auf senden. 
-    	</div>
-    	<form id="sendLink">
-    		<div class="loginRow">
+    	<div><?php $text->_('forgott-your-password'); ?></div>
+    	<form id="sendLink" class="ui form">
+    		<div class="field">
     			<input 
     				type="text" 
     				name="usernameReset" 
-    				value="Benutzername" 
-    				onblur="if (this.value=='') this.value='Benutzername'" 
-    				onfocus="if (this.value=='Benutzername') this.value='';" 
+    				placeholder="<?php $text->_('username'); ?>..."
     			/>
     			<div id="msgUsernameReset"></div>
     		</div>
     		<?php echo (isset($msg['error']))?'<div id="errorMsg">' . $msg['error'] . '</div>':''; ?>
     		<div class="loginRow">
-    			<input class="inputButton" type="submit" value="senden" />
+    			<button class="ui primary button"><?php $text->_('send'); ?></button>
     		</div>
     	</form>
     	<script>

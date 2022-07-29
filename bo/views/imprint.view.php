@@ -1,9 +1,9 @@
 <div id="loginBody" style="text-align: left;">
 	<h1>Impressum</h1>
 	<p>
-		Bei der Seite port-mission.de handelt es sich um eine rein private Webseite.
+		<?php $text->_('imprint-main'); ?>
 		<br /><br />
-		Verantworlich für den Inhalt ist:
+		<?php $text->_('imprint-responsible-for'); ?>
 		<br /><br />	
 		Manuel Sagorski<br />
 		Ueckerstr. 46<br />
@@ -11,6 +11,6 @@
 		manuel@sagorski.net<br />
 		0176-34920718
 		<br /><br />
-		<a onclick="location.reload();" style="text-decoration: underline;">zurück</a>
+		<a onclick="location.reload();" style="text-decoration: underline;"><?php $text->_('back'); ?></a>
 	</p>
 </div>

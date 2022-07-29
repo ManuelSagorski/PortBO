@@ -35,6 +35,8 @@ class LoginController
      */
     public function start()
     {
+        global $text;
+        
         if (isset($_GET['logout'])) {
             session_unset();
             session_destroy();
@@ -50,7 +52,6 @@ class LoginController
                 if (isset($_POST['username'])) {
                     $msg = $this->login();
                     if ($msg === true) {
-                        // echo User::$defaultPage[$_SESSION['userLevel']];
                         header('Location: ' . PUBLIC_PATH . User::$defaultPage[$_SESSION['userLevel']] . '.php');
                     }
                 }
@@ -76,7 +77,7 @@ class LoginController
                             "view" => self::PW_RESET_VIEW
                         ];
                     } else {
-                        $msg['error'] = "Der verwendete Link zum Zurücksetzen des Passwortes ist ungültig.";
+                        $msg['error'] = $text->_get('pw-reset-link-invalid');
                         return [
                             "message" => $msg,
                             "view" => self::DEFAULT_VIEW
@@ -92,7 +93,7 @@ class LoginController
                             "view" => self::REGISTER_VIEW
                         ];
                     } else {
-                        $msg['error'] = "Der verwendete Link zur Registrierung eines neuen Benutzers ist ungültig.";
+                        $msg['error'] = $text->_get('register-link-invalid');
                         return [
                             "message" => $msg,
                             "view" => self::DEFAULT_VIEW
@@ -135,6 +136,8 @@ class LoginController
                     $_SESSION['userLevel'] = $user->getLevel();
                     $_SESSION['project'] = $user->getProjectId();
                     $_SESSION['language'] = $user->getDefaultLanguage();
+                    setcookie('boLanguage', $_SESSION['language'], time()+(3600*24*30), '/');
+                                        
                     Logger::writeLogInfo('login', 'Login erfolgreich');
                     return true;
                 } else {
@@ -165,7 +168,7 @@ class LoginController
             $user->sendResetPasswordLink();
         }
 
-        return 'Sofern der eingegebene Benutzername existiert, erhälst du eine Email mit weiteren Hinweisen zum Zurücksetzen des Passwortes.';
+        return 'Sofern der eingegebene Benutzername existiert, erhältst du eine Email mit weiteren Hinweisen zum Zurücksetzen des Passwortes.';
     }
 
     /**

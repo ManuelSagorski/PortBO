@@ -6,6 +6,14 @@ include 'components/config.php';
 
 if(isset($_GET['language'])) {
     $text = new Text($_GET['language']);
+    setcookie('boLanguage', $_GET['language'], time()+(3600*24*30), '/');
+}
+else {
+    $text = new Text('de');
+}
+
+if(isset($_COOKIE["boLanguage"])) {
+    $text = new Text($_COOKIE["boLanguage"]);
 }
 
 $result = (new loginController())->start();

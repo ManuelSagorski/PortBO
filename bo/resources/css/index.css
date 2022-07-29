@@ -14,6 +14,8 @@ h2 { margin: 15px 0px; }
 #loginBody { padding: 15px 25px; background: rgba(255, 255, 255, .9); text-align: center; }
 .inputButton:hover { background-color: #045FB4; cursor: pointer; }
 
+.loginRow { margin-bottom: 5px; }
+
 #footer { max-width: 380px; margin: 10px auto; text-align: right; font-size: 10pt; }
 
 #pwResetBody>div { margin-bottom: 10px; }

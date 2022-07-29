@@ -29,6 +29,8 @@
 "new-password":							"Neues Passwort",
 "password":								"Passwort",
 "password-confirmation":				"Passwort Wiederholung",
+"password-forgotten":					"Passwort vergessen",
+"imprint":								"Impressum",
 "current-email":						"Aktuelle Email-Adresse",
 "new-email":							"Neue Email-Adresse",
 "current-mobile":						"Aktuelle Handynummer",
@@ -71,6 +73,7 @@
 "project-short":						"Projekt Kurzname",
 
 "-------------------------- Hinweismeldungen --------------------------":"",
+"forgott-your-password":				"Du hast dein Passwort vergessen? Bitte gebe deinen Benutzernamen ein und klicke auf senden.",
 "to-safe-imo-eni":						"Zum Speichern eines neuen Schiffes muss mindestens ein Name und eine IMO oder eine ENI angegeben werden.",
 "delete-ships-only-admin":				"Schiffe können derzeit nur durch einen Administrator gelöscht werden.",
 "delete-agency-only-admin":				"Agenten können derzeit nur durch einen Administrator gelöscht werden.",
@@ -122,6 +125,8 @@
 "insert-project-name":					"Bitte einen Projekt-Namen eingeben.",
 "insert-project-short":					"Bitte eine Projekt-Abkürzung eingeben.",
 "user-for-contact-not-allowed":			"Leider ist es dir nicht möglich hier einen anderen Verkündiger einzutragen. Du kannst Schiffskontakte nur dir selbst zuweisen.",
+"register-link-invalid":				"Der verwendete Link zur Registrierung eines neuen Benutzers ist ungültig.",
+"pw-reset-link-invalid":				"Der verwendete Link zum zurücksetzen des Passwortes ist ungültig.",
 
 "-------------------------- Button --------------------------":"",
 "add-ship":								"Schiff hinzufügen",
@@ -135,6 +140,7 @@
 "decline":								"Ablehnen",
 "create-tegegram-code":					"Code erstellen",
 "share":								"Freigeben",
+"back":									"zurück",
 
 "-------------------------- Überschriften --------------------------":"",
 "extern-links":							"Externe Links",
