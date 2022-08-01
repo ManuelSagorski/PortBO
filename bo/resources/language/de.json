@@ -71,6 +71,7 @@
 "access-data":							"Zugangsdaten",
 "project-name":							"Projekt Name",
 "project-short":						"Projekt Kurzname",
+"transfer-user":						"Verkündiger in anderes Projekt verschieben",
 
 "-------------------------- Hinweismeldungen --------------------------":"",
 "forgott-your-password":				"Du hast dein Passwort vergessen? Bitte gebe deinen Benutzernamen ein und klicke auf senden.",
@@ -134,6 +135,7 @@
 "how-to-reset-password":				"Sofern der eingegebene Benutzername existiert, erhältst du eine Email mit weiteren Hinweisen zum Zurücksetzen des Passwortes.",
 "new-password-ready":					"Du kannst dich jetzt mit dem neuen Passwort anmelden",
 "registration-successful":				"Die Registrierung war erfolgreich. Sobald dein Konto vom Koordinator freigeschaltet wurde, kannst du dich anmelden.",
+"insert-new-project":					"Bitte wähle ein neues Projekt aus",
 
 "-------------------------- Button --------------------------":"",
 "add-ship":								"Schiff hinzufügen",

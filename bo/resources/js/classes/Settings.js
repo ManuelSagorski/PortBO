@@ -304,6 +304,37 @@ define(function() {
 				});	
 		}
 		
+		/*
+		 *	Öffnet die Maske zum transferieren eines Users in ein anderen Projekt
+		 */		
+		that.transferUser = function(userID) {
+			if(!userID) {
+				alert(t('choose-user'));
+			}
+			else {
+				$.get('../views/settings/transferUser.view.php?id=' + userID, function(data) {
+					$('#windowLabel').html(t('edit-user'));
+					$('#windowBody').html(data);
+				});
+				showWindow();
+			}			
+		}
+
+		/*
+		 *	Transferiert einen Users in ein anderes Projekt
+		 */		
+		that.safeTransferUser = function(userID) {
+			event.preventDefault();			
+			dateForm = new FormValidate($('#transferUser').serializeArray());
+			data = dateForm.getFormData();	
+			
+			$.post(my.CONTROLLER + 'transferUser', {data: data, userID: userID}, 
+				function(data) {
+					closeWindow();
+					that.openDetails('projects', $('#settingsProjekte').get(0));
+				});	
+		}
+		
 		return constructor.call(null);
 	}
 

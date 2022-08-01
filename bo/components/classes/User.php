@@ -405,7 +405,7 @@ class User extends AbstractDBObject
             $allowedForeingPort = ($levelID != 2 || $user->getLevel() == 9);
             
             if(($editHigherLevel || $lowerEqualOwn) && $allowedForeingPort) {
-                if(empty($project) || ($levelID == 2 || $levelID >= 8)) {
+                if(empty($project) || ($levelID == 0 || $levelID == 2 || $levelID >= 8)) {
                     $allowedLevel[$levelID] = $level;
                 }
             }

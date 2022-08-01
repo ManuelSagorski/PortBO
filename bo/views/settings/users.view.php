@@ -3,6 +3,7 @@ namespace bo\views\settings;
 use bo\components\classes\User;
 use bo\components\types\Languages;
 use bo\components\classes\helper\Security;
+use bo\components\classes\Projects;
 
 include '../../components/config.php';
 Security::grantAccess(8);
@@ -14,7 +15,7 @@ $users = User::getMultipleObjects(["inactive" => 0]);
 
 	<form id="inviteUser" class="ui form" autocomplete="off">
 		<div class="ui stackable grid">
-			<div class="eight wide column">
+			<div class="<?php echo ($user->getLevel() < 9)?'eight':'four'; ?> wide column">
                 <div class="required field">
                 	<input type="text" id="email" name="email" placeholder="<?php $t->_('email-address'); ?>...">
                 </div>
@@ -31,6 +32,20 @@ $users = User::getMultipleObjects(["inactive" => 0]);
                 	</div>
                 </div>
             </div>
+            <?php if($user->getLevel() == 9) { ?>
+            <div class="four wide column">
+            	<div class="ui selection dropdown mailProject">
+                	<input type="hidden" name="mailProject">
+                	<i class="dropdown icon"></i>
+                	<div class="default text"></div>
+                  	<div class="menu">
+                  		<?php foreach (Projects::getAll() as $oneProject) { ?>
+                    	<div class="item" data-value="<?php echo $oneProject->getID(); ?>"><?php echo $oneProject->getName(); ?></div>
+                    	<?php } ?>
+                	</div>
+                </div>            
+            </div>
+            <?php } ?>
             <div class="four wide column right aligned">
     			<button><?php $t->_('send-invitation-mail'); ?></button>
     		</div>
@@ -91,4 +106,7 @@ $('.ui.form')
 
 	$('.ui.dropdown.mailLanguage').dropdown();
 	$('.ui.dropdown.mailLanguage').dropdown('set selected', '<?php echo $_SESSION['language']; ?>');
+	
+	$('.ui.dropdown.mailProject').dropdown();
+	$('.ui.dropdown.mailProject').dropdown('set selected', '<?php echo $project->getName(); ?>');
 </script>

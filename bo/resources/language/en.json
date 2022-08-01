@@ -72,6 +72,7 @@
 "access-data":							"Access data",
 "project-name":							"Projekt name",
 "project-short":						"Projekt short",
+"transfer-user":						"Transfer user to other project",
 
 "-------------------------- Hinweismeldungen --------------------------":"",
 "forgott-your-password":				"You have forgotten your password? Please enter your user name and click send.",
@@ -135,6 +136,7 @@
 "how-to-reset-password":				"If the username you entered exists, you will receive an e-mail with further instructions on how to reset your password.",
 "new-password-ready":					"You may now log in with the new password",
 "registration-successful":				"The registration was successful. As soon as your account has been activated by the coordinator, you may log in.",
+"insert-new-project":					"Please choose a new project",
 
 "-------------------------- Button --------------------------":"",
 "add-ship":								"Add ship",

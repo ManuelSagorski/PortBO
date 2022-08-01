@@ -19,7 +19,7 @@ foreach ($projects as $key => $project) {
     if($project->getModForeignPort())
         $projectUsers = $project->getProjectForeignPortUser();
     else
-        $projectUsers = $project->getProjectAdmins();
+        $projectUsers = $project->getUserForProjectAdministration();
 ?>
 <div class="ui styled fluid accordion">
     <div class="<?php echo ($key === array_key_first($projects))?"active ":""; ?>title">
@@ -130,7 +130,7 @@ foreach ($projects as $key => $project) {
             </thead>
             <tbody>
             <?php foreach ($projectUsers as $projectUser) { ?>
-                <tr>
+                <tr<?php echo ($projectUser->getLevel() == 0)?" class='negative'":""; ?>>
                 	<td><input type="radio" name="selectUser" value="<?php echo $projectUser->getID(); ?>"></td>
                     <td><?php echo $projectUser->getFirstName() . " " . $projectUser->getSurname(); ?></td>
                     <td><?php echo $projectUser->getPhone(); ?></td>
@@ -150,6 +150,9 @@ foreach ($projects as $key => $project) {
         	</a>
         	<a class="item" onClick="alert('<?php $t->_('delete-user-only-admin'); ?>');">
         		<i class="trash alternate icon"></i>
+        	</a>
+        	<a class="item" onclick="settings.transferUser($('input[name=selectUser]:checked').val());">
+        		<i class="sign-out alternate icon"></i>
         	</a>
         </div>
     </div>

@@ -33,10 +33,12 @@ class Projects extends AbstractDBObject
         ]);
     }
     
-    public function getProjectAdmins() {
+    public function getUserForProjectAdministration() {
         return (new Query("select"))
             ->table(User::TABLE_NAME)
             ->conditionGreater(["level" => 7])
+            ->or()
+            ->condition(['level' => 0])
             ->project($this->id)
             ->fetchAll(User::class);
     }
@@ -75,6 +77,12 @@ class Projects extends AbstractDBObject
             ->values([$module => intval(filter_var($value, FILTER_VALIDATE_BOOLEAN))])
             ->condition(["id" => $projectID])
             ->execute();
+    }
+    
+    public static function getAll() {
+        return (new Query('select'))
+            ->table(self::TABLE_NAME)
+            ->fetchAll(self::class);
     }
     
     public function getID() {

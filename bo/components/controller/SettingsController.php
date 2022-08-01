@@ -6,6 +6,8 @@ use bo\components\classes\Projects;
 use bo\components\classes\helper\Query;
 use bo\components\classes\Invitation;
 use bo\components\classes\helper\SendMail;
+use bo\components\classes\helper\Security;
+use bo\components\classes\User;
 
 class SettingsController
 {
@@ -42,7 +44,14 @@ class SettingsController
      * Schickt eine Einladung zur Registrierung per Email
      */
     public function inviteUser() {
-        $invitationKey = (new Invitation())->generateInvitationKey($_POST['projectID']);
+        if(isset($_POST['data']['mailProject'])) {
+            $projectID = $_POST['data']['mailProject'];
+        }
+        else {
+            $projectID = $_POST['projectID'];
+        }
+        
+        $invitationKey = (new Invitation())->generateInvitationKey($projectID);
         
         $mail = new SendMail();
         $mail->mail->addAddress($_POST['data']['email']);
@@ -58,6 +67,17 @@ class SettingsController
     public function safeProject() {
         (new Projects($_POST['data']))
             ->safeProject();
+    }
+
+    /**
+     * Transferiert einen Benutzer in ein anderen Projekt
+     */
+    public function transferUser() {
+        (new Query('update'))
+            ->table(User::TABLE_NAME)
+            ->values(['project_id' => $_POST['data']['newProject']])
+            ->condition(['id' => $_POST['userID']])
+            ->execute();
     }
     
     /**
