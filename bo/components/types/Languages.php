@@ -26,7 +26,16 @@ class Languages
         14 => "Spanish",
         15 => "Portuguese",
         16 => "Hiligaynon",
-        17 => "Dutch"
+        17 => "Dutch",
+        18 => "Cebuano",
+        19 => "Croatian",
+        20 => "Estonian",
+        21 => "Finnish",
+        22 => "Japanese",
+        23 => "Latvian",
+        24 => "Lithuanian",
+        25 => "Serbian",
+        26 => "Tamil",
     );
     
     /**
