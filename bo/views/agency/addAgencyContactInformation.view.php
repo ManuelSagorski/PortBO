@@ -9,6 +9,16 @@ if(isset($_GET['id']))
 ?>
 
 <form id="addAgencyPortInfo" class="ui form" autocomplete="off">
+    <div class="ui icon orange message">
+        <i class="exclamation icon"></i>
+        <div class="content">
+            <div class="header">
+            	<?php $t->_('attention'); ?>
+            </div>
+        	<p><?php $t->_('no-private-data-agency'); ?></p>
+        </div>
+    </div>
+
     <div class="ui error message">
 		<div id="errorMessage"></div>
     </div>    

@@ -45,7 +45,7 @@ if(!empty($_GET["id"])) {
     <?php foreach ($agency->getAgencyPortInfo() as $info) { ?>
 		<tr>
 			<td data-label="select">
-				<?php if($user->getLevel() >= 8 ) { ?>
+				<?php if($user->getLevel() >= 5 ) { ?>
 				<input type="radio" name="selectAgencyDetail" value="<?php echo $info->getID();?>">
 				<?php } ?>
 			</td>
@@ -56,7 +56,7 @@ if(!empty($_GET["id"])) {
 	<?php } ?>
     </tbody>
 </table>
-<?php if($user->getLevel() >= 8 ) { ?>
+<?php if($user->getLevel() >= 5 ) { ?>
 <div class="detailActions ui icon menu">
 	<a class="item" onclick="agency.newAgencyPortInfo(<?php echo $agency->getID(); ?>);">
 		<i class="plus icon"></i>

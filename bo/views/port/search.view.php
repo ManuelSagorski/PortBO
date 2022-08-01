@@ -20,6 +20,6 @@ else {
 	<div class="searchResultRow"><a onclick="portC.openDetails(<?php echo $port->getID(); ?>);"><?php echo $port->getName(); ?></a></div>
 <?php } ?>
 </div>
-<?php if($user->getLevel() >= 5 ) { ?>
+<?php if($user->getLevel() >= 8 ) { ?>
 <button onClick="portC.newPort();"><?php $t->_('add-new-port'); ?></button>
 <?php } ?>

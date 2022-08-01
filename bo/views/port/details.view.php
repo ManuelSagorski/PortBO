@@ -28,12 +28,14 @@ $_SESSION['portID'] = $port->getID();
 </div>
 <?php if($user->getLevel() >= 5 ) { ?>
 <div class="detailActions ui icon menu">
+	<?php if($user->getLevel() >= 8) { ?>
 	<a class="item" onclick="portC.newPort(<?php echo $port->getID(); ?>);">
 		<i class="edit icon"></i>
 	</a>
 	<a class="item" onClick="alert('<?php $t->_('delete-port-only-admin'); ?>');">
 		<i class="trash alternate icon"></i>
 	</a>
+	<?php } ?>
 	<a class="item" href="<?php echo $port->getMtLink(); ?>" target="_blank">
 		<img class="iconRowElement" src="../resources/img/marineTrafficLogo.png" />
 	</a>
@@ -50,7 +52,7 @@ $_SESSION['portID'] = $port->getID();
     <?php foreach (Company::getMultipleObjects(["port_id" => $_GET["id"]], "name") as $company) { ?>
 		<tr>
 			<td data-label="select">
-				<?php if($user->getLevel() >= 4) { ?>
+				<?php if($user->getLevel() >= 8) { ?>
 				<input type="radio" name="selectCompany" value="<?php echo $company->getID(); ?>">
 				<?php } ?>
 			</td>

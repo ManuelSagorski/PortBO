@@ -116,6 +116,8 @@ class LoginController
      */
     public function login()
     {
+        global $text;
+        
         $username = $_POST['username'];
         $passwort = $_POST['secret'];
 
@@ -127,7 +129,7 @@ class LoginController
         If (empty($user)) {
             Logger::writeLogError('login', 'Loginversuch mit unbekanntem Benutzername: ' . $username);
             return array(
-                'error' => 'Benutzername nicht bekannt'
+                'error' => $text->_get('user-not-known')
             );
         } else {
             If ($user->getLevel() >= 2) {
@@ -143,12 +145,12 @@ class LoginController
                 } else {
                     Logger::writeLogError('login', 'Loginversuch mit verkehrtem Passwort. Benutzername: ' . $username);
                     return array(
-                        'error' => 'Falsches Passwort'
+                        'error' => $text->_get('wrong-password')
                     );
                 }
             }
             else {
-                return Array('error' => 'Dein Benutzer ist noch nicht für ein Login freigeschaltet. Bitte wende dich an den Koordinator der Hafengruppe.');
+                return Array('error' => $text->_get('user-not-activated'));
             }
         }
     }
@@ -160,6 +162,8 @@ class LoginController
      */
     public function forgotPassword($request)
     {
+        global $text;
+        
         $user = User::getSingleObjectByCondition(Array(
             "username" => $request['formData']['usernameReset']
         ));
@@ -168,7 +172,7 @@ class LoginController
             $user->sendResetPasswordLink();
         }
 
-        return 'Sofern der eingegebene Benutzername existiert, erhältst du eine Email mit weiteren Hinweisen zum Zurücksetzen des Passwortes.';
+        return $text->_get('how-to-reset-password');
     }
 
     /**
@@ -195,11 +199,13 @@ class LoginController
      */
     public function changePassword($request)
     {
+        global $text;
+        
         $resetUser = User::getSingleObjectByID($request['formData']['userID']);
 
         if (password_verify($request['formData']['userCode'], $resetUser->getPasswordCode()) && strtotime($resetUser->getPasswordCodeTime()) > (time() - 24 * 3600)) {
             $resetUser->setNewPassword($request['formData']['secretNew1']);
-            return "Du kannst dich jetzt mit dem neuen Passwort anmelden";
+            return $text->_get('new-password-ready');
         }
     }
 
@@ -229,6 +235,8 @@ class LoginController
 
     public function registerNewUser()
     {
+        global $text;
+        
         $invitation = Invitation::getSingleObjectByCondition([
             "invitation_key" => $_POST['registerKey']
         ]);
@@ -245,7 +253,7 @@ class LoginController
                     ->condition(["id" => $invitation->getID()])
                     ->execute();
                 
-                return "Die Registrierung war erfolgreich. Sobald dein Konto vom Koordinator freigeschaltet wurde, kannst du dich anmelden.";
+                    return $text->_get('registration-successful');
             }
         }
     }
