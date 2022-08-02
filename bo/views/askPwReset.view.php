@@ -7,6 +7,9 @@ include 'components/config.php';
 if(isset($_COOKIE["boLanguage"])) {
     $text = new Text($_COOKIE["boLanguage"]);
 }
+else {
+    $text = new Text('de');
+}
 ?>
 <div id="loginBody">
 	<h1>Backoffice</h1>
@@ -24,6 +27,7 @@ if(isset($_COOKIE["boLanguage"])) {
     		<?php echo (isset($msg['error']))?'<div id="errorMsg">' . $msg['error'] . '</div>':''; ?>
     		<div class="loginRow">
     			<button class="ui primary button"><?php $text->_('send'); ?></button>
+    			<button class="ui button" onClick="location.reload(); return false;"><?php $text->_('back'); ?></button>
     		</div>
     	</form>
     	<script>

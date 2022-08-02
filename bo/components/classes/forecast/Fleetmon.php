@@ -9,7 +9,7 @@ class Fleetmon extends Scraping
     // const URL_FLEETMON_SEGELLISTE = "http://www.port-mission.de/findShip/fleetmon.html";
     
     private $html;
-    private $ports = [2 => 'kiel_dekel_5484', 10 => 'brunsbuttel_debrb_5709', 11 => 'stade_desta_19428', 17 => 'tees_gbtee_5919'];
+    private $ports = [2 => 'kiel_dekel_5484', 10 => 'brunsbuttel_debrb_5709', 11 => 'stade_desta_19428', 99 => 'tees_gbtee_5919'];
     
     public function getForecast() {
         foreach ($this->ports as $key => $port) {
