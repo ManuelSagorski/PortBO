@@ -73,6 +73,15 @@
 "project-short":						"Projekt Kurzname",
 "transfer-user":						"Verkündiger in anderes Projekt verschieben",
 
+"-------------------------- Profil - Notifications --------------------------":"",
+"notifications":						"Benachrichtigungen",
+"notifications-changed":				"Einstellungen zu Benachrichtigungen wurden gespeichert",
+"notifications-assigned-contact":		"Sobald mir von einem anderen Verkündiger ein Schiffskontakt zugewiesen wird benachrichtigt mich bitte...",
+"no-notifications":						"Keine Benachrichtigungen",
+"notifications-by-email":				"über Email",
+"notifications-by-telegram":			"über Telegram",
+"notifications-register-for-telegram":	"Um Benachrichtigungen über Telegram zu nutzen, musst du zuerst die Telegram Verbindung einrichten.",
+
 "-------------------------- Hinweismeldungen --------------------------":"",
 "forgott-your-password":				"Du hast dein Passwort vergessen? Bitte gebe deinen Benutzernamen ein und klicke auf senden.",
 "to-safe-imo-eni":						"Zum Speichern eines neuen Schiffes muss mindestens ein Name und eine IMO oder eine ENI angegeben werden.",

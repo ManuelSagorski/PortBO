@@ -1,0 +1,39 @@
+<html>
+	<head>
+		<title>Backoffice - You were assigned a contact</title>
+	</head>
+	<body>
+		<p>Dear {{Vorname}}</p>
+		<p>
+			This ship has been assigned to you. Please contact the crew:
+		</p>
+		<table>
+			<tr>
+				<td>Date: </td>
+				<td>{{Datum}}</td>
+			</tr>
+			<tr>
+				<td>Type: </td>
+				<td>{{Kontakt_Typ}}</td>
+			</tr>
+			<tr>
+				<td>Name: </td>
+				<td>{{Name}}</td>
+			</tr>
+			<tr>
+				<td>IMO: </td>
+				<td>{{IMO}}</td>
+			</tr>
+			<tr>
+				<td>Port: </td>
+				<td>{{Hafen}}</td>
+			</tr>
+		</table>
+		<p>
+			If you are unable to contact the ship, please sign yourself out or contact the back office so that the contact can be assigned to another publisher.
+		</p>
+		<p>
+			Your Brothers of the administration team
+		</p>
+	</body>
+</html>

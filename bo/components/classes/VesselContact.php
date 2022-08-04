@@ -3,6 +3,7 @@ namespace bo\components\classes;
 
 use bo\components\classes\helper\Logger;
 use bo\components\classes\helper\Query;
+use bo\components\classes\helper\SendMail;
 
 class VesselContact extends AbstractDBObject
 {
@@ -77,6 +78,8 @@ class VesselContact extends AbstractDBObject
                 "month_next" => $this->month_next
             ]);
             
+            $this->notifyPuplisher();
+            
             Logger::writeLogCreate('vesselContact', 'Neuen Kontakt für Schiff ' . Vessel::getVesselName($this->vess_id) . ' hinzugefügt.');
             Vessel::setTS($_SESSION['vessID']);
             if(!empty($this->agent_id)) {
@@ -88,14 +91,22 @@ class VesselContact extends AbstractDBObject
     /*
      * Funktion zum Ändern eines vesselContacts
      */
-    public function editContact($data) {        
+    public function editContact($data) {
+        if ($msg = $this->validateContactInput()) {
+            return array("status" => "error", "msg" => $msg);
+        }
+        
+        if(User::getUserByFullName($data['contactName']) != $this->contactUserID) {
+            $this->contactUserID = User::getUserByFullName($data['contactName']);
+            $this->notifyPuplisher();
+        }
+        else {
+            $this->contactUserID = User::getUserByFullName($data['contactName']);
+        }
+
         $this->agent_id     = Agency::getAgentID($data['contactAgent']);
-        $this->contactUserID = User::getUserByFullName($data['contactName']);
         $this->company_id = Company::getCompanyByName($data['contactCompany']);
         $this->inputData = $data;
-        
-        if ($msg = $this->validateContactInput())
-            return array("status" => "error", "msg" => $msg);
         
         if(!isset($data['contactPlanned'])) {
             $planned  = 0; 
@@ -121,6 +132,40 @@ class VesselContact extends AbstractDBObject
         Vessel::setTS($_SESSION['vessID']);
         
         return array("status" => "success");
+    }
+    
+    public function notifyPuplisher() {
+        global $user;
+        
+        $notificationType = '';
+        
+        if($user->getID() != $this->contactUserID && !empty($this->contactUserID)) {
+            $newPublisher = User::getSingleObjectByID($this->contactUserID);              
+            $notificationType = $newPublisher->getNotifications();
+        }
+        
+        switch($notificationType) {
+            case 'e':
+                $vessel = Vessel::getSingleObjectByID($this->vess_id);
+                
+                $mail = new SendMail();
+                $mail->mail->addAddress($newPublisher->getEmail());
+                $mail->mail->Subject = "Hafendienst-Backoffice - Dir wurde ein Schiffskontakt zugewiesen";
+                $mail->applyTemplate('email/_assignedContact_' . $newPublisher->getDefaultLanguage(), array(
+                    "Datum" => $this->date,
+                    "Vorname" => $newPublisher->getFirstName(),
+                    "Kontakt_Typ" => $this->contact_type,
+                    "Name" => $vessel->getName(),
+                    "IMO" => $vessel->getIMO(),
+                    "Hafen" => Port::getPortName($this->port_id)
+                ));
+                
+                $mail->mail->send();              
+                break;
+              
+            case 't':
+                break;
+        }
     }
     
     public static function getOpenContactsForUser($userID) {

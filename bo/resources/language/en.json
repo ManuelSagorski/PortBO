@@ -74,6 +74,15 @@
 "project-short":						"Projekt short",
 "transfer-user":						"Transfer user to other project",
 
+"-------------------------- Profil - Notifications --------------------------":"",
+"notifications":						"Notofications",
+"notifications-changed":				"The changes have been saved",
+"notifications-assigned-contact":		"As soon as I am assigned a ship contact by another publisher please notify me...",
+"no-notifications":						"no notifications",
+"notifications-by-email":				"via email",
+"notifications-by-telegram":			"via Telegram",
+"notifications-register-for-telegram":	"To use notifications via Telegram, you have to setup the Telegram connection first.",
+
 "-------------------------- Hinweismeldungen --------------------------":"",
 "forgott-your-password":				"You have forgotten your password? Please enter your user name and click send.",
 "to-safe-imo-eni":						"To add a new ship name and IMO or ENI are required",

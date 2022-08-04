@@ -37,6 +37,7 @@ class User extends AbstractDBObject
     private $planning_id;
     private $dataprotection;
     private $default_language;
+    private $notifications;
     
     private $userPorts = [];
     private $userLanguages = [];
@@ -580,6 +581,9 @@ class User extends AbstractDBObject
     }
     public function getDefaultLanguage() {
         return $this->default_language;
+    }
+    public function getNotifications() {
+        return $this->notifications;
     }
 }
 

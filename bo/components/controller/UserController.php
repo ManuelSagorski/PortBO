@@ -53,6 +53,12 @@ class UserController
         $userToEdit->addKalender($_POST['kalender'], $projectID);
     }
     
+    public function changeNotifications() {
+        global $user; 
+        
+        $user->updateDB(["notifications" => $_POST['data']['notificationType']], ["id" => $user->getID()]);
+    }
+    
     public function createTelegramCode() {
         Telegram::createCode();
     }

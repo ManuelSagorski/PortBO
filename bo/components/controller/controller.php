@@ -16,6 +16,11 @@ if(ucfirst($controllerName) == "Login") {
 
 include '../config.php';
 
+if($controllerName == 'settings' && $user->getLevel() < 8) {
+    echo "not allowed";
+    exit;
+}
+
 $controller = new $controllerClassName();
 $controller->$actionMethodName();
 ?>

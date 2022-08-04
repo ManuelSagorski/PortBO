@@ -107,6 +107,17 @@ define(function() {
 				});			
 		}
 	
+		that.changeNotifications = function(formID) {
+			event.preventDefault();
+			notificationsForm = new FormValidate(null, formID);
+			
+			$.post(my.CONTROLLER + 'changeNotifications', { data: notificationsForm.getFormData() }, 
+				function() {
+					notificationsForm.setSuccessMessage();
+					$('#message').val('');
+				});
+		}
+	
 		return constructor.call(null);
 	}
 

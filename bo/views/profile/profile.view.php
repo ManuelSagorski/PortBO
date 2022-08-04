@@ -144,6 +144,41 @@ include '../../components/config.php';
         </div>
 	</div>
 	<?php } ?>
+	
+	<?php if($user->getID() == 1 || $user->getID() == 2) { ?>
+	<div class="four wide column">
+		<div class="ui raised segment content">
+    		<h4 class="ui header"><?php $t->_('notifications')?></h4>
+    		
+    		<?php if(empty($user->getTelegramID())) { ?>
+            <div class="ui icon<?php echo ($user->getNotifications() == 't')?' warning':''; ?> message">
+                <i class="telegram plane icon"></i>
+                <div class="content">
+                	<p><?php $t->_('notifications-register-for-telegram')?></p>
+                </div>
+            </div>
+    		<?php } ?>
+        		
+			<form id="notifications" class="ui form">        		
+        		<div class="ui success message">
+                	<p><?php $t->_('notifications-changed')?></p>
+                </div>
+        		
+        		<p><?php $t->_('notifications-assigned-contact')?></p>
+        		
+        		<div class="field">
+            		<select id="notificationType" name="notificationType">
+            			<option value="" <?php echo ($user->getNotifications() == null)?' selected':''; ?>><?php $t->_('no-notifications')?></option>
+            			<option value="e" <?php echo ($user->getNotifications() == 'e')?' selected':''; ?>><?php $t->_('notifications-by-email')?></option>
+            			<option value="t" <?php echo ($user->getNotifications() == 't')?' selected':''; ?>><?php $t->_('notifications-by-telegram')?></option>
+            		</select>
+                </div>
+                
+                <button class="ui button" type="submit"><?php $t->_('safe'); ?></button>
+        	</form>
+    	</div>
+	</div>
+	<?php } ?>
 </div>
 
 <script>
@@ -160,5 +195,8 @@ include '../../components/config.php';
     });
     $("#sendMessage").submit(function (event) {
         profile.sendMessage(this.id);
+    });
+    $("#notifications").submit(function (event) {
+        profile.changeNotifications(this.id);
     });
 </script>
