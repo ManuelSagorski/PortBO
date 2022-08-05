@@ -16,6 +16,12 @@
 
 #message { color: green; margin: 10px; }
 
+.mobileTableWrapper {
+	width: 100%; 
+	overflow: auto;
+	margin: 5px 0px;
+}
+
 /*****************************/
 /*         Navigation        */
 /*****************************/

@@ -88,69 +88,36 @@ if(!empty($_GET["id"])) {
 	<?php } ?>
 </div>	
 
-<?php /*
-
-###
-Funktion VesselInfo nicht mehr gewünscht - wird zurückgebaut.
-###
-
-<table class="detailTable ui very compact celled striped table">
-	<thead>
-		<tr>
-			<th colspan="4">Allgemeine Informationen</th>
-		</tr>
-	</thead>
-    <tbody>
-    <?php foreach ($vessel->getVesselInfo() as $info) { ?>
-		<tr>
-			<td data-label="select"><input type="radio" name="selectInfo" value="<?php echo $info->getID();?>"></td>
-			<td data-label="userFullName"><?php echo User::getUserFullName($info->getUser()); ?></td>			
-			<td data-label="timestamp"><?php echo date("d.m.Y", strtotime($info->getTs_erf())); ?></td>
-			<td data-label="info"><?php echo $info->getInfo(); ?></td>
-		</tr>
-	<?php } ?>
-    </tbody>
-</table>
-<div class="detailActions ui icon menu">
-	<a class="item" onclick="vessel.newVesselInfo(<?php echo $vessel->getID(); ?>);">
-		<i class="plus icon"></i>
-	</a>
-	<a class="item" onclick="vessel.newVesselInfo(<?php echo $vessel->getID(); ?>, $('input[name=selectInfo]:checked').val(), true);">
-		<i class="edit icon"></i>
-	</a>
-	<a class="item" onClick="vessel.deleteVesselInfo(<?php echo $vessel->getID(); ?>, $('input[name=selectInfo]:checked').val());">
-		<i class="trash alternate icon"></i>
-	</a>
-</div>
-*/ ?>
-
 <?php if($project->getModContactDetails()) { ?>
-<table class="detailTable ui very compact celled striped table">
-	<thead>
-		<tr>
-			<th colspan="5"><?php $t->_('contact-details'); ?></th>
-		</tr>
-	</thead>
-    <tbody>
-    <?php foreach ($vessel->getVesselContactDetails() as $contactDetail) { ?>
-		<tr<?php echo ($contactDetail->getInvalid())?" class='contactDetailInvalid'":""; ?>>
-			<td data-label="select">
-				<?php if($user->getLevel() >= 4) { ?>
-				<input type="radio" name="selectContactDetail" value="<?php echo $contactDetail->getID();?>">
-				<?php } ?>
-			</td>
-			<td data-label="contactDetailType"><?php $t->_(VesselContactDetails::TYPE_TRANSLATION_KEYS[$contactDetail->getType()]); ?></td>			
-			<td data-label="contactDetail"><?php echo $contactDetail->getDetail(); ?></td>
-			<td data-label="supposed" class="center aligned collapsing contactIcon<?php echo ($contactDetail->getSupposed())?"":" iconDisabled"; ?><?php echo ($contactDetail->getInvalid())?" disabled":""; ?>">
-				<i onClick="vessel.contactDetailSupposed(<?php echo $vessel->getID(); ?>, <?php echo $contactDetail->getID();?>);" class="question icon"></i>
-			</td>
-			<td data-label="invalid" class="center aligned collapsing contactIcon<?php echo ($contactDetail->getInvalid())?"":" iconDisabled"; ?>">
-				<i onClick="vessel.contactDetailInvalid(<?php echo $vessel->getID(); ?>, <?php echo $contactDetail->getID();?>);" class="thumbs down outline icon"></i>
-			</td>
-		</tr>
-	<?php } ?>
-    </tbody>
-</table>
+<div class="mobileTableWrapper">
+    <table class="detailTable ui very compact unstackable celled striped table">
+    	<thead>
+    		<tr>
+    			<th colspan="5"><?php $t->_('contact-details'); ?></th>
+    		</tr>
+    	</thead>
+        <tbody>
+        <?php foreach ($vessel->getVesselContactDetails() as $contactDetail) { ?>
+    		<tr<?php echo ($contactDetail->getInvalid())?" class='contactDetailInvalid'":""; ?>>
+    			<td data-label="select">
+    				<?php if($user->getLevel() >= 4) { ?>
+    				<input type="radio" name="selectContactDetail" value="<?php echo $contactDetail->getID();?>">
+    				<?php } ?>
+    			</td>
+    			<td data-label="contactDetailType"><?php $t->_(VesselContactDetails::TYPE_TRANSLATION_KEYS[$contactDetail->getType()]); ?></td>			
+    			<td data-label="contactDetail"><?php echo $contactDetail->getDetail(); ?></td>
+    			<td data-label="supposed" class="center aligned collapsing contactIcon<?php echo ($contactDetail->getSupposed())?"":" iconDisabled"; ?><?php echo ($contactDetail->getInvalid())?" disabled":""; ?>">
+    				<i onClick="vessel.contactDetailSupposed(<?php echo $vessel->getID(); ?>, <?php echo $contactDetail->getID();?>);" class="question icon"></i>
+    			</td>
+    			<td data-label="invalid" class="center aligned collapsing contactIcon<?php echo ($contactDetail->getInvalid())?"":" iconDisabled"; ?>">
+    				<i onClick="vessel.contactDetailInvalid(<?php echo $vessel->getID(); ?>, <?php echo $contactDetail->getID();?>);" class="thumbs down outline icon"></i>
+    			</td>
+    		</tr>
+    	<?php } ?>
+        </tbody>
+    </table>
+</div>
+
 <div class="detailActions ui icon menu">
 	<?php if($user->getLevel() >= 4) { ?>
 	<a class="item" onclick="vessel.newVesselContactDetail(<?php echo $vessel->getID(); ?>);">
@@ -173,61 +140,64 @@ Funktion VesselInfo nicht mehr gewünscht - wird zurückgebaut.
 
 <div class="ui positive message" id="resultRequestContactDetails" style="display: none;"></div>
 
-<table class="detailTable ui very compact celled striped table">
-	<thead>
-		<tr>
-			<th colspan="7"><?php $t->_('contacts'); ?></th>
-		</tr>
-		<tr>
-			<th></th>
-			<th><?php $t->_('date'); ?></th>
-			<th><?php $t->_('port'); ?></th>
-			<th><?php $t->_('contact-by'); ?></th>
-			<th><?php $t->_('typ'); ?></th>
-			<th><?php $t->_('agent'); ?></th>
-			<th><?php $t->_('next-contact'); ?></th>
-		</tr>
-	</thead>
-    <tbody>
-    <?php foreach ($vessel->getVesselContact() as $contact) { ?>
-		<tr<?php echo ($contact->getPlanned() == 1)?' class="planned"':''; ?>>
-			<td data-label="select">
-			<?php if ($contact->canEdit()) { ?>
-				<input type="radio" name="selectContact" value="<?php echo $contact->getID(); ?>">
-			<?php } ?>	
-			</td>
-			<td data-label="timestamp"><?php echo date("d.m.Y", strtotime($contact->getDate())); ?></td>
-			<td data-label="portName">
-			<?php 
-                echo Port::getPortName($contact->getPortID(), 0);
-                echo ($contact->getProjectId() != $user->getProjectId())?" (" . Projects::getProjectShort($contact->getProjectId()) . ")":'';
-            ?>
-            </td>			
-			<td>				
-				<?php if(!empty($contact->getContactUser())) { ?>
-					<div class="ui accordion contactUser">
-						<div class="title">
-							<i class="dropdown icon"></i>
-							<?php echo $contact->getContactUser()->getFirstName() . " " . $contact->getContactUser()->getSurname(); ?>
-						</div>
-						<div class="content">
-							<div class="contactDetail">
-								<a href='tel:<?php echo $contact->getContactUser()->getPhone() ?>'>
-									<?php echo $contact->getContactUser()->getPhone(); ?>
-								</a>
-							</div>
-							<div class="contactDetail"><?php echo $contact->getContactUser()->getEmail(); ?></div>
-						</div>
-					</div>
-				<?php } ?>
-			</td>
-			<td data-label="contactType"><?php $t->_(ContactTypes::TRANSLATION_KEYS[$contact->getContactType()]); ?></td>
-			<td data-label="agency"><?php echo ($contact->getProjectId() == $user->getProjectId())?Agency::getAgentShort($contact->getAgentID()):''; ?></td>
-			<td data-label="next"><?php $t->_(VesselContact::$monthNext[$contact->getMonthNext()]); ?></td>
-		</tr>
-	<?php } ?>
-    </tbody>
-</table>
+<div class="mobileTableWrapper">
+    <table class="detailTable ui very compact unstackable celled striped table">
+    	<thead>
+    		<tr>
+    			<th colspan="7"><?php $t->_('contacts'); ?></th>
+    		</tr>
+    		<tr>
+    			<th></th>
+    			<th><?php $t->_('date'); ?></th>
+    			<th><?php $t->_('port'); ?></th>
+    			<th><?php $t->_('contact-by'); ?></th>
+    			<th><?php $t->_('typ'); ?></th>
+    			<th><?php $t->_('agent'); ?></th>
+    			<th><?php $t->_('next-contact'); ?></th>
+    		</tr>
+    	</thead>
+        <tbody>
+        <?php foreach ($vessel->getVesselContact() as $contact) { ?>
+    		<tr<?php echo ($contact->getPlanned() == 1)?' class="planned"':''; ?>>
+    			<td data-label="select">
+    			<?php if ($contact->canEdit()) { ?>
+    				<input type="radio" name="selectContact" value="<?php echo $contact->getID(); ?>">
+    			<?php } ?>	
+    			</td>
+    			<td data-label="timestamp"><?php echo date("d.m.Y", strtotime($contact->getDate())); ?></td>
+    			<td data-label="portName">
+    			<?php 
+                    echo Port::getPortName($contact->getPortID(), 0);
+                    echo ($contact->getProjectId() != $user->getProjectId())?" (" . Projects::getProjectShort($contact->getProjectId()) . ")":'';
+                ?>
+                </td>			
+    			<td>				
+    				<?php if(!empty($contact->getContactUser())) { ?>
+    					<div class="ui accordion contactUser">
+    						<div class="title">
+    							<i class="dropdown icon"></i>
+    							<?php echo $contact->getContactUser()->getFirstName() . " " . $contact->getContactUser()->getSurname(); ?>
+    						</div>
+    						<div class="content">
+    							<div class="contactDetail">
+    								<a href='tel:<?php echo $contact->getContactUser()->getPhone() ?>'>
+    									<?php echo $contact->getContactUser()->getPhone(); ?>
+    								</a>
+    							</div>
+    							<div class="contactDetail"><?php echo $contact->getContactUser()->getEmail(); ?></div>
+    						</div>
+    					</div>
+    				<?php } ?>
+    			</td>
+    			<td data-label="contactType"><?php $t->_(ContactTypes::TRANSLATION_KEYS[$contact->getContactType()]); ?></td>
+    			<td data-label="agency"><?php echo ($contact->getProjectId() == $user->getProjectId())?Agency::getAgentShort($contact->getAgentID()):''; ?></td>
+    			<td data-label="next"><?php $t->_(VesselContact::$monthNext[$contact->getMonthNext()]); ?></td>
+    		</tr>
+    	<?php } ?>
+        </tbody>
+    </table>
+</div>
+
 <div class="detailActions ui icon menu">
 	<a class="item" onclick="vessel.newVesselContact(<?php echo $vessel->getID(); ?>);">
 		<i class="plus icon"></i>

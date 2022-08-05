@@ -55,7 +55,7 @@ $users = User::getMultipleObjects(["inactive" => 0]);
 	</form>
 </div>
 
-<div style="width: 100%; overflow: auto;">
+<div class="mobileTableWrapper">
     <table class="detailTable ui very compact unstackable celled striped table">
     	<thead>
     		<tr>
