@@ -32,7 +32,7 @@ $_SESSION['portID'] = $port->getID();
 	<a class="item" onclick="portC.newPort(<?php echo $port->getID(); ?>);">
 		<i class="edit icon"></i>
 	</a>
-	<a class="item" onClick="alert('<?php $t->_('delete-port-only-admin'); ?>');">
+	<a class="item" onClick="portC.deletePort(<?php echo $port->getID(); ?>);">
 		<i class="trash alternate icon"></i>
 	</a>
 	<?php } ?>

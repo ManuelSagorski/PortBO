@@ -9,6 +9,7 @@ class Port extends AbstractDBObject
     public const TABLE_NAME = "port_bo_port";
     
     private $id;
+    private $inactive;
     private $project_id;
     private $name;
     private $short;
@@ -54,6 +55,35 @@ class Port extends AbstractDBObject
             "mtLink" => $data['portMTLink']
         ], ["id" => $this->id]);
     }
+
+    /*
+     * Löscht bzw. deaktiviert einen bestehenden Port
+     */
+    public function deletePort() {
+        (new Query('delete'))
+            ->table(AgencyPortInfo::TABLE_NAME)
+            ->condition(['port_id' => $this->id])
+            ->execute();
+        (new Query('delete'))
+            ->table(Company::TABLE_NAME)
+            ->condition(['port_id' => $this->id])
+            ->execute();
+        (new Query('delete'))
+            ->table(UserToPort::TABLE_NAME)
+            ->condition(['port_id' => $this->id])
+            ->execute();
+        
+        if(!empty((new Query('select'))->table(VesselContact::TABLE_NAME)->condition(['port_id' => $this->id])->fetchAll(VesselContact::class))) {        
+            (new Query('update'))
+                ->table(self::TABLE_NAME)
+                ->values(['inactive' => 1])
+                ->condition(['id' => $this->id])
+                ->execute();
+        }
+        else {
+            $this->deleteDB(['id' => $this->id]);
+        }
+    }
     
     /*
      * Static Funktion die den Namen zu einer PortID liefert
@@ -97,7 +127,7 @@ class Port extends AbstractDBObject
     public static function getPortsForProject() {
         return (new Query('select'))
             ->table(self::TABLE_NAME)
-            ->condition(['project_id' => $_SESSION['project']])
+            ->condition(['project_id' => $_SESSION['project'], 'inactive' => 0])
             ->order('name')
             ->fetchAll(self::class);
     }    
@@ -107,6 +137,9 @@ class Port extends AbstractDBObject
      */
     public function getID() {
         return $this->id;
+    }
+    public function getInactive() {
+        return $this->inactive;
     }
     public function getProjectId() {
         return $this->project_id;

@@ -109,6 +109,7 @@
 "choose-user": 							"Please select a user first",
 "confirm-delete": 						"Do your really want to delete this element?",
 "confirm-delete-user": 					"Do your really want to delete this user?",
+"confirm-delete-port": 					"Do you really want to delete this harbour? In that case all berths assigned to this harbour will also be deleted.",
 "confirm-change-status-contactinfo": 	"Do your really want to change the status of this contact information?",
 "confirm-change-validity-contactinfo": 	"Do your really want to change the validity of this contact information?",
 "insert-contactinfo": 					"Please enter contact information",

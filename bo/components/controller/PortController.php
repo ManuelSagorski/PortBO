@@ -18,6 +18,10 @@ class PortController
         } 
     }
     
+    public function deletePort() {
+        (Port::getSingleObjectByID($_POST['id']))->deletePort();
+    }
+    
     public function addPortCompany() {
         if(empty($_POST['companyID'])) {
             (new Company($_POST['data']))->addCompany();

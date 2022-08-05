@@ -75,6 +75,18 @@ define(function() {
 		}
 
 		/*
+		 *	Löscht einen bestehenden Hafen
+		 */	
+		that.deletePort = function(portID) {
+			if(confirm(t('confirm-delete-port'))) {
+				$.post(my.CONTROLLER + 'deletePort', {id: portID}, 
+					function() {
+						that.open();
+					});
+			}
+		}
+
+		/*
 		 *	Öffnet das Fenster zum hinzufügen eines neuen Liegeplatzes
 		 */				
 		that.newCompany = function(portID, companyID) {

@@ -127,7 +127,7 @@ if(isset($_GET['id']))
     <div id="input_userPort" class="field">
     	<label><?php $t->_('assigned-ports'); ?></label>
     	<select id="userPort" name="userPort" multiple="multiple" class="ui fluid dropdown"<?php echo (!empty($_GET['projectID']))?" disabled":""; ?>>
-    	<?php foreach (Port::getMultipleObjects() as $port) { ?>
+    	<?php foreach (Port::getMultipleObjects(['inactive' => 0]) as $port) { ?>
 			<option value="<?php echo $port->getID(); ?>"><?php echo $port->getName(); ?></option>
 		<?php } ?>
     	</select>

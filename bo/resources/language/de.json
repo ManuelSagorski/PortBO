@@ -108,6 +108,7 @@
 "choose-user": 							"Bitte zuerst einen Benutzer auswählen.",
 "confirm-delete": 						"Möchtest du das gewählte Element wirklich löschen?",
 "confirm-delete-user": 					"Möchtest du den gewählten Benutzer wirklich löschen?",
+"confirm-delete-port": 					"Möchtest du diesen Hafen wirklich löschen? Alle diesem Hafen zugeordneten Liegeplätze werden dabei ebenfalls gelöscht.",
 "confirm-change-status-contactinfo": 	"Möchtest du den Status dieser Kontaktinformation wirklich ändern?",
 "confirm-change-validity-contactinfo": 	"Möchtest du den Gültigkeitsstatus dieser Kontaktinformation wirklich ändern?",
 "insert-contactinfo": 					"Bitte eine Kontaktinformation eingeben.",
