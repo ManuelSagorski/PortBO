@@ -22,6 +22,19 @@
 	margin: 10px 0px 0px 0px;
 }
 
+.pager-item {
+	float:left;
+	margin-right: 5px;
+	padding: 5px 10px;
+	border: 1px solid rgba(34,36,38,.15);
+	border-radius: 0.28571429rem;
+	cursor: pointer;
+}
+.pager-item.selected {
+	background-color: #2185d0;
+	color: #fff;
+}
+
 /*****************************/
 /*         Navigation        */
 /*****************************/

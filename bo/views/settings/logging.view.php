@@ -10,12 +10,12 @@ Security::grantAccess(8);
 $sqlstrg = "select * from port_bo_log";
 if($user->getLevel() != 9)
     $sqlstrg .= " where project_id = " . $user->getProjectId();
-$sqlstrg .= " order by ts_erf desc limit 150";
+$sqlstrg .= " order by ts_erf desc limit 10000";
 
 $logTable = DBConnect::execute($sqlstrg, array());
 ?>
 
-<table class="detailTable ui very compact celled striped table">
+<table class="detailTable ui very compact celled striped table pagination" data-pagecount="500">
 	<thead>
 		<tr>
 			<th colspan="5"><?php $t->_('logging'); ?></th>
@@ -33,3 +33,7 @@ $logTable = DBConnect::execute($sqlstrg, array());
 	<?php } ?>
     </tbody>
 </table>
+
+<script>
+helper.generatePaginationForTable();
+</script>

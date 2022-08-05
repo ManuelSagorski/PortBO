@@ -9,6 +9,11 @@ require.config({
 
 require(['routing']);
 
+require(['classes/Helper'], function() {
+	Helper = require('classes/Helper');
+	helper = new Helper();
+});
+
 require(['classes/FormValidate'], function() {
 	FormValidate = require('classes/FormValidate');
 	formValidate = new FormValidate();
