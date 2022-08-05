@@ -19,7 +19,7 @@
 .mobileTableWrapper {
 	width: 100%; 
 	overflow: auto;
-	margin: 5px 0px;
+	margin: 10px 0px 0px 0px;
 }
 
 /*****************************/
@@ -135,3 +135,12 @@
 
 #addKalender { display: none; padding: 10px; margin: 10px 0px 0px 0px; background-color: #F2F2F2; }
 #addKalender .buttonLine { text-align: right; }
+
+/**********************************************************/
+/*                      VesselFinder                      */
+/**********************************************************/
+#vesselfinder {
+	margin-top: 10px;
+	border-radius: 5px;
+	box-shadow: 0 1px 2px 0 rgb(34 36 38 / 15%);
+}

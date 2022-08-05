@@ -212,6 +212,17 @@ if(!empty($_GET["id"])) {
 
 <script>$('.ui.accordion').accordion();</script>
 
+<div class="vesselFinderWrapper">
+	<iframe 
+		name="vesselfinder" 
+		id="vesselfinder" 
+		width="100%" 
+		height="400px" 
+		frameborder="0"
+		src="https://www.vesselfinder.com/aismap?mmsi=<?php echo $vessel->getMMSI(); ?>&imo=<?php echo (strlen($vessel->getIMO()) == 7)?$vessel->getIMO():''; ?>&track=true"
+	></iframe>
+</div>
+
 <?php } else { ?>
 <div id="detailEmpty">
 	<div><img src="../resources/img/iconVessel.png" /></div>
