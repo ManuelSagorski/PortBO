@@ -82,6 +82,7 @@
 "notifications-by-email":				"via email",
 "notifications-by-telegram":			"via Telegram",
 "notifications-register-for-telegram":	"To use notifications via Telegram, you have to setup the Telegram connection first.",
+"assigned-contact": 					"Harbour-Witnessing Backoffice - You were assigned a contact",
 
 "-------------------------- Hinweismeldungen --------------------------":"",
 "forgott-your-password":				"You have forgotten your password? Please enter your user name and click send.",

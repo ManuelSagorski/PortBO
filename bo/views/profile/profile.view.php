@@ -145,7 +145,6 @@ include '../../components/config.php';
 	</div>
 	<?php } ?>
 	
-	<?php if($user->getID() == 1 || $user->getID() == 2) { ?>
 	<div class="four wide column">
 		<div class="ui raised segment content">
     		<h4 class="ui header"><?php $t->_('notifications')?></h4>
@@ -178,7 +177,6 @@ include '../../components/config.php';
         	</form>
     	</div>
 	</div>
-	<?php } ?>
 </div>
 
 <script>

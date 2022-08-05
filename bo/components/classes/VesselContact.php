@@ -4,6 +4,8 @@ namespace bo\components\classes;
 use bo\components\classes\helper\Logger;
 use bo\components\classes\helper\Query;
 use bo\components\classes\helper\SendMail;
+use bo\components\classes\helper\Text;
+use bo\components\classes\helper\Telegram;
 
 class VesselContact extends AbstractDBObject
 {
@@ -140,30 +142,39 @@ class VesselContact extends AbstractDBObject
         $notificationType = '';
         
         if($user->getID() != $this->contactUserID && !empty($this->contactUserID)) {
-            $newPublisher = User::getSingleObjectByID($this->contactUserID);              
-            $notificationType = $newPublisher->getNotifications();
+            $recipientPublisher = User::getSingleObjectByID($this->contactUserID);              
+            $notificationType = $recipientPublisher->getNotifications();
+        }
+        
+        if(!empty($notificationType)) {
+            $vessel = Vessel::getSingleObjectByID($this->vess_id);
+            $text = new Text($recipientPublisher->getDefaultLanguage());
+            
+            $vesselDetails = [
+                "Datum" => $this->date,
+                "Vorname" => $recipientPublisher->getFirstName(),
+                "Kontakt_Typ" => $this->contact_type,
+                "Name" => $vessel->getName(),
+                "IMO" => $vessel->getIMO(),
+                "Hafen" => Port::getPortName($this->port_id)
+            ];
         }
         
         switch($notificationType) {
             case 'e':
-                $vessel = Vessel::getSingleObjectByID($this->vess_id);
-                
                 $mail = new SendMail();
-                $mail->mail->addAddress($newPublisher->getEmail());
-                $mail->mail->Subject = "Hafendienst-Backoffice - Dir wurde ein Schiffskontakt zugewiesen";
-                $mail->applyTemplate('email/_assignedContact_' . $newPublisher->getDefaultLanguage(), array(
-                    "Datum" => $this->date,
-                    "Vorname" => $newPublisher->getFirstName(),
-                    "Kontakt_Typ" => $this->contact_type,
-                    "Name" => $vessel->getName(),
-                    "IMO" => $vessel->getIMO(),
-                    "Hafen" => Port::getPortName($this->port_id)
-                ));
-                
-                $mail->mail->send();              
+                $mail->mail->addAddress($recipientPublisher->getEmail());
+                $mail->mail->Subject = $text->_get('assigned-contact');
+                $mail->applyTemplate('email/_assignedContact_' . $recipientPublisher->getDefaultLanguage(), $vesselDetails);
+                $mail->mail->send();                
                 break;
               
             case 't':
+                if(!empty($recipientPublisher->getTelegramID())) {
+                    $telegram = new Telegram($recipientPublisher->getTelegramID());                    
+                    $telegram->applyTemplate('_assignedContact_' . $recipientPublisher->getDefaultLanguage(), $vesselDetails);
+                    $telegram->sendMessage(false);
+                }
                 break;
         }
     }
