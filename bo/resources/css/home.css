@@ -122,7 +122,36 @@
 .ui.category.search .results div { padding: 5px; cursor: pointer; }
 .agentInfoHead { font-weight: bold; }
 
+/**********************************************************/
+/*                        Forecast                        */
+/**********************************************************/
+.forecastPorts {
+	text-align: center;
+}
 
+.portForecastButton {
+	box-shadow: 0px 1px 3px #bababc; 
+	margin: 0px 10px 5px 0px; 
+	background-color: #E0ECF8; 
+	padding: 3px 10px; 
+	float: left;
+	cursor: pointer;
+}
+.portForecastButton.active {
+	box-shadow: 0px 1px 3px #207e15;
+}
+.portForecastButton:hover {
+	background-color: #c1d1e1;
+}
+#portForecast table {
+    font-size: 9pt;
+}
+#portForecast td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100px;
+}
 /**********************************************************/
 /*                       Seite Port                       */
 /**********************************************************/

@@ -14,12 +14,18 @@ class Port extends AbstractDBObject
     private $name;
     private $short;
     private $mtLink;
+    private $lat;
+    private $lon;
+    private $vf_zoom;
     
     public function __construct($data = null) {
         if(!empty($data)) {
             $this->name = $data['portName'];
             $this->short = $data['portShort'];
             $this->mtLink = $data['portMTLink'];
+            $this->lat = $data['portLat'];
+            $this->lon = $data['portLon'];
+            $this->vf_zoom = $data['portMapZoom'];
         }
     }
     
@@ -30,7 +36,10 @@ class Port extends AbstractDBObject
         $this->insertDB([
             "name" => $this->name,
             "short" => $this->short,
-            "mtLink" => $this->mtLink
+            "mtLink" => $this->mtLink,
+            "lat" => $this->lat,
+            "lon" => $this->lon,
+            "vf_zoom" => $this->vf_zoom
         ]);
         
         $port = Port::getSingleObjectByCondition(Array("name" => $this->name, "short" => $this->short));
@@ -52,7 +61,10 @@ class Port extends AbstractDBObject
         $this->updateDB([
             "name" => $data['portName'],
             "short" => $data['portShort'],
-            "mtLink" => $data['portMTLink']
+            "mtLink" => $data['portMTLink'],
+            "lat" => $data['portLat'],
+            "lon" => $data['portLon'],
+            "vf_zoom" => $data['portMapZoom']
         ], ["id" => $this->id]);
     }
 
@@ -152,6 +164,15 @@ class Port extends AbstractDBObject
     }
     public function getMtLink() {
         return $this->mtLink;
+    }
+    public function getLat() {
+        return $this->lat;
+    }
+    public function getLon() {
+        return $this->lon;
+    }
+    public function getVfZoom() {
+        return $this->vf_zoom;
     }
 }
 

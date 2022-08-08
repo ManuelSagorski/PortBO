@@ -34,8 +34,12 @@ define(function() {
 			
 			$.get(my.DETAILS_VIEW, function(data) {
 				$('#mainColMiddle').html(data);				
-				that.getForecast();
+				/* that.getForecast(); */
 				that.getExternLinks();
+				
+				if(portC.forecastScrollPosition !== null && portC.forecastPortOpen !== null) {
+					portC.loadForecast(portC.forecastPortOpen, portC.forecastScrollPosition);
+				}
 			});
 			
 			$.get(my.OPEN_CONTACTS_VIEW, function(data) {

@@ -10,6 +10,7 @@ use bo\components\classes\VesselContact;
 use bo\components\classes\Language;
 use bo\components\classes\VesselContactDetails;
 use bo\components\types\ContactTypes;
+use bo\components\classes\Forecast;
 
 include '../../components/config.php';
 
@@ -224,10 +225,40 @@ if(!empty($_GET["id"])) {
 </div>
 
 <?php } else { ?>
+
 <div id="detailEmpty">
 	<div><img src="../resources/img/iconVessel.png" /></div>
 	<div><?php $t->_('no-ship-selected'); ?></div>
 </div>
+
+<?php if($project->getModForecast()) { ?>
+
+<div style="padding: 15px 0px 5px 0px;">
+    <h2 class="ui header">
+        <i class="globe icon"></i>
+        <div class="content">
+        	Livemap & Forecast
+        </div>
+    </h2>
+    
+    <div class="forecastPorts">
+        <?php foreach($user->getUserPorts() as $key => $userPorts) { ?>
+        <div 
+        	class="portForecastButton" 
+        	id="portButton<?php echo $userPorts->getID(); ?>" 
+        	onClick="portC.loadForecast(<?php echo $userPorts->getID(); ?>);"
+        >
+        	<?php echo Port::getPortName($userPorts->getID()); ?> (<?php echo Forecast::getCountOpenForecastPort($userPorts->getID()); ?>)
+        </div>
+        <?php }?>
+    </div>
+    
+    <div class="clear" id="vesselFinderMap"></div>
+    
+    <div id="portForecast"></div>
+</div>
+
+<?php } ?>
 
 <div id="vesselForecast">
 	<div id="forecastLoader"><img src="../resources/img/loader.gif" /></div>

@@ -7,6 +7,9 @@ define(function() {
 		var constructor, that = {}, my = {};
 	
 		my.CONTROLLER = '../components/controller/port/';
+
+		that.forecastPortOpen = null;
+		that.forecastScrollPosition = null;
 	
 		constructor = function() {
 			return that;
@@ -119,7 +122,7 @@ define(function() {
 
 		/*
 		 *	Löscht einen Liegeplatz
-		 */			
+		 */
 		that.deleteCompany = function(portID, companyID) {
 			if(companyID) {
 				if(confirm(t('confirm-delete-company'))) {
@@ -133,6 +136,35 @@ define(function() {
 			else {
 				alert(t('choose-element'));
 			}
+		}
+
+		/*
+		 *	Lädt den Forecast für einen bestimmten Hafen
+		 */		
+		that.loadForecast = function(portID, scrollTo) {
+			that.forecastPortOpen = portID;
+			
+			$('.portForecastButton').removeClass('active');
+			$('#portButton' + portID).addClass('active');
+			
+			$.get('../views/port/portLiveMap.view.php?portID=' + portID, function(data) {
+				$('#vesselFinderMap').html(data);
+			});
+			$.get('../views/port/portForecast.view.php?portID=' + portID, function(data) {
+				$('#portForecast').html(data);
+				
+				if(scrollTo !== null) {
+					window.scrollTo(0, scrollTo);
+					that.forecastScrollPosition = null;
+				}
+			});
+		}
+
+		/*
+		 *	Speichert die aktuelle Scroll-Position im Forecast
+		 */		
+		that.safeForecastPosition = function() {
+			that.forecastScrollPosition = window.pageYOffset;
 		}
 		
 		return constructor.call(null);

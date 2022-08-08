@@ -42,6 +42,10 @@ $_SESSION['portID'] = $port->getID();
 </div>
 <?php } ?>
 
+<?php if(!empty($port->getLat()) && !empty($port->getLon())) {
+    include 'portLiveMap.view.php';    
+} ?>
+
 <table class="detailTable ui very compact celled striped table">
 	<thead>
 		<tr>
