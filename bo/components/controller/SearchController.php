@@ -26,22 +26,58 @@ class SearchController
         if(isset($_GET['searchTarget']))
             $searchTarget = $_GET['searchTarget']; 
 
-        $result = (new Query("select"))
+        $vessels = (new Query("select"))
             ->table(Vessel::TABLE_NAME)
             ->or()
             ->conditionLike([
-                "name" => $this->searchExpression1, 
-                "IMO" => $this->searchExpression2, 
-                "ENI" => $this->searchExpression2, 
+                "name" => $this->searchExpression1,
+                "IMO" => $this->searchExpression2,
+                "ENI" => $this->searchExpression2,
                 "MMSI" => $this->searchExpression2
             ])
             ->order("ts_erf desc")
             ->limit($searchLimit)
-            ->execute();
-            
-        while($row = $result->fetch()) {?>
-	    	<div class="searchResultRow"><a onClick="<?php echo $searchTarget; ?>.openDetails(<?php echo $row['id']; ?>)"><?php echo $row['name']; ?></a></div>
-		<?php }
+            ->fetchAll(Vessel::class);
+         
+        foreach ($vessels as $vessel) { ?>
+	    	<div class="searchResultRow vessel">
+	    		<a onClick="<?php echo $searchTarget; ?>.openDetails(<?php echo $vessel->getID(); ?>)">
+	    			<?php echo $vessel->getName(); ?>
+	    		</a>
+	    	</div>
+            <div class="ui special popup">
+                <div class="header"><i class="ship icon"></i> <?php echo $vessel->getName(); ?></div>
+                <div class='content'>
+					<table>
+						<tr>
+							<td>Type:</td>
+							<td><?php echo $vessel->getTyp(); ?> </td>
+						</tr>
+						<tr>
+							<td>IMO:</td>
+							<td><?php echo $vessel->getIMO(); ?> </td>
+						</tr>
+						<tr>
+							<td>MMSI:</td>
+							<td><?php echo $vessel->getMMSI(); ?> </td>
+						</tr>
+						<tr>
+							<td>Contact details:</td>
+							<td>
+								<?php echo ($vessel->hasMail)?'<i class="envelope outline icon"></i>':''; ?>
+								<?php echo ($vessel->hasPhone)?'<i class="phone icon"></i>':''; ?>
+							</td>
+						</tr>
+						<tr>
+							<td>Last Contact:</td>
+							<td><?php echo Vessel::getLastContactVessel($vessel->getID()); ?></td>
+						</tr>
+					</table>
+				</div>
+            </div>
+        <?php }
+        
+        echo "<script>$('.searchResultRow').popup({inline: true, delay: {show: 700, hide: 100}});</script>";
     }
     
     public function vesselDrySearch() {

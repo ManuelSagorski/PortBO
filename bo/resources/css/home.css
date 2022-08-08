@@ -110,6 +110,7 @@
 .searchResultRow { padding: 3px;}
 .searchResultRow a { display: block; }
 .searchResultRow:nth-child(even) { background-color: #E0ECF8; }
+.searchResultRow.vessel:nth-child(4n+3) { background-color: #E0ECF8; }
 
 .searchResultRow:hover { padding: 3px 3px 3px 10px; }
 

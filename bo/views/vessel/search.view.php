@@ -3,7 +3,7 @@ include '../../components/config.php';
 ?>
 <div>
     <div class="ui action input">
-    	<input type="text" id="searchInputVessel" placeholder="Name/IMO/ENI" onkeyup="vessel.searchVessel(this.value);">
+    	<input type="text" id="searchInputVessel" placeholder="Name/IMO/ENI" onkeyup="vessel.searchVessel(this.value);" autocomplete="off">
     	<button class="ui icon button" onclick="vessel.searchVessel($('#searchInputVessel').val());">
 			<i class="search icon"></i>
       	</button>
