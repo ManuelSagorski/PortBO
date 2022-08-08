@@ -142,6 +142,9 @@ define(function() {
 		 *	Lädt den Forecast für einen bestimmten Hafen
 		 */		
 		that.loadForecast = function(portID, scrollTo) {
+			$('#portForecast').html('<div id="forecastLoader"><img src="../resources/img/loader.gif" /></div>');
+			$('#vesselFinderMap').html('');
+			
 			$('#forecastLoader').show();
 			that.forecastPortOpen = portID;
 			
