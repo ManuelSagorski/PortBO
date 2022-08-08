@@ -116,6 +116,10 @@
 
 #drySearchResult { margin-top: 5px; }
 
+@media only screen and (max-width: 800px) {
+	.popup.vesselInfo { visibility: hidden !important; }
+}
+
 /*****************************/
 /*         Suggester         */
 /*****************************/

@@ -45,7 +45,7 @@ class SearchController
 	    			<?php echo $vessel->getName(); ?>
 	    		</a>
 	    	</div>
-            <div class="ui special popup">
+            <div class="ui special popup vesselInfo">
                 <div class="header"><i class="ship icon"></i> <?php echo $vessel->getName(); ?></div>
                 <div class='content'>
 					<table>
