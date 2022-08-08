@@ -255,7 +255,9 @@ if(!empty($_GET["id"])) {
     
     <div class="clear" id="vesselFinderMap"></div>
     
-    <div id="portForecast"></div>
+    <div id="portForecast">
+    	<div id="forecastLoader"><img src="../resources/img/loader.gif" /></div>
+    </div>
 </div>
 
 <?php } ?>

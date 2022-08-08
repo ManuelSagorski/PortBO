@@ -142,6 +142,7 @@ define(function() {
 		 *	Lädt den Forecast für einen bestimmten Hafen
 		 */		
 		that.loadForecast = function(portID, scrollTo) {
+			$('#forecastLoader').show();
 			that.forecastPortOpen = portID;
 			
 			$('.portForecastButton').removeClass('active');
@@ -152,6 +153,7 @@ define(function() {
 			});
 			$.get('../views/port/portForecast.view.php?portID=' + portID, function(data) {
 				$('#portForecast').html(data);
+				$('#forecastLoader').hide();
 				
 				if(scrollTo !== null) {
 					window.scrollTo(0, scrollTo);
