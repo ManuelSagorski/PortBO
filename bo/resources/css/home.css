@@ -183,6 +183,8 @@
 #addKalender { display: none; padding: 10px; margin: 10px 0px 0px 0px; background-color: #F2F2F2; }
 #addKalender .buttonLine { text-align: right; }
 
+.log.table { font-size: 9pt; }
+
 /**********************************************************/
 /*                      VesselFinder                      */
 /**********************************************************/

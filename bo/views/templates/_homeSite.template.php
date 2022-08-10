@@ -34,7 +34,7 @@ use bo\components\types\Languages;
 		<link rel="stylesheet" type="text/css" href="../resources/css/libraries/icon.min.css" />
 		<link rel="stylesheet" type="text/css" href="../resources/css/libraries/flag.min.css" />
 		<link rel="stylesheet" type="text/css" href="../resources/css/global.css?v3" />
-		<link rel="stylesheet" type="text/css" href="../resources/css/home.css?v5" />
+		<link rel="stylesheet" type="text/css" href="../resources/css/home.css?v6" />
 		<link rel="stylesheet" type="text/css" href="../resources/css/vessel.css?v3" />
 		<link rel="stylesheet" type="text/css" href="../resources/css/agency.css?v3" />
 

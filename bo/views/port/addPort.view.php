@@ -73,7 +73,7 @@ if(isset($_GET['id']))
             <label>Zoom</label>
             <select class="ui fluid dropdown" name="portMapZoom">
             	<?php for($i = 3;$i<=18;$i++) { ?>
-                <option value="<?php echo $i; ?>"<?php echo ($port->getVfZoom() == $i)?' selected="selected"':''; ?>><?php echo $i; ?></option>
+                <option value="<?php echo $i; ?>"<?php if(!empty($port)) { echo ($port->getVfZoom() == $i)?' selected="selected"':''; }; ?>><?php echo $i; ?></option>
                 <?php } ?>
             </select>
         </div>

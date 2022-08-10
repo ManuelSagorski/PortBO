@@ -82,12 +82,20 @@ class Telegram
             Logger::writeLogError('telegramBot', 'Nachricht konnte nicht gesendet werden. Meldung: ' . $result['description']);
         }
         else {
-            $userRecipient = User::getSingleObjectByCondition(Array("telegram_id" => $this->chatID));
+            $userRecipient = User::getSingleObjectByCondition(Array("telegram_id" => $this->chatID), null, 0);
             if(!empty($userRecipient)) {
                 $sender = (isset($_SESSION['user']))?$_SESSION['user']:null;
                 self::logMessage('send', $userRecipient->getId(), $this->chatID, $sender, $this->tmpl);
             }
-            Logger::writeLogInfo('telegramBot', 'Nachricht verschickt. Empfänger: ' . $this->chatID . ' Nachricht: ' . $this->tmpl);
+            
+            if(!empty($userRecipient)) {
+                $name = $userRecipient->getFirstName() . ' ' . $userRecipient->getSurname();
+            }
+            else {
+                $name = $this->chatID;
+            }
+            
+            Logger::writeLogInfo('telegramBot', 'Nachricht verschickt. Empfänger: ' . $name . ' Nachricht: ' . $this->tmpl);
         }
         
         return $result;
