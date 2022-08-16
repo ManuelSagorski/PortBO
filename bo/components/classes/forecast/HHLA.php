@@ -24,14 +24,16 @@ class HHLA extends  Scraping
             $maxDate->modify('+8 days');
             
             if($arrival->getTimestamp() > $aktDate->getTimestamp() && $arrival->getTimestamp() < $maxDate->getTimestamp()) {
-                $vessel['name'] = $row[12]->value;
-                $vessel['imo'] = '';
-                $vessel['arrivalDate'] = $arrival->format('Y-m-d H:i:s');
-                $vessel['company'] = $row[14]->value;
-                $vessel['agency'] = '';
-                $vessel['leavingDateTime'] = $leaving->format('Y-m-d H:i:s');
-                
-                $this->expectedVessels[] = $vessel;
+                if(!empty($row[12]->value)) {
+                    $vessel['name'] = $row[12]->value;
+                    $vessel['imo'] = '';
+                    $vessel['arrivalDate'] = $arrival->format('Y-m-d H:i:s');
+                    $vessel['company'] = $row[14]->value;
+                    $vessel['agency'] = '';
+                    $vessel['leavingDateTime'] = $leaving->format('Y-m-d H:i:s');
+                    
+                    $this->expectedVessels[] = $vessel;
+                }
             }
 
         }

@@ -9,10 +9,12 @@ use bo\components\classes\forecast\Fleetmon;
 use bo\components\classes\forecast\Shipnext;
 use bo\components\classes\Port;
 use bo\components\classes\forecast\POA;
+use bo\components\classes\forecast\PWL;
 
 $independent = true;
 include '../bo/components/config.php';
 include '../bo/components/libs/simple_html_dom.php';
+
 
 $eurogate = new Eurogate();
 if($eurogate->getForecast()) {
@@ -41,7 +43,6 @@ foreach ($hhla->expectedVessels as $vessel) {
 }
 echo "</table>";
 
-
 $unikai = new Unikai();
 $unikai->getForecast();
 
@@ -50,7 +51,6 @@ foreach ($unikai->expectedVessels as $vessel) {
     echo "<tr><td>" . $vessel['arrivalDate'] . "</td><td>" . $vessel['name'] . "</td><td>" . $vessel['agency'] . "</td><td>" . $vessel['company'] . "</td></tr>";
 }
 echo "</table>";
-
 
 $fleetmon = new Fleetmon();
 $fleetmon->getForecast();
@@ -75,6 +75,15 @@ $poa->getForecast();
 
 echo "<table>";
 foreach ($poa->expectedVessels as $vessel) {
+    echo "<tr><td>" . Port::getPortName($vessel['port']) . "</td><td>" . $vessel['arrivalDate'] . "</td><td>" . $vessel['name'] . "</td><td>" . $vessel['imo'] . "</td></tr>";
+}
+echo "</table>";
+
+$pwl = new PWL();
+$pwl->getForecast();
+
+echo "<table>";
+foreach ($pwl->expectedVessels as $vessel) {
     echo "<tr><td>" . Port::getPortName($vessel['port']) . "</td><td>" . $vessel['arrivalDate'] . "</td><td>" . $vessel['name'] . "</td><td>" . $vessel['imo'] . "</td></tr>";
 }
 echo "</table>";

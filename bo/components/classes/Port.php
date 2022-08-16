@@ -3,6 +3,7 @@ namespace bo\components\classes;
 
 use bo\components\classes\helper\Logger;
 use bo\components\classes\helper\Query;
+use bo\components\classes\helper\DBConnect;
 
 class Port extends AbstractDBObject
 {
@@ -42,7 +43,7 @@ class Port extends AbstractDBObject
             "vf_zoom" => $this->vf_zoom
         ]);
         
-        $port = Port::getSingleObjectByCondition(Array("name" => $this->name, "short" => $this->short));
+        $port = (new Port())->getSingleObjectByID(DBConnect::getLastID());
         
         (new Query("insert"))
             ->table(UserToPort::TABLE_NAME)
