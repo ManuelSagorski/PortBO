@@ -77,7 +77,7 @@ class SearchController
             </div>
         <?php }
         
-        echo "<script>$('.searchResultRow').popup({inline: true, delay: {show: 700, hide: 100}});</script>";
+        echo "<script>$('.searchResultRow').popup({inline: true, delay: {show: 1000, hide: 100}});</script>";
     }
     
     public function vesselDrySearch() {
