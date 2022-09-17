@@ -40,6 +40,7 @@ class VesselTypes
         "Gas Tanker" => "Tanker",
         "Lng-Lpg Combination Gas Tanker" => "Tanker",
         "Bulk Carrier" => "Cargo",
+        "Ore Carrier" => "Cargo",
         "Bulk Dry Storage Ship" => "Cargo",
         "Multi Purpose Carrier" => "Cargo",
         "Refrigerated Cargo Ship" => "Cargo",
@@ -58,6 +59,8 @@ class VesselTypes
         "Supply Vessel" => "Other",
         "Offshore Support Vessel" => "Other",
         "Offshore Supply Ship" => "Other",
+        "Training Ship" => "Other",
+        "Fire Fighting Vessel" => "Other",
         "Other" => "Other"
     );
 }

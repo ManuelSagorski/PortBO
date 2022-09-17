@@ -122,7 +122,7 @@ if(!empty($searchValue) && !is_numeric($searchValue))
         <div id="input_vesselLanguagesMaster" class="field">
         	<label><?php $t->_('language-master'); ?></label>
     		<select id="vesselLanguagesMaster" name="vesselLanguagesMaster" multiple="multiple" class="ui fluid dropdown">
-    			<?php foreach(Language::getMultipleObjects() as $language ) {?>
+    			<?php foreach(Language::getMultipleObjects([], 'name') as $language ) {?>
     			<option value="<?php echo $language->getID(); ?>"><?php echo $language->getName(); ?></option>
     			<?php } ?>
     		</select> 
@@ -131,7 +131,7 @@ if(!empty($searchValue) && !is_numeric($searchValue))
         <div id="input_vesselLanguagesCrew" class="field">
         	<label><?php $t->_('language-crew'); ?></label>
     		<select id="vesselLanguagesCrew" name="vesselLanguagesCrew" multiple="multiple" class="ui fluid dropdown">
-    			<?php foreach(Language::getMultipleObjects() as $language ) {?>
+    			<?php foreach(Language::getMultipleObjects([], 'name') as $language ) {?>
     			<option value="<?php echo $language->getID(); ?>"><?php echo $language->getName(); ?></option>
     			<?php } ?>
     		</select> 

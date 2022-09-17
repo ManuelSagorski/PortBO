@@ -10,6 +10,7 @@ use bo\components\classes\forecast\Shipnext;
 use bo\components\classes\Port;
 use bo\components\classes\forecast\POA;
 use bo\components\classes\forecast\PWL;
+use bo\components\classes\forecast\POR;
 
 $independent = true;
 include '../bo/components/config.php';
@@ -75,6 +76,15 @@ $poa->getForecast();
 
 echo "<table>";
 foreach ($poa->expectedVessels as $vessel) {
+    echo "<tr><td>" . Port::getPortName($vessel['port']) . "</td><td>" . $vessel['arrivalDate'] . "</td><td>" . $vessel['name'] . "</td><td>" . $vessel['imo'] . "</td></tr>";
+}
+echo "</table>";
+
+$por = new POR();
+$por->getForecast();
+
+echo "<table>";
+foreach ($por->expectedVessels as $vessel) {
     echo "<tr><td>" . Port::getPortName($vessel['port']) . "</td><td>" . $vessel['arrivalDate'] . "</td><td>" . $vessel['name'] . "</td><td>" . $vessel['imo'] . "</td></tr>";
 }
 echo "</table>";

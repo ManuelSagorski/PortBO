@@ -44,7 +44,7 @@ class User extends AbstractDBObject
     
     private $sendInfo;
     
-    public static $userLevel = array(0 => "no permission", 1 => "Registerd", 2 => "Foreign Port", 3 => "Publisher", 4 => "BO Assistant", 5 => "BO Supervisor", 8 => "Project Admin", 9 => "Administrator");
+    public static $userLevel = array(0 => "no permission", 2 => "Foreign Port", 3 => "Publisher", 4 => "BO Assistant", 5 => "BO Supervisor", 8 => "Project Admin", 9 => "Administrator");
     public static $defaultPage = array(2 => "lookup", 3 => "index", 4 => "index", 5 => "index", 8 => "index", 9 => "index");
     
     /**
