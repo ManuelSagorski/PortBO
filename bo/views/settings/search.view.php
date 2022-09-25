@@ -20,5 +20,6 @@ Security::grantAccess(8);
 <div id="searchResult">
 	<div class="searchResultRow"><a onclick="settings.openDetails('logging', this);"><?php $t->_('menu-logging'); ?></a></div>
 	<div class="searchResultRow"><a id="settingsProjekte" onclick="settings.openDetails('projects', this);"><?php $t->_('menu-projects'); ?></a></div>
+	<div class="searchResultRow"><a id="settingsLanguages" onclick="settings.openDetails('languages', this);"><?php $t->_('menu-languages'); ?></a></div>
 </div>	
 <?php } ?>
