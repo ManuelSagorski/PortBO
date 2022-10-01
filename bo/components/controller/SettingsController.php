@@ -8,6 +8,7 @@ use bo\components\classes\Invitation;
 use bo\components\classes\helper\SendMail;
 use bo\components\classes\helper\Security;
 use bo\components\classes\User;
+use bo\components\classes\Language;
 
 class SettingsController
 {
@@ -78,6 +79,18 @@ class SettingsController
             ->values(['project_id' => $_POST['data']['newProject']])
             ->condition(['id' => $_POST['userID']])
             ->execute();
+    }
+    
+    /**
+     * Speichert bzw. ändert eine Sprache
+     */
+    public function addLanguage() {
+        if(empty($_POST['id'])) {
+            (new Language($_POST['data']))->addLanguage();
+        }
+        else {
+            (Language::getSingleObjectByID($_POST['id']))->updateLanguage($_POST['data']);
+        }
     }
     
     /**

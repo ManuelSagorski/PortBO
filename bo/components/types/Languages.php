@@ -36,6 +36,7 @@ class Languages
         24 => "Lithuanian",
         25 => "Serbian",
         26 => "Tamil",
+        27 => "Swedish",
     );
     
     /**

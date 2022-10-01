@@ -334,6 +334,39 @@ define(function() {
 					that.openDetails('projects', $('#settingsProjekte').get(0));
 				});	
 		}
+
+		/*
+		 *	Öffnet den Dialog zum hinzufügen einer neuen Sprache
+		 */			
+		that.newLanguage = function(languageID, edit) {
+			if(edit && !languageID) {
+				alert(t('choose-element'));
+			}
+			else {
+				$.get('../views/settings/addLanguage.view.php?id=' + languageID, function(data) {
+					$('#windowLabel').html(t('add-language'));
+					$('#windowBody').html(data);
+				});
+				showWindow();
+			}			
+		}
+		
+		that.addLanguage = function(languageID) {
+			event.preventDefault();
+			newLanguageValidate = new FormValidate($('#addLanguage').serializeArray());
+			
+			if(falseFields = newLanguageValidate.fieldsNotEmpty(Array('languageName'))) {
+				formValidate.setError(falseFields);
+				formValidate.setErrorMessage(t('insert-mendatory'));
+				return;
+			}
+			
+			$.post(my.CONTROLLER + 'addLanguage', {id: languageID, data: newLanguageValidate.getFormData()}, 
+				function() {
+					that.openDetails('languages', $('#settingsLanguages').get(0));
+					closeWindow();
+				});
+		}
 		
 		return constructor.call(null);
 	}
