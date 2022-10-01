@@ -129,7 +129,7 @@ class User extends AbstractDBObject
         
         Logger::writeLogCreate('settings', 'Neuer Benutzer angelegt: ' . $this->first_name . ' ' . $this->surname);
         
-        foreach(languages::$languages as $id=>$language) {
+        foreach(Language::getLanguages() as $id=>$language) {
             if(in_array($id, $this->userLanguages)) {
                 $this->addUserLanguage($id);
             }
@@ -176,7 +176,7 @@ class User extends AbstractDBObject
             $this->updateDB(["foreign_port" => $data['foreignPort']], ["id" => $this->id]);
         }
        
-        foreach(languages::$languages as $id=>$language) {
+        foreach(Language::getLanguages() as $id=>$language) {
             if(isset($data['userLanguages'])) {
                 if(in_array($id, $data['userLanguages']) && !$this->userHasLanguage($id)) {
                     $this->addUserLanguage($id);

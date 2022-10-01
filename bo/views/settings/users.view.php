@@ -4,6 +4,7 @@ use bo\components\classes\User;
 use bo\components\types\Languages;
 use bo\components\classes\helper\Security;
 use bo\components\classes\Projects;
+use bo\components\classes\Language;
 
 include '../../components/config.php';
 Security::grantAccess(8);
@@ -76,7 +77,7 @@ $users = User::getMultipleObjects(["inactive" => 0]);
     			<td data-label="userLevel"><?php echo $user->getLevelDescription(); ?></td>
     			<td data-label="userLanguage">
         		<?php foreach ($user->getUserLanguages() as $language ) {?>
-        			<div class="userLanguage"><?php echo languages::$languages[$language->getLanguageID()]; ?></div>
+        			<div class="userLanguage"><?php echo (Language::getLanguages())[$language->getLanguageID()]; ?></div>
         		<?php } ?>
     			</td>
     		</tr>

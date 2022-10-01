@@ -6,6 +6,7 @@ use bo\components\classes\Port;
 use bo\components\classes\helper\Security;
 use bo\components\controller\SettingsController;
 use bo\components\classes\Projects;
+use bo\components\classes\Language;
 
 include '../../components/config.php';
 Security::grantAccess(8);
@@ -118,7 +119,7 @@ if(isset($_GET['id']))
     <div id="input_userLanguage" class="field">
     	<label><?php $t->_('languages'); ?></label>
     	<select id="userLanguage" name="userLanguage" multiple="multiple" class="ui fluid dropdown"<?php echo (!empty($_GET['projectID']))?" disabled":""; ?>>
-    	<?php foreach (languages::$languages as $id=>$language) { ?>
+    	<?php foreach (Language::getLanguages() as $id=>$language) { ?>
 			<option value="<?php echo $id; ?>"><?php echo $language; ?></option>
 		<?php } ?>
     	</select>

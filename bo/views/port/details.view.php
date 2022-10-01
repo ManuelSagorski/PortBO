@@ -6,6 +6,7 @@ use bo\components\classes\User;
 use bo\components\types\Languages;
 use bo\components\classes\helper\Query;
 use bo\components\classes\UserToPort;
+use bo\components\classes\Language;
 include '../../components/config.php';
 
 if(!empty($_GET["id"])) {
@@ -104,7 +105,7 @@ $_SESSION['portID'] = $port->getID();
 			<td data-label="publisherPhone"><?php echo $user->getPhone();?></td>
 			<td data-label="publisherLanguages">
 			<?php foreach ($user->getUserLanguages() as $language ) {?>
-				<div class="userLanguage"><?php echo languages::$languages[$language->getLanguageID()]; ?></div>
+				<div class="userLanguage"><?php echo (Language::getLanguages())[$language->getLanguageID()]; ?></div>
 			<?php } ?>		
 			</td>
 		</tr>

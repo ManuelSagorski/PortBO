@@ -11,6 +11,8 @@ class Language extends AbstractDBObject
     private $id;
     private $name;
     
+    private static $languages = [];
+    
     public function __construct($data = null) {
         if(!empty($data)) {
             $this->name = trim($data['languageName']);
@@ -42,6 +44,16 @@ class Language extends AbstractDBObject
         else {
             return null;
         }
+    }
+    
+    public static function getLanguages() {
+        if(empty(self::$languages)) {
+            foreach ((new Language())->getMultipleObjects([], 'name') as $dbLanguage) {
+                self::$languages[$dbLanguage->getID()] = $dbLanguage->getName();
+            }
+        }
+        
+        return self::$languages;
     }
     
     public function getID() {
