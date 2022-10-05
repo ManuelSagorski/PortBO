@@ -16,6 +16,11 @@ class Logger
     
     public static function writeLogError($component, $message) {
         self::writeLog($component, 'error', $message);
+        self::sendMessage($component, $message);
+    }
+    
+    public static function writeLogWarning($component, $message) {
+        self::writeLog($component, 'warning', $message);
     }
     
     public static function writeLogCreate($component, $message) {
@@ -49,6 +54,14 @@ class Logger
                 Logger::writeLogError("php error", $err['message'] . " - " . $err['line'] . " - " . $err['file']);
             }
         });
+    }
+    
+    public static function sendMessage(string $component, string $message) {
+        $mail = new SendMail();
+        $mail->mail->addAddress('manuel@sagorski.net');
+        $mail->mail->Subject = 'Port Backoffice - Error Report';
+        $mail->applyTemplate('email/_errorReport', ['component' => $component, 'message' => $message]);
+        $mail->mail->send();  
     }
 }
 

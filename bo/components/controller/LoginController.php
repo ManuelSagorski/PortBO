@@ -127,7 +127,7 @@ class LoginController
         ));
 
         If (empty($user)) {
-            Logger::writeLogError('login', 'Loginversuch mit unbekanntem Benutzername: ' . $username);
+            Logger::writeLogWarning('login', 'Loginversuch mit unbekanntem Benutzername: ' . $username);
             return array(
                 'error' => $text->_get('user-not-known')
             );
@@ -143,7 +143,7 @@ class LoginController
                     Logger::writeLogInfo('login', 'Login erfolgreich');
                     return true;
                 } else {
-                    Logger::writeLogError('login', 'Loginversuch mit verkehrtem Passwort. Benutzername: ' . $username);
+                    Logger::writeLogWarning('login', 'Loginversuch mit verkehrtem Passwort. Benutzername: ' . $username);
                     return array(
                         'error' => $text->_get('wrong-password')
                     );

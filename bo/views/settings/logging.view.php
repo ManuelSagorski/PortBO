@@ -24,7 +24,7 @@ $logTable = DBConnect::execute($sqlstrg, array());
 	</thead>
     <tbody>
     <?php while ($row = $logTable->fetch()) { ?>
-		<tr<?php echo($row['logLevel'] == 'error')?' class="error"':''; ?>>
+		<tr class="<?php echo $row['logLevel']; ?>">
 			<td data-label="timestamp" class="three wide"><?php echo $row['ts_erf']; ?></td>
 			<td data-label="project" class="two wide"><?php echo Projects::getProjectShort($row['project_id']); ?></td>
 			<td data-label="userFullName" class="two wide"><?php echo (!empty($row['user_id']))?User::getUserFullName($row['user_id'], 0):"&nbsp;"; ?></td>			
