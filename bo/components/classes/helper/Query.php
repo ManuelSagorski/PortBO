@@ -299,7 +299,7 @@ class Query
          * conditions
          */
         $first = false;
-        if(!empty($this->conditions)) {
+        if(!empty($this->conditions) || !empty($this->conditionString)) {
             foreach($this->conditions as $type => $conditions) {
                 foreach ($conditions as $condition) {
                     foreach ($condition as $name => $value) {

@@ -36,9 +36,7 @@ class Projects extends AbstractDBObject
     public function getUserForProjectAdministration() {
         return (new Query("select"))
             ->table(User::TABLE_NAME)
-            ->conditionGreater(["level" => 7])
-            ->or()
-            ->condition(['level' => 0])
+            ->conditionString(['level > ? or (level = ? and inactive = ?)' => [7, 0, 0]])
             ->project($this->id)
             ->fetchAll(User::class);
     }
