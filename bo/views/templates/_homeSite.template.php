@@ -74,6 +74,7 @@ use bo\components\types\Languages;
 						</a>
 					</div>
 					<?php } ?>
+					<?php if($user->getLevel() >= 9) {?> <div class="navElement"><a href="contacts" title="Global Contacts"><i class="globe icon" href="contacts"></i></a></div> <?php } ?>
     				<?php if($user->getLevel() >= 8) {?> <div class="navElement"><a href="settings" title="Settings"><i class="cogs icon" href="settings"></i></a></div> <?php } ?>
     				<div class="navElement"><a href="logout" title="Logout" class="item"><i class="power off icon" href="logout"></i></a></div>
     			</div>

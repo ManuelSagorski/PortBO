@@ -65,6 +65,16 @@ router.add('settings', function () {
     settings.open();
 });
 
+router.add('contacts', function () {
+	clearContend();
+	prepareCol($('#mainColLeft'), 'notNeededCol');
+	prepareCol($('#mainColRight'), 'notNeededCol');
+	
+	$.get('../views/contacts/globalContacts.view.php', function(data) {
+		$('#mainColMiddle').html(data);
+	});
+});
+
 router.add('logout', function () {
     window.location.href = "../index.php?logout";
 });

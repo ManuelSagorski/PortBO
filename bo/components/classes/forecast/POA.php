@@ -19,6 +19,7 @@ class POA extends Scraping
         
         $vessel['port'] = 144;
         $vessel['imo'] = '';
+        $vessel['company'] = '';
         
         
         foreach($this->json['data'] as $oneVessel) {
@@ -53,7 +54,7 @@ class POA extends Scraping
                         
                         foreach ($relPort as $port){
                             $vessel['company'] = $port['attributes']['name'];
-                        }                        
+                        }
                     }
                 }
                 if(new \DateTime() < $arrival || $arrival->diff(new \DateTime(), true)->days < 4) {
