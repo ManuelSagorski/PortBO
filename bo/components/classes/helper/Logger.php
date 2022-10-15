@@ -61,6 +61,9 @@ class Logger
         $mail->mail->addAddress('manuel@sagorski.net');
         $mail->mail->Subject = 'Port Backoffice - Error Report';
         $mail->applyTemplate('email/_errorReport', ['component' => $component, 'message' => $message]);
+        $mail->mail->Priority = 1;
+        $mail->mail->AddCustomHeader("X-MSMail-Priority: High");
+        $mail->mail->AddCustomHeader("Importance: High");
         $mail->mail->send();  
     }
 }

@@ -41,6 +41,15 @@ class Projects extends AbstractDBObject
             ->fetchAll(User::class);
     }
     
+    public function getCoordinationTeam() {
+        return (new Query("select"))
+            ->table(User::TABLE_NAME)
+            ->condition(["coordination" => 1])
+            ->project($this->id)
+            ->order("surname")
+            ->fetchAll(User::class);
+    }
+    
     public function getProjectForeignPortUser() {
         return (new Query("select"))
         ->table(User::TABLE_NAME)

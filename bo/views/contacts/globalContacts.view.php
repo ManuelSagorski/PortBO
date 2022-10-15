@@ -5,15 +5,13 @@ use bo\components\classes\Projects;
 
 include '../../components/config.php';
 
-$projects = Projects::getMultipleObjects();
+$projects = Projects::getMultipleObjects([], "name");
 ?>
-<div class="ui basic segment">
-	Folgende Hafengruppen verwenden derzeit Backoffice:
-</div>
+<div class="ui basic grey inverted segment"><h3><?php $t->_('coordinators-hgs'); ?></h3></div>
 <?php 
 foreach ($projects as $key => $project) {
     if(!$project->getModForeignPort()) {
-        $projectUsers = $project->getUserForProjectAdministration();
+        $projectUsers = $project->getCoordinationTeam();
 ?>
 <div class="ui styled fluid accordion">
     <div class="<?php echo ($key === array_key_first($projects))?"active ":""; ?>title">
@@ -22,15 +20,9 @@ foreach ($projects as $key => $project) {
     </div>
     <div class="<?php echo ($key === array_key_first($projects))?"active ":""; ?>content">        
         <table class="detailTable ui very compact celled striped table">
-            <thead>
-                <tr>
-                    <th colspan="6"><?php echo (!$project->getModForeignPort())?"Projekt Administratoren":"Mitarbeiter Foreign Port"; ?></th>
-                </tr>
-            </thead>
             <tbody>
             <?php foreach ($projectUsers as $projectUser) { ?>
                 <tr<?php echo ($projectUser->getLevel() == 0)?" class='negative'":""; ?>>
-                	<td><input type="radio" name="selectUser" value="<?php echo $projectUser->getID(); ?>"></td>
                     <td><?php echo $projectUser->getFirstName() . " " . $projectUser->getSurname(); ?></td>
                     <td><?php echo $projectUser->getPhone(); ?></td>
                     <td><?php echo $projectUser->getEmail(); ?></td>

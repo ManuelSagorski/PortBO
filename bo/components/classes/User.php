@@ -30,6 +30,7 @@ class User extends AbstractDBObject
     private $first_name;
     private $surname;
     private $level;
+    private $coordination;
     private $password_code;
     private $password_code_time;
     private $telegram_id;
@@ -79,8 +80,15 @@ class User extends AbstractDBObject
             else {
                 $this->secret = null;
             }
-            if(isset($data['language']))
+            if(isset($data['language'])) {
                 $this->default_language = $data['language'];
+            }
+            if(isset($data['coordination'])) {
+                $this->coordination = 1;
+            }
+            else {
+                $this->coordination = 0;
+            }
         }
         else {
             $this->userGetPorts();
@@ -116,6 +124,7 @@ class User extends AbstractDBObject
                 "first_name" => $this->first_name,
                 "surname" => $this->surname,
                 "level" => $this->level,
+                "coordination" => $this->coordination,
                 "foreign_port" => $this->foreign_port,
                 "default_language" => $this->default_language
             ]);
@@ -163,13 +172,21 @@ class User extends AbstractDBObject
             return ["type" => "error", "msg" => $msg];
         }
         
+        if(isset($data['coordination'])) {
+            $coordination = 1;
+        }
+        else {
+            $coordination = 0;
+        }
+        
         $this->updateDB([
             "username" => $data['userUsername'],
             "email" => $data['userEmail'],
             "phone" => $data['userPhone'],
             "first_name" => $data['userFirstName'],
             "surname" => $data['userSurname'],
-            "level" => $data['userLevel']
+            "level" => $data['userLevel'],
+            "coordination" => $coordination
         ], ["id" => $this->id]);
         
         if(isset($data['foreignPort'])) {
@@ -557,6 +574,9 @@ class User extends AbstractDBObject
     }
     public function getLevel() {
         return $this->level;
+    }
+    public function getCoordination() {
+        return $this->coordination;
     }
     public function getPasswordCode() {
         return $this->password_code;

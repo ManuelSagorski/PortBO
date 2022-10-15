@@ -74,6 +74,7 @@
 "project-short":						"Projekt Kurzname",
 "transfer-user":						"Verkündiger in anderes Projekt verschieben",
 "settings-vf-map":						"Einstellungen für die VesselFinder Live-Map",
+"user-coordination":					"Benuter gehört zu dem Koordinations-Team",
 
 "-------------------------- Profil - Notifications --------------------------":"",
 "notifications":						"Benachrichtigungen",
@@ -198,6 +199,7 @@
 "setup-telegram":						"Telegram Verbindung einrichten",
 "title-register":						"Backoffice Hafengruppe",
 "add-project":							"Projekt hinzufügen",
+"coordinators-hgs":						"Koordinatoren der Hafengruppen die Backoffice verwenden:",
 
 "-------------------------- VesselContacts --------------------------":"",
 "not-specified":						"keine Angabe",

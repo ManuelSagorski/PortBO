@@ -134,6 +134,18 @@ if(isset($_GET['id']))
     	</select>
     </div>
 
+    <div class="field">
+   		<div class="ui toggle coordination checkbox">
+    		<label><?php $t->_('user-coordination'); ?></label>
+    		<input 
+    			type="checkbox" 
+    			class="hidden"
+    			name="coordination"
+    			<?php echo ($userToEdit->getCoordination() == 1)?" checked='checked'":"";?>
+    		>
+    	</div>
+    </div>
+
     <?php if(empty($userToEdit)) { ?>
     <div id="input_userSendInfo" class="field">
     	<label><?php $t->_('send-login-email'); ?></label>
@@ -188,6 +200,7 @@ $('#userPort').dropdown();
 $("#addUser").submit(function(event){ settings.addUser(<?php echo (!empty($userToEdit))?$userToEdit->getID():'null'; ?>); });
 $("#addKalenderForm").submit(function(event){ settings.addUserKalender(<?php echo (!empty($userToEdit))?$userToEdit->getID():'null'; ?>, <?php echo (!empty($projectID))?$projectID:'null'; ?>); });
 $('.ui.radio.checkbox').checkbox();
+$('.ui.coordination.checkbox').checkbox();
 
 <?php if(!empty($userToEdit)) { foreach ($userToEdit->getUserPorts() as $port) {?>
 $('#userPort').dropdown('set selected', <?php echo $port->getID(); ?>);

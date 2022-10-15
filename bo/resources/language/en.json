@@ -75,6 +75,7 @@
 "project-short":						"Projekt short",
 "transfer-user":						"Transfer user to other project",
 "settings-vf-map":						"Settings for VesselFinder Live-Map",
+"user-coordination":					"User belongs to the co-ordination team",
 
 "-------------------------- Profil - Notifications --------------------------":"",
 "notifications":						"Notifications",
@@ -198,6 +199,7 @@
 "setup-telegram":						"Setup Telegram connection",
 "title-register":						"Backoffice Harbour-Group",
 "add-project":							"Add project",
+"coordinators-hgs":						"Coordinators of Harbour Groups using Backoffice:",
 
 "-------------------------- VesselContacts --------------------------":"",
 "not-specified":						"Not specified",

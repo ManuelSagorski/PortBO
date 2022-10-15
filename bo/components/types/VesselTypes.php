@@ -61,6 +61,7 @@ class VesselTypes
         "Offshore Supply Ship" => "Other",
         "Training Ship" => "Other",
         "Fire Fighting Vessel" => "Other",
+        "Dredger" => "Other",
         "Other" => "Other"
     );
 }

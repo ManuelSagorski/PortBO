@@ -185,9 +185,10 @@ class VesselContact extends AbstractDBObject
             ->fields("vc.*")
             ->table(self::TABLE_NAME, "vc")
             ->leftJoin(UserToPort::TABLE_NAME, "up", "port_id", "port_id")
+            ->leftJoin(Vessel::TABLE_NAME, "v", "vess_id", "id")
             ->condition(["vc.planned" => 1])
             ->conditionString(["vc.contact_user_id = ? or up.user_id = ?" => [$userID, $userID]])
-            ->order("vc.port_id, vc.date")
+            ->order("vc.port_id, vc.date, v.name")
             ->fetchAll(self::class);
     }
     
