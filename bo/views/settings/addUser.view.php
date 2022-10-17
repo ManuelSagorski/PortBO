@@ -134,7 +134,7 @@ if(isset($_GET['id']))
     	</select>
     </div>
 
-    <div class="field">
+    <div class="field"<?php echo ($user->getLevel() < 9)?'style="display: none;"':''; ?>>
    		<div class="ui toggle coordination checkbox">
     		<label><?php $t->_('user-coordination'); ?></label>
     		<input 

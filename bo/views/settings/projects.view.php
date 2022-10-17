@@ -142,9 +142,6 @@ foreach ($projects as $key => $project) {
             </tbody>
         </table>
         <div class="detailActions ui icon menu">
-        	<a class="item" onclick="settings.newUser(null, false, <?php echo $project->getID(); ?>);">
-        		<i class="plus icon"></i>
-        	</a>
         	<a class="item" onclick="settings.newUser($('input[name=selectUser]:checked').val(), true, <?php echo $project->getID(); ?>);">
         		<i class="edit icon"></i>
         	</a>

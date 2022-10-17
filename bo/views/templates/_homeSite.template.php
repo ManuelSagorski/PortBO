@@ -74,7 +74,7 @@ use bo\components\types\Languages;
 						</a>
 					</div>
 					<?php } ?>
-					<?php if($user->getLevel() >= 9) {?> <div class="navElement"><a href="contacts" title="Global Contacts"><i class="globe icon" href="contacts"></i></a></div> <?php } ?>
+					<?php if($user->getLevel() >= 8) {?> <div class="navElement"><a href="contacts" title="Global Contacts"><i class="globe icon" href="contacts"></i></a></div> <?php } ?>
     				<?php if($user->getLevel() >= 8) {?> <div class="navElement"><a href="settings" title="Settings"><i class="cogs icon" href="settings"></i></a></div> <?php } ?>
     				<div class="navElement"><a href="logout" title="Logout" class="item"><i class="power off icon" href="logout"></i></a></div>
     			</div>
@@ -113,6 +113,11 @@ use bo\components\types\Languages;
                     <?php if($project->getModPlanning() && $user->getPlanningID() > 0) {?>
                     <a class="item" href="https://<?php echo $project->getModPlanningProject(); ?>.xn--zg-eka.de/index.php?id=<?php echo $user->getPlanningID(); ?>" target="_blank">
                         Planning <i class="calendar alternate outline icon" href="https://<?php echo $project->getModPlanningProject(); ?>.xn--zg-eka.de/index.php?id=<?php echo $user->getPlanningID(); ?>" target="_blank"></i>
+                    </a>                    
+                    <?php } ?>
+                    <?php if($user->getLevel() >= 8) {?>
+                    <a class="item" href="contacts">
+                        Global Contacts <i class="globe icon" href="contacts"></i>
                     </a>                    
                     <?php } ?>
                     <?php if($user->getLevel() >= 8) {?>
