@@ -110,3 +110,11 @@ function t(index) {
 function toggleMenu() {
 	$( "#mobileMenu" ).toggle("slow");
 }
+
+function loadReminderOpenContacts() {
+	$.get('../views/vessel/reminderOpenContacts.view.php', function(data) {
+		$('#windowLabel').html(t('open-contacts'));
+		$('#windowBody').html(data);
+	});
+	showWindow();	
+}

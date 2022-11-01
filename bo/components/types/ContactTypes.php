@@ -8,6 +8,7 @@ class ContactTypes
         'Brief' => 'letter',
         'Besuch' => 'visit',
         'Telefon' => 'phone-call',
+        'publ' => 'publ'
     ];
 
     /**
@@ -16,7 +17,7 @@ class ContactTypes
      * Kontakt Arten
      * @var array
      */
-    public static $contactTypes = array("Email", "Brief", "Besuch", "Telefon");
+    public static $contactTypes = array("Email", "Brief", "Besuch", "Telefon", "publ");
 
     /**
      * $translateContactTypes
@@ -24,7 +25,7 @@ class ContactTypes
      * Uebersetzte Kontakttypen für GB
      * @var array
      */
-    public static $translateContactTypes = array("Email" => "Email", "Brief" => "Letter", "Besuch" => "Visit", "Telefon" => "Phone");
+    public static $translateContactTypes = array("Email" => "Email", "Brief" => "Letter", "Besuch" => "Visit", "Telefon" => "Phone", "publ" => "publ");
 }
 
 ?>

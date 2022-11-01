@@ -1,5 +1,6 @@
 <?php
 use bo\components\types\Languages;
+use bo\components\classes\VesselContact;
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -157,6 +158,15 @@ use bo\components\types\Languages;
 			$('.ui.dropdown.language').dropdown('set selected', '<?php echo $_SESSION['language']; ?>');
 		</script>
 
+		<?php
+		/* 
+		 * Reminder auf noch offene Kontakt. Entwicklung vorerst unterbrochen - 11_2022
+		 * 
+		<?php if($user->getID() == 1) { ?>		
+		<?php if(!empty(VesselContact::checkOpenContacts())) { ?><script>setTimeout(function(){ loadReminderOpenContacts(); }, 500);</script><?php } ?>		    
+		<?php }	?>
+		*/
+		?>
 		<!-- <script data-main="res/js/telegramMessaging" src="res/js/require.js"></script> -->
 	</body>
 </html>

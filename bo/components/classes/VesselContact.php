@@ -212,6 +212,20 @@ class VesselContact extends AbstractDBObject
         return $project && $publisher;
     }
     
+    public static function checkOpenContacts() {
+        global $user;
+        
+        $query = (new Query("select"))
+            ->table(self::TABLE_NAME)
+            ->conditionString(["planned = ? and DATEDIFF(now(), date) > 3" => [1]]);
+        
+        if($user->getLevel() < 8) {
+            $query->condition(["agent_id" => $user->getID()]);
+        }
+       
+        return $query->fetchAll(self::class);
+    }
+    
     private function validateContactInput() {
         global $t, $user;
         

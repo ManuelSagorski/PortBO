@@ -8,6 +8,7 @@ class Shipnext extends Scraping
     const URL_SHIPNEXT = 'https://shipnext.com/api/v1/ports/public/{{portName}}';
     
     private $json;
+
     private $ports = [
         1 => 'hamburg-deham-deu', 
         2 => 'kiel-dekel-deu', 
@@ -26,8 +27,10 @@ class Shipnext extends Scraping
         118 => 'plymouth-gbply-gbr',
         134 => 'falmouth-gbfal-gbr',
         144 => 'amsterdam-nlams-nld',
-        150 => 'ijmuiden-nlijm-nld'
+        150 => 'ijmuiden-nlijm-nld',
+        151 => 'antwerp-beanr-bel',
     ];
+
     private $portIDs = [
         1 => ['5824541fe82d5211502c5809'],
         2 => ['5825aad132bb0213700f6546'],
@@ -45,7 +48,8 @@ class Shipnext extends Scraping
         118 => ['5828417a1c912f0ebcb63d00'],
         134 => ['58235e92821bd20e385989bb'],
         144 => ['581fdc7054e6080aa866a868'],
-        150 => ['581fdc7054e6080aa866a868']
+        150 => ['581fdc7054e6080aa866a868'],
+        151 => ['58202219eb3caf0cb8751fad']
     ];
     
     public function getForecast() {
@@ -96,7 +100,7 @@ class Shipnext extends Scraping
     }
     
     private function getSegelliste($url) {
-        $this->json = json_decode($this->getHTML($url));
+        $this->json = json_decode($this->getHTML($url, 'json'));
         
         if(empty($this->json)) {
             Logger::writeLogError('getShipnext', 'Shipnext Scrapping lieferte keine Daten.');

@@ -57,7 +57,7 @@ $users = User::getMultipleObjects(["inactive" => 0]);
 </div>
 
 <div class="mobileTableWrapper">
-    <table class="detailTable ui very compact unstackable celled striped table">
+    <table class="user detailTable ui very compact unstackable celled striped table">
     	<thead>
     		<tr>
     			<th colspan="7"><?php $t->_('registerd-publisher'); ?></th>

@@ -352,6 +352,14 @@ define(function() {
 			event.preventDefault();			
 			vesselContactValidate = new FormValidate($('#addVesselContact').serializeArray());
 
+			if(typeof(vesselContactValidate.getFormData().contactPlanned) == "undefined" ) {
+				if(!vesselContactValidate.fieldsNotAllEmpty(Array('contactName'))) {
+					formValidate.setError(Array('contactName'));
+					formValidate.setErrorMessage(t('enter-contact-name'));
+					return;
+				}
+			}
+
 			$.post(my.CONTROLLER + 'addVesselContact', {
 					data: vesselContactValidate.getFormData(), 
 					contactID: ContactID

@@ -66,6 +66,7 @@
 "letter":								"Brief",
 "visit":								"Besuch",
 "phone-call":							"Telefonat",
+"publ":									"Öff. Zeugngbn",
 "request-contact-details":				"Kontaktdaten anfragen",
 "contact-details-requested":			"Die Kontaktdaten wurden angefragt",
 "register":								"Registrierung",
@@ -75,6 +76,7 @@
 "transfer-user":						"Verkündiger in anderes Projekt verschieben",
 "settings-vf-map":						"Einstellungen für die VesselFinder Live-Map",
 "user-coordination":					"Benuter gehört zu dem Koordinations-Team",
+"open-contacts":						"Bitte erledige noch offene Kontakte",
 
 "-------------------------- Profil - Notifications --------------------------":"",
 "notifications":						"Benachrichtigungen",
@@ -150,6 +152,7 @@
 "new-password-ready":					"Du kannst dich jetzt mit dem neuen Passwort anmelden",
 "registration-successful":				"Die Registrierung war erfolgreich. Sobald dein Konto vom Koordinator freigeschaltet wurde, kannst du dich anmelden.",
 "insert-new-project":					"Bitte wähle ein neues Projekt aus",
+"enter-contact-name":					"Bitte den Namen des Verkündigers eintragen bevor du den Kontakt abschließt.",
 
 "-------------------------- Button --------------------------":"",
 "add-ship":								"Schiff hinzufügen",

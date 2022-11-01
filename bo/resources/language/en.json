@@ -66,6 +66,7 @@
 "letter":								"Letter",
 "visit":								"Visit",
 "phone-call":							"Phone",
+"publ":									"Publ. Witn.",
 "request-contact-details":				"Request contact details",
 "contact-details-requested":			"The contact details were requested",
 "share":								"Share",
@@ -76,6 +77,7 @@
 "transfer-user":						"Transfer user to other project",
 "settings-vf-map":						"Settings for VesselFinder Live-Map",
 "user-coordination":					"User belongs to the co-ordination team",
+"open-contacts":						"Please close still open contacts",
 
 "-------------------------- Profil - Notifications --------------------------":"",
 "notifications":						"Notifications",
@@ -151,6 +153,7 @@
 "new-password-ready":					"You may now log in with the new password",
 "registration-successful":				"The registration was successful. As soon as your account has been activated by the coordinator, you may log in.",
 "insert-new-project":					"Please choose a new project",
+"enter-contact-name":					"Please fill in the name of the publisher before completing the contact.",
 
 "-------------------------- Button --------------------------":"",
 "add-ship":								"Add ship",
