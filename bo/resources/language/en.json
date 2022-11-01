@@ -126,7 +126,6 @@
 "mobile-number-needed":	 				"Mobile number required for all user levels except >Foreign Port<",
 "name-port-needed":	 					"Name of harbour required for Foreign Port users",
 "username-needed":	 					"Username required for all, except for user level >Publisher<",
-"confirm-send-invitation-mail":			"Do your really want to send a new invitation e-mail? The user password will be reset.",
 "password-changed":						"Password successfully changed",
 "email-changed":						"Your e-mail address was updated",
 "mobile-changed":						"Your mobile number was updated",

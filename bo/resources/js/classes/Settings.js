@@ -157,23 +157,6 @@ define(function() {
 		}
 
 		/*
-		 *	Schickt an einen Benutzer erneut eine Einladungsmail
-		 */			
-		that.sendInvitationMail = function(userID) {
-			event.preventDefault();
-			
-			if(!confirm(t('confirm-send-invitation-mail'))) {
-				return;
-			}
-			
-			$.post(my.USER_CONTROLLER + 'sendInvitationMail', {id: userID}, 
-				function() {
-					that.openDetails('users');
-					closeWindow();
-				});
-		}
-
-		/*
 		 *	Blendet die Funktion zum Hinzufügen eines Kalenders ein
 		 */			
 		that.showAddKalender = function() {

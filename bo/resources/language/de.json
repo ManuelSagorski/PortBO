@@ -125,7 +125,6 @@
 "mobile-number-needed":	 				"Bei einem Benutzerlevel ungleich -Foreign Port- muss eine Handynummer angegeben werden.",
 "name-port-needed":	 					"Bei einem -Foreign Port- Mitarbeiter muss der Name des Hafens angegeben werden.",
 "username-needed":	 					"Bei einem Benutzerlevel ungleich -Verkündiger- muss ein Benutzername angegeben werden.",
-"confirm-send-invitation-mail":			"Möchtest wirklich eine neue Einladungsmail verschicken? Das Passwort des Benutzers wird dabei zurückgesetzt.",
 "password-changed":						"Dein Passwort wurde erfolgreich geändert.",
 "email-changed":						"Deine Email Adresse wurde geändert.",
 "mobile-changed":						"Deine Handynummer wurde geändert.",

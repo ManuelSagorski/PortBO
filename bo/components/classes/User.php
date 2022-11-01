@@ -295,26 +295,7 @@ class User extends AbstractDBObject
             return null;
         }
     }
-
-    /**
-     *  Function die dem Benutzer eine Einladungsmail mit Informationen zu seinem Benutzerkonto zuschickt
-     *  Dabei wird das Passwort des Benutzers zurückgesetzt.
-     */  
-    public function sendInvitationMail() {
-        $pwd = $this->generateHashForRandPassword($this->level);
-        
-        $this->updateDB([
-            "secret" => $pwd['pwdHash']
-        ], ["id" => $this->id]);
-       
-        $mail = new sendMail();
-        $mail->mail->addAddress($this->email);
-        $mail->mail->Subject = "Dein Zugang zum Hafendienst-Backoffice";
-        $mail->applyTemplate('_welcomeMail', array("Vorname" => $this->first_name, "Benutzername" => $this->username, "Passwort" => $pwd['pwd']));
-        
-        $mail->mail->send();
-    }
-    
+   
     /**
      *  Function die dem Benutzer einen Link zum zurücksetzen des Passwortes zuschickt
      */    

@@ -162,11 +162,7 @@ if(isset($_GET['id']))
 	<?php } ?>
 
 	<button class="ui button" type="submit"><?php $t->_('safe'); ?></button>
-	
-	<?php if(!empty($userToEdit) && $userToEdit->getLevel() > 1) { ?>
-		<button class="ui button" onClick="settings.sendInvitationMail(<?php echo $userToEdit->getID(); ?>)"><?php $t->_('invitation-mail'); ?></button>
-	<?php } ?>
-	
+
 	<?php if(!empty($userToEdit) && SettingsController::canGetCalender($userToEdit, $projectID)) { ?>
 		<button class="ui icon button" onClick="settings.showAddKalender()"><i class="calendar alternate outline icon"></i></button>
 	<?php } ?>
