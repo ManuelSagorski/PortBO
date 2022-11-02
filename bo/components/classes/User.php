@@ -287,7 +287,7 @@ class User extends AbstractDBObject
      * Static Funktion die zu einem Namen die UserID zurückliefert
      */
     public static function getUserByFullName($name) {
-        $result = User::getSingleObjectByCondition(Array("concat(first_name, ' ', surname)" => $name));
+        $result = User::getSingleObjectByCondition(["concat(first_name, ' ', surname)" => $name, "inactive" => 0]);
         if(!empty($result)) {
             return $result->getID();
         }

@@ -104,10 +104,12 @@ class SearchController
             ?><div onclick="selectSuggested('user', this.textContent);"><?php echo $user->getFirstName() . " " . $user->getSurname(); ?></div><?php
         }
         else {
+
+            // ->conditionLike(["first_name" => $this->searchExpression1, "surname" => $this->searchExpression1])
             $result = (new Query("select"))
                 ->table(User::TABLE_NAME)
                 ->or()
-                ->conditionLike(["first_name" => $this->searchExpression1, "surname" => $this->searchExpression1])
+                ->conditionString(["(first_name like ? or surname like ?) and inactive = ?" => [$this->searchExpression1, $this->searchExpression1, 0]])
                 ->limit("10")
                 ->execute();
             

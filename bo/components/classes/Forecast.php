@@ -18,7 +18,7 @@ class Forecast extends AbstractDBObject
     private $status;
     private $type;
     
-    private $companysExpectMail = Array("essberger", "Stolt", "maersk", "federal", "naree", "schulte", "thun", "cma", "sti", "knutsen", "straum", "cosco");
+    private $companysExpectMail = Array("Mol", "Seaspan", "essberger", "Stolt", "maersk", "federal", "naree", "schulte", "thun", "sti", "knutsen", "straum", "cosco");
     
     public $hasMail = false;
     public $hasPhone = false;

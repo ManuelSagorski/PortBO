@@ -190,8 +190,15 @@ if(!empty($_GET["id"])) {
     					</div>
     				<?php } ?>
     			</td>
-    			<td data-label="contactType"><?php $t->_(ContactTypes::TRANSLATION_KEYS[$contact->getContactType()]); ?></td>
-    			<td data-label="agency"><?php echo ($contact->getProjectId() == $user->getProjectId())?Agency::getAgentShort($contact->getAgentID()):''; ?></td>
+    			<td data-label="contactType">
+    			<?php 
+                    $t->_(ContactTypes::TRANSLATION_KEYS[$contact->getContactType()]);
+                    if(!empty($contact->getAgentID()) && $contact->getContactType() == 'Email') {
+                        $t->_('via-agent');
+                    }
+                ?>
+    			</td>
+    			<td data-label="agency"><?php echo ($contact->getProjectId() == $user->getProjectId())?Agency::getAgentShort($contact->getAgentID()):'';?></td>
     			<td data-label="next"><?php $t->_(VesselContact::$monthNext[$contact->getMonthNext()]); ?></td>
     		</tr>
     	<?php } ?>
